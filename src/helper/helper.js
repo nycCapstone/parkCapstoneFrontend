@@ -1,0 +1,3 @@
+function setRole(args) {
+    return {};
+}
