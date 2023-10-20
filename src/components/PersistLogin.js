@@ -24,7 +24,7 @@ const PersistLogin = () => {
             }
         }
 
-        !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
+        localStorage.getItem("persist") && persist ? verifyRefreshToken() : setIsLoading(false);
 
         return () => isMounted = false;
     }, [])

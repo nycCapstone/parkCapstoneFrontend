@@ -5,7 +5,7 @@ const Client = () => {
         <section>
             <h1>Client Page</h1>
             <br />
-            <p>You must have been assigned an Client role.</p>
+            <p>This is where you can make a booking.</p>
             <div className="flexGrow">
                 <Link to="/">Home</Link>
             </div>
