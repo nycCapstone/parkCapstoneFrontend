@@ -15,17 +15,10 @@ import { Routes, Route } from "react-router-dom";
 import ConfirmEmail from "./components/ConfirmEmail";
 import { Container } from "react-bootstrap";
 
-const SITEROLES = {
-  Client: {1: { bckgr: false, pmt: false }},
-  Renter: {2: { bckgr: false, pmt: false }}
-};
-
 function App() {
   return (
     <Container className="approot">
       <Nav/>
-
-
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
@@ -38,20 +31,20 @@ function App() {
 
         {/* we want to protect these routes */}
         <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[SITEROLES.Client, SITEROLES.Renter]} />}>
+          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
             <Route path="/" element={<Home />} />
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={[SITEROLES.Client]} />}>
+          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
             <Route path="client" element={<Client />} />
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={[SITEROLES.Client, SITEROLES.Renter]} />}>
+          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
             <Route path="admin" element={<Admin />} />
           </Route>
 
           <Route
-            element={<RequireAuth allowedRoles={[SITEROLES.Client, SITEROLES.Renter]} />}
+            element={<RequireAuth allowedRoles={["Renter"]} />}
           >
             <Route path="renter" element={<Renter />} />
           </Route>

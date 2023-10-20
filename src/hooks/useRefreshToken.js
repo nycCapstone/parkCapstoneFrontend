@@ -2,20 +2,20 @@ import axios from '../api/axios';
 import useAuth from './useAuth';
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, dispatchRoles, } = useAuth();
 
     const refresh = async () => {
         const response = await axios.get('/refresh', {
             withCredentials: true
         });
-        setAuth(prev => ({
-                ...prev,
+        if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
+        else dispatchRoles({ type: "CLIENT_ONLY" });
+        setAuth({
                 accessToken: response.data.accessToken,
-                email: response.data.email,
-                roles: response.data.roles
+                email: response.data.email
             }
-        )
         );
+        localStorage.setItem("persist", true)
         return response.data.accessToken;
     }
     return refresh;

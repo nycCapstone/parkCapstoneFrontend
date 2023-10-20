@@ -1,20 +1,21 @@
 import { useNavigate, Link } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
-    const navigate = useNavigate();
+    const { auth } = useAuth();
     const logout = useLogout();
 
     const signOut = async () => {
         await logout();
-        navigate('/linkpage');
     }
 
     return (
         <section>
             <h1>Home</h1>
             <br />
-            <p>You are logged in!</p>
+            { auth?.email ? <p>{auth.email}</p> : <p>Welcome Stranger</p>}
+            
             <br />
             <Link to="/client">Go to the Client page</Link>
             <br />

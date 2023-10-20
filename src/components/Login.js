@@ -6,7 +6,7 @@ import axios from '../api/axios';
 const LOGIN_URL = '/auth/login';
 
 const Login = () => {
-    const { setAuth, auth, persist, setPersist, } = useAuth();
+    const { setAuth, persist, setPersist, dispatchRoles } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -27,16 +27,11 @@ const Login = () => {
         setErrMsg('');
     }, [email, password])
 
-    useEffect(() => {
-        if (email === auth?.email){ console.log('ok');}
-    }, [email])
-    
     const togglePersist = () => setPersist(prev => !prev);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            localStorage.setItem("persist", persist);
             const response = await axios.post(LOGIN_URL,
                 { email, password, },
                 {
@@ -44,9 +39,13 @@ const Login = () => {
                     withCredentials: true
                 }
             );
+            if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
+            else dispatchRoles({ type: "CLIENT_ONLY" });
+            delete response.data.roles;
             setAuth(response.data);
             setEmail('');
             setPwd('');
+            localStorage.setItem("persist", true);
             navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
@@ -94,7 +93,7 @@ const Login = () => {
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label htmlFor="persist">Trust This Device</label>
+                    <label htmlFor="persist">Remember Me</label>
                 </div>
                 <button>Sign In</button>
             </form>
