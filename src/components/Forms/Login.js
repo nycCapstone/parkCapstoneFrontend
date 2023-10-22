@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import axios from '../api/axios';
+import axios from '../../api/axios';
 const LOGIN_URL = '/auth/login';
 
 const Login = () => {
-    const { setAuth, persist, setPersist, dispatchRoles } = useAuth();
+    const { auth, setAuth, persist, setPersist, dispatchRoles, setUserData } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -31,6 +31,11 @@ const Login = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (auth.email === email) {
+            errRef.current.focus();
+            setErrMsg(`logged in with ${auth.email}`);
+            return;
+        }
         try {
             const response = await axios.post(LOGIN_URL,
                 { email, password, },
@@ -42,7 +47,9 @@ const Login = () => {
             if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
             else dispatchRoles({ type: "CLIENT_ONLY" });
             delete response.data.roles;
-            setAuth(response.data);
+            setAuth({ accessToken: response.data.accessToken, email: response.data.email, id: response.data.id });
+            delete response.data.accessToken;
+            setUserData(response.data);
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);
