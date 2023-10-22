@@ -4,23 +4,24 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const User = () => {
-    const [user, setUser] = useState({});
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    const { setAuth } = useAuth();
+    const { setAuth, setUserData, userData, dispatchRoles } = useAuth();
 
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
 
-        const getUser = async () => {
+        const getUser = async() => {
             try {
                 const response = await axiosPrivate.get('/user/profile', {
                     signal: controller.signal
                 });
-                isMounted && setUser(response.data);
-                setAuth(prev => ({...prev, roles: response.data.roles }))
+                if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
+                else dispatchRoles({ type: "CLIENT_ONLY" });
+                delete response.data.roles;
+                isMounted && setUserData(response.data)
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
@@ -38,10 +39,10 @@ const User = () => {
     return (
         <article>
             <h2>Table data List</h2>
-            {Object.values(user)?.length
+            {Object.values(userData)?.length
                 ? (
                     <ul>
-                        {Object.values(user).map((item, i) => <li key={i}>{item}</li>)}
+                        {Object.values(userData).map((item, i) => <li key={i}>{item}</li>)}
                     </ul>
                 ) : <p>No content to display</p>
             }
