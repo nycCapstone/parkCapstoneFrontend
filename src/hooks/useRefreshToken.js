@@ -1,15 +1,17 @@
 import axios from "../api/axios";
 import useAuth from "./useAuth";
+import { setRole } from "../redux/roles/rolesSlice";
+import { useDispatch } from "react-redux";
 
 const useRefreshToken = () => {
-  const { setAuth, dispatchRoles } = useAuth();
+  const { setAuth } = useAuth();
+  const dispatch = useDispatch()
 
   const refresh = async () => {
     const response = await axios.get("/refresh", {
       withCredentials: true,
     });
-    if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
-    else dispatchRoles({ type: "CLIENT_ONLY" });
+    dispatch(setRole(response.data));
     setAuth({
       accessToken: response.data.accessToken,
       email: response.data.email,

@@ -1,12 +1,13 @@
 import { useState, useReducer } from "react";
 import { Container } from "react-bootstrap";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import useAuth from "../../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { SET_CLIENT_BCKGR } from "../../redux/roles/rolesSlice";
+import FormTitle from "../../redux/forms/FormTitle";
 
 const AddressForm = (props) => {
-  const { dispatchRoles } = useAuth();
   const { mode, userData } = props;
   const tempArr =
     mode === "CLIENT"
@@ -23,8 +24,7 @@ const AddressForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const location = useLocation();
-  let from = location.state?.from?.pathname || "/admin";
+  const roledispatch = useDispatch();
 
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -65,7 +65,7 @@ const AddressForm = (props) => {
           signal: controller.signal,
         }
       );
-      dispatchRoles({ type: `FLIP_${mode}_BCKGR` });
+      roledispatch(SET_CLIENT_BCKGR(true));
       navigate("/admin");
     } catch (err) {
       console.error(err);
@@ -78,7 +78,7 @@ const AddressForm = (props) => {
 
   return (
     <Container>
-      <h3>Confirm your {mode} address.</h3>
+      <FormTitle/>
       <div>
         Your current address, click to Confirm.{" "}
         <a
