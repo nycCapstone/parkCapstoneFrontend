@@ -2,13 +2,14 @@ import { useRef, useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { setRole, modifyRole } from '../../redux/roles/rolesSlice';
+import { useDispatch } from 'react-redux';
 
 import axios from '../../api/axios';
 const LOGIN_URL = '/auth/login';
 
 const Login = () => {
     const { auth, setAuth, persist, setPersist, setUserData } = useAuth();
-
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/admin";
@@ -45,12 +46,11 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            setRole(response.data);
+            dispatch(setRole(response.data));
             delete response.data.roles;
             setAuth({ accessToken: response.data.accessToken, email: response.data.email, id: response.data.id });
             delete response.data.accessToken;
             setUserData(response.data);
-            modifyRole(response.data);
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);

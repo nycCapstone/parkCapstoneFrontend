@@ -3,8 +3,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
 import AddressForm from "../Forms/AddressForm";
-import { useSelector } from "react-redux";
-import { getRoles, setRole, modifyRole } from "../../redux/roles/rolesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { getRoles, setRole } from "../../redux/roles/rolesSlice";
 
 const Renter = () => {
 
@@ -14,6 +14,7 @@ const Renter = () => {
     const roles = useSelector(getRoles);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
             if (!localStorage.getItem("persist")) {
@@ -27,10 +28,9 @@ const Renter = () => {
                 const response = await axiosPrivate.get('/user/profile', {
                     signal: controller.signal
                 });
-                setRole(response.data);
+                dispatch(setRole(response.data));
                 delete response.data.roles;
                 isMounted && setUserData(response.data);
-                modifyRole(response.data);
             } catch (err) {
                 console.error(err);
             }
@@ -43,7 +43,7 @@ const Renter = () => {
             controller.abort();
         }
     }, [])
-    
+
     useEffect(() => {
     if (userData?.hasOwnProperty("id")) {
       if (!userData?.background_verified && roles.hasOwnProperty("Renter")) { setMode("RENTER"); setShowForm(true); };

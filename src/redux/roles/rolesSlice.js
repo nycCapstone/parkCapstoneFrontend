@@ -1,26 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  Client: { bckgr: false, pmt: false },
-  Renter: { bckgr: false, pmt: false },
-};
+const initialState = {};
 
 const rolesSlice = createSlice({
   name: "roles",
   initialState,
   reducers: {
-    CLIENT_ONLY: (state) => {
-      return {
-        Client: { bckgr: state.Client.bckgr, pmt: state.Client.pmt },
-        ClientOnly: true,
-      };
-    },
-    RENTER: (state) => {
-      return {
-        Client: { bckgr: state.Client.bckgr, pmt: state.Client.pmt },
-        Renter: { bckgr: state.Renter.bckgr, pmt: state.Renter.pmt },
-      };
-    },
     SET_CLIENT_BCKGR: (state, action) => {
       return {
         ...state,
@@ -37,20 +22,22 @@ const rolesSlice = createSlice({
       const data = action.payload;
       if (data.roles.includes(2)) {
         return {
+          ...state,
           Client: {
-            bckgr: state?.Client.bckgr ?? false,
-            pmt: state?.Client.pmt ?? false,
+            bckgr: data.client_background_verified,
+            pmt: data.pmt_verified,
           },
           Renter: {
-            bckgr: state?.Renter.bckgr ?? false,
-            pmt: state?.Renter.pmt ?? false,
+            bckgr: data.background_verified,
+            pmt: data.r_pmt_verified,
           },
         };
       } else
         return {
+          ...state,
           Client: {
-            bckgr: state?.Client.bckgr ?? false,
-            pmt: state?.Client.pmt ?? false,
+            bckgr: data.client_background_verified,
+            pmt: data.pmt_verified,
           },
           ClientOnly: true,
         };
@@ -62,7 +49,7 @@ const rolesSlice = createSlice({
       if (data?.background_verified === true && state?.Renter)
         SET_RENTER_BCKGR(true);
     },
-    LOGOUT: () => {},
+    LOGOUT: () => initialState,
   },
 });
 

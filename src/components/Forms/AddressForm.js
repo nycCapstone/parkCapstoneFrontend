@@ -1,7 +1,7 @@
 import { useState, useReducer } from "react";
 import { Container } from "react-bootstrap";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { useDispatch } from "react-redux";
 import { SET_CLIENT_BCKGR } from "../../redux/roles/rolesSlice";
@@ -24,8 +24,6 @@ const AddressForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const location = useLocation();
-  let from = location.state?.from?.pathname || "/admin";
   const roledispatch = useDispatch();
 
   const formReducer = (state, action) => {

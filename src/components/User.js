@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setRole, modifyRole } from "../redux/roles/rolesSlice";
+import { setRole } from "../redux/roles/rolesSlice";
 import useAuth from "../hooks/useAuth";
+import { useDispatch } from "react-redux";
 
 const User = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
     const { setAuth, setUserData, userData } = useAuth();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let isMounted = true;
@@ -19,10 +21,9 @@ const User = () => {
                 const response = await axiosPrivate.get('/user/profile', {
                     signal: controller.signal
                 });
-                setRole(response.data);
+                dispatch(setRole(response.data));
                 delete response.data.roles;
                 isMounted && setUserData(response.data);
-                modifyRole(response.data);
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });

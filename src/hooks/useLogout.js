@@ -16,8 +16,8 @@ const useLogout = () => {
             await axios('/logout', {
                 withCredentials: true
             });
-            navigate("/linkpage")
             dispatch(LOGOUT())
+            navigate("/linkpage")
         } catch (err) {
             console.error(err);
         }

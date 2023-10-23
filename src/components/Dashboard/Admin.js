@@ -9,6 +9,7 @@ const Admin = () => {
     return (
         <section>
             <h1>Admin Page</h1>
+            {JSON.stringify(roles)}
             <br />
             <User />
             <br />
