@@ -1,27 +1,64 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
 import AddressForm from "../Forms/AddressForm";
+import { useSelector } from "react-redux";
+import { getRoles, setRole, modifyRole } from "../../redux/roles/rolesSlice";
 
 const Renter = () => {
 
-    const { roles, userData } = useAuth();
+    const { userData, setUserData } = useAuth();
     const [showForm, setShowForm] = useState(false);
     const [mode, setMode] = useState("");
+    const roles = useSelector(getRoles);
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
 
     useEffect(() => {
-      if (!userData?.is_auth && roles.hasOwnProperty("Renter")) { setMode("RENTER"); setShowForm(true); };
+            if (!localStorage.getItem("persist")) {
+                navigate("/");
+            }
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getUser = async() => {
+            try {
+                const response = await axiosPrivate.get('/user/profile', {
+                    signal: controller.signal
+                });
+                setRole(response.data);
+                delete response.data.roles;
+                isMounted && setUserData(response.data);
+                modifyRole(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        getUser();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
     }, [])
+    
+    useEffect(() => {
+    if (userData?.hasOwnProperty("id")) {
+      if (!userData?.background_verified && roles.hasOwnProperty("Renter")) { setMode("RENTER"); setShowForm(true); };
+    }
+    }, [userData])
+
     
     return (
         <section>
             <h1>Renter Page</h1>
             <br />
             {showForm && (<div>
-                <h3>confirm your primary rental address</h3>
-                <AddressForm mode={mode} userData={userData} />
+                <AddressForm mode={mode} userData={userData}/>
                 </div>)}
-            <p>This is where you can make a booking.</p>
+            <p>This is where you can make new available spots.</p>
             <div className="flexGrow">
                 <Link to="/">Home</Link>
             </div>

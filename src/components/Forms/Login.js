@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { setRole, modifyRole } from '../../redux/roles/rolesSlice';
 
 import axios from '../../api/axios';
 const LOGIN_URL = '/auth/login';
 
 const Login = () => {
-    const { auth, setAuth, persist, setPersist, dispatchRoles, setUserData } = useAuth();
+    const { auth, setAuth, persist, setPersist, setUserData } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -44,12 +45,12 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            if (response.data.roles.includes(2)) dispatchRoles({ type: "RENTER" });
-            else dispatchRoles({ type: "CLIENT_ONLY" });
+            setRole(response.data);
             delete response.data.roles;
             setAuth({ accessToken: response.data.accessToken, email: response.data.email, id: response.data.id });
             delete response.data.accessToken;
             setUserData(response.data);
+            modifyRole(response.data);
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);

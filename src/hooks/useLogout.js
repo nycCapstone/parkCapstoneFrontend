@@ -1,9 +1,12 @@
 import axios from "../api/axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {LOGOUT} from '../redux/roles/rolesSlice';
 
 const useLogout = () => {
-    const { setAuth, dispatchRoles } = useAuth();
+    const { setAuth } = useAuth();
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const logout = async () => {
@@ -14,7 +17,7 @@ const useLogout = () => {
                 withCredentials: true
             });
             navigate("/linkpage")
-            dispatchRoles({ type: "LOGOUT" })
+            dispatch(LOGOUT())
         } catch (err) {
             console.error(err);
         }
