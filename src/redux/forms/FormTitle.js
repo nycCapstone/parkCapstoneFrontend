@@ -1,13 +1,10 @@
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
-import { getRoles } from "../roles/rolesSlice";
-
-import React from 'react'
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { getFormData } from "./formsSlice";
 
 const FormTitle = () => {
-    const obj = useSelector(getRoles);
-    const title = obj.hasOwnProperty("Renter") && obj.Client.bckgr === true ? 'renter' : 'client'
+    const form = useSelector(getFormData);
   return (
-    <h3>{title} confirmation</h3>
+    <h3>{form.mode} confirmation</h3>
   )
 }
 

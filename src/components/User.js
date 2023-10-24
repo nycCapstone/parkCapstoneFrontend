@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setRole } from "../redux/roles/rolesSlice";
+import { setRole, getRoles } from "../redux/roles/rolesSlice";
 import useAuth from "../hooks/useAuth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { formValue } from "../redux/forms/formsSlice";
+import { getAction, confirmAddress } from "../redux/userActions/userActionSlice";
 
 const User = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -11,9 +13,13 @@ const User = () => {
     const location = useLocation();
     const { setAuth, setUserData, userData } = useAuth();
     const dispatch = useDispatch()
+    const userActions = useSelector(getAction);
+    const roles = useSelector(getRoles)
+
 
     useEffect(() => {
         let isMounted = true;
+        var err = false;
         const controller = new AbortController();
 
         const getUser = async() => {
@@ -24,13 +30,18 @@ const User = () => {
                 dispatch(setRole(response.data));
                 delete response.data.roles;
                 isMounted && setUserData(response.data);
-            } catch (err) {
-                console.error(err);
+            } catch (e) {
+                console.error(e);
+                err = true
                 navigate('/login', { state: { from: location }, replace: true });
+            } finally {
+                dispatch(confirmAddress(roles));
+                dispatch(formValue(userData, roles, err));
             }
         }
 
         getUser();
+        console.log(userActions);
 
         return () => {
             isMounted = false;
@@ -48,6 +59,15 @@ const User = () => {
                     </ul>
                 ) : <p>No content to display</p>
             }
+                        <ul>
+
+{
+    userActions?.length>0 && (
+        userActions.map((item, idx) =>{ return userActions.length > 1 && idx>0 ? <li key={idx}>{item}</li> : <li key={idx} style={{ color: 'green'}} onClick={() => navigate('confirm-details')}>{item}</li>}
+        )
+    )
+}
+</ul>
         </article>
     );
 };

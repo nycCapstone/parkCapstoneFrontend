@@ -12,8 +12,9 @@ import LinkPage from "./components/Dashboard/LinkPage";
 import RequireAuth from "./components/State/RequireAuth";
 import PersistLogin from "./components/State/PersistLogin";
 import { Routes, Route } from "react-router-dom";
-import ConfirmEmail from "./components/ConfirmEmail";
+import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import { Container } from "react-bootstrap";
+import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
         {/* we want to protect these routes */}
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
-            <Route path="/" element={<Home />} />
+            <Route path="home" element={<Home />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
@@ -41,6 +42,9 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
             <Route path="admin" element={<Admin />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
+            <Route path="/admin/confirm-details" element={<ConfirmDetails />} />
           </Route>
 
           <Route

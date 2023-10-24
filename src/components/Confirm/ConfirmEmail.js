@@ -2,15 +2,14 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import axios from '../api/axios';
+import axios from '../../api/axios';
 
-function ConfirmEmail() {
+const ConfirmEmail = () => {
 
     const [loading, setLoading] = useState(true);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const navigate = useNavigate();
-    //`http://localhost:3001/users/create-user/auth?k=${jwtToken}`
 
     useEffect(() => {
         // Access and read the 'k' query parameter

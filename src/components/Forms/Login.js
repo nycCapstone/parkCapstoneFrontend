@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { setRole, modifyRole } from '../../redux/roles/rolesSlice';
+import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch } from 'react-redux';
 
 import axios from '../../api/axios';
