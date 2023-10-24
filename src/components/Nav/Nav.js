@@ -32,7 +32,7 @@ function Nav() {
       <br />
       <Navbar className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/login">
             <img
               alt=""
               src="/img/logo.svg"
@@ -40,7 +40,7 @@ function Nav() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            React Bootstrap
+            Login
           </Navbar.Brand>
         </Container>
       </Navbar>
