@@ -3,16 +3,18 @@ import { Container } from "react-bootstrap";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import { useDispatch } from "react-redux";
-import { SET_CLIENT_BCKGR } from "../../redux/roles/rolesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getRoles } from "../../redux/roles/rolesSlice";
 import FormTitle from "../../redux/forms/FormTitle";
+import { formValue } from "../../redux/forms/formsSlice";
 
 const AddressForm = (props) => {
-  const { mode, userData } = props;
+  const { formData, userData } = props;
+  const roles = useSelector(getRoles);
   const tempArr =
-    mode === "CLIENT"
+    formData.mode === "client"
       ? userData?.address.split(" ")
-      : mode === "RENTER"
+      : formData.mode === "renter"
       ? userData?.renter_address.split(" ")
       : userData?.space_address.split(" ");
   const dataArr = {
@@ -20,7 +22,6 @@ const AddressForm = (props) => {
     1: tempArr[1],
     2: tempArr.slice(2).join(" "),
   };
-  const [isFormEnabled, setFormEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
@@ -56,20 +57,19 @@ const AddressForm = (props) => {
     const controller = new AbortController();
     try {
       await axiosPrivate.post(
-        "/user/update-address",
+        formData.data.URL,
         {
           address: Object.values(formState).join(" "),
-          clientOnly: mode === "CLIENT" ? true : false,
+          ClientOnly: formData.data.ClientOnly,
         },
         {
           signal: controller.signal,
         }
       );
-      roledispatch(SET_CLIENT_BCKGR(true));
       navigate("/admin");
     } catch (err) {
       console.error(err);
-      setFormEnabled(false);
+      roledispatch(formValue(userData, roles, true));
       setIsLoading(false);
     } finally {
       controller.abort();
@@ -81,13 +81,13 @@ const AddressForm = (props) => {
       <FormTitle/>
       <div>
         Your current address, click to Confirm.{" "}
-        <a
+        <p
           onClick={submitAddr}
           className="text-underline"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", textDecoration: "underline" }}
         >
           {Object.values(formState).join(" ")}
-        </a>
+        </p>
       </div>
       {isLoading ? (
         <Spinner animation="border" role="status">
@@ -101,7 +101,7 @@ const AddressForm = (props) => {
             placeholder="Enter street address"
             value={formState["0"] || ""}
             onChange={(e) => handleInputChange("0", e.target.value)}
-            disabled={!isFormEnabled}
+            disabled={formData.data.isFormEnabled}
           />
           <label htmlFor="city">City:</label>
           <input
@@ -109,7 +109,7 @@ const AddressForm = (props) => {
             placeholder="Enter city"
             value={formState["1"] || ""}
             onChange={(e) => handleInputChange("1", e.target.value)}
-            disabled={!isFormEnabled}
+            disabled={formData.data.isFormEnabled}
           />
           <label htmlFor="state">State:</label>
           <input
@@ -117,14 +117,14 @@ const AddressForm = (props) => {
             placeholder="Enter state"
             value={formState["2"] || ""}
             onChange={(e) => handleInputChange("2", e.target.value.split(" "))}
-            disabled={!isFormEnabled}
+            disabled={formData.data.isFormEnabled}
           />
-          <button type="submit" disabled={!isFormEnabled}>
+          <button type="submit" disabled={formData.data.isFormEnabled}>
             Submit
           </button>
           <button
             type="click"
-            disabled={!isFormEnabled}
+            disabled={formData.data.isFormEnabled}
             onClick={() => dispatch({ type: "RESET" })}
           >
             Reset
