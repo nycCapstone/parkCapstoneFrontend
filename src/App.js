@@ -13,7 +13,6 @@ import RequireAuth from "./components/State/RequireAuth";
 import PersistLogin from "./components/State/PersistLogin";
 import { Routes, Route } from "react-router-dom";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
-import { Container } from "react-bootstrap";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 
 function App() {
