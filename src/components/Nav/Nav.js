@@ -1,21 +1,21 @@
 function Nav() {
   return (
     <>
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">Brand link</Navbar.Brand>
-        </Container>
-      </Navbar>
+      <div className="bg-body-tertiary">
+        <div>
+          <div href="#home">Brand link</div>
+        </div>
+      </div>
       <br />
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand>Brand text</Navbar.Brand>
-        </Container>
-      </Navbar>
+      <div className="bg-body-tertiary">
+        <div>
+          <div>Brand text</div>
+        </div>
+      </div>
       <br />
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">
+      <div className="bg-body-tertiary">
+        <div>
+          <div href="#home">
             <img
               src="/img/logo.svg"
               width="30"
@@ -23,13 +23,13 @@ function Nav() {
               className="d-inline-block align-top"
               alt="React Bootstrap logo"
             />
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
+          </div>
+        </div>
+      </div>
       <br />
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="/login">
+      <div className="bg-body-tertiary">
+        <div>
+          <a href="/login">
             <img
               alt=""
               src="/img/logo.svg"
@@ -38,9 +38,9 @@ function Nav() {
               className="d-inline-block align-top"
             />{' '}
             Login
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
+          </a>
+        </div>
+      </div>
     </>
   );
 }

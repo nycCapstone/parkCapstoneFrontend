@@ -1,31 +1,43 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from '../../api/axios';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "../../api/axios";
 
 const ConfirmEmail = () => {
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
 
-    const [loading, setLoading] = useState(true);
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // Access and read the 'k' query parameter
-        const keyValue = queryParams.get('k');
-        if (keyValue) {
-          // Do something with the 'k' query parameter value
-          axios.get(`/auth/create-user/auth?k=${keyValue}`).then(res => {
-            console.log(res.data);
-            navigate("/login")
-          }).catch(e => console.log(e.response.data)); setLoading(false);
-        }
-      }, [queryParams]);
+  useEffect(() => {
+    // Access and read the 'k' query parameter
+    const keyValue = queryParams.get("k");
+    if (keyValue) {
+      // Do something with the 'k' query parameter value
+      axios
+        .get(`/auth/create-user/auth?k=${keyValue}`)
+        .then((res) => {
+          console.log(res.data);
+          navigate("/login");
+        })
+        .catch((e) => console.log(e.response.data));
+      setLoading(false);
+    }
+  }, [queryParams]);
   return (
-    <div>{loading ? <Spinner animation="border" role="status">
-    <span className="visually-hidden">Loading...</span>
-  </Spinner> : <h3>Api Error</h3>}</div>
-  )
-}
+    <div>
+      {loading ? (
+        <div>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+        </div>
+      ) : (
+        <h3>Api Error</h3>
+      )}
+    </div>
+  );
+};
 
-export default ConfirmEmail
+export default ConfirmEmail;
