@@ -1,22 +1,17 @@
 import axios from "../api/axios";
-import useAuth from "./useAuth";
 import { setRole } from "../redux/roles/rolesSlice";
 import { useDispatch } from "react-redux";
+import { setAuth } from "../redux/auth/authSlice";
 
 const useRefreshToken = () => {
-  const { setAuth } = useAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const refresh = async () => {
     const response = await axios.get("/refresh", {
       withCredentials: true,
     });
     dispatch(setRole(response.data));
-    setAuth({
-      accessToken: response.data.accessToken,
-      email: response.data.email,
-      id: response.data.id,
-    });
+    dispatch(setAuth(response.data))
     localStorage.setItem("persist", true);
     return response.data.accessToken;
   };

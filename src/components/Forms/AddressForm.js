@@ -1,32 +1,32 @@
 import { useState, useReducer } from "react";
 import { Container } from "react-bootstrap";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { getRoles } from "../../redux/roles/rolesSlice";
 import FormTitle from "../../redux/forms/FormTitle";
 import { formValue } from "../../redux/forms/formsSlice";
+import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 
 const AddressForm = (props) => {
   const { formData, userData } = props;
   const roles = useSelector(getRoles);
-  const tempArr =
+  let tempArr =
     formData.mode === "client"
-      ? userData?.address.split(" ")
+      ? userData?.address?.split(" ")
       : formData.mode === "renter"
-      ? userData?.renter_address.split(" ")
-      : userData?.space_address.split(" ");
+      ? userData?.renter_address?.split(" ")
+      : userData?.space_address?.split(" ");
+      if (!tempArr) tempArr = [ 'missing', 'address', 'fill'];
   const dataArr = {
     0: tempArr[0],
     1: tempArr[1],
     2: tempArr.slice(2).join(" "),
   };
   const [isLoading, setIsLoading] = useState(false);
-  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const roledispatch = useDispatch();
-
+  
   const formReducer = (state, action) => {
     switch (action.type) {
       case "CHANGE":
@@ -34,50 +34,38 @@ const AddressForm = (props) => {
           ...state,
           [action.field]: action.value,
         };
-      case "RESET":
-        return dataArr;
-      default:
-        return state;
-    }
-  };
-  const [formState, dispatch] = useReducer(formReducer, dataArr);
-
-  const handleInputChange = (field, value) => {
-    dispatch({ type: "CHANGE", field, value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
-    submitAddr();
-  };
-
-  const submitAddr = async () => {
-    setIsLoading(true);
-    const controller = new AbortController();
-    try {
-      await axiosPrivate.post(
-        formData.data.URL,
-        {
-          address: Object.values(formState).join(" "),
-          ClientOnly: formData.data.ClientOnly,
-        },
-        {
-          signal: controller.signal,
-        }
-      );
-      navigate("/admin");
-    } catch (err) {
-      console.error(err);
-      roledispatch(formValue(userData, roles, true));
-      setIsLoading(false);
-    } finally {
-      controller.abort();
-    }
+        case "RESET":
+          return dataArr;
+          default:
+            return state;
+          }
+        };
+        const [formState, dispatch] = useReducer(formReducer, dataArr);
+        const [submitAddress] = useSubmitAddressMutation({url: formData.data.URL, address: Object.values(formState).join(" "),
+        ClientOnly: formData.data.ClientOnly, method: 'POST'});
+        
+        const handleInputChange = (field, value) => {
+          dispatch({ type: "CHANGE", field, value });
+        };
+        
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
+          submitAddr();
+        };
+        
+        const submitAddr = async () => {
+          setIsLoading(true);
+            await submitAddress().unwrap().then(res => navigate('/admin')).catch(err => {
+              console.error(err);
+              roledispatch(formValue(userData, roles, true));
+              setIsLoading(false);
+            })
   };
 
   return (
     <Container>
+      <p style={{fontSize: "8px"}}>{JSON.stringify(formData)}  {JSON.stringify(userData)}</p>
       <FormTitle/>
       <div>
         Your current address, click to Confirm.{" "}
@@ -116,7 +104,7 @@ const AddressForm = (props) => {
             type="text"
             placeholder="Enter state"
             value={formState["2"] || ""}
-            onChange={(e) => handleInputChange("2", e.target.value.split(" "))}
+            onChange={(e) => handleInputChange("2", e.target.value)}
             disabled={formData.data.isFormEnabled}
           />
           <button type="submit" disabled={formData.data.isFormEnabled}>

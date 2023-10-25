@@ -1,17 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { setRole } from '../../redux/roles/rolesSlice';
-import { useDispatch } from 'react-redux';
-
-import axios from '../../api/axios';
-const LOGIN_URL = '/auth/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../../redux/auth/authApiSlice';
+import { setAuth} from '../../redux/auth/authSlice';
+import { getAuth, setPersist } from '../../redux/auth/authSlice';
 
 const Login = () => {
-    const { auth, setAuth, persist, setPersist, setUserData } = useAuth();
+    const {persist} = useSelector(getAuth);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
+    const [login, { isLoading }] = useLoginMutation()
     let from = location.state?.from?.pathname || "/admin";
 
     const userRef = useRef();
@@ -29,28 +29,17 @@ const Login = () => {
         setErrMsg('');
     }, [email, password])
 
-    const togglePersist = () => setPersist(prev => !prev);
+    const togglePersist = () => dispatch(setPersist());
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (auth.email === email) {
-            errRef.current.focus();
-            setErrMsg(`logged in with ${auth.email}`);
-            return;
-        }
+
         try {
-            const response = await axios.post(LOGIN_URL,
-                { email, password, },
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            dispatch(setRole(response.data));
-            delete response.data.roles;
-            setAuth({ accessToken: response.data.accessToken, email: response.data.email, id: response.data.id });
-            delete response.data.accessToken;
-            setUserData(response.data);
+            await login({ email, password, }).unwrap().then(res => {
+                dispatch(setAuth(res))
+                dispatch(setRole(res));
+            })
+
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);

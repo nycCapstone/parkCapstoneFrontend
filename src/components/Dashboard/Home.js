@@ -1,9 +1,10 @@
 import { useNavigate, Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
-import useAuth from "../../hooks/useAuth";
+import { useSelector } from "react-redux"
+import { getAuth } from "../../redux/auth/authSlice";
 
 const Home = () => {
-    const { auth } = useAuth();
+    const { email } = useSelector(getAuth);
     const logout = useLogout();
 
     const signOut = async () => {
@@ -14,7 +15,7 @@ const Home = () => {
         <section>
             <h1>Home</h1>
             <br />
-            { auth?.email ? <p>{auth.email}</p> : <p>Welcome Stranger</p>}
+            { email ? <p>{email}</p> : <p>Welcome Stranger</p>}
             
             <br />
             <Link to="/client">Go to the Client page</Link>
@@ -23,7 +24,7 @@ const Home = () => {
             <br />
             <Link to="/admin">Go to the Admin page</Link>
             <br />
-            <Link to="/linkpage">Go to the link page</Link>
+            <Link to="/go">Go to the link page</Link>
             <div className="flexGrow">
                 <button onClick={signOut}>Sign Out</button>
             </div>
