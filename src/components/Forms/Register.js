@@ -370,8 +370,8 @@ const Register = () => {
               Must match the first password input field.
             </p>
             <div className="containter mt-1">
-              <Form.Check // prettier-ignore
-                type="switch"
+              <input // prettier-ignore
+                type="check"
                 id="custom-switch"
                 label="Renter?"
                 checked={is_renter}

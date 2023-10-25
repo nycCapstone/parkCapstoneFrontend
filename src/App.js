@@ -17,7 +17,7 @@ import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 
 function App() {
   return (
-    <Container className="approot">
+    <div className="approot">
       <Nav/>
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -50,7 +50,7 @@ function App() {
         {/* catch all */}
       </Route>
     </Routes>
-    </Container>
+    </div>
   );
 }
 

@@ -62,7 +62,7 @@ const AddressForm = (props) => {
   };
 
   return (
-    <Container>
+    <div>
       <p style={{fontSize: "8px"}}>{JSON.stringify(formData)}  {JSON.stringify(userData)}</p>
       <FormTitle/>
       <div>
@@ -76,9 +76,12 @@ const AddressForm = (props) => {
         </p>
       </div>
       {isLoading ? (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden"></span>
-        </Spinner>
+        <div>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+      </div>
       ) : (
         <form onSubmit={handleSubmit} className="py-0">
           <label htmlFor="streetAddress">Street Address:</label>
@@ -117,7 +120,7 @@ const AddressForm = (props) => {
           </button>
         </form>
       )}
-    </Container>
+    </div>
   );
 };
 
