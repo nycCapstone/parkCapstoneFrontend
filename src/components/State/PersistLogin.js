@@ -1,50 +1,47 @@
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useRefreshToken from '../../hooks/useRefreshToken';
-import useAuth from '../../hooks/useAuth';
-import Spinner from 'react-bootstrap/Spinner';
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, selectCurrentToken } from "../../redux/auth/authSlice";
+import useRefreshToken from "../../hooks/useRefreshToken";
 
 const PersistLogin = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const refresh = useRefreshToken();
-    const { auth, persist } = useAuth();
+  const dispatch = useDispatch();
+  const ct = useSelector(selectCurrentToken);
+  const [isLoading, setIsLoading] = useState(true);
+  const refresh = useRefreshToken();
 
-    useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
+    async function refreshAccessToken() {
+      try {
+        await refresh();
+      } catch (error) {
+        // Handle any errors
+        dispatch(logOut());
+        console.error(error);
+      } finally {
+        isMounted && setIsLoading(false);
+      }
+    }
+    localStorage.getItem("persist") && !ct?.accessToken
+      ? refreshAccessToken()
+      : setIsLoading(false);
+    return () => (isMounted = false);
+  }, []);
 
-        const verifyRefreshToken = async () => {
-            try {
-                await refresh();           
-            }
-            catch (err) {
-                console.error(err);
-            }
-            finally {
-                isMounted && setIsLoading(false);
-            }
-        }
-
-        localStorage.getItem("persist") && persist && !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-
-        return () => isMounted = false;
-    }, [])
-
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`)
-    }, [isLoading])
-
-    return (
+  return (
+    <>
+      {isLoading ? (
         <>
-            {!persist
-                ? <Outlet />
-                : isLoading
-                    ?     <Spinner animation="border" role="status">
-                    <span className="visually-hidden"></span>
-                  </Spinner>
-                    : <Outlet />
-            }
+          <div>Loading...</div>
+          <div>Loading...</div>
+          <div>Loading...</div>
         </>
-    )
-}
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
+};
 
-export default PersistLogin
+export default PersistLogin;

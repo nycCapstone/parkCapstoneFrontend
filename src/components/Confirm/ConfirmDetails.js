@@ -1,14 +1,14 @@
 import React from 'react'
 import AddressForm from '../Forms/AddressForm'
 import { getFormData } from '../../redux/forms/formsSlice';
-import useAuth from '../../hooks/useAuth';
 import { useSelector } from 'react-redux';
+import { getAuth } from '../../redux/auth/authSlice';
 
 const ConfirmDetails = () => {
-    const { userData } = useAuth();
+    const userData = useSelector(getAuth);
     const formData = useSelector(getFormData);
   return (
-    <div><AddressForm userData={userData} formData={formData}/></div>
+    <section><AddressForm userData={userData} formData={formData}/></section>
   )
 }
 

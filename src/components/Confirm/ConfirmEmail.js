@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
 import axios from '../../api/axios';
 
 const ConfirmEmail = () => {
