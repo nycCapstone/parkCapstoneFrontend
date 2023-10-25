@@ -369,7 +369,7 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </p>
-            <div className="containter mt-1">
+            <input className="containter mt-1">
               <input // prettier-ignore
                 type="check"
                 id="custom-switch"
@@ -377,7 +377,7 @@ const Register = () => {
                 checked={is_renter}
                 onChange={() => setRenter(!is_renter)}
               />
-            </div>
+            </input>
 
             <button
               disabled={
