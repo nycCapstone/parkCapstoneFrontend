@@ -12,7 +12,7 @@ const authSlice = createSlice({
             state.id = id;
             state.email = email;
         },
-        setPersist: (state, action) => ({ persist: !state.persist, ...state}),
+        setPersist: (state, action) =>{return {...state, persist: action.payload}},
         setAuth: (state, action) => ({...state, ...action.payload}),
         logOut: () => initialState
     },

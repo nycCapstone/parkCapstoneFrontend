@@ -369,15 +369,19 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </p>
-            <input className="containter mt-1">
-              <input // prettier-ignore
-                type="check"
-                id="custom-switch"
+            <div className="persistCheck">
+              <input 
+                type="checkbox"
+                id="persist"
                 label="Renter?"
                 checked={is_renter}
                 onChange={() => setRenter(!is_renter)}
               />
-            </input>
+              <div sytle={{float: 'float-right'}}>
+
+              <label htmlFor="persist">Renter?</label>
+              </div>
+            </div>
 
             <button
               disabled={

@@ -1,14 +1,12 @@
 import { useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getRoles } from "../../redux/roles/rolesSlice";
-import FormTitle from "../../redux/forms/FormTitle";
 import { formValue } from "../../redux/forms/formsSlice";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 
 const AddressForm = (props) => {
   const { formData, userData } = props;
-  const roles = useSelector(getRoles);
+  const roles = useSelector(state => state.roles);
   let tempArr =
     formData.mode === "client"
       ? userData?.address?.split(" ")
@@ -39,8 +37,7 @@ const AddressForm = (props) => {
           }
         };
         const [formState, dispatch] = useReducer(formReducer, dataArr);
-        const [submitAddress] = useSubmitAddressMutation({url: formData.data.URL, address: Object.values(formState).join(" "),
-        ClientOnly: formData.data.ClientOnly, method: 'POST'});
+        const [submitAddress] = useSubmitAddressMutation();
         
         const handleInputChange = (field, value) => {
           dispatch({ type: "CHANGE", field, value });
@@ -54,7 +51,9 @@ const AddressForm = (props) => {
         
         const submitAddr = async () => {
           setIsLoading(true);
-            await submitAddress().unwrap().then(res => navigate('/admin')).catch(err => {
+          let url = formData.data.URL;
+          let body = {address: Object.values(formState).join(" "), clientOnly: formData.data.ClientOnly}
+            await submitAddress({ url, body }).unwrap().then(res => navigate('/admin')).catch(err => {
               console.error(err);
               roledispatch(formValue(userData, roles, true));
               setIsLoading(false);
@@ -64,11 +63,12 @@ const AddressForm = (props) => {
   return (
     <div>
       <p style={{fontSize: "8px"}}>{JSON.stringify(formData)}  {JSON.stringify(userData)}</p>
-      <FormTitle/>
+      <h3>{formData.mode} confirmation</h3>
       <div>
         Your current address, click to Confirm.{" "}
         <p
-          onClick={submitAddr}
+          onClick={() => submitAddr()}
+
           className="text-underline"
           style={{ cursor: "pointer", textDecoration: "underline" }}
         >
@@ -83,7 +83,8 @@ const AddressForm = (props) => {
         <p>Loading.....</p>
       </div>
       ) : (
-        <form onSubmit={handleSubmit} className="py-0">
+        <form onSubmit={handleSubmit} 
+        className="py-0">
           <label htmlFor="streetAddress">Street Address:</label>
           <input
             type="text"

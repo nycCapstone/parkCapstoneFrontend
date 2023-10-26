@@ -15,9 +15,9 @@ const userActionSlice = createSlice({
 
         let stack = [];
 
-        if (roles?.ClientOnly && !roles.Client.bckgr) stack.unshift("confirm_client_email");
-        if (roles?.Renter && !roles.Client.bckgr) stack.unshift("confirm_primary_email");
-        if (roles?.Renter && !roles.Renter.bckgr) stack.unshift("confirm_renter_email");
+        if (roles?.ClientOnly && !roles.Client.bckgr) stack.push("confirm_client_email");
+        if (roles?.Renter && !roles.Client.bckgr) stack.push("confirm_primary_email");
+        if (roles?.Renter && !roles.Renter.bckgr) stack.push("confirm_renter_email");
         return { payload: stack};
 
       }

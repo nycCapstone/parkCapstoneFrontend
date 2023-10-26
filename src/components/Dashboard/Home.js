@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useSelector } from "react-redux"
 import { getAuth } from "../../redux/auth/authSlice";

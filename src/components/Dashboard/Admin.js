@@ -1,27 +1,30 @@
 import { Link } from "react-router-dom";
 import User from "../User";
-import { getRoles } from "../../redux/roles/rolesSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import { useGetInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useEffect } from "react";
 import { confirmAddress } from "../../redux/userActions/userActionSlice";
 import { formValue } from "../../redux/forms/formsSlice";
+import { setAuth } from "../../redux/auth/authSlice";
+import { useState } from "react";
+import { setRole } from "../../redux/roles/rolesSlice";
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isSuccess, isError, error } = useGetUserInfoQuery();
-  const roles = useSelector(getRoles)
-
+  const { data, error, isLoading } = useGetInfoQuery();
+  const roles = useSelector(state => state.roles);
+  
   useEffect(() => {
-    if (isSuccess) {
-    dispatch(confirmAddress(roles));
-    dispatch(formValue(data, roles, isError));
-    }
-  }, [data])
+    if (!isLoading) {
+            dispatch(setRole(data));
+            dispatch(setAuth(data));
+            dispatch(confirmAddress(roles));
+            dispatch(formValue(data, roles, false));
+    }  
+  }, [isLoading])
 
-  let content;
   if (isLoading) {
-    content = (
+    return (
       <section>
         <p>"Loading..."</p>
         <div className="flexGrow">
@@ -29,21 +32,18 @@ const Admin = () => {
         </div>
       </section>
     );
-  } else if (isSuccess) {
-    content = (
-      <section>
-        <h1>Admin Page</h1>
-        <User userData={data} />
-        <div className="flexGrow">
-          <Link to="/home">Home</Link>
-        </div>
-      </section>
-    );
-  } else if (isError) {
-    content = <p>{JSON.stringify(error)}</p>;
-  }
-
-  return content;
+}
+if (error) return <div><p>error</p></div>;
+return (
+    <section>
+      <h1>Admin Page</h1>
+      <User userData={data} />
+      <p style={{fontSize: '8px'}}>{JSON.stringify(roles)}</p>
+      <div className="flexGrow">
+        <Link to="/home">Home</Link>
+      </div>
+    </section>
+  );
 };
 
 export default Admin;

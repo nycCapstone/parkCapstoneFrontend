@@ -3,11 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
-import { setAuth} from '../../redux/auth/authSlice';
-import { getAuth, setPersist } from '../../redux/auth/authSlice';
+import { setPersist } from '../../redux/auth/authSlice';
 
 const Login = () => {
-    const {persist} = useSelector(getAuth);
+    const persist = useSelector(state => state.auth.persist);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,14 +28,13 @@ const Login = () => {
         setErrMsg('');
     }, [email, password])
 
-    const togglePersist = () => dispatch(setPersist());
+    const togglePersist = () => dispatch(setPersist(!persist));
     
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await login({ email, password, }).unwrap().then(res => {
-                dispatch(setAuth(res))
                 dispatch(setRole(res));
             })
 

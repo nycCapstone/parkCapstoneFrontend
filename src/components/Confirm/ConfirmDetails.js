@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { getAuth } from '../../redux/auth/authSlice';
 
 const ConfirmDetails = () => {
-    const userData = useSelector(getAuth);
-    const formData = useSelector(getFormData);
+    const userData = useSelector(state => state.auth);
+    const formData = useSelector(state => state.forms);
   return (
     <section><AddressForm userData={userData} formData={formData}/></section>
   )

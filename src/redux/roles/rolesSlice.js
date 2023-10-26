@@ -50,7 +50,7 @@ const rolesSlice = createSlice({
         SET_RENTER_BCKGR(true);
     },
     LOGOUT: () => initialState,
-  },
+  }
 });
 
 export const getRoles = (state) => state.roles;
@@ -62,7 +62,7 @@ export const {
   SET_RENTER_BCKGR,
   LOGOUT,
   setRole,
-  modifyRole,
+  modifyRole
 } = rolesSlice.actions;
 
 export default rolesSlice.reducer;
