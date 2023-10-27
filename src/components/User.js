@@ -9,12 +9,16 @@ const User = ({ userData }) => {
     <article>
       <h2>Table data List</h2>
       {Object.values(userData)?.length>0 ? (
-        <ul>
-          {Object.values(userData).map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
-      ) : (
+      <ul>
+          <li>{userData.id}</li>
+          <li>{userData.email}</li>
+          <li>{userData.address}</li>
+          <li>{userData.renter_address}</li>
+          <li>{userData.client_background_verified}</li>
+          <li>{userData.first_name}</li>
+          </ul>
+          ) 
+      : (
         <p>No content to display</p>
       )}
       <ul>

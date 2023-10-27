@@ -8,7 +8,7 @@ const ConfirmDetails = () => {
     const userData = useSelector(state => state.auth);
     const formData = useSelector(state => state.forms);
   return (
-    <section><AddressForm userData={() => {delete userData['roles']; return userData}} formData={formData}/></section>
+    <section><AddressForm userData={userData} formData={formData}/></section>
   )
 }
 

@@ -46,8 +46,8 @@ const Login = () => {
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);
-            navigate("/home");
-            //navigate(from, { replace: true });
+            //navigate("/admin");
+            navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
