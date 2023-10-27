@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAction } from "../redux/userActions/userActionSlice";
+import { Link } from "react-router-dom"
 
 const User = ({ userData }) => {
-  const navigate = useNavigate();
   const userActions = useSelector(getAction);
+
 
   return (
     <article>
       <h2>Table data List</h2>
-      {Object.values(userData)?.length ? (
+      {Object.values(userData)?.length>0 ? (
         <ul>
           {Object.values(userData).map((item, i) => (
             <li key={i}>{item}</li>
@@ -24,13 +25,10 @@ const User = ({ userData }) => {
             return userActions.length > 1 && idx > 0 ? (
               <li key={idx}>{item}</li>
             ) : (
-              <li
-                key={idx}
-                style={{ color: "green" }}
-                onClick={() => navigate("confirm-details")}
-              >
-                {item}
+              <li key={idx}>
+                <Link to="/confirm-details">{item}</Link>
               </li>
+
             );
           })}
       </ul>

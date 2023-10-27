@@ -1,7 +1,7 @@
 import axios from "../api/axios";
 import { setRole } from "../redux/roles/rolesSlice";
 import { useDispatch } from "react-redux";
-import { setAuth } from "../redux/auth/authSlice";
+import { setAuth, setCredentials } from "../redux/auth/authSlice";
 
 const useRefreshToken = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,9 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     dispatch(setRole(response.data));
-    dispatch(setAuth(response.data))
+    dispatch(setCredentials(response.data));
+    delete response.data.roles;
+    setAuth(response.data);
     localStorage.setItem("persist", true);
     return response.data.accessToken;
   };

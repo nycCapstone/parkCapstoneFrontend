@@ -18,30 +18,7 @@ const rolesSlice = createSlice({
         Renter: { bckgr: action.payload, pmt: state.Renter.pmt },
       };
     },
-    setRole: (state, action) => {
-      const data = action.payload;
-      if (data.roles.includes(2)) {
-        return {
-          ...state,
-          Client: {
-            bckgr: data.client_background_verified,
-            pmt: data.pmt_verified,
-          },
-          Renter: {
-            bckgr: data.background_verified,
-            pmt: data.r_pmt_verified,
-          },
-        };
-      } else
-        return {
-          ...state,
-          Client: {
-            bckgr: data.client_background_verified,
-            pmt: data.pmt_verified,
-          },
-          ClientOnly: true,
-        };
-    },
+    setRole: (state, action) => {return {...state, ...action.payload.roles}},
     modifyRole: (state, action) => {
       const data = action.payload;
       if (data?.client_background_verified === true && state?.ClientOnly)

@@ -1,49 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import User from "../User";
-import { useSelector, useDispatch } from "react-redux";
-import { useGetInfoQuery } from "../../redux/userActions/userApiSlice";
+import { useGetInfoQuery, useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useEffect } from "react";
-import { confirmAddress } from "../../redux/userActions/userActionSlice";
-import { formValue } from "../../redux/forms/formsSlice";
-import { setAuth } from "../../redux/auth/authSlice";
-import { useState } from "react";
-import { setRole } from "../../redux/roles/rolesSlice";
+
 
 const Admin = () => {
-  const dispatch = useDispatch();
-  const { data, error, isLoading } = useGetInfoQuery();
-  const roles = useSelector(state => state.roles);
+  const navigate = useNavigate();
+  const { data, isLoading, isSuccess, error } = useGetUserInfoQuery();
   
   useEffect(() => {
-    if (!isLoading) {
-            dispatch(setRole(data));
-            dispatch(setAuth(data));
-            dispatch(confirmAddress(roles));
-            dispatch(formValue(data, roles, false));
-    }  
-  }, [isLoading])
+      if (error) {
+          console.error('Error:', error);
+          navigate("/linkpage")
+        }
+  }, [data])
 
-  if (isLoading) {
-    return (
-      <section>
-        <p>"Loading..."</p>
-        <div className="flexGrow">
-          <Link to="/home">Home</Link>
-        </div>
-      </section>
-    );
-}
-if (error) return <div><p>error</p></div>;
-return (
+  return isLoading ? (
     <section>
-      <h1>Admin Page</h1>
-      <User userData={data} />
-      <p style={{fontSize: '8px'}}>{JSON.stringify(roles)}</p>
+      <p>Loading...</p>
       <div className="flexGrow">
         <Link to="/home">Home</Link>
       </div>
     </section>
-  );
+  ) : isSuccess ? (
+    <section>
+      <h1>Admin Page</h1>
+      {JSON.stringify(data)}
+      <User userData={() => {delete data['roles']; return data;}} />
+      <div className="flexGrow">
+        <Link to="/home">Home</Link>
+      </div>
+    </section>
+  ) :  <p>{JSON.stringify(error)}</p> ;
 };
 
 export default Admin;
