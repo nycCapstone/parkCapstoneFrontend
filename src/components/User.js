@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAction } from "../redux/userActions/userActionSlice";
 import { Link } from "react-router-dom"
 
 const User = ({ userData }) => {
-  const userActions = useSelector(getAction);
-
+  const userActions = useSelector(state => state.actions);
 
   return (
     <article>
@@ -26,7 +24,7 @@ const User = ({ userData }) => {
               <li key={idx}>{item}</li>
             ) : (
               <li key={idx}>
-                <Link to="/confirm-details">{item}</Link>
+                <Link to="/admin/confirm-details">{item}</Link>
               </li>
 
             );

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const Admin = () => {
   const navigate = useNavigate();
   const { data, isLoading, isSuccess, error } = useGetUserInfoQuery();
-  
+          
   useEffect(() => {
       if (error) {
           console.error('Error:', error);

@@ -92,6 +92,7 @@ const AddressForm = (props) => {
             value={formState["0"] || ""}
             onChange={(e) => handleInputChange("0", e.target.value)}
             disabled={formData.data.isFormEnabled}
+            id="streetAddress"
           />
           <label htmlFor="city">City:</label>
           <input
@@ -100,6 +101,7 @@ const AddressForm = (props) => {
             value={formState["1"] || ""}
             onChange={(e) => handleInputChange("1", e.target.value)}
             disabled={formData.data.isFormEnabled}
+            id="city"
           />
           <label htmlFor="state">State:</label>
           <input
@@ -108,6 +110,7 @@ const AddressForm = (props) => {
             value={formState["2"] || ""}
             onChange={(e) => handleInputChange("2", e.target.value)}
             disabled={formData.data.isFormEnabled}
+            id="state"
           />
           <button type="submit" disabled={formData.data.isFormEnabled}>
             Submit

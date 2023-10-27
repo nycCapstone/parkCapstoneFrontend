@@ -12,7 +12,6 @@ const useRefreshToken = () => {
     });
     dispatch(setRole(response.data));
     dispatch(setCredentials(response.data));
-    delete response.data.roles;
     setAuth(response.data);
     localStorage.setItem("persist", true);
     return response.data.accessToken;

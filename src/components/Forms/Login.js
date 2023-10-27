@@ -3,7 +3,9 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
-import { setPersist } from '../../redux/auth/authSlice';
+import { setPersist, setAuth } from '../../redux/auth/authSlice';
+import { confirmAddress } from '../../redux/userActions/userActionSlice';
+import { formValue } from '../../redux/forms/formsSlice';
 
 const Login = () => {
     const persist = useSelector(state => state.auth.persist);
@@ -36,12 +38,16 @@ const Login = () => {
         try {
             await login({ email, password, }).unwrap().then(res => {
                 dispatch(setRole(res));
+                dispatch(setAuth(res));
+                dispatch(confirmAddress(res.roles));
+                dispatch(formValue(res, res.roles, false));
             })
 
             setEmail('');
             setPwd('');
             localStorage.setItem("persist", true);
-            navigate(from, { replace: true });
+            navigate("/home");
+            //navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');

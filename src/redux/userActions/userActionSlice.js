@@ -22,7 +22,7 @@ const userActionSlice = createSlice({
 
       }
     },
-    noActions: () => initialState
+    noActions: (state) => initialState
   }
 });
 

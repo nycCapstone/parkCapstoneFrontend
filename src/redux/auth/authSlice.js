@@ -14,7 +14,7 @@ const authSlice = createSlice({
         },
         setPersist: (state, action) =>{return {...state, persist: action.payload}},
         setAuth: (state, action) => ({...state, ...action.payload}),
-        logOut: () => initialState
+        logOut: (state) => initialState
     },
 })
 

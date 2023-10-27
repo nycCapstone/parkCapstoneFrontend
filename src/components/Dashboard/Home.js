@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useSelector } from "react-redux"
-import { getAuth } from "../../redux/auth/authSlice";
+import { useLogoutQuery } from "../../redux/userActions/userApiSlice";
 
 const Home = () => {
-    const { email } = useSelector(getAuth);
+    const { email } = useSelector(state => state.auth);
     const logout = useLogout();
 
     const signOut = async () => {

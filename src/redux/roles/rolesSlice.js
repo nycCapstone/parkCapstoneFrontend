@@ -26,7 +26,7 @@ const rolesSlice = createSlice({
       if (data?.background_verified === true && state?.Renter)
         SET_RENTER_BCKGR(true);
     },
-    LOGOUT: () => initialState,
+    LOGOUT: (state) => initialState,
   }
 });
 

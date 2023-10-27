@@ -34,13 +34,13 @@ const formsSlice = createSlice({
                 }
             }
         }
-    }
-
+    },
+    resetForm: (state) => initialState
   },
 });
 
 export const getFormData = (state) => state.forms;
 
-export const { formValue } = formsSlice.actions;
+export const { formValue, resetForm } = formsSlice.actions;
 
 export default formsSlice.reducer;
