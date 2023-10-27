@@ -10,34 +10,22 @@ import { formValue } from "../../redux/forms/formsSlice";
 
 
 const Admin = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { data, isLoading, isSuccess, error } = useGetUserInfoQuery();
-  const userData = useSelector(state=>state.auth)
-  
-  useEffect(() => {
-      if (error) {
-          console.error('Error:', error);
-          navigate("/linkpage")
-        }
-    }, [data])
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//       if (error) {
+//           console.error('Error:', error);
+//           navigate("/linkpage")
+//         }
+//     }, [data])
     
-    return isLoading ? (
-        <section>
-      <p>Loading...</p>
-      <div className="flexGrow">
-        <Link to="/home">Home</Link>
-      </div>
-    </section>
-  ) : isSuccess ? (
-      <section>
+    return <section>
       <h1>Admin Page</h1>
-        <User userData={userData} />
+        <User/>
       <div className="flexGrow">
         <Link to="/home">Home</Link>
       </div>
     </section>
-  ) :  <p>{JSON.stringify(error)}</p> ;
 };
 
 export default Admin;

@@ -23,7 +23,7 @@ const PersistLogin = () => {
         isMounted && setIsLoading(false);
       }
     }
-    localStorage.getItem("persist") && !ct?.accessToken
+    localStorage.getItem("persist") && !ct
       ? refreshAccessToken()
       : setIsLoading(false);
     return () => (isMounted = false);
@@ -31,7 +31,7 @@ const PersistLogin = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading && !ct ? (
         <>
           <div>Loading...</div>
           <div>Loading...</div>

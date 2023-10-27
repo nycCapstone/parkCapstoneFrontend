@@ -2,7 +2,6 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {LOGOUT} from '../redux/roles/rolesSlice';
-import { noActions } from "../redux/userActions/userActionSlice";
 import { logOut } from "../redux/auth/authSlice";
 import { resetForm } from "../redux/forms/formsSlice";
 
@@ -19,7 +18,6 @@ const useLogout = () => {
 
                 dispatch(logOut());
                 dispatch(LOGOUT());
-                dispatch(noActions());
                 dispatch(resetForm());
 
             }).catch(e => console.error(e))

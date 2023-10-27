@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { formValue } from "../../redux/forms/formsSlice";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 
-const AddressForm = (props) => {
-  const { formData, userData } = props;
+const AddressForm = () => {
+  const userData = useSelector(state => state.auth);
+  const formData = useSelector(state => state.forms);
   const roles = useSelector(state => state.roles);
   let tempArr =
     formData.mode === "client"

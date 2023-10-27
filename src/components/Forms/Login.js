@@ -4,7 +4,6 @@ import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
 import { setPersist, setAuth } from '../../redux/auth/authSlice';
-import { confirmAddress } from '../../redux/userActions/userActionSlice';
 import { formValue } from '../../redux/forms/formsSlice';
 
 const Login = () => {
@@ -39,7 +38,7 @@ const Login = () => {
             await login({ email, password, }).unwrap().then(res => {
                 dispatch(setRole(res));
                 dispatch(setAuth(res));
-                dispatch(confirmAddress(res.roles));
+                //dispatch(confirmAddress(res.roles));
                 dispatch(formValue(res, res.roles, false));
             })
 

@@ -1,41 +1,31 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"
+import { useGetUserInfoQuery } from "../redux/userActions/userApiSlice";
+import UserAction from "../redux/userActions/UserAction";
 
-const User = ({ userData }) => {
-  const userActions = useSelector(state => state.actions);
+const User = () => {
+  const { data, isLoading, isSuccess, error } = useGetUserInfoQuery();
 
-  return (
-    <article>
-      <h2>Table data List</h2>
-      {Object.values(userData)?.length>0 ? (
-      <ul>
-          <li>{userData.id}</li>
-          <li>{userData.email}</li>
-          <li>{userData.address}</li>
-          <li>{userData.renter_address}</li>
-          <li>{userData.client_background_verified}</li>
-          <li>{userData.first_name}</li>
-          </ul>
-          ) 
-      : (
-        <p>No content to display</p>
-      )}
-      <ul>
-        {userActions?.length > 0 &&
-          userActions.map((item, idx) => {
-            return userActions.length > 1 && idx > 0 ? (
-              <li key={idx}>{item}</li>
-            ) : (
-              <li key={idx}>
-                <Link to="/admin/confirm-details">{item}</Link>
-              </li>
+  if (isLoading && !data?.email) {
+    return <div>Loading...</div>;
+  }
 
-            );
-          })}
-      </ul>
-    </article>
-  );
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (data?.email) {
+
+    return (
+      <div>
+        <h1>User Information</h1>
+        <pre style={{fontSize: "10px"}}>{JSON.stringify(data, null, 2)}</pre>
+        <UserAction data={data}/>
+
+      </div>
+    );
+  }
+
+  return null;
+
 };
 
 export default User;

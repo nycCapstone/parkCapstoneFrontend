@@ -8,11 +8,11 @@ export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getUserInfo: builder.query({
             query: () => '/user/profile',
+            provides: ['auth'],
             onSuccess: (response, api) => {
                 api.dispatch(setAuth(response.data));
                 api.dispatch(setRole(response.data));
-                api.dispatch(confirmAddress(response.data.roles));
-                api.dispatch(formValue(response.data, response.data.roles, false));  
+                api.dispatch(formValue(response.data, response.data.roles, false));
             }
         }),
         getInfo: builder.query({
