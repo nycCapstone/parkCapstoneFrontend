@@ -1,31 +1,23 @@
-import { useGetUserInfoQuery } from "../redux/userActions/userApiSlice";
 import UserAction from "../redux/userActions/UserAction";
+import { useSelector } from "react-redux";
 
 const User = () => {
-  const { data, isLoading, isSuccess, error } = useGetUserInfoQuery();
+  const data = useSelector((state) => state.auth);
 
-  if (isLoading && !data?.email) {
+  if (!data?.email) {
     return <div>Loading...</div>;
   }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   if (data?.email) {
-
     return (
       <div>
         <h1>User Information</h1>
-        <pre style={{fontSize: "10px"}}>{JSON.stringify(data, null, 2)}</pre>
-        <UserAction data={data}/>
-
+        <pre style={{ fontSize: "10px" }}>{JSON.stringify(data, null, 2)}</pre>
+        <UserAction data={data} />
       </div>
     );
   }
 
   return null;
-
 };
 
 export default User;

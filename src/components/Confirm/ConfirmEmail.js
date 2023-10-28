@@ -10,20 +10,25 @@ const ConfirmEmail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Access and read the 'k' query parameter
-    const keyValue = queryParams.get("k");
-    if (keyValue) {
-      // Do something with the 'k' query parameter value
-      axios
-        .get(`/auth/create-user/auth?k=${keyValue}`)
-        .then((res) => {
-          console.log(res.data);
+    const fetchData = async () => {
+      const keyValue = queryParams.get("k");
+      if (keyValue) {
+        try {
+          await axios.put(`/auth/create-user/auth?k=${keyValue}`);
           navigate("/login");
-        })
-        .catch((e) => console.log(e.response.data));
-      setLoading(false);
-    }
-  }, [queryParams]);
+        } catch (e) {
+          console.error(e.response.data);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       {loading ? (

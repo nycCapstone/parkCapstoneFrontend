@@ -11,7 +11,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
-    const [login, { isLoading }] = useLoginMutation()
+    const [login] = useLoginMutation()
     let from = location.state?.from?.pathname || "/admin";
 
     const userRef = useRef();
@@ -38,7 +38,6 @@ const Login = () => {
             await login({ email, password, }).unwrap().then(res => {
                 dispatch(setRole(res));
                 dispatch(setAuth(res));
-                //dispatch(confirmAddress(res.roles));
                 dispatch(formValue(res, res.roles, false));
             })
 

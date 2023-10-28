@@ -5,7 +5,7 @@ export const formApiSlice = apiSlice.injectEndpoints({
         submitAddress: builder.mutation({
             query: (data) => ({
                 url: data.url,
-                method: 'POST',
+                method: 'PUT',
                 body: data.body
             })
         }),

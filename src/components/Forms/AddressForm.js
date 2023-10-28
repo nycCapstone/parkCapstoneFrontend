@@ -3,18 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { formValue } from "../../redux/forms/formsSlice";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
+import { setAuth } from "../../redux/auth/authSlice";
+import { setRole } from "../../redux/roles/rolesSlice";
 
 const AddressForm = () => {
-  const userData = useSelector(state => state.auth);
-  const formData = useSelector(state => state.forms);
-  const roles = useSelector(state => state.roles);
+  const userData = useSelector((state) => state.auth);
+  const formData = useSelector((state) => state.forms);
+  const roles = useSelector((state) => state.roles);
   let tempArr =
     formData.mode === "client"
       ? userData?.address?.split(" ")
       : formData.mode === "renter"
       ? userData?.renter_address?.split(" ")
       : userData?.space_address?.split(" ");
-      if (!tempArr) tempArr = [ 'missing', 'address', 'fill'];
+  if (!tempArr) tempArr = ["missing", "address", "fill"];
   const dataArr = {
     0: tempArr[0],
     1: tempArr[1],
@@ -23,7 +25,7 @@ const AddressForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const roledispatch = useDispatch();
-  
+
   const formReducer = (state, action) => {
     switch (action.type) {
       case "CHANGE":
@@ -31,45 +33,56 @@ const AddressForm = () => {
           ...state,
           [action.field]: action.value,
         };
-        case "RESET":
-          return dataArr;
-          default:
-            return state;
-          }
-        };
-        const [formState, dispatch] = useReducer(formReducer, dataArr);
-        const [submitAddress] = useSubmitAddressMutation();
-        
-        const handleInputChange = (field, value) => {
-          dispatch({ type: "CHANGE", field, value });
-        };
-        
-        const handleSubmit = (e) => {
-          e.preventDefault();
-          if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
-          submitAddr();
-        };
-        
-        const submitAddr = async () => {
-          setIsLoading(true);
-          let url = formData.data.URL;
-          let body = {address: Object.values(formState).join(" "), clientOnly: formData.data.ClientOnly}
-            await submitAddress({ url, body }).unwrap().then(res => navigate('/admin')).catch(err => {
-              console.error(err);
-              roledispatch(formValue(userData, roles, true));
-              setIsLoading(false);
-            })
+      case "RESET":
+        return dataArr;
+      default:
+        return state;
+    }
+  };
+  const [formState, dispatch] = useReducer(formReducer, dataArr);
+  const [submitAddress] = useSubmitAddressMutation();
+
+  const handleInputChange = (field, value) => {
+    dispatch({ type: "CHANGE", field, value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
+    submitAddr();
+  };
+
+  const submitAddr = async () => {
+    setIsLoading(true);
+    let url = formData.data.URL;
+    let body = {
+      address: Object.values(formState).join(" "),
+      clientOnly: formData.data.ClientOnly,
+    };
+    await submitAddress({ url, body })
+      .unwrap()
+      .then((res) => {
+        roledispatch(setAuth(res.data));
+        roledispatch(setRole(res.data));
+        navigate("/admin");
+      })
+      .catch((err) => {
+        console.error(err);
+        roledispatch(formValue(userData, roles, true));
+        setIsLoading(false);
+      });
   };
 
   return (
     <div>
-      <p style={{fontSize: "8px"}}>{JSON.stringify(formData)}  {JSON.stringify(userData)}</p>
+      <p style={{ fontSize: "8px" }}>
+        {JSON.stringify(formData)} {JSON.stringify(userData)}
+      </p>
       <h3>{formData.mode} confirmation</h3>
       <div>
         Your current address, click to Confirm.{" "}
         <p
           onClick={() => submitAddr()}
-
           className="text-underline"
           style={{ cursor: "pointer", textDecoration: "underline" }}
         >
@@ -78,14 +91,13 @@ const AddressForm = () => {
       </div>
       {isLoading ? (
         <div>
-        <p>Loading.....</p>
-        <p>Loading.....</p>
-        <p>Loading.....</p>
-        <p>Loading.....</p>
-      </div>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+          <p>Loading.....</p>
+        </div>
       ) : (
-        <form onSubmit={handleSubmit} 
-        className="py-0">
+        <form onSubmit={handleSubmit} className="py-0">
           <label htmlFor="streetAddress">Street Address:</label>
           <input
             type="text"

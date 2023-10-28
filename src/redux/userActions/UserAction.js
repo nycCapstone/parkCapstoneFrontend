@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-
 const UserAction = ({ data }) => {
-    const roles = data.roles;
+    var roles = data.roles;
     let userActions = [];
 
     if (roles?.ClientOnly && !roles.Client.bckgr) userActions.push("confirm_client_email");

@@ -99,9 +99,6 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      // TODO: remove console.logs before deployment
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
       setSuccess(email);
       //clear state and controlled inputs
       setEmail("");
