@@ -4,7 +4,6 @@ import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
 import { setPersist, setAuth } from '../../redux/auth/authSlice';
-//import { formValue } from '../../redux/forms/formsSlice';
 
 const Login = () => {
     const persist = useSelector(state => state.auth.persist);
@@ -39,7 +38,7 @@ const Login = () => {
                 dispatch(setRole(res));
                 dispatch(setAuth(res));
             })
-            //navigate(from, { replace: true });
+
         } catch (err) {
             console.error(err)
             if (!err?.response) {

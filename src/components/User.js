@@ -1,5 +1,4 @@
 import UserAction from "../redux/userActions/UserAction";
-import { useSelector, useDispatch } from "react-redux";
 import { useGetUserInfoQuery } from "../redux/userActions/userApiSlice";
 
 const User = () => {

@@ -95,8 +95,7 @@ const Register = () => {
           is_renter,
         }),
         {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          headers: { "Content-Type": "application/json" }
         }
       );
       setSuccess(email);

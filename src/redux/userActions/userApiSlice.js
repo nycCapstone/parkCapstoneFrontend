@@ -1,6 +1,5 @@
 import { apiSlice } from "../../api/apiSlice";
-import { LOGOUT, setRole } from "../roles/rolesSlice";
-import { logOut } from "../auth/authSlice";
+import { setRole } from "../roles/rolesSlice";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,11 +14,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/logout"
       }),
-      invalidatesTags: ["userData"],
-      onSuccess: (_, api) => {
-        api.dispatch(logOut());
-        api.dispatch(LOGOUT());
-      }
+      invalidatesTags: ["userData"]
     }),
   }),
 });

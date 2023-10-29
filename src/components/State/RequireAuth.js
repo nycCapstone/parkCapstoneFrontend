@@ -4,7 +4,7 @@ import { getRoles } from "../../redux/roles/rolesSlice";
 import { selectCurrentToken } from "../../redux/auth/authSlice";
 
 const RequireAuth = ({ allowedRoles }) => {
-    const roles = useSelector(getRoles)
+    const roles = useSelector(getRoles);
     const token = useSelector(selectCurrentToken);
     const location = useLocation();
 
