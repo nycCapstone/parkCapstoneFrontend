@@ -15,10 +15,9 @@ const PersistLogin = () => {
       async function refreshAccessToken() {
           try {
               await refresh();
-            } catch (error) {
-        // Handle any errors
+            } catch (e) {
         dispatch(logOut());
-        console.error(error);
+        console.error(e);
       } finally {
         isMounted && setIsLoading(false);
       }

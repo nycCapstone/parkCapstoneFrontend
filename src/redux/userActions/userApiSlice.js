@@ -1,26 +1,26 @@
 import { apiSlice } from "../../api/apiSlice";
 import { LOGOUT, setRole } from "../roles/rolesSlice";
-import { logOut, setAuth } from "../auth/authSlice";
-import { confirmAddress, noActions } from "./userActionSlice";
-import { formValue } from "../forms/formsSlice";
+import { logOut } from "../auth/authSlice";
 
 export const userApiSlice = apiSlice.injectEndpoints({
-    endpoints: builder => ({
-        getUserInfo: builder.query({
-            query: () => '/user/profile',
-            provides: ['auth'],
-            onSuccess: (response, api) => {
-                api.dispatch(setAuth(response.data));
-                api.dispatch(setRole(response.data));
-                api.dispatch(formValue(response.data, response.data.roles, false));
-            }
-        }),
-        getInfo: builder.query({
-            query: () => '/user/profile',
-            // Define revalidation options (e.g., refetch every 60 seconds)
-            provides: ['auth'],
-            refetchInterval: 180 * 1000 // 60 seconds
-          })
-    })
-})
-export const { useGetUserInfoQuery, useGetInfoQuery } = userApiSlice;
+  endpoints: (builder) => ({
+    getUserInfo: builder.query({
+      query: () => "/user/profile",
+      providesTags: ["userData"],
+      onSuccess: (response, api) => {
+        api.dispatch(setRole(response.data));
+      },
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout"
+      }),
+      invalidatesTags: ["userData"],
+      onSuccess: (_, api) => {
+        api.dispatch(logOut());
+        api.dispatch(LOGOUT());
+      }
+    }),
+  }),
+});
+export const { useGetUserInfoQuery, useLogoutMutation } = userApiSlice;

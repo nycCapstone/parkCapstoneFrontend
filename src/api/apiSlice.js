@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { logOut, setAuth } from '../redux/auth/authSlice';
-const BASE_URL = process.env.REACT_APP_ENV === 'development' ? 'http://localhost:3001' : process.env.REACT_APP_BACKEND_URL;
+import { setAuth, logOut } from './authSlice';
+import { BASE_URL } from '../constants/helper/helper';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: BASE_URL,
@@ -22,10 +22,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         // send refresh token to get new access token 
         const refreshResult = await baseQuery('/refresh', api, extraOptions)
         if (refreshResult?.data) {
-            const email = api.getState().auth?.email
-            const id = api.getState().auth?.id
-            // store the new token 
-            api.dispatch(setAuth(refreshResult.data))
+            api.dispatch(setAuth(refreshResult.data));
             // retry the original query with new access token 
             result = await baseQuery(args, api, extraOptions)
         } else {
@@ -36,6 +33,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 }
 
 export const apiSlice = createApi({
+    reducerPath: 'userData',
     baseQuery: baseQueryWithReauth,
     endpoints: builder => ({})
 })

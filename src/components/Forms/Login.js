@@ -4,7 +4,7 @@ import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
 import { setPersist, setAuth } from '../../redux/auth/authSlice';
-import { formValue } from '../../redux/forms/formsSlice';
+//import { formValue } from '../../redux/forms/formsSlice';
 
 const Login = () => {
     const persist = useSelector(state => state.auth.persist);
@@ -31,22 +31,17 @@ const Login = () => {
 
     const togglePersist = () => dispatch(setPersist(!persist));
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         try {
             await login({ email, password, }).unwrap().then(res => {
                 dispatch(setRole(res));
                 dispatch(setAuth(res));
-                dispatch(formValue(res, res.roles, false));
             })
-
-            setEmail('');
-            setPwd('');
-            localStorage.setItem("persist", true);
-            //navigate("/admin");
-            navigate(from, { replace: true });
+            //navigate(from, { replace: true });
         } catch (err) {
+            console.error(err)
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 500) {
@@ -57,6 +52,9 @@ const Login = () => {
                 setErrMsg('Login Failed');
             }
             errRef.current.focus();
+        } finally {
+            localStorage.setItem("persist", true);
+            navigate("/admin")
         }
     }
 

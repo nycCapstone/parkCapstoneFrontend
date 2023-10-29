@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
-import { useSelector } from "react-redux"
-import { useLogoutQuery } from "../../redux/userActions/userApiSlice";
+import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 
 const Home = () => {
-    const { email } = useSelector(state => state.auth);
+    const { data: userData, isSuccess } = useGetUserInfoQuery();
     const logout = useLogout();
 
     const signOut = async () => {
@@ -15,7 +14,7 @@ const Home = () => {
         <section>
             <h1>Home</h1>
             <br />
-            { email ? <p>{email}</p> : <p>Welcome Stranger</p>}
+            { isSuccess ? <p>{userData?.email}</p> : <p>Welcome Stranger</p>}
             
             <br />
             <Link to="/client">Go to the Client page</Link>

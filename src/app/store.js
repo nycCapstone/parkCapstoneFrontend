@@ -11,7 +11,7 @@ export const store = configureStore({
     roles: rolesReducer,
     forms: formsReducer,
     actions: actionsReducer,
-    auth: authReducer,
+    auth: authReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
