@@ -4,18 +4,18 @@ import {
   faTimes,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  REGISTER_URL,
+  EMAIL_REGEX,
+  PWD_REGEX,
+  NAME_REGEX,
+  ADDRESS_REGEX,
+  CITY_REGEX,
+  STATE_REGEX,
+} from "../../constants/helper/helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
-
-const EMAIL_REGEX =
-  /([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+/;
-const PWD_REGEX = /^(?=.*[A-Z])(?=.*\d).{7,24}$/;
-const NAME_REGEX = /^[A-Za-z'-]+$/;
-const ADDRESS_REGEX = /^[0-9A-Za-z\s,-./\\#]+$/;
-const CITY_REGEX = /^[A-Za-z\s'-.]+$/;
-const STATE_REGEX = /^[A-Z]{2}$/;
-const REGISTER_URL = "/auth/create-user";
 
 const Register = () => {
   const userRef = useRef();
@@ -95,13 +95,9 @@ const Register = () => {
           is_renter,
         }),
         {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          headers: { "Content-Type": "application/json" }
         }
       );
-      // TODO: remove console.logs before deployment
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
       setSuccess(email);
       //clear state and controlled inputs
       setEmail("");
@@ -128,9 +124,7 @@ const Register = () => {
       {success ? (
         <section>
           <h1>Success!</h1>
-          <p>
-            Confirmation email sent to {success}.
-          </p>
+          <p>Confirmation email sent to {success}.</p>
         </section>
       ) : (
         <section>
@@ -369,14 +363,17 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </p>
-            <div className="containter mt-1">
-              <input // prettier-ignore
-                type="check"
-                id="custom-switch"
+            <div className="persistCheck">
+              <input
+                type="checkbox"
+                id="persist"
                 label="Renter?"
                 checked={is_renter}
                 onChange={() => setRenter(!is_renter)}
               />
+              <div sytle={{ float: "float-right" }}>
+                <label htmlFor="persist">Renter?</label>
+              </div>
             </div>
 
             <button

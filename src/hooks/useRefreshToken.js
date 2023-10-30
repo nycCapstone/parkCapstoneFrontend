@@ -7,13 +7,14 @@ const useRefreshToken = () => {
   const dispatch = useDispatch();
 
   const refresh = async () => {
-    const response = await axios.get("/refresh", {
-      withCredentials: true,
-    });
-    dispatch(setRole(response.data));
-    dispatch(setAuth(response.data))
-    localStorage.setItem("persist", true);
-    return response.data.accessToken;
+    await axios
+      .get("/refresh", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        dispatch(setRole(response.data));
+        dispatch(setAuth(response.data));
+      });
   };
   return refresh;
 };

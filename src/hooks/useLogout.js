@@ -1,30 +1,31 @@
-import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
-import {LOGOUT} from '../redux/roles/rolesSlice';
-import { noActions } from "../redux/userActions/userActionSlice";
 import { logOut } from "../redux/auth/authSlice";
+import { LOGOUT } from "../redux/roles/rolesSlice";
 
 const useLogout = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logout] = useLogoutMutation();
 
-    const logout = async () => {
-        localStorage.removeItem("persist")
-        try {
-            await axios('/logout', {
-                withCredentials: true
-            });
-            dispatch(logOut())
-            dispatch(LOGOUT());
-            dispatch(noActions())
-            navigate("/go")
-        } catch (err) {
-            console.error(err);
-        }
+  const startLogout = async () => {
+    try {
+      await logout()
+        .unwrap()
+        .then((res) => {
+          dispatch(logOut());
+          dispatch(LOGOUT());
+        });
+      localStorage.removeItem("persist");
+    } catch (e) {
+      console.error(e);
+    } finally {
+      navigate("/go");
     }
+  };
 
-    return logout;
-}
+  return startLogout;
+};
 
-export default useLogout
+export default useLogout;

@@ -22,10 +22,11 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
+        <Route path="/" element={<LinkPage />} />
+        <Route path="go" element={<LinkPage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="confirmation" element={<ConfirmEmail />} />
-        <Route path="go" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Missing />} />
         {/* we want to protect these routes */}

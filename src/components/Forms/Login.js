@@ -3,15 +3,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { setRole } from '../../redux/roles/rolesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../../redux/auth/authApiSlice';
-import { setAuth} from '../../redux/auth/authSlice';
-import { getAuth, setPersist } from '../../redux/auth/authSlice';
+import { setPersist, setAuth } from '../../redux/auth/authSlice';
 
 const Login = () => {
-    const {persist} = useSelector(getAuth);
+    const persist = useSelector(state => state.auth.persist);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();
-    const [login, { isLoading }] = useLoginMutation()
+    const [login] = useLoginMutation()
     let from = location.state?.from?.pathname || "/admin";
 
     const userRef = useRef();
@@ -29,22 +28,19 @@ const Login = () => {
         setErrMsg('');
     }, [email, password])
 
-    const togglePersist = () => dispatch(setPersist());
+    const togglePersist = () => dispatch(setPersist(!persist));
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         try {
             await login({ email, password, }).unwrap().then(res => {
-                dispatch(setAuth(res))
                 dispatch(setRole(res));
+                dispatch(setAuth(res));
             })
 
-            setEmail('');
-            setPwd('');
-            localStorage.setItem("persist", true);
-            navigate(from, { replace: true });
         } catch (err) {
+            console.error(err)
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 500) {
@@ -55,6 +51,9 @@ const Login = () => {
                 setErrMsg('Login Failed');
             }
             errRef.current.focus();
+        } finally {
+            localStorage.setItem("persist", true);
+            navigate("/admin")
         }
     }
 

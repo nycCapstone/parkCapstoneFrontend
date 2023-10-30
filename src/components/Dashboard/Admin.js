@@ -1,49 +1,20 @@
 import { Link } from "react-router-dom";
 import User from "../User";
-import { getRoles } from "../../redux/roles/rolesSlice";
-import { useSelector, useDispatch } from "react-redux";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import { useEffect } from "react";
-import { confirmAddress } from "../../redux/userActions/userActionSlice";
-import { formValue } from "../../redux/forms/formsSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons"
 
 const Admin = () => {
-  const dispatch = useDispatch();
-  const { data, isLoading, isSuccess, isError, error } = useGetUserInfoQuery();
-  const roles = useSelector(getRoles)
+    const { refetch } = useGetUserInfoQuery();
 
-  useEffect(() => {
-    if (isSuccess) {
-    dispatch(confirmAddress(roles));
-    dispatch(formValue(data, roles, isError));
-    }
-  }, [data])
-
-  let content;
-  if (isLoading) {
-    content = (
-      <section>
-        <p>"Loading..."</p>
-        <div className="flexGrow">
-          <Link to="/home">Home</Link>
-        </div>
-      </section>
-    );
-  } else if (isSuccess) {
-    content = (
-      <section>
-        <h1>Admin Page</h1>
-        <User userData={data} />
-        <div className="flexGrow">
-          <Link to="/home">Home</Link>
-        </div>
-      </section>
-    );
-  } else if (isError) {
-    content = <p>{JSON.stringify(error)}</p>;
-  }
-
-  return content;
+    return <section>
+      <h1>Admin Page</h1>
+      <FontAwesomeIcon onClick={()=> refetch()} icon={faRetweet} style={{cursor: 'pointer'}}/>
+        <User/>
+      <div className="flexGrow">
+        <Link to="/home">Home</Link>
+      </div>
+    </section>
 };
 
 export default Admin;
