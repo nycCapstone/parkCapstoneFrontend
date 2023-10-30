@@ -3,7 +3,7 @@ function Nav() {
     <>
       <div className="bg-body-tertiary">
         <div>
-          <div href="#home">Brand link</div>
+          <div href="#home">Brand link Hibon</div>
         </div>
       </div>
       <br />
@@ -36,7 +36,7 @@ function Nav() {
               width="30"
               height="30"
               className="d-inline-block align-top"
-            />{' '}
+            />{" "}
             Login
           </a>
         </div>
