@@ -8,14 +8,14 @@ const PersistLogin = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const ct = useSelector(state => state.auth.accessToken);
-  
+  const ct = useSelector((state) => state.auth.accessToken);
+
   useEffect(() => {
-      let isMounted = true;
-      async function refreshAccessToken() {
-          try {
-              await refresh();
-            } catch (e) {
+    let isMounted = true;
+    async function refreshAccessToken() {
+      try {
+        await refresh();
+      } catch (e) {
         dispatch(logOut());
         console.error(e);
       } finally {

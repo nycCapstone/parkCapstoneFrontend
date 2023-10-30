@@ -33,7 +33,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 }
 
 export const apiSlice = createApi({
-    reducerPath: 'userData',
     baseQuery: baseQueryWithReauth,
     endpoints: builder => ({})
 })

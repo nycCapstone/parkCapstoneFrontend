@@ -25,8 +25,8 @@ const ConfirmEmail = () => {
         setLoading(false);
       }
     };
-
     fetchData();
+    return () => []
   }, []);
 
   return (
