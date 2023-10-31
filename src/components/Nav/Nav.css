@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.left-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.right-nav {
+  margin-left: auto;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
