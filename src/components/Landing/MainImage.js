@@ -1,21 +1,26 @@
 import React from "react";
-import { smilingadult } from "../../assets/smilingadult.jpeg";
+import { smilingadult } from "../../assets";
 
-import "./Main.css";
+import "./MainImage.css";
 
 function MainImage() {
   return (
     <div className="main-image-container">
       <img
-        className="main-image opacity-25 img-fluid"
+        className="main-image img-fluid"
         src={smilingadult}
         alt="smilingadult"
-        style={{ maxHeight: "80vh" }}
+        // style={{ maxHeight: "80vh" }}
       />
       <div className="overlay">
-        <div className="fw-bold text-warning">
-          <span style={{ fontSize: "1.3rem" }}>Placeholder 1</span>{" "}
-          <span style={{ fontsize: "1rem" }}>Placeholder 2</span>
+        <div className="fw-bold">Your Space. Their convenience.</div>
+        <div className="search-bar">
+          <input type="text" placeholder="Enter location or zip code" />
+          <div className="date-picker">
+            <button>Check-in Date</button>
+            <button>Check-out Date</button>
+          </div>
+          <button>Search</button>
         </div>
       </div>
     </div>
