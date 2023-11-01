@@ -1,7 +1,7 @@
 import React from "react";
 import { smilingadult } from "../../assets/smilingadult.jpeg";
 
-import "./Main.css";
+import "./MainImage.css";
 
 function MainImage() {
   return (
@@ -10,7 +10,7 @@ function MainImage() {
         className="main-image opacity-25 img-fluid"
         src={smilingadult}
         alt="smilingadult"
-        style={{ maxHeight: "80vh" }}
+        // style={{ maxHeight: "80vh" }}
       />
       <div className="overlay">
         <div className="fw-bold text-warning">

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MainImage from "./MainImage";
 import { smilingadult, reservedforyou, happycarcouple } from "../../assets";
 import "./Landing.css";
 
