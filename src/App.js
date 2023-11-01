@@ -8,7 +8,7 @@ import Admin from "./components/Dashboard/Admin";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
 import Renter from "./components/Renter/Renter";
-import LinkPage from "./components/Dashboard/LinkPage";
+import Hero from "./components/Dashboard/Hero";
 import RequireAuth from "./components/State/RequireAuth";
 import PersistLogin from "./components/State/PersistLogin";
 import { Routes, Route } from "react-router-dom";
