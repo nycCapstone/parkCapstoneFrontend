@@ -1,0 +1,32 @@
+footer {
+  height: 13rem;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr;
+  color: white;
+  background-color: rgb(233, 100, 121);
+  padding: 3rem;
+}
+p {
+  font-size: 15px;
+}
+h5,
+h4 {
+  margin-bottom: 1rem;
+}
+
+.app-slogan,
+.socials,
+.contacts,
+.footer-details {
+  justify-self: center;
+}
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+.icon {
+  font-size: 1.8rem;
+  border-radius: 50%;
+  border: 2px solid white;
+  padding: 0.3rem;
+}
