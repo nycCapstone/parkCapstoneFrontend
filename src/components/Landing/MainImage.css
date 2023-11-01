@@ -3,7 +3,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 20px; */
 }
 
 .main-image {
@@ -26,7 +25,7 @@
   text-align: center;
   top: 15%;
   left: 25%;
-  transform: translate(-50%, -50%);
+  transform: translate(-45%, -50%);
   text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
@@ -36,24 +35,11 @@
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  /* margin-right: 10px; */
 }
 
 .overlay .fw-bold {
   font-weight: bold;
   font-size: xxx-large;
-  color: #ffffff; /* Customize the text color */
-  text-align: center;
-}
-
-.overlay .fw-bold span {
-  font-size: 1.3rem;
-}
-
-.overlay .fw-bold span:last-child {
-  font-size: 1rem;
-}
-
-.overview {
-  font-size: large;
+  color: #ffffff;
+  /* text-align: center; */
 }

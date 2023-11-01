@@ -10,7 +10,6 @@ function MainImage() {
         className="main-image img-fluid"
         src={smilingadult}
         alt="smilingadult"
-        // style={{ maxHeight: "80vh" }}
       />
       <div className="overlay">
         <div className="fw-bold">Your Space. Their convenience.</div>
@@ -20,7 +19,7 @@ function MainImage() {
             <button>Check-in Date</button>
             <button>Check-out Date</button>
           </div>
-          <button>Search</button>
+          <button className="button">Search</button>
         </div>
       </div>
     </div>

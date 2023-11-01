@@ -16,7 +16,7 @@ function Nav() {
         <div className="nav-links">
           <Link to="/about">About Us</Link>
           <Link to="/login">Log in</Link>
-          <Link to="/login">Sign up</Link>
+          <Link to="/register">Sign up</Link>
         </div>
       </div>
     </nav>
