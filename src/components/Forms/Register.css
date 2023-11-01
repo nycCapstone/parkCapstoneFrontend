@@ -1,4 +1,5 @@
-section {
+.register,
+.logIn {
   color: rgb(24 24 29);
   width: 50%;
 
@@ -51,7 +52,8 @@ input {
   }
 }
 
-button {
+.signUp-button,
+.logIn-button {
   width: 5rem;
   height: 2.5rem;
   border: none;
@@ -82,7 +84,14 @@ button {
   justify-content: space-around;
   align-items: center;
 }
-a {
+.logIn-button {
+  margin-top: 2rem;
+}
+.header {
+  padding-bottom: 2rem;
+}
+.register-link,
+.login-link {
   color: rgb(233, 100, 121);
   text-decoration: none;
   &:hover {
