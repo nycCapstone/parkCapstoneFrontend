@@ -1,10 +1,16 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Noto+Sans+Lepcha&family=Righteous&display=swap"); */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-color: #ff5757;
   color: #fff;
   padding: 10px 20px;
+}
+
+.name {
+  font-family: Comic;
 }
 
 .left-nav {
@@ -31,6 +37,11 @@
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  width: 200px;
 }
+
+/* .name {
+  font-family: "Comic Neue", cursive;
+  color: #ffffff;
+  font-weight: bold;
+} */
