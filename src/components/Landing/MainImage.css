@@ -29,9 +29,9 @@
   text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
-.search-bar input {
+.searchbar {
   width: 100%;
-  padding: 10px;
+  padding: 18px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
