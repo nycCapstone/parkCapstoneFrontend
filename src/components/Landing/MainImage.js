@@ -1,5 +1,5 @@
 import React from "react";
-import { smilingadult } from "../../assets/smilingadult.jpeg";
+import { smilingadult } from "../../assets";
 
 import "./MainImage.css";
 
