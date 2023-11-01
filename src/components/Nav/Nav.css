@@ -1,0 +1,47 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Noto+Sans+Lepcha&family=Righteous&display=swap"); */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff5757;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.name {
+  font-family: Comic;
+}
+
+.left-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.right-nav {
+  margin-left: auto;
+}
+
+.logo {
+  width: 200px;
+}
+
+/* .name {
+  font-family: "Comic Neue", cursive;
+  color: #ffffff;
+  font-weight: bold;
+} */
