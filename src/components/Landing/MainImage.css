@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .main-image {
@@ -25,7 +26,6 @@
   /* width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center; */
   text-align: center;
@@ -51,4 +51,18 @@
 
 .search-bar .button {
   background-color: #ff3131;
+}
+
+@media (max-width: 450px){
+  .overlay .fw-bold {
+    font-size: 1.7rem;
+  }
+  
+}
+
+@media (max-width: 350px){
+  .overlay .fw-bold {
+    font-size: 1.4rem;
+  }
+  
 }

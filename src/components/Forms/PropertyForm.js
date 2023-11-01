@@ -19,7 +19,7 @@ const PropertyForm = () => {
 
   const validationSchema = Yup.object().shape({
     prop_address: Yup.string()
-      .matches(/^(\d+) (.+?), (.+?)$/, "123 Main St, New York")
+      .matches(/^(\d+) (.+?), (.+?)$/, "Invalid address")
       .required("Address is required"),
     zip: Yup.string()
       .matches(/^\d{5}(-\d{4})?$/, "Invalid ZIP code")

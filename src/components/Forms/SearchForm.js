@@ -1,41 +1,46 @@
 import { searchResultsSuccess } from "../../redux/search/searchResultsSlice";
-import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 import { useState } from "react";
-import "./Styles/SearchForm.css";
 import { useDispatch } from "react-redux";
+import "./Styles/SearchForm.css";
 import axios from "../../api/axios";
 
 const SearchForm = () => {
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [geocodeData, setGeocodeData] = useState(null);
-  const [zipCode, setZipCode] = useState("");
-  const [libraries] = useState(["places"]);
+  const [searchResult, setSearchResult] = useState("Result: none");
+  const [placesLibrary, setPlacesLibrary] = useState(["places"]);
+  const [formattedAddress, setFormattedAddress] = useState('');
   const dispatch = useDispatch();
 
-  const handlePlaceSelect = (place) => {
-    setSelectedAddress(place.formatted_address);
-  };
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
+    libraries: placesLibrary
+  });
+
+  function onLoad(autocomplete) {
+    setSearchResult(autocomplete);
+  }
+
+  function onPlaceChanged() {
+    if (searchResult != null) {
+      const place = searchResult.getPlace();
+      const fA = place.formatted_address;
+
+      console.log(`Formatted Address: ${fA}`);
+      setFormattedAddress(fA)
+    } else {
+      alert("Please enter text");
+    }
+  }
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   const getGeocodeData = async () => {
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: selectedAddress }, (results, status) => {
-      if (status === "OK" && results.length > 8) {
-        // Geocoding was successful
-        setGeocodeData(results[0]);
-        // Extract the zip code
-        const addressComponents = results[0].address_components;
-        const zipCodeComponent = addressComponents.find((component) =>
-          component.types.includes("postal_code")
-        );
 
-        if (zipCodeComponent) {
-          setZipCode(zipCodeComponent.long_name);
-        }
-      } else return;
-    });
 
     await axios
-      .get(`/get-spaces/address/a/${selectedAddress}`)
+      .post(`/get-spaces/address/a`, { addr: formattedAddress })
       .then((res) => {
         dispatch(searchResultsSuccess(res.data));
       })
@@ -44,30 +49,28 @@ const SearchForm = () => {
 
   return (
     <div>
-      <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_MAPS_KEY}
-        libraries={libraries}
-      >
-        <Autocomplete onLoad={handlePlaceSelect}>
+      <div>
+        <h2>Search for a Space</h2>
+        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
           <input
             type="text"
-            placeholder="Enter an address"
-            value={selectedAddress}
-            onChange={(e) => setSelectedAddress(e.target.value)}
+            placeholder="100 east street, NYC, NY"
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`
+            }}
           />
         </Autocomplete>
-      </LoadScript>
+      </div>
       <button onClick={getGeocodeData}>Get Address Data</button>
-      {geocodeData && (
-        <div>
-          <h3>Geocode Data:</h3>
-        </div>
-      )}
-      {zipCode && (
-        <div>
-          <h3>Zip Code:</h3>
-        </div>
-      )}
     </div>
   );
 };
