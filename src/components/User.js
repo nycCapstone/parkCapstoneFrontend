@@ -2,11 +2,12 @@ import UserAction from "../redux/userActions/UserAction";
 import { useGetUserInfoQuery } from "../redux/userActions/userApiSlice";
 
 const User = () => {
-    const { data, error, isLoading, isFetching, isSuccess } = useGetUserInfoQuery();
+    const { data, error, isLoading, isSuccess } = useGetUserInfoQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   if (isSuccess) {
     
     return (
