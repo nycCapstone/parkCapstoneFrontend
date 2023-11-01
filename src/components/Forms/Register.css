@@ -1,11 +1,12 @@
-section {
+.register,
+.logIn {
   color: rgb(24 24 29);
   width: 50%;
 
   margin: 50px auto;
   padding: 3rem;
   border-radius: 1rem;
-  background-color: rgb(249 249 255);
+  background-color: #f9f9ff;
   .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
@@ -51,7 +52,8 @@ input {
   }
 }
 
-button {
+.signUp-button,
+.logIn-button {
   width: 5rem;
   height: 2.5rem;
   border: none;
@@ -82,7 +84,14 @@ button {
   justify-content: space-around;
   align-items: center;
 }
-a {
+.logIn-button {
+  margin-top: 2rem;
+}
+.header {
+  padding-bottom: 2rem;
+}
+.register-link,
+.login-link {
   color: rgb(233, 100, 121);
   text-decoration: none;
   &:hover {

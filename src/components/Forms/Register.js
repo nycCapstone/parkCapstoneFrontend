@@ -123,12 +123,12 @@ const Register = () => {
   return (
     <>
       {success ? (
-        <section>
+        <section className="register">
           <h1>Success!</h1>
           <p>Confirmation email sent to {success}.</p>
         </section>
       ) : (
-        <section>
+        <section className="register">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -403,6 +403,7 @@ const Register = () => {
               </div>
             </div>
             <button
+              className="signUp-button"
               disabled={
                 !validEmail ||
                 !validPwd ||
@@ -423,7 +424,9 @@ const Register = () => {
               {" "}
               Already registered?{" "}
               <span>
-                <Link to={"/login"}>Log In</Link>
+                <Link className="login-link" to={"/login"}>
+                  Log In
+                </Link>
               </span>
             </p>
           </div>

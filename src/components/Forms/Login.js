@@ -4,7 +4,7 @@ import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
 import { setPersist, setAuth } from "../../redux/auth/authSlice";
-import "./login.css";
+import "./Register.css";
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);
@@ -60,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <section>
+    <section className="logIn">
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
@@ -68,7 +68,7 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <h1>Log in to CarValet</h1>
+      <h1 className="header">Log in to CarValet</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-block">
           <label htmlFor="email" className="input-label">
@@ -107,14 +107,16 @@ const Login = () => {
           />
           <label htmlFor="persist">Remember Me</label>
         </div>
-        <button>Log In</button>
+        <button className="logIn-button">Log In</button>
       </form>
       <div className="logIn-signUp">
         <p>
           {" "}
           Not registered yet?{" "}
           <span>
-            <Link to={"/register"}>Sign Up</Link>
+            <Link className="register-link" to={"/register"}>
+              Sign Up
+            </Link>
           </span>
         </p>
       </div>
