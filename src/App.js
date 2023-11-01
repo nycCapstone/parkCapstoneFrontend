@@ -14,43 +14,53 @@ import PersistLogin from "./components/State/PersistLogin";
 import { Routes, Route } from "react-router-dom";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
+import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage";
 
 function App() {
   return (
     <div className="approot">
-      <Nav/>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* public routes */}
-        <Route path="/" element={<LinkPage />} />
-        <Route path="go" element={<LinkPage />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="confirmation" element={<ConfirmEmail />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="*" element={<Missing />} />
-        {/* we want to protect these routes */}
-        <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
-            <Route path="home" element={<Home />} />
-          </Route>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* public routes */}
+          <Route path="/" element={<LinkPage />} />
+          <Route path="go" element={<LinkPage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="confirmation" element={<ConfirmEmail />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} />
 
-          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
-            <Route path="client" element={<Client />} />
+          <Route path="*" element={<Missing />} />
+          {/* we want to protect these routes */}
+          <Route element={<PersistLogin />}>
+            <Route
+              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+            >
+              <Route path="home" element={<Home />} />
+            </Route>
+
+            <Route
+              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+            >
+              <Route path="client" element={<Client />} />
+            </Route>
+            <Route
+              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+            >
+              <Route path="admin" element={<Admin />} />
+              <Route
+                path="admin/confirm-details"
+                element={<ConfirmDetails />}
+              />
+            </Route>
+            <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
+              <Route path="renter" element={<Renter />} />
+            </Route>
           </Route>
-          <Route element={<RequireAuth allowedRoles={["Client", "Renter"]} />}>
-            <Route path="admin" element={<Admin />} />
-            <Route path="admin/confirm-details" element={<ConfirmDetails />} />
-          </Route>
-          <Route
-            element={<RequireAuth allowedRoles={["Renter"]} />}
-          >
-            <Route path="renter" element={<Renter />} />
-          </Route>
+          {/* catch all */}
         </Route>
-        {/* catch all */}
-      </Route>
-    </Routes>
+      </Routes>
     </div>
   );
 }
