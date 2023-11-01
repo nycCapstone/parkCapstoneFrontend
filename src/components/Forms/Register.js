@@ -16,6 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
+import "./Register.css";
 
 const Register = () => {
   const userRef = useRef();
@@ -95,7 +96,7 @@ const Register = () => {
           is_renter,
         }),
         {
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
         }
       );
       setSuccess(email);
@@ -135,32 +136,93 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h3>Let's Get Started</h3>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email">
-              Email:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validEmail ? "valid" : "hide"}
+            <div className="input-block">
+              <label htmlFor="first_name" className="input-label">
+                First Name
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={first_name.length >= 2 ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={
+                    first_name.length >= 2 || !first_name ? "hide" : "invalid"
+                  }
+                />
+              </label>
+              <input
+                type="text"
+                id="first_name"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={first_name}
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                placeholder="First Name"
               />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validEmail || !email ? "hide" : "invalid"}
+            </div>
+            <div className="input-block">
+              <label htmlFor="last_name" className="input-label">
+                Last Name
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={last_name.length >= 2 ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={
+                    last_name.length >= 2 || !last_name ? "hide" : "invalid"
+                  }
+                />
+              </label>
+              <input
+                type="text"
+                id="last_name"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setLastName(e.target.value)}
+                value={last_name}
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                placeholder="Last Name"
               />
-            </label>
-            <input
-              type="email"
-              id="email"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-              aria-invalid={validEmail ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
+            </div>
+            <div className="input-block">
+              <label htmlFor="email" className="input-label">
+                Email
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validEmail ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validEmail || !email ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                placeholder="Email"
+                type="email"
+                id="email"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                aria-invalid={validEmail ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+              />
+            </div>
             <p
               id="uidnote"
               className={
@@ -173,154 +235,115 @@ const Register = () => {
               Must include @.
               <br />
             </p>
+            <div className="input-block">
+              <label htmlFor="address" className="input-label">
+                Address
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validAddress ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validAddress || !address ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="text"
+                id="address"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setAddress(e.target.value)}
+                value={address}
+                required
+                aria-invalid={validAddress ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                placeholder="Address"
+              />
+            </div>
 
-            <label htmlFor="first_name">
-              First Name:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validName ? "valid" : "hide"}
+            <div className="input-block">
+              <label htmlFor="city" className="input-label">
+                City
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validCity ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validCity || !city ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="text"
+                id="city"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+                required
+                aria-invalid={validCity ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                placeholder="City"
               />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validName || !first_name ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="first_name"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={first_name}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
+            </div>
 
-            <label htmlFor="last_name">
-              Last Name:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validName ? "valid" : "hide"}
+            <div className="input-block">
+              <label htmlFor="state" className="input-label">
+                State
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validState ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validState || !state ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="text"
+                id="state"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setState(e.target.value)}
+                value={state}
+                required
+                aria-invalid={validState ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                placeholder="State"
               />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validName || !last_name ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="last_name"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setLastName(e.target.value)}
-              value={last_name}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
+            </div>
 
-            <label htmlFor="address">
-              Address:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validAddress ? "valid" : "hide"}
+            <div className="input-block">
+              <label htmlFor="password" className="input-label">
+                Password
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validPwd ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validPwd || !password ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={password}
+                required
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+                placeholder="Password"
               />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validAddress || !address ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="address"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setAddress(e.target.value)}
-              value={address}
-              required
-              aria-invalid={validAddress ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
-
-            <label htmlFor="city">
-              City:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validCity ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validCity || !city ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="city"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-              required
-              aria-invalid={validCity ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
-
-            <label htmlFor="state">
-              State:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validState ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validState || !state ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="state"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setState(e.target.value)}
-              value={state}
-              required
-              aria-invalid={validState ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
-
-            <label htmlFor="password">
-              Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPwd ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validPwd || !password ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={password}
-              required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
+            </div>
             <p
               id="pwdnote"
               className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
@@ -332,28 +355,31 @@ const Register = () => {
               <br />
             </p>
 
-            <label htmlFor="confirm_pwd">
-              Confirm Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validMatch && matchPwd ? "valid" : "hide"}
+            <div className="input-block">
+              <label htmlFor="confirm_pwd" className="input-label">
+                Confirm Password
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validMatch && matchPwd ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validMatch || !matchPwd ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="password"
+                id="confirm_pwd"
+                onChange={(e) => setMatchPwd(e.target.value)}
+                value={matchPwd}
+                required
+                aria-invalid={validMatch ? "false" : "true"}
+                aria-describedby="confirmnote"
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+                placeholder="Confirm Password"
               />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validMatch || !matchPwd ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="password"
-              id="confirm_pwd"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
-              required
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-            />
+            </div>
             <p
               id="confirmnote"
               className={
@@ -363,6 +389,7 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </p>
+
             <div className="persistCheck">
               <input
                 type="checkbox"
@@ -375,7 +402,6 @@ const Register = () => {
                 <label htmlFor="persist">Renter?</label>
               </div>
             </div>
-
             <button
               disabled={
                 !validEmail ||
@@ -392,13 +418,15 @@ const Register = () => {
               Sign Up
             </button>
           </form>
-          <p>
-            Already registered?
-            <br />
-            <span className="line">
-              <Link to="/login">Sign In</Link>
-            </span>
-          </p>
+          <div className="logIn-signUp">
+            <p>
+              {" "}
+              Already registered?{" "}
+              <span>
+                <Link to={"/login"}>Log In</Link>
+              </span>
+            </p>
+          </div>
         </section>
       )}
     </>
