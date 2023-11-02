@@ -19,8 +19,6 @@ function Landing() {
           <MainImage />
         </header>
         <div className="main_container">
-          <header className="hero"></header>
-
           <section className="app-description">
             <h2>Welcome to CarValet</h2>
             <p>
