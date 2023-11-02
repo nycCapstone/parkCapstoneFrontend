@@ -16,6 +16,8 @@ import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 import Landing from "./components/Landing/Landing";
 import Footer from "./components/Footer/Footer";
+import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage";
+import AboutUs from "./components/AboutUs/AboutUs";
 function App() {
   return (
     <div className="approot">
@@ -29,6 +31,8 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="confirmation" element={<ConfirmEmail />} />
           <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Missing />} />
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>
