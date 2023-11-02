@@ -1,9 +1,7 @@
 footer {
-  /* height: 13rem; */
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  /* grid-template-columns: 0.5fr 1fr 1fr 1fr; */
   color: white;
   background-color: #ff3131;
   padding: 3rem;
@@ -30,7 +28,6 @@ h4 {
     flex-basis: 100%;
     gap: 1rem;
     padding-top: 2rem;
-    /* justify-content: space-around; */
   }
 
   .footer-details h5 {

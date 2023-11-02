@@ -1,6 +1,5 @@
 .main-image-container {
   position: relative;
-  /* display: flex; */
   align-items: center;
   justify-content: center;
   max-height: 550px;
@@ -17,8 +16,6 @@
 .overlay {
   background-color: rgba(255, 87, 87, 0.5);
   position: absolute;
-  /* top: auto;
-  left: 0; */
   padding: 2rem;
   border-radius: 1rem;
   top: 50px;
@@ -54,7 +51,6 @@
 }
 
 .check-in {
-  /* width: 60%; */
   padding: 18px;
   border: none;
   border-radius: 5px;
@@ -62,7 +58,6 @@
 }
 
 .check-out {
-  /* width: 60%; */
   padding: 18px;
   border: none;
   border-radius: 5px;
@@ -103,21 +98,3 @@ button {
 .search-bar .button {
   background-color: #ff3131;
 }
-
-/* @media (max-width: 480px) {
-  .overlay {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-  }
-} */
-
-/* @media (max-width: 768px) {
-  .overlay {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-  }
-} */

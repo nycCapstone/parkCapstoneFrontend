@@ -5,7 +5,7 @@ import { FaYoutube } from "react-icons/fa";
 import "./Footer.css";
 function Footer() {
   return (
-    <footer className="container grid grid-four-columns">
+    <footer className="container">
       <div className="app-slogan">
         <h4>CarValet</h4>
         <p className="slogan">"Your Space. Their Convenience"</p>
