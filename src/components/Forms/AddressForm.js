@@ -5,12 +5,18 @@ import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
 
 const AddressForm = () => {
-  const { data: userData, isLoading, error, isSuccess, refetch } = useGetUserInfoQuery();
+  const {
+    data: userData,
+    isLoading,
+    error,
+    isSuccess,
+    refetch,
+  } = useGetUserInfoQuery();
   const [formIsLoading, setformIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const [submitAddress] = useSubmitAddressMutation();
-      
+
   const formReducer = (state, action) => {
     switch (action.type) {
       case "CHANGE":
@@ -19,51 +25,58 @@ const AddressForm = () => {
           [action.field]: action.value,
         };
       case "SET_FORM_DATA":
-        return action.data
+        return action.data;
       case "RESET":
         return makeFormData(userData, true)[1];
       default:
         return state;
     }
   };
-  
+
   const [formState, dispatch] = useReducer(formReducer, {});
-  
+
   useEffect(() => {
     if (userData) {
-
-      dispatch({ type: 'SET_FORM_DATA', data: makeFormData(userData, false)[1] });
+      dispatch({
+        type: "SET_FORM_DATA",
+        data: makeFormData(userData, false)[1],
+      });
     }
   }, [userData]);
 
   if (isLoading) {
-    return <div>
-      <p>Loading.....</p>
-      <p>Loading.....</p>
-      <p>Loading.....</p>
-      <p>Loading.....</p>
-      <p>Loading.....</p>
-      <p>Loading.....</p>
-    </div>
-  } else if (isSuccess) {
-    if (userData?.all_is_auth) {
-      return <div>
-        <h2>no need to confirm address at this time</h2>
-        <Link to="/admin">Dashboard</Link>
+    return (
+      <div>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
+        <p>Loading.....</p>
       </div>
+    );
+  }
+  if (isSuccess) {
+    if (userData?.all_is_auth) {
+      return (
+        <div>
+          <h2>no need to confirm address at this time</h2>
+          <Link to="/admin">Dashboard</Link>
+        </div>
+      );
     }
     const [formData, dataArr] = makeFormData(userData, false);
 
     const handleInputChange = (field, value) => {
       dispatch({ type: "CHANGE", field, value });
     };
-    
+
     const handleSubmit = (e) => {
       e.preventDefault();
       if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
       submitAddr();
     };
-    
+
     const submitAddr = async () => {
       setformIsLoading(true);
       let url = formData.data.URL;
@@ -82,7 +95,7 @@ const AddressForm = () => {
           setformIsLoading(false);
         });
     };
-  
+
     return (
       <div>
         <p style={{ fontSize: "8px" }}>
@@ -149,8 +162,9 @@ const AddressForm = () => {
         )}
       </div>
     );
-  } else if (error) {
-    navigate('/admin')
+  }
+  if (error) {
+    navigate("/admin");
   }
 };
 
