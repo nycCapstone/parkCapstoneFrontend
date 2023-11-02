@@ -1,7 +1,5 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Noto+Sans+Lepcha&family=Righteous&display=swap"); */
-
 .navbar {
-  height: 10vh;
+  /* height: 10vh; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,8 +8,10 @@
   padding: 10px 20px;
 }
 
-.name {
-  font-family: Comic;
+@media (max-width: 460px) {
+  .navbar {
+    display: block;
+  }
 }
 
 .left-nav {

@@ -1,11 +1,14 @@
 footer {
-  height: 13rem;
-  display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr;
+  /* height: 13rem; */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* grid-template-columns: 0.5fr 1fr 1fr 1fr; */
   color: white;
   background-color: #ff3131;
   padding: 3rem;
 }
+
 p {
   font-size: 15px;
 }
@@ -20,6 +23,21 @@ h4 {
 .footer-details {
   justify-self: center;
 }
+
+@media (max-width: 1070px) {
+  .footer-details {
+    display: flex;
+    flex-basis: 100%;
+    gap: 1rem;
+    padding-top: 2rem;
+    /* justify-content: space-around; */
+  }
+
+  .footer-details h5 {
+    flex: 1;
+  }
+}
+
 .social-icons {
   display: flex;
   gap: 1rem;
