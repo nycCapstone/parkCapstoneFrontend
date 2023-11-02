@@ -36,7 +36,7 @@
 }
 
 .searchbar {
-  width: 100%;
+  width: 60%;
   padding: 18px;
   border: none;
   border-radius: 5px;
@@ -47,4 +47,8 @@
   font-weight: bold;
   font-size: xxx-large;
   color: #ffffff;
+}
+
+.search-bar .button {
+  background-color: #ff3131;
 }

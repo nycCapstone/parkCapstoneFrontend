@@ -14,9 +14,15 @@ function Nav() {
       </div>
       <div className="right-nav">
         <div className="nav-links">
-          <Link to="/about">About Us</Link>
-          <Link to="/login">Log in</Link>
-          <Link to="/register">Sign up</Link>
+          <Link className="about" to="/about">
+            About Us
+          </Link>
+          <Link className="log-in" to="/login">
+            Log in
+          </Link>
+          <Link className="sign-up" to="/register">
+            Sign up
+          </Link>
         </div>
       </div>
     </nav>

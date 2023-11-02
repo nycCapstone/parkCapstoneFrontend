@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(233, 100, 121);
+  background-color: #ff3131;
   color: #fff;
   padding: 10px 20px;
 }
@@ -30,7 +30,8 @@
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: black;
 }
 
 .right-nav {
@@ -41,8 +42,12 @@
   width: 200px;
 }
 
-/* .name {
-  font-family: "Comic Neue", cursive;
-  color: #ffffff;
-  font-weight: bold;
-} */
+.about:hover {
+  transform: scale(1.1);
+}
+.log-in:hover {
+  transform: scale(1.1);
+}
+.sign-up:hover {
+  transform: scale(1.1);
+}
