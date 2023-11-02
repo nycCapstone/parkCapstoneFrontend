@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import "./Styles/MainImage.css";
 
 const MainImage = () => {
-  const searchRes = useSelector(state => state.searchResults.data)
+  const searchRes = useSelector((state) => state.searchResults.data);
   return (
     <div className="main-image-container">
       <img
@@ -22,13 +22,11 @@ const MainImage = () => {
             <button>Check-in Date</button>
             <button>Check-out Date</button>
           </div>
-          <div>
-            {searchRes && JSON.stringify(searchRes)}
-          </div>
+          <div>{searchRes && JSON.stringify(searchRes)}</div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MainImage;
