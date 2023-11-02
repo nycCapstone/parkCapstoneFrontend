@@ -10,6 +10,7 @@ const useLogout = () => {
   const [logout] = useLogoutMutation();
 
   const startLogout = async () => {
+    navigate("/go");
     try {
       await logout()
         .unwrap()
@@ -21,7 +22,6 @@ const useLogout = () => {
     } catch (e) {
       console.error(e);
     } finally {
-      navigate("/go");
     }
   };
 
