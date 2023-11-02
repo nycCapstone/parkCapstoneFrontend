@@ -19,7 +19,7 @@ function Landing() {
           <MainImage />
         </header>
         <div className="main_container">
-          <section className="app-description">
+          <section className="landing-intro">
             <h2>Welcome to CarValet</h2>
             <p>
               Find the perfect parking spot by neighborhood, borough, city, or
