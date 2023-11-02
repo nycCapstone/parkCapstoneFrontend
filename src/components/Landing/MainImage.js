@@ -2,7 +2,7 @@ import React from "react";
 import { smilingadult } from "../../assets";
 import SearchForm from "../Forms/SearchForm";
 
-import "./MainImage.css";
+import "./Styles/MainImage.css";
 
 function MainImage() {
   return (

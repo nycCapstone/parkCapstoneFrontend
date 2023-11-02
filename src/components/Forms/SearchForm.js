@@ -37,7 +37,7 @@ const SearchForm = () => {
   }
 
   const getGeocodeData = async () => {
-
+    if (formattedAddress.length < 5) return;
 
     await axios
       .post(`/get-spaces/address/a`, { addr: formattedAddress })

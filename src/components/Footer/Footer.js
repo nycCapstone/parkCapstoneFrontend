@@ -3,7 +3,8 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import "./Footer.css";
-function Footer() {
+
+const Footer = () => {
   return (
     <footer className="container grid grid-four-columns">
       <div className="app-slogan">
