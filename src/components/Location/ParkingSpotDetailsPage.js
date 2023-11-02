@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../constants/helper/helper";
 import axios from "axios";
 import "./Details.css";
 
@@ -9,9 +10,7 @@ function ParkingSpotDetailsPage() {
     console.log("Component mounted");
 
     const backendURL =
-      process.env.REACT_APP_ENV === "development"
-        ? "http://localhost:3001/parking-spots"
-        : process.env.REACT_APP_BACKEND_URL + "/parking-spots";
+      BASE_URL + "/parking-spots";
 
     axios.get(backendURL).then((response) => {
       setParkingSpots(response.data.properties);
