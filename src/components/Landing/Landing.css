@@ -1,9 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
 .main_container {
   max-width: 1200px;
   margin: 0 auto;
@@ -13,7 +7,7 @@ body {
 .hero {
   background-size: cover;
   background-position: center;
-  padding: 120px 0;
+  padding: 70px 0;
   text-align: center;
   color: #fff;
   position: relative;
@@ -52,27 +46,53 @@ body {
   margin: 10px;
   cursor: pointer;
 }
-
-.app-description {
-  padding: 40px 0;
-  text-align: center;
+/* .landing-body {
+  background-color: #f5f5f5;
+} */
+.landing-intro {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.app-description h2 {
-  font-size: 28px;
+.app-description {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 3rem;
+  padding: 2rem;
+}
+/* .back-color {
+  background-color: #f5f7f8;
+}
+.background-color {
+  background-color: #f5f5f5;
+} */
+.marketing-image {
+  width: 30rem;
+  height: 20rem;
+  justify-self: center;
+}
+.pic-text {
+  align-self: center;
+}
+.pic-text p {
+  margin-bottom: 3rem;
+}
+.pic-text h2 {
+  margin-bottom: 2rem;
+}
+
+.app-description h2,
+.landing-intro h2 {
+  font-size: 25px;
   color: #333;
 }
 
 .app-description p {
   font-size: 16px;
   color: #555;
-}
-
-.marketing-image {
-  width: 300px;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
 }
 
 footer {
@@ -94,4 +114,18 @@ footer {
 
 .about-us-links a:hover {
   text-decoration: underline;
+}
+
+.become-renter,
+.reserve-now {
+  width: 5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: rgb(233, 100, 121);
+  color: white;
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.96);
+  }
 }
