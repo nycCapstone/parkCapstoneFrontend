@@ -8,7 +8,7 @@ function Footer() {
     <footer className="container grid grid-four-columns">
       <div className="app-slogan">
         <h4>CarValet</h4>
-        <p className="slogan">"Your Space Their Convenience"</p>
+        <p className="slogan">"Your Space. Their Convenience"</p>
       </div>
 
       <div className="socials">
