@@ -9,20 +9,11 @@ function Landing() {
   return (
     <>
       <Overlay>
-        <div className="mainimage">
+        <header className="mainimage">
           <MainImage />
-        </div>
+        </header>
         <div className="main_container">
-          <header className="hero">
-            {/* <div className="search-bar">
-              <input type="text" placeholder="Enter location or zip code" />
-              <button>Search</button>
-            </div>
-            <div className="date-picker">
-              <button>Check-in Date</button>
-              <button>Check-out Date</button>
-            </div> */}
-          </header>
+          <header className="hero"></header>
 
           <section className="app-description">
             <h2>Welcome to CarValet</h2>
