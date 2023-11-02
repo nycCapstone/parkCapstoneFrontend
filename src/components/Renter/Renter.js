@@ -1,8 +1,6 @@
 import { useGetPropertiesQuery } from "../../redux/renter/renterApiSlice";
 import { Link } from "react-router-dom";
 import PropertyForm from "../Forms/PropertyForm";
-import {useSelector} from "react-redux";
-import { store } from "../../app/store";
 
 const Renter = () => {
 
