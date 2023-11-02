@@ -1,5 +1,5 @@
-// import { Link } from "react-router-dom";
-// import Landing from "../Landing/Landing";
+import { Link } from "react-router-dom";
+import Landing from "../Landing/Landing";
 
 const Hero = () => {
   return (
