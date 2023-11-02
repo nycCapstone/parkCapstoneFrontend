@@ -2,7 +2,6 @@ import { apiSlice } from "../../api/apiSlice";
 import { setRole } from "../roles/rolesSlice";
 
 export const userApiSlice = apiSlice.injectEndpoints({
-  tagTypes: ['userData'],
   endpoints: (builder) => ({
     getUserInfo: builder.query({
       query: () => "/user/profile",
@@ -14,8 +13,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     logout: builder.mutation({
       query: () => ({
         url: "/logout"
-      }),
-      invalidatesTags: ["userData"]
+      })
     }),
   }),
 });

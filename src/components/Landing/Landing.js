@@ -9,7 +9,7 @@ import {
 } from "../../assets";
 import Overlay from "../../common/Overlay";
 
-import "./Landing.css";
+import "./Styles/Landing.css";
 
 function Landing() {
   return (

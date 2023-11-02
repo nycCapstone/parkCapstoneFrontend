@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=PT+Sans&family=Public+Sans:wght@200&family=Sora&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +18,7 @@ html {
 
 body {
   min-height: 100vh;
+  min-width: 100vh;
 }
 .instructions > svg {
   margin-right: 0.25rem;

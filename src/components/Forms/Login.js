@@ -4,7 +4,7 @@ import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
 import { setPersist, setAuth } from "../../redux/auth/authSlice";
-import "./Register.css";
+import "./Styles/login.css"
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);

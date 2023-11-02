@@ -2,8 +2,10 @@ import React from "react";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./Footer.css";
-function Footer() {
+
+const Footer = () => {
   return (
     <footer className="container grid grid-four-columns">
       <div className="app-slogan">
@@ -13,6 +15,7 @@ function Footer() {
 
       <div className="socials">
         <h5>Follow Us</h5>
+        <Link to="/admin">Admin</Link>
         <div className="social-icons">
           <div>
             <FaInstagram className="icon" />
