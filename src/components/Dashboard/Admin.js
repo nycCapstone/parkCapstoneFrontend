@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Admin.css";
@@ -26,11 +26,11 @@ const Admin = () => {
   return (
     <section>
       <AdminPage userInfo={data} />
-      <FontAwesomeIcon
+      {/* <FontAwesomeIcon
         onClick={() => refetch()}
         // icon={faRetweet}
         style={{ cursor: "pointer" }}
-      />
+      /> */}
       {/* <User /> */}
       <div className="flexGrow">
         <Link to="/home">Home</Link>

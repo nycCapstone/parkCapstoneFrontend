@@ -1,6 +1,9 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+
+import "./Home.css";
 
 const Home = () => {
   const { data: userData, isSuccess, isLoading, error } = useGetUserInfoQuery();
@@ -12,39 +15,48 @@ const Home = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <p>...Loading</p>
-        <p>...Loading</p>
-        <p>...Loading</p>
-        <p>...Loading</p>
+      <div className="loading-container">
+        <p>Loading...</p>
       </div>
     );
   }
 
   if (isSuccess) {
     return (
-      <section>
-        <h1>Home</h1>
-        <br />
-        {userData?.email && <p>{userData?.email}</p>}
+      <section className="home-container">
+        <h1>Welcome Home</h1>
+        {userData?.email && <p>Email: {userData?.email}</p>}
 
-        <br />
-        <Link to="/client">Go to the Client page</Link>
-        <br />
-        <Link to="/renter">Go to the Renter</Link>
-        <br />
-        <Link to="/admin">Go to the Admin page</Link>
-        <br />
-        <Link to="/go">Go to the link page</Link>
+        <div className="link-container">
+          <Link to="/client" className="nav-link">
+            Go to the Client page
+          </Link>
+          <Link to="/renter" className="nav-link">
+            Go to the Renter
+          </Link>
+          <Link to="/admin" className="nav-link">
+            Go to the Admin page
+          </Link>
+          <Link to="/go" className="nav-link">
+            Go to the link page
+          </Link>
+        </div>
+
         <div className="flexGrow">
-          <button onClick={signOut}>Sign Out</button>
+          <button className="sign-out-button" onClick={signOut}>
+            Sign Out
+          </button>
         </div>
       </section>
     );
   }
 
   if (error) {
-    <div>Server Error</div>
+    return (
+      <div className="error-container">
+        <p>Server Error</p>
+      </div>
+    );
   }
 };
 

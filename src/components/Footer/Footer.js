@@ -15,7 +15,7 @@ const Footer = () => {
 
       <div className="socials">
         <h5>Follow Us</h5>
-        <Link to="/admin">Admin</Link>
+        {/* <Link to="/admin">Admin</Link> */}
         <div className="social-icons">
           <div>
             <FaInstagram className="icon" />
@@ -42,6 +42,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
