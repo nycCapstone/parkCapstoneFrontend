@@ -16,3 +16,48 @@
 .home-link:hover {
   background-color: #0056b3;
 }
+
+.welcome-heading {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-email {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.link-container {
+  margin-top: 20px;
+}
+
+.nav-link {
+  display: block;
+  margin-bottom: 10px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.sign-out-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sign-out-button:hover {
+  background-color: #ff5722;
+}
