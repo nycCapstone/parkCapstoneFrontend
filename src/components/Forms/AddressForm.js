@@ -1,12 +1,16 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import { useState, useEffect, useReducer } from "react";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
-import { useValidateAddrMutation } from "../../redux/auth/authApiSlice";
-
 
 const AddressForm = () => {
+  const [placesLibrary, setPlacesLibrary] = useState(["places"]);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
+    libraries: placesLibrary,
+  });
   const {
     data: userData,
     isLoading,
@@ -15,40 +19,16 @@ const AddressForm = () => {
     refetch,
   } = useGetUserInfoQuery();
   const [formIsLoading, setformIsLoading] = useState(false);
-  const [resubmit, setResubmit] = useState(false);
+  const [searchResult, setSearchResult] = useState("Result: none");
+  const [formattedAddress, setFormattedAddress] = useState("");
+
+  function onLoad(autocomplete) {
+    setSearchResult(autocomplete);
+  }
+  const [submitAddress] = useSubmitAddressMutation();
   const navigate = useNavigate();
 
-  const [submitAddress] = useSubmitAddressMutation();
-  const [validateAddress] = useValidateAddrMutation();
-
-  const formReducer = (state, action) => {
-    switch (action.type) {
-      case "CHANGE":
-        return {
-          ...state,
-          [action.field]: action.value,
-        };
-      case "SET_FORM_DATA":
-        return action.data;
-      case "RESET":
-        return makeFormData(userData, true)[1];
-      default:
-        return state;
-    }
-  };
-
-  const [formState, dispatch] = useReducer(formReducer, {});
-
-  useEffect(() => {
-    if (userData) {
-      dispatch({
-        type: "SET_FORM_DATA",
-        data: makeFormData(userData, false)[1],
-      });
-    }
-  }, [userData]);
-
-  if (isLoading) {
+  if (isLoading || !isLoaded) {
     return (
       <div>
         <p>Loading.....</p>
@@ -60,7 +40,7 @@ const AddressForm = () => {
       </div>
     );
   }
-  if (isSuccess) {
+  if (isSuccess && isLoaded) {
     if (userData?.all_is_auth) {
       return (
         <div>
@@ -69,75 +49,62 @@ const AddressForm = () => {
         </div>
       );
     }
-    const [formData, dataArr] = makeFormData(userData, false);
+    const [formData, dataString] = makeFormData(userData, false);
 
-    const handleInputChange = (field, value) => {
-      dispatch({ type: "CHANGE", field, value });
-    };
+    function onPlaceChanged() {
+      if (searchResult != null) {
+        const place = searchResult.getPlace();
+        const fA = place.formatted_address;
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (JSON.stringify(formState) === JSON.stringify(dataArr)) return;
-      submitAddr();
-    };
+        if (
+          place?.address_components?.some((item) =>
+            item?.types?.includes("postal_code")
+          )
+        ) {
+          setFormattedAddress(fA);
+        }
+
+        console.log(`Formatted Address: ${fA}`);
+      } else {
+        alert("Please enter text");
+      }
+    }
 
     const submitAddr = async () => {
+      if (formattedAddress.length < 8) return;
       setformIsLoading(true);
-      let next = true;
-      let sqlAddr = "";
-      try {
-        validateAddress({ address: Object.values(formState).join(" ") })
-        .unwrap()
-        .then((res) => {
-          if (res?.confirm === false) {
-            setResubmit(true);
-            setformIsLoading(false);
-            next = false;
-            return;
-          } else if (res?.confirm === true) {
-            sqlAddr = res.formattedAddress;
-          }
-        });
-      } catch (e) {
-        console.error(e);
-        next = false;
-        setformIsLoading(false);
-        return;
-      }
       const url = formData.data.URL;
       let body = {
-        address: sqlAddr,
+        address: formattedAddress,
         clientOnly: formData.data.ClientOnly,
       };
-      if (next) {
-        await submitAddress({ url, body })
-          .unwrap()
-          .then((res) => {
-            refetch();
-            navigate("/admin");
-          })
-          .catch((err) => {
-            console.error(err);
-            setformIsLoading(false);
-          }).finally(f => setformIsLoading(false));
-      }
+      await submitAddress({ url, body })
+        .unwrap()
+        .then((res) => {
+          refetch();
+          navigate("/admin");
+        })
+        .catch((err) => {
+          console.error(err);
+          setformIsLoading(false);
+        })
+        .finally((f) => setformIsLoading(false));
     };
 
     return (
       <div>
-        <p style={{ fontSize: "8px" }}>
-          {JSON.stringify(formData)} {JSON.stringify(userData)}
-        </p>
         <h3>{formData.mode} confirmation</h3>
-        {resubmit && <h4>Please edit your address submission</h4>}
+        <p>Sign up address: {dataString}</p>
         <div>
-          Your current address, click to Confirm.{" "}
+          Your formatted address, click to Confirm.{" "}
           <p
             onClick={() => submitAddr()}
             className="text-underline"
             style={{ cursor: "pointer", textDecoration: "underline" }}
           >
-            {Object.values(formState).join(" ")}
+            {formattedAddress?.length < 3
+              ? "type in an address with zipcode"
+              : formattedAddress}
           </p>
         </div>
         {formIsLoading ? (
@@ -148,45 +115,27 @@ const AddressForm = () => {
             <p>Loading.....</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="py-0">
-            <label htmlFor="streetAddress">Street Address:</label>
-            <input
-              type="text"
-              placeholder="Enter street address"
-              value={formState["0"] || ""}
-              onChange={(e) => handleInputChange("0", e.target.value)}
-              disabled={formData.data.isFormEnabled}
-              id="streetAddress"
-            />
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              placeholder="Enter city"
-              value={formState["1"] || ""}
-              onChange={(e) => handleInputChange("1", e.target.value)}
-              disabled={formData.data.isFormEnabled}
-              id="city"
-            />
-            <label htmlFor="state">State:</label>
-            <input
-              type="text"
-              placeholder="Enter state"
-              value={formState["2"] || ""}
-              onChange={(e) => handleInputChange("2", e.target.value)}
-              disabled={formData.data.isFormEnabled}
-              id="state"
-            />
-            <button type="submit" disabled={formData.data.isFormEnabled}>
-              Submit
-            </button>
-            <button
-              type="click"
-              disabled={formData.data.isFormEnabled}
-              onClick={() => dispatch({ type: "RESET" })}
-            >
-              Reset
-            </button>
-          </form>
+          <>
+            <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+              <input
+                type="text"
+                placeholder={dataString}
+                style={{
+                  boxSizing: `border-box`,
+                  border: `1px solid transparent`,
+                  width: `240px`,
+                  height: `32px`,
+                  padding: `0 12px`,
+                  borderRadius: `3px`,
+                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                  fontSize: `14px`,
+                  outline: `none`,
+                  textOverflow: `ellipses`,
+                }}
+              />
+            </Autocomplete>
+            <button onClick={submitAddr}>Submit Address</button>
+          </>
         )}
       </div>
     );

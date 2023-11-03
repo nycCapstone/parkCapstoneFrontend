@@ -13,17 +13,12 @@ export function makeFormData(userData, err) {
                 isFormEnabled: false
             }
         }
-        let tempArr =
+        let tempAddr =
         formData.mode === "client"
-        ? userData?.address?.split(" ")
+        ? userData?.address
         : formData.mode === "renter"
-        ? userData?.renter_address?.split(" ")
-        : userData?.space_address?.split(" ");
-        if (!tempArr) tempArr = ["missing", "address", "fill"];
-        const dataArr = {
-          0: tempArr[0],
-          1: tempArr[1],
-          2: tempArr.slice(2).join(" "),
-        };
-        return [formData, dataArr];
+        ? userData?.renter_address
+        : userData?.space_address
+        if (!tempAddr) tempAddr = "missing address use search feature";
+        return [formData, tempAddr];
 }
