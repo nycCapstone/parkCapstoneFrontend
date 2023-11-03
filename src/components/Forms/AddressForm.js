@@ -3,6 +3,8 @@ import { useState, useEffect, useReducer } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
+import { useValidateAddrMutation } from "../../redux/auth/authApiSlice";
+
 
 const AddressForm = () => {
   const {
@@ -13,9 +15,11 @@ const AddressForm = () => {
     refetch,
   } = useGetUserInfoQuery();
   const [formIsLoading, setformIsLoading] = useState(false);
+  const [resubmit, setResubmit] = useState(false);
   const navigate = useNavigate();
 
   const [submitAddress] = useSubmitAddressMutation();
+  const [validateAddress] = useValidateAddrMutation();
 
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -79,21 +83,44 @@ const AddressForm = () => {
 
     const submitAddr = async () => {
       setformIsLoading(true);
-      let url = formData.data.URL;
-      let body = {
-        address: Object.values(formState).join(" "),
-        clientOnly: formData.data.ClientOnly,
-      };
-      await submitAddress({ url, body })
+      let next = true;
+      let sqlAddr = "";
+      try {
+        validateAddress({ address: Object.values(formState).join(" ") })
         .unwrap()
         .then((res) => {
-          refetch();
-          navigate("/admin");
-        })
-        .catch((err) => {
-          console.error(err);
-          setformIsLoading(false);
+          if (res?.confirm === false) {
+            setResubmit(true);
+            setformIsLoading(false);
+            next = false;
+            return;
+          } else if (res?.confirm === true) {
+            sqlAddr = res.formattedAddress;
+          }
         });
+      } catch (e) {
+        console.error(e);
+        next = false;
+        setformIsLoading(false);
+        return;
+      }
+      const url = formData.data.URL;
+      let body = {
+        address: sqlAddr,
+        clientOnly: formData.data.ClientOnly,
+      };
+      if (next) {
+        await submitAddress({ url, body })
+          .unwrap()
+          .then((res) => {
+            refetch();
+            navigate("/admin");
+          })
+          .catch((err) => {
+            console.error(err);
+            setformIsLoading(false);
+          }).finally(f => setformIsLoading(false));
+      }
     };
 
     return (
@@ -102,6 +129,7 @@ const AddressForm = () => {
           {JSON.stringify(formData)} {JSON.stringify(userData)}
         </p>
         <h3>{formData.mode} confirmation</h3>
+        {resubmit && <h4>Please edit your address submission</h4>}
         <div>
           Your current address, click to Confirm.{" "}
           <p
@@ -164,7 +192,10 @@ const AddressForm = () => {
     );
   }
   if (error) {
-    navigate("/admin");
+    <div>
+      Server Error.
+      <Link to="/admin">Back</Link>
+    </div>;
   }
 };
 

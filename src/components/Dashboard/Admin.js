@@ -25,13 +25,7 @@ const Admin = () => {
 
   return (
     <section>
-      <AdminPage userInfo={data} />
-      {/* <FontAwesomeIcon
-        onClick={() => refetch()}
-        // icon={faRetweet}
-        style={{ cursor: "pointer" }}
-      /> */}
-      {/* <User /> */}
+      <AdminPage />
       <div className="flexGrow">
         <Link to="/home">Home</Link>
       </div>

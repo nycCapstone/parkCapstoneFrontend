@@ -23,10 +23,11 @@ const SearchForm = () => {
   function onPlaceChanged() {
     if (searchResult != null) {
       const place = searchResult.getPlace();
+      console.log(JSON.stringify(place));
       const fA = place.formatted_address;
 
       console.log(`Formatted Address: ${fA}`);
-      setFormattedAddress(fA)
+      setFormattedAddress(fA);
     } else {
       alert("Please enter text");
     }
@@ -40,7 +41,7 @@ const SearchForm = () => {
     if (formattedAddress.length < 5) return;
 
     await axios
-      .post(`/get-spaces/address/a`, { addr: formattedAddress })
+      .post(`/get-spaces/address/b`, { addr: formattedAddress })
       .then((res) => {
         dispatch(searchResultsSuccess(res.data));
       })

@@ -9,10 +9,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body: { ...credentials }
             }),
             invalidatesTags: ["userData"]
+        }),
+        validateAddr: builder.mutation({
+            query: address => ({
+                url: '/maps/verify-addr',
+                method: 'POST',
+                body: { ...address }
+            })
         })
     })
 })
 
 export const {
-    useLoginMutation
+    useLoginMutation,
+    useValidateAddrMutation
 } = authApiSlice
