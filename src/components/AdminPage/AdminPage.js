@@ -1,7 +1,25 @@
 import React from "react";
 import "./AdminPage.css";
+import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import UserAction from "../../redux/userActions/UserAction";
 
-function AdminPage({ userInfo }) {
+const AdminPage = () => {
+  const { data: userInfo, isSuccess, isLoading, error } = useGetUserInfoQuery();
+
+  if (isLoading) {
+    return <div>
+      <p>...Loading</p>
+      <p>...Loading</p>
+      <p>...Loading</p>
+      <p>...Loading</p>
+    </div>
+  }
+
+  if (error) {
+    return <div>Server Fetching Error</div>
+  }
+
+  if (isSuccess)
   return (
     <div className="admin-page">
       <h1>Admin Page</h1>
@@ -18,6 +36,7 @@ function AdminPage({ userInfo }) {
           Client Background Verified:{" "}
           {userInfo.client_background_verified ? "Yes" : "No"}
         </p>
+          <UserAction/>
         <div className="roles">
           <h3>Roles</h3>
           <div className="role-list">
