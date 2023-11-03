@@ -8,6 +8,7 @@ import "./Styles/MainImage.css";
 
 const MainImage = () => {
   const searchRes = useSelector((state) => state.searchResults.data);
+  const isLoading = useSelector((state) => state.searchResults.loading);
   return (
     <div className="main-image-container">
       <img
@@ -24,6 +25,13 @@ const MainImage = () => {
             <button>Check-out Date</button>
           </div>
           <div>
+            {
+              isLoading ? <div>
+                <p>....Loading</p>
+                <p>....Loading</p>
+                <p>....Loading</p>
+              </div> :
+
             <div className="searchres-elem">
               <div className="scrollable-div">
                 {searchRes &&
@@ -50,6 +58,7 @@ const MainImage = () => {
                   })}
               </div>
             </div>
+            }
           </div>
         </div>
       </div>

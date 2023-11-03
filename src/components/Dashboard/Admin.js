@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Admin.css";
-// import User from "../User";
 
 const Admin = () => {
   const { data, refetch, isLoading, isError } = useGetUserInfoQuery();

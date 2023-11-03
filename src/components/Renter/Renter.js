@@ -24,6 +24,7 @@ const Renter = () => {
                 <p>This is where you can make new available spots.</p>
                 <PropertyForm/>
                 <div className="renter-prop-elem">
+                    <h3>Your current properties</h3>
                 {renterData?.length>0 && 
                 renterData.map((item, i) => {
                     return (
