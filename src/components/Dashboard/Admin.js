@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import useLogout from "../../hooks/useLogout";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 
 const Admin = () => {
-  const { data, refetch, isLoading, isError } = useGetUserInfoQuery();
+  const { data, refetch, isLoading, isError, isSuccess } =
+    useGetUserInfoQuery();
+
+  const logout = useLogout();
+
+  const signOut = async () => {
+    await logout();
+  };
 
   if (isLoading) {
     return <div>Loading user information...</div>;
