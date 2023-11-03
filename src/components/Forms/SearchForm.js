@@ -75,7 +75,7 @@ const SearchForm = () => {
         if (res.data?.length > 0) dispatch(searchResultsSuccess(res.data));
         if (res.data?.length === 0)
           dispatch(searchResultsError("no results found"));
-        navigate("/search-result");
+        navigate("/parking-spots");
       })
       .catch((e) => {
         console.error(e);
