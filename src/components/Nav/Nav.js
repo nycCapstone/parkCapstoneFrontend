@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import "./Nav.css";
 
 function Nav() {
-
-  const userStatus = useSelector(state => state.auth.accessToken);
+  const userStatus = useSelector((state) => state.auth.accessToken);
 
   return (
     <nav className="navbar">
@@ -17,24 +16,20 @@ function Nav() {
         </Link>
       </div>
       <div className="right-nav">
-        <div className="nav-links" >
+        <div className="nav-links">
           <Link className="about" to="/about">
             About Us
           </Link>
-          {
-            !userStatus ? 
+          {!userStatus ? (
+            <Link className="log-in" to="/login">
+              Login
+            </Link>
+          ) : (
+            <Link className="log-in" to="/home">
+              profile page
+            </Link>
+          )}
 
-          <Link className="log-in" to="/login">
-            Login
-          </Link>
-          :
-          <Link className="log-in" to="/home">
-            profile page
-          </Link>
-
-
-          }
-          
           <Link className="sign-up" to="/register">
             Sign up
           </Link>
