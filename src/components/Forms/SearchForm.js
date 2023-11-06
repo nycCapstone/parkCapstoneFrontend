@@ -2,9 +2,10 @@ import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 import { searchResultsSuccess, searchResultsLoading, searchResultsError } from "../../redux/search/searchResultsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
 import "./Styles/SearchForm.css";
+import axios from "../../api/axios";
 
 const SearchForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -83,6 +84,18 @@ const SearchForm = () => {
             placeholder={placeHolder}
             className="g-search"
             ref={searchRef}
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+            }}
           />
         </Autocomplete>
       </div>
