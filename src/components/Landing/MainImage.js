@@ -20,12 +20,40 @@ const MainImage = () => {
             <button>Check-out Date</button>
           </div>
           <div>
-            {isLoading && (
+            {isLoading ? (
               <div>
-                <Loading />
+                <p>....Loading</p>
+                <p>....Loading</p>
+                <p>....Loading</p>
+              </div>
+            ) : (
+              <div className="searchres-elem">
+                <div className="scrollable-div">
+                  {searchRes &&
+                    searchRes.map((item, i) => {
+                      return (
+                        <div className="spot-info" key={i}>
+                          <h3>{i + 1}</h3>
+                          <p>Address: {item.prop_address}</p>
+                          <p>Zip Code: {item.zip}</p>
+                          <p>Space type: {item.sp_type}</p>
+                          <p>Available?: {item.occupied ? "No" : "Yes"}</p>
+                          <p>Space ID: {item.space_id}</p>
+                          <div className="cost-info">
+                            <h3>Price</h3>
+                            <div className="cost-list">
+                              <div className="cost-item">
+                                <p>{item.billing_type}</p>
+                                <p>{item.price}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             )}
-            {isError && <div className="capsule fail">{isError}</div>}
           </div>
         </div>
       </div>

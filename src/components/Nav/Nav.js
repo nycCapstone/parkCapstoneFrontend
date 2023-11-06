@@ -1,12 +1,12 @@
 import React from "react";
 import { carvaletlogo } from "../../assets";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 
 import "./Nav.css";
 
 function Nav() {
-  const userStatus = useSelector((state) => state.auth.accessToken);
+  const { data: userInfo, isLoading, isSuccess } = useGetUserInfoQuery();
 
   return (
     <nav className="navbar">
@@ -20,15 +20,9 @@ function Nav() {
           <Link className="about" to="/about">
             About Us
           </Link>
-          {!userStatus ? (
-            <Link className="log-in" to="/login">
-              Login
-            </Link>
-          ) : (
-            <Link className="log-in" to="/home">
-              profile page
-            </Link>
-          )}
+          <Link className="log-in" to="/login">
+            Log in
+          </Link>
 
           <Link className="sign-up" to="/register">
             Sign up
