@@ -1,13 +1,12 @@
 import React from "react";
 import { carvaletlogo } from "../../assets";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 
 import "./Nav.css";
 
 function Nav() {
-  const { data: userInfo, isLoading, isSuccess } = useGetUserInfoQuery();
-
   return (
     <nav className="navbar">
       <div className="left-nav">
