@@ -4,11 +4,11 @@ import {
   searchResultsLoading,
   searchResultsError,
 } from "../../redux/search/searchResultsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
 import "./Styles/SearchForm.css";
+import axios from "../../api/axios";
 
 const SearchForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -16,18 +16,10 @@ const SearchForm = () => {
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
     libraries: placesLibrary,
   });
-  const [searchResult, setSearchResult] = useState("");
-  const [formattedAddress, setFormattedAddress] = useState({});
-  const placeHolder = useSelector((state) => {
-    if (state.searchResults.data?.length) {
-      return state.searchResults.data[0].prop_address;
-    } else {
-      return "NYC NY 10001";
-    }
-  });
+  const [searchResult, setSearchResult] = useState("Result: none");
+  const [formattedAddress, setFormattedAddress] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchRef = useRef();
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
@@ -37,22 +29,8 @@ const SearchForm = () => {
     if (searchResult != null) {
       const place = searchResult.getPlace();
       const fA = place.formatted_address;
-      if (
-        !place?.address_components?.some((item) => {
-          let c = item;
-          if (item?.types?.includes("postal_code")) {
-            const z = c?.long_name || c?.short_name;
-            setFormattedAddress({ addr: fA, hasZip: true, zipCode: z });
-            return true;
-          } else {
-            return false;
-          }
-        })
-      ) {
-        setFormattedAddress({ addr: fA, hasZip: false, zipCode: "" });
-      }
-
       console.log(`Formatted Address: ${fA}`);
+      setFormattedAddress(fA);
     } else {
       alert("Please enter text");
     }
@@ -63,24 +41,18 @@ const SearchForm = () => {
   }
 
   const getRelevantSpots = async () => {
-    if (!formattedAddress?.addr) {
-      searchRef.current.focus();
-      return;
-    }
+    if (formattedAddress?.length < 7 || !formattedAddress?.length) return;
     dispatch(searchResultsLoading());
-
-    await axios
-      .post(`/get-spaces/address/a`, { ...formattedAddress })
-      .then((res) => {
-        if (res.data?.length > 0) dispatch(searchResultsSuccess(res.data));
-        if (res.data?.length === 0)
-          dispatch(searchResultsError("no results found"));
-        navigate("/parking-spots");
-      })
-      .catch((e) => {
-        console.error(e);
-        dispatch(searchResultsError(e));
+    try {
+      const res = await axios.post(`/get-spaces/address/b`, {
+        addr: formattedAddress,
       });
+      dispatch(searchResultsSuccess(res.data));
+      navigate("/parking-spots");
+    } catch (e) {
+      console.error(e);
+      dispatch(searchResultsError);
+    }
   };
 
   return (
@@ -89,10 +61,20 @@ const SearchForm = () => {
         <h2>Search for a Space</h2>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
           <input
-            className="g-search"
             type="text"
-            placeholder={placeHolder}
-            ref={searchRef}
+            placeholder="100 east street, NYC, NY"
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+            }}
           />
         </Autocomplete>
       </div>
