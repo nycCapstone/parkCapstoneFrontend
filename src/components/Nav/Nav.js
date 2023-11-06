@@ -1,40 +1,35 @@
 import React from "react";
-import { appLogo } from "../../assets";
+import { carvaletlogo } from "../../assets";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./Nav.css";
 
 function Nav() {
-
-  const userStatus = useSelector(state => state.auth.accessToken);
+  const userStatus = useSelector((state) => state.auth.accessToken);
 
   return (
     <nav className="navbar">
       <div className="left-nav">
         <Link to="/">
-          <img className="logo" src={appLogo} alt="logo" />
+          <img className="logo" src={carvaletlogo} alt="logo" />
         </Link>
       </div>
       <div className="right-nav">
-        <div className="nav-links" >
+        <div className="nav-links">
           <Link className="about" to="/about">
             About Us
           </Link>
-          {
-            !userStatus ? 
+          {!userStatus ? (
+            <Link className="log-in" to="/login">
+              Login
+            </Link>
+          ) : (
+            <Link className="log-in" to="/home">
+              profile page
+            </Link>
+          )}
 
-          <Link className="log-in" to="/login">
-            Login
-          </Link>
-          :
-          <Link className="log-in" to="/home">
-            profile page
-          </Link>
-
-
-          }
-          
           <Link className="sign-up" to="/register">
             Sign up
           </Link>
