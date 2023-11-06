@@ -1,7 +1,12 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import { searchResultsSuccess, searchResultsLoading, searchResultsError } from "../../redux/search/searchResultsSlice";
+import {
+  searchResultsSuccess,
+  searchResultsLoading,
+  searchResultsError,
+} from "../../redux/search/searchResultsSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./Styles/SearchForm.css";
 import axios from "../../api/axios";
 
@@ -14,7 +19,7 @@ const SearchForm = () => {
   const [searchResult, setSearchResult] = useState("Result: none");
   const [formattedAddress, setFormattedAddress] = useState("");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
@@ -36,14 +41,18 @@ const SearchForm = () => {
   }
 
   const getRelevantSpots = async () => {
-    if (formattedAddress.length < 7) return;
-    dispatch(searchResultsLoading())
-    await axios
-      .post(`/get-spaces/address/b`, { addr: formattedAddress })
-      .then((res) => {
-        dispatch(searchResultsSuccess(res.data));
-      })
-      .catch((e) =>{ console.error(e); dispatch(searchResultsError);});
+    if (formattedAddress?.length < 7 || !formattedAddress?.length) return;
+    dispatch(searchResultsLoading());
+    try {
+      const res = await axios.post(`/get-spaces/address/b`, {
+        addr: formattedAddress,
+      });
+      dispatch(searchResultsSuccess(res.data));
+      navigate("/parking-spots");
+    } catch (e) {
+      console.error(e);
+      dispatch(searchResultsError);
+    }
   };
 
   return (
