@@ -1,14 +1,10 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import {
-  searchResultsSuccess,
-  searchResultsLoading,
-  searchResultsError,
-} from "../../redux/search/searchResultsSlice";
+import { searchResultsSuccess, searchResultsLoading, searchResultsError } from "../../redux/search/searchResultsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./Styles/SearchForm.css";
 import axios from "../../api/axios";
+import "./Styles/SearchForm.css";
 
 const SearchForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -16,8 +12,15 @@ const SearchForm = () => {
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
     libraries: placesLibrary,
   });
-  const [searchResult, setSearchResult] = useState("Result: none");
-  const [formattedAddress, setFormattedAddress] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+  const [formattedAddress, setFormattedAddress] = useState({});
+  const placeHolder = useSelector(state => {
+    if (state.searchResults.data?.length) {
+      return state.searchResults.data[0].prop_address
+    } else {
+      return "Search for a spot (eg. NYC NY 1001)"
+    }
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchRef = useRef();
@@ -73,23 +76,13 @@ const SearchForm = () => {
   return (
     <div>
       <div>
-        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+        <h2>Search for a Space</h2>
+        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}  >
           <input
             type="text"
-            placeholder="Search for a spot (eg. NYC NY 1001)"
+            placeholder={placeHolder}
+            className="g-search"
             ref={searchRef}
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-            }}
           />
         </Autocomplete>
       </div>
