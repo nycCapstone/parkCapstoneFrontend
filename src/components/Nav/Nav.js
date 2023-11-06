@@ -1,5 +1,5 @@
 import React from "react";
-import { appLogo } from "../../assets";
+import { carvaletlogo } from "../../assets";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -12,11 +12,11 @@ function Nav() {
     <nav className="navbar">
       <div className="left-nav">
         <Link to="/">
-          <img className="logo" src={appLogo} alt="logo" />
+          <img className="logo" src={carvaletlogo} alt="logo" />
         </Link>
       </div>
       <div className="right-nav">
-        <div className="nav-links" >
+        <div className="nav-links">
           <Link className="about" to="/about">
             About Us
           </Link>

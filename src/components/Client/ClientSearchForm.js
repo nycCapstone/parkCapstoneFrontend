@@ -1,12 +1,10 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import { searchResultsSuccess, searchResultsLoading, searchResultsError } from "../../redux/search/searchResultsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
-import "./Styles/SearchForm.css";
+import { searchBookings } from "../../redux/client/clientSearchSlice";
+import "../Forms/Styles/SearchForm.css";
 
-const SearchForm = () => {
+const ClientSearchForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
@@ -14,15 +12,19 @@ const SearchForm = () => {
   });
   const [searchResult, setSearchResult] = useState("");
   const [formattedAddress, setFormattedAddress] = useState({});
-  const placeHolder = useSelector(state => {
-    if (state.searchResults.data?.length) {
-      return state.searchResults.data[0].prop_address
-    } else {
-      return "Search for a spot (eg. NYC NY 1001)"
-    }
-  });
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [error, setError] = useState('');
+
+  const handleStartTimeChange = (e) => {
+    setStartTime(e.target.value);
+  };
+
+  const handleEndTimeChange = (e) => {
+    setEndTime(e.target.value);
+  };
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const searchRef = useRef();
 
   function onLoad(autocomplete) {
@@ -56,31 +58,26 @@ const SearchForm = () => {
     return <div>Loading...</div>;
   }
 
-  const getRelevantSpots = async () => {
+  const searchForAvail = (e) => {
+    e.preventDefault();
     if (!formattedAddress?.addr){
       searchRef.current.focus();
       return;
     }
-    dispatch(searchResultsLoading())
-    await axios
-      .get(`/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`)
-      .then((res) => {
-        if (res.data?.length>0) dispatch(searchResultsSuccess(res.data));
-        if (res.data?.length===0) dispatch(searchResultsError("no results found"));
-        navigate("/search-result");
-      })
-      .catch((e) =>{ console.error(e); dispatch(searchResultsError(e))});
-  };
+    dispatch(searchBookings([formattedAddress?.zipCode || '', formattedAddress?.addr || '', startTime, endTime]))
 
+  };
 
   return (
     <div>
       <div>
+            </div>
+        <form onSubmit={searchForAvail}>
         <h2>Search for a Space</h2>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}  >
           <input
             type="text"
-            placeholder={placeHolder}
+            placeholder="nyc"
             className="g-search"
             ref={searchRef}
             style={{
@@ -91,12 +88,22 @@ const SearchForm = () => {
             }}
           />
         </Autocomplete>
-      </div>
-      <button className="button-cta" onClick={getRelevantSpots}>
+        <div>
+          <label>Start Time:</label>
+          <input type="datetime-local" value={startTime} onChange={handleStartTimeChange} />
+        </div>
+        <div>
+          <label>End Time:</label>
+          <input type="datetime-local" value={endTime} onChange={handleEndTimeChange} />
+        </div>
+        {error && <p className="error">{error}</p>}
+      <button className="button-cta" type="submit">
         Search
       </button>
+
+        </form>
     </div>
   );
 };
 
-export default SearchForm;
+export default ClientSearchForm;
