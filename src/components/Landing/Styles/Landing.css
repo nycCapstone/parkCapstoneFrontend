@@ -61,7 +61,8 @@
   }
 
   .marketing-image {
-    width: 100%;
+    align-items: center;
+    width: 75%;
     height: auto;
   }
 }
