@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
-import "./Styles/Register.css"
+import "./Styles/Register.css";
 
 const Register = () => {
   const userRef = useRef();

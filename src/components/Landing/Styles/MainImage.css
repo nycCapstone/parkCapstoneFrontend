@@ -26,7 +26,7 @@
 
 @media (min-width: 769px) {
   .overlay {
-    min-width: 500px;
+    min-width: 600px;
   }
 }
 
@@ -41,61 +41,35 @@
   }
 }
 
-.searchbar {
-  width: 60%;
-  padding: 18px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.check-in {
-  padding: 18px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.check-out {
-  padding: 18px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
 .date-picker {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-button {
-  font-size: 1rem;
-  padding: 6px 12px;
-  margin-bottom: 10px;
-  border-radius: 0%;
+.date-picker button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
 }
 
-.search-button {
-  padding: 12px 24px;
-  background-color: #ff3131;
-  color: #ffffff;
-}
-
-.overlay .fw-bold {
+.fw-bold {
+  margin-bottom: 3rem;
+  text-transform: uppercase;
   font-weight: bold;
-  font-size: xxx-large;
+  font-size: 30px;
   color: #ffffff;
 }
 
 @media (max-width: 600px) {
   .overlay .fw-bold {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
-}
-
-.search-bar .button {
-  background-color: #ff3131;
 }
 
 /* spinner and suspense */

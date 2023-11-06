@@ -85,17 +85,18 @@ const SearchForm = () => {
   return (
     <div>
       <div>
-        <h2>Search for a Space</h2>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
           <input
             className="g-search"
             type="text"
-            placeholder={placeHolder}
+            placeholder="Search for a spot (eg. NYC NY 1001)"
             ref={searchRef}
           />
         </Autocomplete>
       </div>
-      <button onClick={getRelevantSpots}>Search</button>
+      <button className="button-cta" onClick={getRelevantSpots}>
+        Search
+      </button>
     </div>
   );
 };
