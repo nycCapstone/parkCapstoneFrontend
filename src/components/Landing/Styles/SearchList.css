@@ -46,10 +46,4 @@
     font-size: 14px;
     color: #666;
   }
-
-  .scrollable-div {
-    max-height: 400px; /* Adjust the max height as needed */
-    overflow-y: auto; /* Enable vertical scrolling */
-    /* Other styles for scrollable-div */
-  }
   

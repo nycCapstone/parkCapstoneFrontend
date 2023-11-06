@@ -34,16 +34,12 @@
   max-width: 120px;
 }
 
-.map {
-  width: 300px;
-}
-
 h2 {
   margin: 0;
   font-family: Roboto, sans-serif;
 }
 
-input {
+.g-search {
   height: 3em;
   width: 20em;
   border: 0;
@@ -52,10 +48,12 @@ input {
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
+  border-radius: 0.4rem;
 }
 
 input:focus::placeholder {
-  color: white;
+  color: rgb(191, 193, 193);
+  opacity: 70%;
 }
 
 .button-cta {

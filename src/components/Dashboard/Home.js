@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 
-import "./Home.css";
+import "./Styles/Home.css";
 
 const Home = () => {
   const { data: userData, isSuccess, isLoading, error } = useGetUserInfoQuery();

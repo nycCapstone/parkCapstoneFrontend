@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import AdminPage from "../AdminPage/AdminPage";
-import "./Admin.css";
+import "./Styles/Admin.css";
 
 const Admin = () => {
   const { data, refetch, isLoading, isError } = useGetUserInfoQuery();
