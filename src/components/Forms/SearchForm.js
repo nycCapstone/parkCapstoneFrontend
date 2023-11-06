@@ -4,7 +4,7 @@ import {
   searchResultsLoading,
   searchResultsError,
 } from "../../redux/search/searchResultsSlice";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Styles/SearchForm.css";
@@ -20,6 +20,7 @@ const SearchForm = () => {
   const [formattedAddress, setFormattedAddress] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const searchRef = useRef();
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
