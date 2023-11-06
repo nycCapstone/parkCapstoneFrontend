@@ -36,7 +36,7 @@ const AdminPage = () => {
           Client Background Verified:{" "}
           {userInfo.client_background_verified ? "Yes" : "No"}
         </p>
-          <UserAction/>
+          <UserAction />
         <div className="roles">
           <h3>Roles</h3>
           <div className="role-list">

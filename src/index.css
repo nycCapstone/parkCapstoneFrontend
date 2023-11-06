@@ -12,10 +12,6 @@ li {
   list-style-type: none;
 }
 
-html {
-  color: black;
-}
-
 body {
   min-height: 100vh;
   min-width: 100vh;

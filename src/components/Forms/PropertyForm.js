@@ -125,12 +125,10 @@ const PropertyForm = () => {
                 ...values,
                 owner_id: userData.id,
                 prop_address: formattedAddress,
-              });
+              }).unwrap().then(() => refetch());
             } catch (e) {
               console.error(e);
-            } finally {
-              refetch();
-            }
+            } 
           }}
         >
           {() => (

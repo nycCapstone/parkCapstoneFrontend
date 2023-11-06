@@ -8,7 +8,6 @@
 
 .main-image {
   width: 100%;
-
   opacity: 1;
   margin-top: 0%;
 }
@@ -97,4 +96,20 @@ button {
 
 .search-bar .button {
   background-color: #ff3131;
+}
+
+/* spinner and suspense */
+
+.capsule {
+  display: inline-block;
+  padding: 0 24px;
+  text-align: center;
+  line-height: 3rem;
+  border-radius: 3rem;
+}
+
+.capsule .fail {
+  color: #FF6961;
+  border: 2px solid #FF6961;
+  font-weight: 500;
 }
