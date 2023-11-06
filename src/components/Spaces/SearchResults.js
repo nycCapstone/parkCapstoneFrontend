@@ -23,9 +23,15 @@ const SearchResults = () => {
                 <p>Availability: {avail ? "Yes" : "No"}</p>
                 <p>Number of spaces: {item.count_spaces}</p>
                 <div className="cost-info">
-                  <span>
-                    <h4>Average Price</h4> <p>{item.billing_type}: {item.avg_price.toFixed(2)}</p>
-                    <h4>Min Price</h4> <p>{item.billing_type}: {item.min_price.toFixed(2)}</p>
+                  <span className="span-info">
+                    <h4>Average Price</h4>{" "}
+                    <p>
+                      {item.billing_type}: {item.avg_price.toFixed(2)}
+                    </p>
+                    <h4>Min Price</h4>{" "}
+                    <p>
+                      {item.billing_type}: {item.min_price.toFixed(2)}
+                    </p>
                   </span>
                 </div>
                 <div>

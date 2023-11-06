@@ -12,8 +12,8 @@ const MainImage = () => {
     <div className="main-image-container">
       <img className="main-image" src={smilingadult} alt="smilingadult" />
       <div className="overlay">
-        <div className="fw-bold">Your Space. Their convenience.</div>
-        <div className="search-bar">
+        <div className="fw-bold">Your Space. Their Convenience.</div>
+        <div>
           <SearchForm />
           <div className="date-picker">
             <button>Check-in Date</button>
