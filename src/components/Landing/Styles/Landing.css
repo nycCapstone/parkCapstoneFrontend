@@ -1,5 +1,4 @@
 .main_container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -54,23 +53,28 @@
   margin-bottom: 3rem;
   padding: 2rem;
 }
-/* .back-color {
-  background-color: #f5f7f8;
+
+@media (max-width: 768px) {
+  .app-description {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .marketing-image {
+    align-items: center;
+    width: 75%;
+    height: auto;
+  }
 }
-.background-color {
-  background-color: #f5f5f5;
-} */
-.marketing-image {
-  width: 30rem;
-  height: 20rem;
-  justify-self: center;
-}
+
 .pic-text {
   align-self: center;
 }
+
 .pic-text p {
   margin-bottom: 3rem;
 }
+
 .pic-text h2 {
   margin-bottom: 2rem;
 }
@@ -84,12 +88,6 @@
 .app-description p {
   font-size: 16px;
   color: #555;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
 }
 
 .about-us-links {
