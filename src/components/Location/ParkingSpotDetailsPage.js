@@ -31,7 +31,7 @@ function ParkingSpotDetailsPage() {
         <ParkingSpotDetails spot={selectedSpot} />
       ) : searchResults ? (
         <div>
-          <h1>Search Results</h1>
+          <h1>Search Results..</h1>
           {searchResults.map((result, index) => (
             <div
               className="search-result-card"

@@ -26,7 +26,7 @@ const ParkingSpotDetails = ({ spot }) => {
 
   return (
     <div className="parking-spot-details">
-      <h1>Parking Spot Details</h1>
+      <h1>Parking Spot Details...</h1>
       <div className="parking-spot-card">
         <h2>Property Address: {spot.prop_address}</h2>
         <p>Zip Code: {spot.zip}</p>
