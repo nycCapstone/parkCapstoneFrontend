@@ -8,6 +8,26 @@ export const renterApiSlice = apiSlice.injectEndpoints({
                 providesTags: ['renterData']
             })
         }),
+        getPropAndSpaceInfo: builder.query({
+            query: (pid) => ({
+                url: `/renters/get-property-with-spaceinfo?pid=${pid}`,
+                providesTags: ['spacesData']
+            })
+        }),
+        updateSingleSpace: builder.mutation({
+            query: (body) => ({
+                url: `/renters/update-singlespace-info`,
+                body: {...body},
+                method: 'PUT',
+            })
+        }),
+        postNewSpaces: builder.mutation({
+            query: (body) => ({
+                url: `/renters/enter-newspaces`,
+                body: {...body},
+                method: 'POST',
+            })
+        }),
         submitProperty: builder.mutation({
             query: data => ({
                 url: '/renters/create-property',
@@ -19,5 +39,6 @@ export const renterApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-    useGetPropertiesQuery, useSubmitPropertyMutation
+    useGetPropertiesQuery, useSubmitPropertyMutation, useGetPropAndSpaceInfoQuery, useUpdateSingleSpaceMutation,
+    usePostNewSpacesMutation
 } = renterApiSlice

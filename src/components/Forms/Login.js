@@ -4,7 +4,7 @@ import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
 import { setPersist, setAuth } from "../../redux/auth/authSlice";
-import "./Styles/login.css"
+import "./Styles/login.css";
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);
@@ -41,21 +41,19 @@ const Login = () => {
           dispatch(setRole(res));
           dispatch(setAuth(res));
         });
+      localStorage.setItem("persist", true);
+      navigate("/admin");
     } catch (err) {
       console.error(err);
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 500) {
-        setErrMsg("Missing Email or Password");
-      } else if (err.response?.status === 401) {
+
+      if (err?.response?.status === 401) {
         setErrMsg("Unauthorized");
+      } else if (err?.response?.status === 500) {
+        setErrMsg("Missing Email or Password");
       } else {
         setErrMsg("Login Failed");
       }
       errRef.current.focus();
-    } finally {
-      localStorage.setItem("persist", true);
-      navigate("/admin");
     }
   };
 

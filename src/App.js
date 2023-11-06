@@ -17,6 +17,8 @@ import Landing from "./components/Landing/Landing";
 import Footer from "./components/Footer/Footer";
 import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage";
 import AboutUs from "./components/AboutUs/AboutUs";
+import SearchResults from "./components/Spaces/SearchResults";
+import MadeSearch from "./components/State/MadeSearch";
 function App() {
   return (
     <div className="approot">
@@ -33,6 +35,11 @@ function App() {
           <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Missing />} />
+          <Route
+              element={<MadeSearch />}
+            >
+              <Route path="search-result" element={<SearchResults />} />
+            </Route>
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>
             <Route

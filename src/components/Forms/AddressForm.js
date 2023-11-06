@@ -1,6 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
@@ -55,7 +55,7 @@ const AddressForm = () => {
       if (searchResult != null) {
         const place = searchResult.getPlace();
         const fA = place.formatted_address;
-
+        //confirmed addresses must include zipcode
         if (
           place?.address_components?.some((item) =>
             item?.types?.includes("postal_code")
@@ -80,15 +80,14 @@ const AddressForm = () => {
       };
       await submitAddress({ url, body })
         .unwrap()
-        .then((res) => {
+        .then(() => {
           refetch();
           navigate("/admin");
         })
         .catch((err) => {
           console.error(err);
-          setformIsLoading(false);
         })
-        .finally((f) => setformIsLoading(false));
+        .finally(() => setformIsLoading(false));
     };
 
     return (

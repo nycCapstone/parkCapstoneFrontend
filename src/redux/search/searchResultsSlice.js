@@ -11,16 +11,26 @@ const searchResultsSlice = createSlice({
     searchResultsLoading: (state) => {
       state.loading = true;
       state.error = null;
+      state.data = null;
     },
     searchResultsSuccess: (state, action) => {
       state.data = action.payload;
       state.loading = false;
       state.error = null;
     },
-    searchResultsError: (state, action) => {
-      state.data = null;
-      state.loading = false;
-      state.error = action.payload;
+    searchResultsError: {
+      reducer: (state, action) => {
+        state.data = null;
+        state.loading = false;
+        state.error = action.payload;
+      },
+      prepare: (text) => {
+        if (typeof text === "string") {
+          return { payload: text };
+        } else {
+          return { payload: "Api Down" };
+        }
+      },
     },
   },
 });

@@ -1,0 +1,25 @@
+.r-sp-reslist {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  @media (max-width: 1200px) {
+    .r-sp-reslist {
+      grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .r-sp-reslist {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+  }
+  
+  .r-sp-info {
+    background: rgba(255, 255, 255, 0.651);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+  }

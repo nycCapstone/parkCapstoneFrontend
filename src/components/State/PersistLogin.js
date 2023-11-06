@@ -5,10 +5,10 @@ import { logOut } from "../../redux/auth/authSlice";
 import useRefreshToken from "../../hooks/useRefreshToken";
 
 const PersistLogin = () => {
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const refresh = useRefreshToken();
   const ct = useSelector((state) => state.auth.accessToken);
+  const dispatch = useDispatch();
+  const refresh = useRefreshToken();
 
   useEffect(() => {
     let isMounted = true;
