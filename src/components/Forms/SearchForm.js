@@ -68,7 +68,6 @@ const SearchForm = () => {
       return;
     }
     dispatch(searchResultsLoading());
-
     await axios
       .post(`/get-spaces/address/a`, { ...formattedAddress })
       .then((res) => {
