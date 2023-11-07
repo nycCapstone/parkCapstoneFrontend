@@ -19,7 +19,6 @@ const SearchResults = () => {
               <div className="spot-info" key={i}>
                 <p>Address: {item.prop_address}</p>
                 <p>Zip Code: {item.zip}</p>
-                <p>Space type: {item.sp_type}</p>
                 <p>Availability: {avail ? "Yes" : "No"}</p>
                 <p>Number of spaces: {item.count_spaces}</p>
                 <div className="cost-info">
