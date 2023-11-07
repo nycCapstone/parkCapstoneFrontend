@@ -21,7 +21,6 @@
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
 @media (min-width: 769px) {
@@ -64,6 +63,7 @@
   font-weight: bold;
   font-size: 30px;
   color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
 @media (max-width: 600px) {

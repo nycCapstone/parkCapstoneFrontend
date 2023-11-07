@@ -15,10 +15,7 @@ const MainImage = () => {
         <div className="fw-bold">Your Space. Their Convenience.</div>
         <div>
           <SearchForm />
-          <div className="date-picker">
-            <button>Check-in Date</button>
-            <button>Check-out Date</button>
-          </div>
+
           <div>
             {isLoading && (
               <div>
