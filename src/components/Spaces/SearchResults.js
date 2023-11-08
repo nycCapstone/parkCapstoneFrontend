@@ -6,10 +6,8 @@ const SearchResults = () => {
   if (!searchResults) return <div>No Searches</div>;
   return (
     <>
-      <div className="s-res-header">
-        <h1 className="s-res-header-text">Search Results</h1>
-      </div>
       <main className="search-main">
+        <h1 className="s-res-header-text">Search Results</h1>
         <div className="search-reslist">
           {searchResults.map((item, i) => {
             let avail = searchResults.some(
@@ -21,18 +19,22 @@ const SearchResults = () => {
                 <p>Zip Code: {item.zip}</p>
                 <p>Availability: {avail ? "Yes" : "No"}</p>
                 <p>Number of spaces: {item.count_spaces}</p>
-                <div className="cost-info">
-                  <span className="span-info">
-                    <h4>Average Price</h4>{" "}
-                    <p>
-                      {item.billing_type}: {item.avg_price.toFixed(2)}
-                    </p>
-                    <h4>Min Price</h4>{" "}
-                    <p>
-                      {item.billing_type}: {item.min_price.toFixed(2)}
-                    </p>
-                  </span>
-                </div>
+                <p>Billing Type: {item.billing_type}</p>
+
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Avg Price</th>
+                      <th>Min Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> ${item.avg_price.toFixed(2)}</td>
+                      <td> ${item.min_price.toFixed(2)}</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div>
                   {item.picture && <img alt="propimage" src={item.picture} />}
                 </div>
