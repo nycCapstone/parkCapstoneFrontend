@@ -1,8 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
 import "./AdminPage.css";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import UserAction from "../../redux/userActions/UserAction";
 
 const AdminPage = () => {
   const { data: userInfo, isSuccess, isLoading, error } = useGetUserInfoQuery();

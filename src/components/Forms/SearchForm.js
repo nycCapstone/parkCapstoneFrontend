@@ -13,7 +13,7 @@ import axios from "../../api/axios";
 import "./Styles/SearchForm.css";
 
 const SearchForm = () => {
-  const [placesLibrary, setPlacesLibrary] = useState(["places"]);
+  const [placesLibrary] = useState(["places"]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
     libraries: placesLibrary,
@@ -48,7 +48,7 @@ const SearchForm = () => {
 
   const generateTimeOptionsStart = () => {
     const options = [];
-    for (let hour = new Date().getHours(); hour <= 23; hour++) {
+    for (let hour = 0; hour <= 23; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         const isPM = hour >= 12;
         const hourStr = (hour % 12 || 12).toString().padStart(2, "0");
@@ -62,7 +62,7 @@ const SearchForm = () => {
 
   const generateTimeOptionsEnd = () => {
     const options = [];
-    for (let hour = new Date().getHours() + 3; hour <= 23; hour++) {
+    for (let hour = 0; hour <= 23; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         const isPM = hour >= 12;
         const hourStr = (hour % 12 || 12).toString().padStart(2, "0");
@@ -83,14 +83,14 @@ const SearchForm = () => {
           let c = item;
           if (item?.types?.includes("postal_code")) {
             const z = c?.long_name || c?.short_name;
-            setFormattedAddress({ addr: fA, hasZip: true, zipCode: z });
+            setFormattedAddress({ addr: fA, zipCode: z });
             return true;
           } else {
             return false;
           }
         })
       ) {
-        setFormattedAddress({ addr: fA, hasZip: false, zipCode: "" });
+        setFormattedAddress({ addr: fA, zipCode: "" });
       }
 
       console.log(`Formatted Address: ${fA}`);
@@ -115,7 +115,8 @@ const SearchForm = () => {
         `/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`
       )
       .then((res) => {
-        if (res.data?.length > 0) dispatch(searchResultsSuccess(res.data));
+        let searchStore = { results: res.data, params: { checkInDate, checkInTime, checkOutDate, checkOutTime, }}
+        if (res.data?.length > 0) dispatch(searchResultsSuccess(searchStore));
         if (res.data?.length === 0)
           dispatch(searchResultsError("no results found"));
         navigate("/search-result");

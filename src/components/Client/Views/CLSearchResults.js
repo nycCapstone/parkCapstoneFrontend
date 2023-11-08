@@ -1,22 +1,25 @@
 import { useGetAvailSpotsQuery } from "../../../redux/client/searchApiSlice";
-import Loading from "../../../assets/Spinners/Loading";
+import { getCLSearchStatus } from "../../../redux/client/clientSearchSlice";
+import CLLoading from "./CLLoading";
 import { useSelector } from "react-redux";
-import "../../Spaces/SearchResults.css";
+import "../Styles/CLSearchResults.css";
+import "../Styles/Client.css";
 
 const CLSearchResults = () => {
-  const searchArr = useSelector((state) => state.client);
+  const searchStatus = useSelector(getCLSearchStatus);
+  const searchArr = useSelector(state => state.client)
+
   const {
     data: clientSearches,
     isSuccess,
+    isFetching,
     error,
-    isLoading,
-  } = useGetAvailSpotsQuery(searchArr, { skip: searchArr?.length === 0 });
+    isLoading
+  } = useGetAvailSpotsQuery(searchArr, { skip: searchStatus });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
-      <>
-        <Loading />
-      </>
+        <CLLoading />
     );
   }
 
@@ -25,9 +28,10 @@ const CLSearchResults = () => {
   }
 
   if (isSuccess) {
+    const clSearchResults = clientSearches.filter(item => +item.row_num === 1)
     return (
       <>
-        {clientSearches.length === 0 ? (
+        {clSearchResults.length === 0 ? (
           <div>No Results Yet</div>
         ) : (
           <>
@@ -36,12 +40,13 @@ const CLSearchResults = () => {
             </div>
             <main className="search-main">
               <div className="search-reslist">
-                {clientSearches.map((item, i) => {
+                {clSearchResults.map((item, i) => {
                   return (
+
                     <div className="spot-info" key={i}>
                       <p>Address: {item.prop_address}</p>
                       <p>Zip Code: {item.zip}</p>
-                      <p>Availability: {item.occupied ? "No" : "Yes"}</p>
+                      <p>Number Available Spaces: {item.count_spaces}</p>
                       <div className="cost-info">
                         <span className="span-info">
                           <h4>Price</h4>{" "}
@@ -55,6 +60,7 @@ const CLSearchResults = () => {
                           <img alt="propimage" src={item.picture} />
                         )}
                       </div>
+                            <a className="button-square button-primary" href="#" style={{float: "right"}}>Book Now</a>
                     </div>
                   );
                 })}

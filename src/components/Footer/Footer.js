@@ -2,7 +2,6 @@ import React from "react";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {

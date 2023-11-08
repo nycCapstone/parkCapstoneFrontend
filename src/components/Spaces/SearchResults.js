@@ -1,18 +1,19 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "./SearchResults.css";
 
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searchResults.data);
+  const paramsValues = Object.values(searchResults.params);
   if (!searchResults) return <div>No Searches</div>;
   return (
     <>
       <main className="search-main">
+        <Link to={`/checkout?starts=${paramsValues[0] + paramsValues[1]}&ends=${paramsValues[2]+paramsValues[3]}`}>Checkout</Link>
         <h1 className="s-res-header-text">Search Results</h1>
         <div className="search-reslist">
-          {searchResults.map((item, i) => {
-            let avail = searchResults.some(
-              (a) => a.property_id === item.property_id && a.occupied === false
-            );
+          {searchResults.results.map((item, i) => {
+            let avail = item.count_spaces !== item.occupied;
             return (
               <div className="spot-info" key={i}>
                 <p>Address: {item.prop_address}</p>

@@ -1,16 +1,16 @@
+import { Routes, Route } from "react-router-dom";
+import Admin from "./components/Dashboard/Admin";
+import PersistLogin from "./components/State/PersistLogin";
+import RequireAuth from "./components/State/RequireAuth";
 import Nav from "./components/Nav/Nav";
+import Layout from "./components/Layout";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import Home from "./components/Dashboard/Home";
-import Layout from "./components/Layout";
 import Client from "./components/Client/Client";
-import Admin from "./components/Dashboard/Admin";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
 import Renter from "./components/Renter/Renter";
-import RequireAuth from "./components/State/RequireAuth";
-import PersistLogin from "./components/State/PersistLogin";
-import { Routes, Route } from "react-router-dom";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 import Landing from "./components/Landing/Landing";
@@ -19,6 +19,7 @@ import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage
 import AboutUs from "./components/AboutUs/AboutUs";
 import SearchResults from "./components/Spaces/SearchResults";
 import MadeSearch from "./components/State/MadeSearch";
+import Checkout from "./components/Checkout/Checkout";
 function App() {
   return (
     <div className="approot">
@@ -35,13 +36,12 @@ function App() {
           <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Missing />} />
-          <Route
-              element={<MadeSearch />}
-            >
-              <Route path="search-result" element={<SearchResults />} />
-            </Route>
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>
+            <Route element={<MadeSearch />}>
+              <Route path="/search-result" element={<SearchResults />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
             >

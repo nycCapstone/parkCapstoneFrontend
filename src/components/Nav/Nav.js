@@ -1,13 +1,13 @@
 import React from "react";
 import { carvaletlogo } from "../../assets";
+import NavInfo from "./NavInfo";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./Nav.css";
 
 function Nav() {
-  const userStatus = useSelector((state) => state.auth.accessToken);
-  const linkText = localStorage.getItem("persist");
+  const userStatus = useSelector((state) => state.roles?.Client);
 
   return (
     <nav className="navbar">
@@ -21,16 +21,13 @@ function Nav() {
           <Link className="about" to="/about">
             About Us
           </Link>
-          {(!userStatus || !linkText) && (
+          {userStatus ? (
+            <NavInfo />
+          ) : 
             <Link className="log-in" to="/login">
               Login
             </Link>
-          )}
-          {(userStatus || linkText) && (
-              <Link to="/admin" className="nav-link">
-                Profile Page
-              </Link>
-            )}
+          }
           <Link className="sign-up" to="/register">
             Sign up
           </Link>

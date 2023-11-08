@@ -6,6 +6,7 @@ import {
 } from "../../redux/renter/renterApiSlice";
 import { useState, useEffect, useReducer } from "react";
 import makeFormData from "../../constants/reducers/propertyspace";
+import Loading from "../../assets/Spinners/Loading";
 import { v4 as uuidv4 } from "uuid";
 import "./Styles/SpacesList.css";
 
@@ -55,11 +56,7 @@ const PropertySpace = (props) => {
 
   if (isLoading) {
     return (
-      <div>
-        <p>...Loading</p>
-        <p>...Loading</p>
-        <p>...Loading</p>
-      </div>
+        <Loading />
     );
   }
 
