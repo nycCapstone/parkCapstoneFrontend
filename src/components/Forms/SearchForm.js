@@ -99,6 +99,10 @@ const SearchForm = () => {
     }
   }
 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
   const getRelevantSpots = async (e) => {
     e.preventDefault();
     if (!formattedAddress?.addr) {

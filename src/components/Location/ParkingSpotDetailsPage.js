@@ -27,9 +27,7 @@ function ParkingSpotDetailsPage() {
 
   return (
     <div className="parking-spot-details-page">
-      {selectedSpot ? (
-        <ParkingSpotDetails spot={selectedSpot} />
-      ) : searchResults ? (
+      {searchResults ? (
         <div>
           <h1>Search Results..</h1>
           {searchResults.map((result, index) => (
@@ -46,18 +44,13 @@ function ParkingSpotDetailsPage() {
         </div>
       ) : (
         <div>
-          <h1>Parking Spot Results</h1>
-          {parkingSpots.map((spot) => (
-            <div
-              className="parking-spot-card"
-              key={spot.property_id}
-              onClick={() => handleSpotClick(spot)}
-            >
-              <h2>Property Address: {spot.prop_address}</h2>
-              <p>Number of Spaces: {spot.number_spaces}</p>
-              <p>Billing Type: {spot.billing_type}</p>
-            </div>
-          ))}
+          {parkingSpots.map((spot) => {
+            return (
+              <div className="parking-spot-card" key={spot.property_id}>
+                <ParkingSpotDetails spot={spot} />
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
