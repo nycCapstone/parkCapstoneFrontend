@@ -19,7 +19,7 @@ const SearchForm = () => {
     libraries: placesLibrary,
   });
   const [searchResult, setSearchResult] = useState("");
-  const [formattedAddress, setFormattedAddress] = useState("");
+  const [formattedAddress, setFormattedAddress] = useState({});
   const placeHolder = useSelector((state) => {
     if (state.searchResults.data?.length) {
       return state.searchResults.data[0].prop_address;
@@ -129,7 +129,7 @@ const SearchForm = () => {
   return (
     <div>
       <form onSubmit={getRelevantSpots}>
-        <div>
+        <div className="landing-searchbar">
           <h2>Search for a parking space</h2>
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
             <input

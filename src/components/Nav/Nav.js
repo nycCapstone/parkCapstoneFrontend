@@ -7,6 +7,7 @@ import "./Nav.css";
 
 function Nav() {
   const userStatus = useSelector((state) => state.auth.accessToken);
+  const linkText = localStorage.getItem("persist");
 
   return (
     <nav className="navbar">
@@ -20,16 +21,16 @@ function Nav() {
           <Link className="about" to="/about">
             About Us
           </Link>
-          {!userStatus ? (
+          {(!userStatus || !linkText) && (
             <Link className="log-in" to="/login">
               Login
             </Link>
-          ) : (
-            <Link className="log-in" to="/home">
-              profile page
-            </Link>
           )}
-
+          {(userStatus || linkText) && (
+              <Link to="/admin" className="nav-link">
+                Profile Page
+              </Link>
+            )}
           <Link className="sign-up" to="/register">
             Sign up
           </Link>

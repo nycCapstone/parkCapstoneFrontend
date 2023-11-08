@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import useLogout from "../../hooks/useLogout";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 
@@ -33,11 +31,8 @@ const Admin = () => {
   if (isSuccess) {
     return (
       <section>
-        <AdminPage userInfo={data} />
+        <AdminPage />
         <div className="flexGrow">
-          {/* <Link to="/home" className="home-link">
-            Home
-          </Link> */}
         </div>
         <section className="home-container">
           <h1 className="welcome-heading">Welcome Home</h1>
@@ -49,9 +44,6 @@ const Admin = () => {
             </Link>
             <Link to="/renter" className="nav-link">
               Go to the Renter
-            </Link>
-            <Link to="/admin" className="nav-link">
-              Go to the Admin page
             </Link>
             <Link to="/go" className="nav-link">
               Go to the link page

@@ -34,7 +34,7 @@
   max-width: 120px;
 }
 
-h2 {
+.landing-searchbar h2 {
   margin: 0;
   font-family: Roboto, sans-serif;
   color: white;
