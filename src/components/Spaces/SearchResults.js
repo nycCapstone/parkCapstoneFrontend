@@ -45,7 +45,7 @@ const SearchResults = () => {
                 <div>
                   {item.picture && <img alt="propimage" src={item.picture} />}
                   <Link to={`/parking-spots/${item.space_id}`}>
-                    <button className="show-me-button">Show Me</button>
+                    <button className="show-me-button">Show More</button>
                   </Link>
                 </div>
               </div>
