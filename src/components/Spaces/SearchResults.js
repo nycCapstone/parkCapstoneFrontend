@@ -9,7 +9,13 @@ const SearchResults = () => {
   return (
     <>
       <main className="search-main">
-        <Link to={`/checkout?starts=${paramsValues[0] + paramsValues[1]}&ends=${paramsValues[2]+paramsValues[3]}`}>Checkout</Link>
+        <Link
+          to={`/checkout?starts=${paramsValues[0] + paramsValues[1]}&ends=${
+            paramsValues[2] + paramsValues[3]
+          }`}
+        >
+          Checkout
+        </Link>
         <h1 className="s-res-header-text">Search Results</h1>
         <div className="search-reslist">
           {searchResults.results.map((item, i) => {
@@ -38,6 +44,9 @@ const SearchResults = () => {
                 </table>
                 <div>
                   {item.picture && <img alt="propimage" src={item.picture} />}
+                  <Link to={`/parking-spots/${item.space_id}`}>
+                    <button className="show-me-button">Show More</button>
+                  </Link>
                 </div>
               </div>
             );

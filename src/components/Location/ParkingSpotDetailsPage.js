@@ -1,60 +1,76 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../constants/helper/helper";
-import axios from "axios";
+import { useParams, Link } from "react-router-dom";
+import axios from "../../api/axios";
+import { useSelector } from "react-redux";
 import "./Details.css";
-import ParkingSpotDetails from "./ParkingSpotDetails";
 
-function ParkingSpotDetailsPage() {
-  const [parkingSpots, setParkingSpots] = useState([]);
-  const [selectedSpot, setSelectedSpot] = useState(null);
-  const [searchResults, setSearchResults] = useState(null);
+function ParkingSpotDetailPage() {
+  const { id } = useParams();
+  const [spotDetails, setSpotDetails] = useState({});
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
-    const backendURL = BASE_URL + "/parking-spots";
+    axios
+      .get(`/parking-spots/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
+        setSpotDetails(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching parking spot details:", error);
+      });
+  }, [id, accessToken]);
 
-    axios.get(backendURL).then((response) => {
-      setParkingSpots(response.data.properties);
-    });
-  }, []);
-
-  const handleSpotClick = (spot) => {
-    setSelectedSpot(spot);
-  };
-
-  const showSearchResults = (results) => {
-    setSearchResults(results);
-  };
+  console.log("spotDetails:", spotDetails);
 
   return (
     <div className="parking-spot-details-page">
-      {searchResults ? (
+      <h1>Parking Spot Details</h1>
+      <div className="details">
+        <p className="detail-label">Address:</p>
+        <p className="detail-value">{spotDetails.prop_address}</p>
+      </div>
+      <div className="details">
+        <p className="detail-label">Number of Spaces:</p>
+        <p className="detail-value">{spotDetails.number_spaces}</p>
+      </div>
+      <div className="details">
+        <p className="detail-label">Billing Type:</p>
+        <p className="detail-value">{spotDetails.billing_type}</p>
+      </div>
+      <div className="details">
+        <p className="detail-label">Owner ID:</p>
+        <p className="detail-value">{spotDetails.space_owner_id}</p>
+      </div>
+
+      {spotDetails.renter && (
         <div>
-          <h1>Search Results..</h1>
-          {searchResults.map((result, index) => (
-            <div
-              className="search-result-card"
-              key={index}
-              onClick={() => handleSpotClick(result)}
-            >
-              <h2>Property Address: {result.prop_address}</h2>
-              <p>Number of Spaces: {result.number_spaces}</p>
-              <p>Billing Type: {result.billing_type}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>
-          {parkingSpots.map((spot) => {
-            return (
-              <div className="parking-spot-card" key={spot.property_id}>
-                <ParkingSpotDetails spot={spot} />
-              </div>
-            );
-          })}
+          <h3>Renter Information</h3>
+          <div className="details">
+            <p className="detail-label">First Name:</p>
+            <p className="detail-value">{spotDetails.renter_first_name}</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Last Name:</p>
+            <p className="detail-value">{spotDetails.renter_last_name}</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Email:</p>
+            <p className="detail-value">{spotDetails.renter_email}</p>
+          </div>
         </div>
       )}
+
+      <button className="book-now-button">Book Now</button>
+
+      <Link to="/search-result" className="go-back-link">
+        Go back to Search Results
+      </Link>
     </div>
   );
 }
 
-export default ParkingSpotDetailsPage;
+export default ParkingSpotDetailPage;
