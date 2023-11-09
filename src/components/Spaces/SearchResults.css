@@ -77,3 +77,17 @@
     margin: 1rem;
   }
 }
+
+.spot-info .show-me-button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.spot-info .show-me-button:hover {
+  background-color: #0055aa;
+}

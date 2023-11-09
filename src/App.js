@@ -33,13 +33,17 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="confirmation" element={<ConfirmEmail />} />
           <Route path="unauthorized" element={<Unauthorized />} />
-          <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} />
+          {/* <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} /> */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Missing />} />
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>
             <Route element={<MadeSearch />}>
               <Route path="/search-result" element={<SearchResults />} />
+              <Route
+                path="/parking-spots/:id"
+                element={<ParkingSpotDetailsPage />}
+              />
               <Route path="/checkout" element={<Checkout />} />
             </Route>
             <Route
