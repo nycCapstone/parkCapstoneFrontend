@@ -5,6 +5,7 @@ import {
   parking_reserved,
   happycarcouple,
 } from "../../assets";
+import { Link } from "react-router-dom";
 import Overlay from "../../common/Overlay";
 
 import "./Styles/Landing.css";
@@ -25,7 +26,7 @@ function Landing() {
             </p>
           </section>
           <div className="landing-body">
-            <section className="app-description back-color">
+            <section className="app-description">
               <img
                 src={reservedforyou}
                 alt="Reserved for You"
@@ -37,24 +38,28 @@ function Landing() {
                   Don't worry about finding a parking spot. We've got your
                   parking needs covered.
                 </p>
-                <button className="reserve-now">Reserve Now</button>
+                <Link className="client" to="/client">
+                  <button className="reserve-now">Reserve Now</button>
+                </Link>
               </div>
             </section>
 
-            <section className="app-description background-color">
+            <section className="app-description">
+              <img
+                src={happycarcouple}
+                alt="Happy Car Couple"
+                className="marketing-image"
+              />
               <div className="pic-text">
                 <h2>Make extra money by renting your parking space</h2>
                 <p>
                   Join our community of happy drivers and parking spot renters
                   who have found their perfect parking solution.
                 </p>
-                <button className="become-renter">Renter SignUp</button>
+                <Link className="sign-up" to="/register">
+                  <button className="become-renter">Renter SignUp</button>
+                </Link>
               </div>
-              <img
-                src={happycarcouple}
-                alt="Happy Car Couple"
-                className="marketing-image"
-              />
             </section>
           </div>
         </div>

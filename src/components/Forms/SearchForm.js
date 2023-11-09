@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
-
 import { checkDates } from "../../constants/helper/helper";
 import {
   searchLandingBookings,
@@ -139,7 +138,7 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
+    <div className="searchform">
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
@@ -151,12 +150,11 @@ const SearchForm = () => {
             />
           </Autocomplete>
         </div>
-        <div className="search-landing-container">
-          <div className="start-container">
-            <label className="start-label">Check-In:</label>
+
+        <div className="start-container">
+          <div className="start-date">
+            <label className="start-label">Enter After: </label>
             <DatePicker
-              className="input-date"
-              showTimeSelect
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
@@ -166,16 +164,19 @@ const SearchForm = () => {
             />
             <p className="select-time">
               {checkInDate.toLocaleTimeString(undefined, {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
             </p>
           </div>
-          <div className="end-container">
-            <label className="end-label">Check-Out:</label>
+
+          <div className="start-time"></div>
+        </div>
+        <div className="end-container">
+          <div className="end-date">
+            <label className="end-label">Leave Before:</label>
             <DatePicker
-              className="input-date"
               selectsEnd
               selected={checkOutDate}
               minDate={checkInDate}
@@ -186,22 +187,21 @@ const SearchForm = () => {
               showTimeSelect
             />
 
-            <p className="select-time"> {
-                          err
-                          ? "Book 3 hour difference"
-                          :
-            checkOutDate.toLocaleTimeString(undefined, {
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            })}</p>
+            <p className="select-time">
+              {" "}
+              {err
+                ? "Book 3 hour difference"
+                : checkOutDate.toLocaleTimeString(undefined, {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+            </p>
           </div>
+          <div className="end-time"></div>
+          <div className="end-time"></div>
         </div>
-
-        <button className="submit-button" type="submit">
-          Search
-        </button>
-        <div>
+        <div style={{ float: "right", marginLeft: "2rem" }}>
           <FaArrowAltCircleDown
             onClick={() => {
               setCheckInDate(new Date());
@@ -209,6 +209,9 @@ const SearchForm = () => {
             }}
           />
         </div>
+        <button className="submit-button" type="submit">
+          Search
+        </button>
       </form>
     </div>
   );

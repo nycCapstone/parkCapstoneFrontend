@@ -21,23 +21,11 @@
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
-@media (min-width: 769px) {
-  .overlay {
-    min-width: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  .overlay {
-    top: 0px;
-    left: 0px;
-    transform: none;
-    height: 100%;
-    width: 100%;
-    border-radius: 0;
-  }
+.searchform {
+  text-shadow: none;
 }
 
 .date-picker {
@@ -63,13 +51,6 @@
   font-weight: bold;
   font-size: 30px;
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
-}
-
-@media (max-width: 600px) {
-  .overlay .fw-bold {
-    font-size: 1.5rem;
-  }
 }
 
 /* spinner and suspense */
