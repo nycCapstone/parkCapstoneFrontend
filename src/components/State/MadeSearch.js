@@ -5,7 +5,7 @@ const MadeSearch = () => {
     const searchState = useSelector(state => state.searchResults);
     const location = useLocation();
 
-    if (searchState.data?.length>0) {
+    if (searchState.data?.results?.length>0) {
         return <Outlet />;
     } else {
         return <Navigate to="/go" state={{ from: location }} replace />;

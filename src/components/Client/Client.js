@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import ClientSearchForm from "./ClientSearchForm";
 import CLSearchResults from "./Views/CLSearchResults";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaChevronCircleLeft } from "react-icons/fa";
 
 const Client = () => {
+  return (
+    <section>
+      <div style={{ display: "flex" }}>
+        <div>
+          <Link to="/admin">
+            <FaChevronCircleLeft />
+          </Link>
+        </div>
+        <div>
+          <h1>Client Page</h1>
+        </div>
+      </div>
+      <br />
+      <p>This is where you can make a booking.</p>
+      <ClientSearchForm />
+      <CLSearchResults />
+    </section>
+  );
+};
 
-    return (
-        <section>
-            <h1>Client Page</h1>
-            <br />
-            <p>This is where you can make a booking.</p>
-            <ClientSearchForm />
-            <CLSearchResults />
-            <div className="flexGrow">
-                <Link to="/home">Home</Link>
-            </div>
-        </section>
-    )
-}
-
-export default Client
+export default Client;

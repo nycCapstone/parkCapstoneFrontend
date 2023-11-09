@@ -10,6 +10,8 @@ const clientSearchSlice = createSlice({
   }
 });
 
+export const getCLSearchStatus = (state) => state.client.length === 0
+
 export const { searchBookings } = clientSearchSlice.actions;
 
 export default clientSearchSlice.reducer;
