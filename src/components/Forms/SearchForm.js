@@ -5,11 +5,14 @@ import {
   searchResultsError,
 } from "../../redux/search/searchResultsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import DatePickerComponent from "./DatePicker";
-import TimePickerComponent from "./TimePicker";
+import DatePicker from "react-datepicker";
+// import TimePickerComponent from "./TimePicker";
+import { checkDates } from "../../constants/helper/helper";
 import axios from "../../api/axios";
+import { FaArrowAltCircleDown } from "react-icons/fa";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Styles/SearchForm.css";
 
 const SearchForm = () => {
@@ -27,16 +30,19 @@ const SearchForm = () => {
       return "Search for a spot (eg. NYC NY 1001)";
     }
   });
+  
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [err, setErr] = useState(false);
+  const searchRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchRef = useRef();
 
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  const [checkInTime, setCheckInTime] = useState(
-    new Date().toLocaleTimeString()
-  );
-  const [checkOutTime, setCheckOutTime] = useState("12:00 am");
+  useEffect(() => {
+    if (err) {
+      setErr(false);
+    }
+  }, [checkOutDate]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -45,34 +51,6 @@ const SearchForm = () => {
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
   }
-
-  const generateTimeOptionsStart = () => {
-    const options = [];
-    for (let hour = 0; hour <= 23; hour++) {
-      for (let minute = 0; minute < 60; minute += 30) {
-        const isPM = hour >= 12;
-        const hourStr = (hour % 12 || 12).toString().padStart(2, "0");
-        const minuteStr = minute.toString().padStart(2, "0");
-        const ampm = isPM ? "pm" : "am";
-        options.push(`${hourStr}:${minuteStr} ${ampm}`);
-      }
-    }
-    return options;
-  };
-
-  const generateTimeOptionsEnd = () => {
-    const options = [];
-    for (let hour = 0; hour <= 23; hour++) {
-      for (let minute = 0; minute < 60; minute += 30) {
-        const isPM = hour >= 12;
-        const hourStr = (hour % 12 || 12).toString().padStart(2, "0");
-        const minuteStr = minute.toString().padStart(2, "0");
-        const ampm = isPM ? "pm" : "am";
-        options.push(`${hourStr}:${minuteStr} ${ampm}`);
-      }
-    }
-    return options;
-  };
 
   function onPlaceChanged() {
     if (searchResult != null) {
@@ -108,6 +86,16 @@ const SearchForm = () => {
     if (!formattedAddress?.addr) {
       searchRef.current.focus();
       return;
+    };
+    if (checkOutDate) {
+      const selectedDateTime = new Date(checkInDate);
+      if (
+        new Date(checkOutDate) <= selectedDateTime ||
+        !checkDates(checkInDate, checkOutDate)
+      ) {
+        setErr(true);
+        return;
+      }
     }
     dispatch(searchResultsLoading());
     await axios
@@ -115,7 +103,7 @@ const SearchForm = () => {
         `/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`
       )
       .then((res) => {
-        let searchStore = { results: res.data, params: { checkInDate, checkInTime, checkOutDate, checkOutTime, }}
+        let searchStore = { results: res.data, params: [checkInDate && checkInDate.toISOString(), checkOutDate && checkOutDate.toISOString()]}
         if (res.data?.length > 0) dispatch(searchResultsSuccess(searchStore));
         if (res.data?.length === 0)
           dispatch(searchResultsError("no results found"));
@@ -143,36 +131,49 @@ const SearchForm = () => {
         </div>
 
         <div className="start-container">
-          <div className="start-label">Choose Start Date and Time</div>
           <div className="start-date">
-            <DatePickerComponent
-              selectedDate={checkInDate}
-              handleDateChange={(date) => setCheckInDate(date)}
-            />
+          <label>Enter After: </label>
+          <DatePicker
+            selectsStart
+            selected={checkInDate}
+            onChange={(date) => setCheckInDate(date)}
+            startDate={checkInDate}
+            minDate={new Date()}
+            shouldCloseOnSelect={false}
+            timeIntervals={15}
+            value={`${checkInDate ? checkInDate.toLocaleDateString() : new Date().toLocaleDateString()} ${checkInDate ? checkInDate.toLocaleTimeString() : new Date().toLocaleTimeString()}`}
+            showTimeSelect
+            style={{ innerWidth: "4rem" }}
+          />
+          </div>
+          <div style={{float: "right", marginLeft: "2rem"}}>
+            <FaArrowAltCircleDown onClick={() => {setCheckInDate(new Date()); setCheckOutDate(null);}}/>
           </div>
           <div className="start-time">
-            <TimePickerComponent
-              selectedTime={checkInTime}
-              handleTimeChange={(e) => setCheckInTime(e.target.value)}
-              options={generateTimeOptionsStart()}
-            />
           </div>
         </div>
         <div className="end-container">
-          <div className="end-label">Choose End Date and Time</div>
 
           <div className="end-date">
-            <DatePickerComponent
-              selectedDate={checkOutDate}
-              handleDateChange={(date) => setCheckOutDate(date)}
-            />
+          <label>Leave Before:</label>
+          <DatePicker
+            selectsEnd
+            selected={checkOutDate}
+            onChange={(date) => setCheckOutDate(date)}
+            endDate={checkOutDate}
+            minDate={checkInDate}
+            shouldCloseOnSelect={false}
+            value={
+              err
+                ? "Book 3 hour difference"
+                : `${checkOutDate ? checkOutDate.toLocaleDateString() : new Date().toLocaleDateString()} ${checkOutDate ? checkOutDate.toLocaleTimeString() : new Date().toLocaleTimeString()}`
+            }
+            style={{ innerWidth: "4rem" }}
+            timeIntervals={15}
+            showTimeSelect
+          />
           </div>
           <div className="end-time">
-            <TimePickerComponent
-              selectedTime={checkOutTime}
-              handleTimeChange={(e) => setCheckOutTime(e.target.value)}
-              options={generateTimeOptionsEnd()}
-            />
           </div>
         </div>
         <button className="submit-button" type="submit">

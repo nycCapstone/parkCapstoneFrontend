@@ -9,6 +9,12 @@ export const searchApiSlice = apiSlice.injectEndpoints({
                 method: 'GET'
             })
         }),
+        getOneSpot: builder.query({
+            query: (data) => ({
+                url: `/parking-spots/${data}`,
+                providesTags: ["spotDetails"]
+            })
+        })
     })
 })
-export const { useGetAvailSpotsQuery } = searchApiSlice;
+export const { useGetAvailSpotsQuery, useGetOneSpotQuery } = searchApiSlice;
