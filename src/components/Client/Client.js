@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import ClientSearchForm from "./ClientSearchForm";
 import CLSearchResults from "./Views/CLSearchResults";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaChevronCircleLeft } from "react-icons/fa";
 
 const Client = () => {

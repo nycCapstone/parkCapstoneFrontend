@@ -3,7 +3,6 @@ import { carvaletlogo } from "../../assets";
 import NavInfo from "./NavInfo";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import useLogout from "../../hooks/useLogout";
 
 import "./Nav.css";
@@ -11,9 +10,6 @@ import "./Nav.css";
 function Nav() {
   const userStatus = useSelector((state) => state.roles?.Client);
   const navigate = useNavigate();
-
-  const { data, refetch, isLoading, isError, isSuccess } =
-    useGetUserInfoQuery();
 
   const logout = useLogout();
 

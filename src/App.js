@@ -33,7 +33,6 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="confirmation" element={<ConfirmEmail />} />
           <Route path="unauthorized" element={<Unauthorized />} />
-          {/* <Route path="/parking-spots" element={<ParkingSpotDetailsPage />} /> */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Missing />} />
           {/* we want to protect these routes */}
@@ -44,7 +43,7 @@ function App() {
                 path="/parking-spots/:id"
                 element={<ParkingSpotDetailsPage />}
               />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/:property_id" element={<Checkout />} />
             </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
