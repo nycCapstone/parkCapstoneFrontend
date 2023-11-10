@@ -9,7 +9,10 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { checkDates } from "../../constants/helper/helper";
-import { searchLandingBookings, resetLandingCache } from "../../redux/landing/landingSearchSlice";
+import {
+  searchLandingBookings,
+  resetLandingCache,
+} from "../../redux/landing/landingSearchSlice";
 import axios from "../../api/axios";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
@@ -30,7 +33,7 @@ const SearchForm = () => {
       return "Search for a spot (eg. NYC NY 1001)";
     }
   });
-  
+
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [err, setErr] = useState(false);
@@ -86,7 +89,7 @@ const SearchForm = () => {
     if (!formattedAddress?.addr) {
       searchRef.current.focus();
       return;
-    };
+    }
     if (checkOutDate) {
       const selectedDateTime = new Date(checkInDate);
       if (
@@ -104,9 +107,9 @@ const SearchForm = () => {
           checkOutDate.toISOString(),
         ])
       );
-    };
+    }
     if (!checkOutDate) {
-      dispatch(resetLandingCache())
+      dispatch(resetLandingCache());
     }
     dispatch(searchResultsLoading());
     await axios
@@ -114,7 +117,13 @@ const SearchForm = () => {
         `/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`
       )
       .then((res) => {
-        let searchStore = { results: res.data, params: [checkInDate && checkInDate.toISOString(), checkOutDate && checkOutDate.toISOString()]}
+        let searchStore = {
+          results: res.data,
+          params: [
+            checkInDate && checkInDate.toISOString(),
+            checkOutDate && checkOutDate.toISOString(),
+          ],
+        };
         if (res.data?.length > 0) dispatch(searchResultsSuccess(searchStore));
         if (res.data?.length === 0) {
           dispatch(searchResultsError("no results found"));
@@ -128,7 +137,7 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
+    <div className="searchform">
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
           <h2>Search for a parking space</h2>
@@ -144,46 +153,65 @@ const SearchForm = () => {
 
         <div className="start-container">
           <div className="start-date">
-          <label>Enter After: </label>
-          <DatePicker
-            selectsStart
-            selected={checkInDate}
-            onChange={(date) => setCheckInDate(date)}
-            minDate={new Date()}
-            shouldCloseOnSelect={false}
-            timeIntervals={15}
-            value={`${checkInDate ? checkInDate.toLocaleDateString() : new Date().toLocaleDateString()} ${checkInDate ? checkInDate.toLocaleTimeString() : new Date().toLocaleTimeString()}`}
-            showTimeSelect
-            style={{ innerWidth: "4rem" }}
-          />
+            <label>Enter After: </label>
+            <DatePicker
+              selectsStart
+              selected={checkInDate}
+              onChange={(date) => setCheckInDate(date)}
+              minDate={new Date()}
+              shouldCloseOnSelect={false}
+              timeIntervals={15}
+              value={`${
+                checkInDate
+                  ? checkInDate.toLocaleDateString()
+                  : new Date().toLocaleDateString()
+              } ${
+                checkInDate
+                  ? checkInDate.toLocaleTimeString()
+                  : new Date().toLocaleTimeString()
+              }`}
+              showTimeSelect
+              style={{ innerWidth: "4rem" }}
+            />
           </div>
-          <div style={{float: "right", marginLeft: "2rem"}}>
-            <FaArrowAltCircleDown onClick={() => {setCheckInDate(new Date()); setCheckOutDate(null);}}/>
+          <div style={{ float: "right", marginLeft: "2rem" }}>
+            <FaArrowAltCircleDown
+              onClick={() => {
+                setCheckInDate(new Date());
+                setCheckOutDate(null);
+              }}
+            />
           </div>
-          <div className="start-time">
-          </div>
+          <div className="start-time"></div>
         </div>
         <div className="end-container">
-
           <div className="end-date">
-          <label>Leave Before:</label>
-          <DatePicker
-            selectsEnd
-            selected={checkOutDate}
-            onChange={(date) => setCheckOutDate(date)}
-            shouldCloseOnSelect={false}
-            value={
-              err
-                ? "Book 3 hour difference"
-                : `${checkOutDate ? checkOutDate.toLocaleDateString() : new Date().toLocaleDateString()} ${checkOutDate ? checkOutDate.toLocaleTimeString() : new Date().toLocaleTimeString()}`
-            }
-            style={{ innerWidth: "4rem" }}
-            timeIntervals={15}
-            showTimeSelect
-          />
+            <label>Leave Before:</label>
+            <DatePicker
+              selectsEnd
+              selected={checkOutDate}
+              onChange={(date) => setCheckOutDate(date)}
+              shouldCloseOnSelect={false}
+              value={
+                err
+                  ? "Book 3 hour difference"
+                  : `${
+                      checkOutDate
+                        ? checkOutDate.toLocaleDateString()
+                        : new Date().toLocaleDateString()
+                    } ${
+                      checkOutDate
+                        ? checkOutDate.toLocaleTimeString()
+                        : new Date().toLocaleTimeString()
+                    }`
+              }
+              style={{ innerWidth: "4rem" }}
+              timeIntervals={15}
+              showTimeSelect
+            />
           </div>
-          <div className="end-time">
-          </div>
+          <div className="end-time"></div>
+          <div className="end-time"></div>
         </div>
         <button className="submit-button" type="submit">
           Search

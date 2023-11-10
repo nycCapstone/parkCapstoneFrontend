@@ -20,13 +20,6 @@
   gap: 1rem;
 }
 
-.app-description {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 3rem;
-  padding: 2rem;
-}
-
 .pic-text {
   align-self: center;
 }
@@ -74,26 +67,44 @@
   background-color: #ff5757;
   color: white;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     transform: scale(0.96);
-  }
+  } */
 }
 .app-description {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 3rem;
+  grid-template-areas: "image info";
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  gap: 2rem;
+}
+
+.app-description:nth-child(odd) {
+  grid-template-areas: "info image";
+}
+
+.marketing-image {
+  grid-area: image;
+}
+
+.pic-text {
+  grid-area: info;
 }
 
 @media (max-width: 768px) {
-  .app-description {
+  .app-description,
+  .app-description:nth-child(odd) {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "info";
     text-align: center;
   }
 
   .marketing-image {
-    align-items: center;
     width: 75%;
-    height: auto;
+    margin: 0 auto;
   }
 }

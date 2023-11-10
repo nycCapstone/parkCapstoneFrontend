@@ -25,7 +25,7 @@ function Landing() {
             </p>
           </section>
           <div className="landing-body">
-            <section className="app-description back-color">
+            <section className="app-description">
               <img
                 src={reservedforyou}
                 alt="Reserved for You"
@@ -41,7 +41,12 @@ function Landing() {
               </div>
             </section>
 
-            <section className="app-description background-color">
+            <section className="app-description">
+              <img
+                src={happycarcouple}
+                alt="Happy Car Couple"
+                className="marketing-image"
+              />
               <div className="pic-text">
                 <h2>Make extra money by renting your parking space</h2>
                 <p>
@@ -50,11 +55,6 @@ function Landing() {
                 </p>
                 <button className="become-renter">Renter SignUp</button>
               </div>
-              <img
-                src={happycarcouple}
-                alt="Happy Car Couple"
-                className="marketing-image"
-              />
             </section>
           </div>
         </div>
