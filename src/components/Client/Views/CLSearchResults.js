@@ -7,7 +7,7 @@ import "../Styles/Client.css";
 
 const CLSearchResults = () => {
   const searchStatus = useSelector(getCLSearchStatus);
-  const searchArr = useSelector(state => state.client)
+  const searchArr = useSelector(state => state.client);
 
   const {
     data: clientSearches,

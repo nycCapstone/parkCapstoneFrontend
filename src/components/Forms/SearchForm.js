@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
-// import TimePickerComponent from "./TimePicker";
 import { checkDates } from "../../constants/helper/helper";
+import { searchLandingBookings, resetLandingCache } from "../../redux/landing/landingSearchSlice";
 import axios from "../../api/axios";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
@@ -96,6 +96,17 @@ const SearchForm = () => {
         setErr(true);
         return;
       }
+      dispatch(
+        searchLandingBookings([
+          formattedAddress?.zipCode || "",
+          formattedAddress?.addr || "",
+          checkInDate.toISOString(),
+          checkOutDate.toISOString(),
+        ])
+      );
+    };
+    if (!checkOutDate) {
+      dispatch(resetLandingCache())
     }
     dispatch(searchResultsLoading());
     await axios
@@ -105,8 +116,9 @@ const SearchForm = () => {
       .then((res) => {
         let searchStore = { results: res.data, params: [checkInDate && checkInDate.toISOString(), checkOutDate && checkOutDate.toISOString()]}
         if (res.data?.length > 0) dispatch(searchResultsSuccess(searchStore));
-        if (res.data?.length === 0)
+        if (res.data?.length === 0) {
           dispatch(searchResultsError("no results found"));
+        }
         navigate("/search-result");
       })
       .catch((e) => {
@@ -137,7 +149,6 @@ const SearchForm = () => {
             selectsStart
             selected={checkInDate}
             onChange={(date) => setCheckInDate(date)}
-            startDate={checkInDate}
             minDate={new Date()}
             shouldCloseOnSelect={false}
             timeIntervals={15}
@@ -160,8 +171,6 @@ const SearchForm = () => {
             selectsEnd
             selected={checkOutDate}
             onChange={(date) => setCheckOutDate(date)}
-            endDate={checkOutDate}
-            minDate={checkInDate}
             shouldCloseOnSelect={false}
             value={
               err

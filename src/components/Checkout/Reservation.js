@@ -1,31 +1,88 @@
-import { checkoutPrice } from "../../constants/helper/helper";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { checkoutPrice, formData } from "../../constants/helper/helper";
+import ChangeTime from "./Component/ChangeTime";
+import { useState, useEffect } from "react";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 
-const Reservation = ({ userData, searchResults }) => {
-    const [priceData, setPriceData] = useState(searchResults.results.find(item => item.property_id.includes(searchResults.property_id)));
-  
-    return (
-      <div >
+const Reservation = ({ checkoutData }) => {
+  const searchObj = useSelector((state) => state.checkout);
+  const [chTime, setChTime] = useState(false);
+  const [loading, setIsLoading] = useState(true);
+
+  const dataObj = formData(checkoutData);
+
+  useEffect(() => {
+    if (dataObj?.property_id) {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <SearchLoading />
+      ) : (
+        <>
           <div>
-              <i>2</i>
-              <h3>Reservation Summary</h3>
+            <i>2</i>
+            <h3>Reservation Summary</h3>
           </div>
-        <div>
-            <section>
-                <p>Enter After</p>
-                <p style={{fontWeight: "bold"}}>{`${new Date(searchResults.params[0]).toLocaleDateString()} ${new Date(searchResults.params[0]).toLocaleTimeString()}`}</p>
-            </section>
-            <section>
-                <p>Exit Before</p>
-                <p style={{fontWeight: "bold"}}>{`${new Date(searchResults.params[1]).toLocaleDateString()} ${new Date(searchResults.params[0]).toLocaleTimeString()}`}</p>
-            </section>
-            <section>
-                <div>{(checkoutPrice(searchResults.params[0], searchResults.params[1], priceData.billing_type) * +priceData.price).toFixed(2)}</div>
-            </section>
-        </div>
-      </div>
-    );
-}
+          {dataObj && (
+            <>
+              <aside>
+                <i
+                  onClick={() => setChTime(!chTime)}
+                  style={{ textDecorationLine: "true" }}
+                >
+                  Change Time
+                </i>
+              </aside>
+              <div>
+                <section>
+                  <p>Enter After</p>
+                  <p style={{ fontWeight: "bold" }}>{`${new Date(
+                    searchObj.query[searchObj.query.length - 1][2]
+                  ).toLocaleDateString()} ${new Date(
+                    searchObj.query[searchObj.query.length - 1][2]
+                  ).toLocaleTimeString()}`}</p>
+                </section>
+                <section>
+                  <p>Exit Before</p>
+                  <p style={{ fontWeight: "bold" }}>{`${new Date(
+                    searchObj.query[searchObj.query.length - 1][3]
+                  ).toLocaleDateString()} ${new Date(
+                    searchObj.query[searchObj.query.length - 1][3]
+                  ).toLocaleTimeString()}`}</p>
+                </section>
+                <section>
+                  <div>
+                    Economy Price: $
+                    {(
+                      checkoutPrice(
+                        searchObj.query[searchObj.query.length - 1][2],
+                        searchObj.query[searchObj.query.length - 1][3],
+                        dataObj.billing_type
+                      ) * +dataObj.price
+                    ).toFixed(2)}
+                  </div>
+                </section>
+              </div>
+              {chTime && (
+                <section>
+                  <ChangeTime />
+                </section>
+              )}
+            </>
+          )}
+          {!dataObj && (
+            <div>
+              No Reservation Data for this property at the reservation block
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
-export default Reservation
+export default Reservation;

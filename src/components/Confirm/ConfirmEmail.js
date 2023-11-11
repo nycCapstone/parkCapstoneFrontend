@@ -1,6 +1,6 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Loading from "../../assets/Spinners/Loading";
 import axios from "../../api/axios";
 
 const ConfirmEmail = () => {
@@ -32,12 +32,7 @@ const ConfirmEmail = () => {
   return (
     <div>
       {loading ? (
-        <div>
-          <p>Loading.....</p>
-          <p>Loading.....</p>
-          <p>Loading.....</p>
-          <p>Loading.....</p>
-        </div>
+        <Loading />
       ) : (
         <h3>Api Error</h3>
       )}

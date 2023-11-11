@@ -1,24 +1,34 @@
 import { useGetPropertiesQuery } from "../../redux/renter/renterApiSlice";
+import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { Link } from "react-router-dom";
 import PropertyForm from "../Forms/PropertyForm";
 import PropertySpace from "./PropertySpace";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loading from "../../assets/Spinners/Loading";
 
 const Renter = () => {
+  const { data: userData } = useGetUserInfoQuery();
   const {
     data: renterData,
     isLoading,
     isSuccess,
     error,
+    refetch
   } = useGetPropertiesQuery();
   const [showDetails, setShowDetails] = useState(null);
 
+  useEffect(() => {
+    if (isSuccess) {
+      if (userData?.id !== renterData[0]?.owner_id) {
+        refetch();
+      }
+    }
+  }, [])
+  
+
   if (isLoading) {
     return (
-      <>
-        <Loading />
-      </>
+      <Loading />
     );
   }
 
@@ -27,8 +37,14 @@ const Renter = () => {
       <section>
         <h1>Renter Page</h1>
         <br />
+        {userData?.all_is_auth &&
+        <>
         <p>This is where you can make new available spots.</p>
         <PropertyForm />
+        
+        </>
+        
+        }
         <div className="renter-prop-elem">
           <h3>Your current properties</h3>
           {renterData?.length > 0 &&

@@ -17,7 +17,7 @@ export default function makeFormData(renterData, spacesData, propsId) {
       sp_type: item.sp_type,
       occupied: item.occupied,
       billing,
-      price: item.price,
+      price: item.min_price_overtype,
     });
     sp_noArr.push(item.space_no);
   });
