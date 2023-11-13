@@ -32,6 +32,14 @@ const searchResultsSlice = createSlice({
         }
       },
     },
+    searchResultsMutate: (state, action) => {
+      state.data.params = action.payload;
+    },
+    resetSearchState: (state) => {
+      state.data = null;
+      state.loading = false;
+      state.error = null;
+    }
   },
 });
 
@@ -39,6 +47,8 @@ export const {
   searchResultsLoading,
   searchResultsSuccess,
   searchResultsError,
+  searchResultsMutate,
+  resetSearchState
 } = searchResultsSlice.actions;
 
 export default searchResultsSlice.reducer;

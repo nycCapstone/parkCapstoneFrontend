@@ -3,6 +3,9 @@ import { useLogoutMutation } from "../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
 import { logOut } from "../redux/auth/authSlice";
 import { LOGOUT } from "../redux/roles/rolesSlice";
+import { resetCheckoutCache } from "../redux/checkout/checkoutSlice";
+import { resetSearchState } from "../redux/search/searchResultsSlice";
+import { resetRInfoCache } from "../redux/checkout/reservationSlice";
 
 const useLogout = () => {
   const navigate = useNavigate();
@@ -14,14 +17,16 @@ const useLogout = () => {
     try {
       await logout()
         .unwrap()
-        .then((res) => {
+        .then(() => {
           dispatch(logOut());
           dispatch(LOGOUT());
+          dispatch(resetSearchState());
+          dispatch(resetCheckoutCache());
+          dispatch(resetRInfoCache());
         });
       localStorage.removeItem("persist");
     } catch (e) {
       console.error(e);
-    } finally {
     }
   };
 

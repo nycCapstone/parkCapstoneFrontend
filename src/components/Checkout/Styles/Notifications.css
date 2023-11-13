@@ -1,0 +1,38 @@
+div.reservation-square {
+    border-radius: 20px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    height: 40px;
+    letter-spacing: 1px;
+    line-height: 40px;
+    text-transform: uppercase;
+    padding: 0 20px;
+    vertical-align: middle;
+  }
+  .reservation-primary {
+    background: #86bf02;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    height: 40px;
+    letter-spacing: 1px;
+    line-height: 40px;
+    text-transform: uppercase;
+    padding: 0 20px;
+    vertical-align: middle;
+  }
+  
+  .reservation-primary:hover {
+    background: #fff;
+    border: 1px solid #86bf02;
+    color: #86bf02;
+    line-height: 40px;
+    padding: 0 20px;
+    text-decoration: none;
+  }
+  

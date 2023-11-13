@@ -1,7 +1,7 @@
 import React from "react";
 import { carvaletlogo } from "../../assets";
 import NavInfo from "./NavInfo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useLogout from "../../hooks/useLogout";
 
@@ -9,13 +9,11 @@ import "./Nav.css";
 
 function Nav() {
   const userStatus = useSelector((state) => state.roles?.Client);
-  const navigate = useNavigate();
 
   const logout = useLogout();
 
   const signOut = async () => {
     await logout();
-    navigate("/");
   };
 
   return (
@@ -33,7 +31,7 @@ function Nav() {
           {userStatus ? (
             <>
               <NavInfo />
-              <Link className="sign-up" to="/logout" onClick={signOut}>
+              <Link className="sign-up" onClick={signOut}>
                 Sign Out
               </Link>
             </>

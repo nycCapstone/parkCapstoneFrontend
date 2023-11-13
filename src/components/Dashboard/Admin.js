@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import useLogout from "../../hooks/useLogout";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 
 const Admin = () => {
-  const { data, refetch, isLoading, isError, isSuccess } =
-    useGetUserInfoQuery();
+
+  const { data, isLoading, isError, isSuccess, refetch } = useGetUserInfoQuery();
 
   const logout = useLogout();
 
@@ -27,7 +26,7 @@ const Admin = () => {
       </div>
     );
   }
-
+  
   if (isSuccess) {
     return (
       <section>

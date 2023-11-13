@@ -5,7 +5,7 @@ export const renterApiSlice = apiSlice.injectEndpoints({
         getProperties: builder.query({
             query: () => ({
                 url: `/renters/get-yourinfo`,
-                providesTags: ['renterData']
+                providesTags: ['renterData'],
             })
         }),
         getPropAndSpaceInfo: builder.query({

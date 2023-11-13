@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CHECK_FOR_EMAIL_URL } from "../../constants/helper/helper";
@@ -27,41 +26,54 @@ const User = ({ userData }) => {
   };
 
   return (
-    <div style={{ backgroundColor: userData?.email ? 'gray' : ''}}>
-        <div>
-            <i>1</i>
-            <h3>Account Info</h3>
-        </div>
+    <div style={{ backgroundColor: userData?.email ? "lightgray" : "" }}>
+      <div>
+        <i>1</i>
+        <h3>Account Info</h3>
+      </div>
       {!userData?.email && (
         <div>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="emailogin">Email</label>
-            <input type="email" id="emailogin" placeholder="....." onChange={(e) => setEmail(e.target.value)}/>
+            <label htmlFor="emailogin" name="email-check-label">
+              Email
+            </label>
+            <input
+              type="email"
+              id="emailogin"
+              placeholder="....."
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <button type="submit">Continue as Guest</button>
           </form>
           <div>
             <Link to="/login">Sign in or Create Account</Link>
           </div>
           <div>
-            {register && register.email === "X" && <div>
+            {register && register.email === "X" && (
+              <div>
                 <p>Server Error</p>
-                </div>}
-            { register !== null && !register.email && <div>
+              </div>
+            )}
+            {register !== null && !register.email && (
+              <div>
                 <p>already registered with: {email}</p>
-                </div>}
-                {register && register?.email !== "X" && <div>
-                    <Link to="/register">Register Now</Link>
-                    </div>}
+              </div>
+            )}
+            {register && register?.email !== "X" && (
+              <div>
+                <Link to="/register">Register Now</Link>
+              </div>
+            )}
           </div>
         </div>
       )}
-      {
-        userData?.email && <div>
-            <ul>
-                <li key={1}>{userData.email}</li>
-            </ul>
+      {userData?.email && (
+        <div>
+          <ul>
+            <li key={1}>{userData.email}</li>
+          </ul>
         </div>
-      }
+      )}
     </div>
   );
 };

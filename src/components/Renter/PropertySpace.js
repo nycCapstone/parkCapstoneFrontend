@@ -30,11 +30,31 @@ const PropertySpace = (props) => {
         return action.payload;
       case "SPACE_SELECT_CHANGE":
         // Update a specific form by its space_no
-        return state.map((form, index) =>
-          index + 1 === action.space_no
+        return state.map((form, index) => {
+          if (action.field === "price" && form.sp_type === action.sp_type) {
+            return { ...form, [action.field]: action.payload };
+          } else if (
+            action.field === "price" &&
+            form.sp_type !== action.sp_type
+          ) {
+            return form;
+          } else if (action.field === "sp_type") {
+            return index + 1 === action.space_no
+              ? {
+                  ...form,
+                  [action.field]: action.payload,
+                  price:
+                    state.find((item) => item.sp_type === action.payload)
+                      ?.price ?? form.price,
+                }
+              : form;
+          } else if (action.field === "checkbox") {
+            return index + 1 === action.space_no
             ? { ...form, [action.field]: action.payload }
-            : form
-        );
+            : form           
+          }
+          return form;
+        });
       default:
         return state;
     }
@@ -55,9 +75,7 @@ const PropertySpace = (props) => {
   }, [renterData, spacesData]);
 
   if (isLoading) {
-    return (
-        <Loading />
-    );
+    return <Loading />;
   }
 
   if (isError) {
@@ -65,7 +83,7 @@ const PropertySpace = (props) => {
   }
 
   if (isSuccess) {
-    const handleSpaceSelectChange = (e, space_no) => {
+    const handleSpaceSelectChange = (e, space_no, sp_type) => {
       dispatch({
         type: "SPACE_SELECT_CHANGE",
         field: e.target.name,
@@ -74,6 +92,7 @@ const PropertySpace = (props) => {
             ? !formArr[space_no - 1].checkbox
             : e.target.value,
         space_no,
+        sp_type,
       });
     };
 
@@ -91,7 +110,7 @@ const PropertySpace = (props) => {
           },
         })
           .unwrap()
-          .then((res) => {
+          .then(() => {
             refetch();
           })
           .catch((e) => console.error(e));
@@ -168,9 +187,13 @@ const PropertySpace = (props) => {
                               name="price"
                               value={formArr[i].price}
                               onChange={(e) =>
-                                handleSpaceSelectChange(e, item.space_no)
+                                handleSpaceSelectChange(
+                                  e,
+                                  item.space_no,
+                                  item.sp_type
+                                )
                               }
-                              min={10}
+                              min={15}
                               max={300}
                               step="5"
                             />
@@ -212,7 +235,7 @@ const PropertySpace = (props) => {
   }
 
   if (error) {
-    return <div>Api Down</div>
+    return <div>Api Down</div>;
   }
 };
 

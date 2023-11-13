@@ -1,16 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "./userApiSlice";
 import Loading from "../../assets/Spinners/Loading";
 
 const UserAction = () => {
+  // TODO style this component, call to action needed.
   const { data: userData, isLoading, isSuccess, error } = useGetUserInfoQuery();
 
   if (isLoading) {
     return (
-      <>
         <Loading />
-      </>
     );
   }
 
