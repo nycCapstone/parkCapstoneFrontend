@@ -38,13 +38,13 @@
   margin: 0;
   font-family: Roboto, sans-serif;
   color: white;
-  /* text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82); */
+  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
   margin-bottom: 5px;
 }
 
 .start-label,
 .end-label {
-  margin-right: 5px;
+  margin-right: 0.5rem;
   color: white;
   text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
@@ -68,10 +68,12 @@
 
 .start-container {
   display: flex;
+  justify-content: center;
 }
 
 .end-container {
   display: flex;
+  justify-content: center;
 }
 
 .submit-button {
@@ -115,4 +117,12 @@
   padding: 5px;
   font-size: 14px;
   margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .start-label,
+  .end-label {
+    text-shadow: none;
+    font-weight: 500;
+  }
 }

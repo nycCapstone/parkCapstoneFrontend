@@ -11,11 +11,10 @@ const MainImage = () => {
   return (
     <div className="main-image-container">
       <img className="main-image" src={smilingadult} alt="smilingadult" />
-      <div className="hero">
-        <div className="hero_content">
-          <h1>Your Space. Their Convenience</h1>
-          <SearchForm />
-        </div>
+      <div className="overlay">
+        <div className="fw-bold">Your Space. Their Convenience.</div>
+
+        <SearchForm />
 
         {isLoading && <Loading />}
         {isError && <div className="capsule fail">{isError}</div>}

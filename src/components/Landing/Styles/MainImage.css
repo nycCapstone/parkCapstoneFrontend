@@ -94,8 +94,8 @@
   }
 }
 
-/* @media (min-width: 769px) {
+@media (min-width: 769px) {
   .overlay {
     min-width: 600px;
   }
-} */
+}

@@ -38,46 +38,29 @@ function Landing() {
                   Don't worry about finding a parking spot. We've got your
                   parking needs covered.
                 </p>
-                <button className="reserve-now">Reserve Now</button>
+                <Link className="client" to="/client">
+                  <button className="reserve-now">Reserve Now</button>
+                </Link>
               </div>
             </section>
-            <div className="landing-body">
-              <section className="app-description">
-                <img
-                  src={reservedforyou}
-                  alt="Reserved for You"
-                  className="marketing-image"
-                />
-                <div className="pic-text">
-                  <h2>Your Parking Spot, Reserved Just for You</h2>
-                  <p>
-                    Don't worry about finding a parking spot. We've got your
-                    parking needs covered.
-                  </p>
-                  <Link className="sign-up" to="/client">
-                    <button className="reserve-now">Reserve Now</button>
-                  </Link>
-                </div>
-              </section>
 
-              <section className="app-description">
-                <img
-                  src={happycarcouple}
-                  alt="Happy Car Couple"
-                  className="marketing-image"
-                />
-                <div className="pic-text">
-                  <h2>Make extra money by renting your parking space</h2>
-                  <p>
-                    Join our community of happy drivers and parking spot renters
-                    who have found their perfect parking solution.
-                  </p>
-                  <Link to="/register">
-                    <button className="become-renter">Renter SignUp</button>
-                  </Link>
-                </div>
-              </section>
-            </div>
+            <section className="app-description">
+              <img
+                src={happycarcouple}
+                alt="Happy Car Couple"
+                className="marketing-image"
+              />
+              <div className="pic-text">
+                <h2>Make extra money by renting your parking space</h2>
+                <p>
+                  Join our community of happy drivers and parking spot renters
+                  who have found their perfect parking solution.
+                </p>
+                <Link className="sign-up" to="/register">
+                  <button className="become-renter">Renter SignUp</button>
+                </Link>
+              </div>
+            </section>
           </div>
         </div>
       </Overlay>

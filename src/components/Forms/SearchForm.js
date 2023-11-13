@@ -140,7 +140,6 @@ const SearchForm = () => {
     <div className="searchform">
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
-          <h2>Search for a parking space</h2>
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
             <input
               className="g-search"
@@ -153,40 +152,41 @@ const SearchForm = () => {
 
         <div className="start-container">
           <div className="start-date">
-            <label>Enter After: </label>
+            <label className="start-label">Enter After: </label>
             <DatePicker
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
-              timeIntervals={15}
+              timeIntervals={30}
               value={`${
                 checkInDate
                   ? checkInDate.toLocaleDateString()
                   : new Date().toLocaleDateString()
               } ${
                 checkInDate
-                  ? checkInDate.toLocaleTimeString()
-                  : new Date().toLocaleTimeString()
+                  ? checkInDate.toLocaleTimeString(undefined, {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })
+                  : new Date().toLocaleTimeString(undefined, {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })
               }`}
               showTimeSelect
               style={{ innerWidth: "4rem" }}
             />
           </div>
-          <div style={{ float: "right", marginLeft: "2rem" }}>
-            <FaArrowAltCircleDown
-              onClick={() => {
-                setCheckInDate(new Date());
-                setCheckOutDate(null);
-              }}
-            />
-          </div>
+
           <div className="start-time"></div>
         </div>
         <div className="end-container">
           <div className="end-date">
-            <label>Leave Before:</label>
+            <label className="end-label">Leave Before:</label>
             <DatePicker
               selectsEnd
               selected={checkOutDate}
@@ -201,17 +201,33 @@ const SearchForm = () => {
                         : new Date().toLocaleDateString()
                     } ${
                       checkOutDate
-                        ? checkOutDate.toLocaleTimeString()
-                        : new Date().toLocaleTimeString()
+                        ? checkOutDate.toLocaleTimeString(undefined, {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })
+                        : new Date().toLocaleTimeString(undefined, {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })
                     }`
               }
               style={{ innerWidth: "4rem" }}
-              timeIntervals={15}
+              timeIntervals={30}
               showTimeSelect
             />
           </div>
           <div className="end-time"></div>
           <div className="end-time"></div>
+        </div>
+        <div style={{ float: "right", marginLeft: "2rem" }}>
+          <FaArrowAltCircleDown
+            onClick={() => {
+              setCheckInDate(new Date());
+              setCheckOutDate(null);
+            }}
+          />
         </div>
         <button className="submit-button" type="submit">
           Search
