@@ -8,7 +8,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { ...credentials }
             }),
-            invalidatesTags: ["userData"]
+            invalidatesTags: ["userData"],
         }),
         validateAddr: builder.mutation({
             query: address => ({

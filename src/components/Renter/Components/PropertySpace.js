@@ -3,12 +3,12 @@ import {
   useGetPropertiesQuery,
   useUpdateSingleSpaceMutation,
   usePostNewSpacesMutation,
-} from "../../redux/renter/renterApiSlice";
+} from "../../../redux/renter/renterApiSlice";
 import { useState, useEffect, useReducer } from "react";
-import makeFormData from "../../constants/reducers/propertyspace";
-import Loading from "../../assets/Spinners/Loading";
+import makeFormData from "../../../constants/reducers/propertyspace";
+import RenterLoading from "../../../assets/Spinners/RenterLoading";
 import { v4 as uuidv4 } from "uuid";
-import "./Styles/SpacesList.css";
+import "../Styles/SpacesList.css"
 
 const PropertySpace = (props) => {
   const {
@@ -75,7 +75,7 @@ const PropertySpace = (props) => {
   }, [renterData, spacesData]);
 
   if (isLoading) {
-    return <Loading />;
+    return <RenterLoading />;
   }
 
   if (isError) {

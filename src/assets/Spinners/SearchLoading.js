@@ -1,4 +1,4 @@
-import "./searchloadingspinner.css";
+import "./Styles/searchloadingspinner.css";
 
 const SearchLoading = () => {
   return (

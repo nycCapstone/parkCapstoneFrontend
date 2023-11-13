@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+//searchResults object from landing page search
+//from zipcode + address search.
 const searchResultsSlice = createSlice({
   name: "searchResults",
   initialState: {

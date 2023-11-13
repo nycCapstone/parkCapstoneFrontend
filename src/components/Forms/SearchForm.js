@@ -36,7 +36,8 @@ const SearchForm = () => {
   });
 
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
+  const [timeQuery, setTimeQuery] = useState(null);
   const [err, setErr] = useState(false);
   const searchRef = useRef();
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const SearchForm = () => {
       searchRef.current.focus();
       return;
     }
-    if (checkOutDate) {
+    if (checkOutDate && timeQuery) {
       const selectedDateTime = new Date(checkInDate);
       if (
         new Date(checkOutDate) <= selectedDateTime ||
@@ -136,7 +137,7 @@ const SearchForm = () => {
         dispatch(searchResultsError(e));
       });
   };
-  console.log(checkInDate);
+
   return (
     <div>
       <form onSubmit={getRelevantSpots}>
@@ -161,10 +162,14 @@ const SearchForm = () => {
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
-              timeIntervals={15}
+              timeIntervals={30}
             />
-            <p className="select-time" dateFormat="" showTimeSelect>
-              {checkInDate.toLocaleTimeString()}
+            <p className="select-time">
+              {checkInDate.toLocaleTimeString(undefined, {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
             </p>
           </div>
           <div className="end-container">
@@ -173,13 +178,23 @@ const SearchForm = () => {
               className="input-date"
               selectsEnd
               selected={checkOutDate}
+              minDate={checkInDate}
               onChange={(date) => setCheckOutDate(date)}
+              onInputClick={() => setTimeQuery(true)}
               shouldCloseOnSelect={false}
-              timeIntervals={15}
+              timeIntervals={30}
               showTimeSelect
             />
 
-            <p className="select-time"> {checkOutDate.toLocaleTimeString()}</p>
+            <p className="select-time"> {
+                          err
+                          ? "Book 3 hour difference"
+                          :
+            checkOutDate.toLocaleTimeString(undefined, {
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            })}</p>
           </div>
         </div>
 
@@ -190,7 +205,7 @@ const SearchForm = () => {
           <FaArrowAltCircleDown
             onClick={() => {
               setCheckInDate(new Date());
-              setCheckOutDate(new Date());
+              setCheckOutDate(checkInDate);
             }}
           />
         </div>
