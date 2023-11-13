@@ -6,43 +6,39 @@ import ClientSearchForm from "./ClientSearchForm";
 import CLSearchResults from "./Views/CLSearchResults";
 import ClientBookings from "./ClientBookings";
 import { FaChevronCircleLeft } from "react-icons/fa";
-
+import "./Styles/Client&ClientSearch.css";
 const Client = () => {
   const { data: userData, isLoading } = useGetUserInfoQuery();
-  const roles = useSelector(state => state.roles)
+  const roles = useSelector((state) => state.roles);
   return (
     <div>
-    <section>
-      <div style={{ display: "flex" }}>
-        <div>
-          <Link to="/admin">
-            <FaChevronCircleLeft />
-          </Link>
+      <section>
+        <div style={{ display: "flex" }}>
+          <div>
+            <Link to="/admin">
+              <FaChevronCircleLeft />
+            </Link>
+          </div>
+          <div>
+            <h1>Client Page</h1>
+          </div>
         </div>
-        <div>
-          <h1>Client Page</h1>
-        </div>
-      </div>
-      <br />
-      {
-        isLoading 
-        ?
-        <Loading />
-        :
-        userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr)
-        ?
-        <>
-      <p>This is where you can make a booking.</p>
-      <ClientSearchForm />
-      <CLSearchResults />
-        </>
-        :
-        <div>Bookings made easy after you confirm your details.</div>
-      }
-    </section>
-    <section>
-      <ClientBookings/>
-    </section>
+        <br />
+        {isLoading ? (
+          <Loading />
+        ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
+          <>
+            <p>This is where you can make a booking.</p>
+            <ClientSearchForm />
+            <CLSearchResults />
+          </>
+        ) : (
+          <div>Bookings made easy after you confirm your details.</div>
+        )}
+      </section>
+      <section>
+        <ClientBookings />
+      </section>
     </div>
   );
 };

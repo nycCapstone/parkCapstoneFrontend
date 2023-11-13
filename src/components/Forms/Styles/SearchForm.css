@@ -34,19 +34,12 @@
   max-width: 120px;
 }
 
-.landing-searchbar h2 {
+.search-header {
   margin: 0;
   font-family: Roboto, sans-serif;
   color: white;
   text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
   margin-bottom: 5px;
-}
-
-.start-label,
-.end-label {
-  margin-right: 5px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
 }
 
 .g-search {
@@ -65,20 +58,48 @@
   color: rgb(191, 193, 193);
   opacity: 70%;
 }
-
-.start-container {
+.time-date {
   display: flex;
+  gap: 2rem;
+  width: 70%;
+  margin: 1rem auto;
 }
 
+.start-container,
 .end-container {
-  display: flex;
+  display: grid;
+}
+
+.start-label,
+.end-label {
+  color: white;
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding-bottom: 1rem;
+  justify-self: start;
+}
+
+.input-date,
+.select-time {
+  font-size: 15px;
+  height: 2rem;
+  width: 10rem;
+  border: 1.5px solid #ddd;
+  background-color: white;
+  border-radius: 0.2rem;
+  &:focus-within {
+    border-color: #8c7569;
+  }
+}
+.select-time {
+  padding: 3px 4rem 3px 2px;
 }
 
 .submit-button {
-  margin-bottom: 1rem;
+  margin: 1.5rem 0rem;
   width: 6rem;
   height: 2.5rem;
-  background: #ff3131;
+  background: #ff5757;
   color: white;
   font-size: 15px;
   text-transform: uppercase;
@@ -107,7 +128,7 @@
   margin-bottom: 10px;
 }
 
-.TimePickerComponent select {
+/* .TimePickerComponent select {
   width: 150px;
   height: 30px;
   border: 1px solid #ccc;
@@ -115,4 +136,4 @@
   padding: 5px;
   font-size: 14px;
   margin-left: 10px;
-}
+} */

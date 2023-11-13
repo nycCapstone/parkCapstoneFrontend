@@ -18,7 +18,9 @@ const SearchResults = () => {
     isSuccess,
     isLoading,
     error,
-  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length-1], { skip: searchStatus });
+  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], {
+    skip: searchStatus,
+  });
   const [useArray, setUseArray] = useState(null);
 
   useEffect(() => {
@@ -61,7 +63,9 @@ const SearchResults = () => {
                       to={`/checkout/${item.property_id.substring(
                         0,
                         13
-                      )}/?starts=${searchArr[searchArr.length-1][2]}&ends=${searchArr[searchArr.length-1][3]}`}
+                      )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                        searchArr[searchArr.length - 1][3]
+                      }`}
                     >
                       Checkout
                     </Link>
