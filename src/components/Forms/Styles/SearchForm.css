@@ -38,7 +38,7 @@
   margin: 0;
   font-family: Roboto, sans-serif;
   color: white;
-  text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
+  /* text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82); */
   margin-bottom: 5px;
 }
 
