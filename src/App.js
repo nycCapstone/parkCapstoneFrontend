@@ -20,6 +20,7 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import SearchResults from "./components/Spaces/SearchResults";
 import MadeSearch from "./components/State/MadeSearch";
 import Checkout from "./components/Checkout/Checkout";
+import Payment from "./components/Checkout/Billing/Payment";
 function App() {
   return (
     <div className="approot">
@@ -44,6 +45,7 @@ function App() {
                 element={<ParkingSpotDetailsPage />}
               />
               <Route path="/checkout/:property_id" element={<Checkout />} />
+              <Route path="/payment/:booking_id" element={<Payment />} />
             </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}

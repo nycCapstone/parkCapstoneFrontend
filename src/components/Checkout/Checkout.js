@@ -23,6 +23,7 @@ const Checkout = () => {
     error,
     isUninitialized,
   } = useGetUserInfoQuery({}, { skip: role });
+
   const {
     data: checkoutData,
     isSuccess: checkoutSuccess,
@@ -32,6 +33,7 @@ const Checkout = () => {
     query[query.length - 1][2],
     query[query.length - 1][3],
   ]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const Checkout = () => {
     }
   }, [checkoutData]);
 
-  if ((isSuccess || isUninitialized) && checkoutSuccess) {
+  if ((isSuccess || isUninitialized) && checkoutSuccess && checkoutData?.length) {
     return (
       <div>
         <section>

@@ -7,6 +7,7 @@ import searchReducer from "../redux/search/searchResultsSlice";
 import landingSearchReducer from "../redux/landing/landingSearchSlice";
 import checkoutReducer from "../redux/checkout/checkoutSlice"
 import clientSearchReducer from "../redux/client/clientSearchSlice";
+import reservationReducer from "../redux/checkout/reservationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
     searchResults: searchReducer,
     landing: landingSearchReducer,
     checkout: checkoutReducer,
-    client: clientSearchReducer
+    reservation: reservationReducer,
+    client: clientSearchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

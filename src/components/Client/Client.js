@@ -4,12 +4,14 @@ import Loading from "../../assets/Spinners/Loading";
 import { Link } from "react-router-dom";
 import ClientSearchForm from "./ClientSearchForm";
 import CLSearchResults from "./Views/CLSearchResults";
+import ClientBookings from "./ClientBookings";
 import { FaChevronCircleLeft } from "react-icons/fa";
 
 const Client = () => {
   const { data: userData, isLoading } = useGetUserInfoQuery();
   const roles = useSelector(state => state.roles)
   return (
+    <div>
     <section>
       <div style={{ display: "flex" }}>
         <div>
@@ -38,6 +40,10 @@ const Client = () => {
         <div>Bookings made easy after you confirm your details.</div>
       }
     </section>
+    <section>
+      <ClientBookings/>
+    </section>
+    </div>
   );
 };
 

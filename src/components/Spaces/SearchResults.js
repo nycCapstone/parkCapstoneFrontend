@@ -37,7 +37,6 @@ const SearchResults = () => {
     return (
       <div>
         <main className="search-main">
-          {JSON.stringify(searchArr)}
           <h1 className="s-res-header-text">Search Results</h1>
           <div className="search-reslist">
             {results.map((item, i) => {

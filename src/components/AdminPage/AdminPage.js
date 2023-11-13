@@ -1,5 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
+import Loading from "../../assets/Spinners/Loading";
 import "./AdminPage.css";
 
 const AdminPage = () => {
@@ -7,12 +8,8 @@ const AdminPage = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <p>...Loading</p>
-        <p>...Loading</p>
-        <p>...Loading</p>
-        <p>...Loading</p>
-      </div>
+      // TODO all loading components
+      <Loading />
     );
   }
 

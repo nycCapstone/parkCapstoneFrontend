@@ -67,6 +67,7 @@ export function checkoutPrice(dateString1, dateString2, type) {
 }
 
 export function formData(checkoutData) {
+  if (!checkoutData?.length) return null;
   for (let s of checkoutData) {
     if (
       s.sp_type === "car"

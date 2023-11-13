@@ -1,18 +1,20 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { reservationData } from "../../constants/helper/helper";
+import { useInsertBookingMutation } from "../../redux/checkout/checkoutApiSlice";
+import { setRInfo } from "../../redux/checkout/reservationSlice";
+import { useNavigate } from "react-router-dom";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 
 const ReservationDetails = ({ checkoutData, userData }) => {
   const checkoutObj = useSelector((state) => state.checkout);
   const [loading, setIsLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("");
-
   const resData = reservationData(checkoutData, checkoutObj);
-  const selectedSpace = resData?.find(
-    (space) => space.sp_type === selectedType
-  );
-  const mapLength = resData?.length > 2 ? 2 : 1;
+
+  const [insertBooking] = useInsertBookingMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (resData && resData[0]?.property_id) {
@@ -26,6 +28,31 @@ const ReservationDetails = ({ checkoutData, userData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const selectedSpace = resData?.find(
+      (space) => space.sp_type === selectedType
+    );
+    const data = [
+      selectedSpace.space_id,
+      selectedSpace.final_price,
+      checkoutObj.query[checkoutObj.query.length - 1][2],
+      checkoutObj.query[checkoutObj.query.length - 1][3],
+    ];
+    await insertBooking({
+      data,
+    })
+      .unwrap()
+      .then((res) => {
+        dispatch(
+          setRInfo({
+            selected_space: selectedSpace,
+            query_data: data,
+            ...res,
+          })
+        );
+        //navigate to new page with bookings table lookup id.
+        navigate(`/payment/${res.booking_id}`);
+      })
+      .catch((e) => console.error(e));
   };
 
   if (!userData?.id) {
@@ -45,22 +72,36 @@ const ReservationDetails = ({ checkoutData, userData }) => {
                     <label>Select Vehicle Type:</label>
                     <select value={selectedType} onChange={handleTypeChange}>
                       <option value="">Select</option>
-                      {resData.slice(0, mapLength).map((item, idx) => {
-                        return (
-                          <option key={idx} value={item.sp_type}>
-                            {item.sp_type}
-                          </option>
-                        );
-                      })}
+                      {resData
+                        .filter((item) => item?.row_num)
+                        .map((item, idx) => {
+                          return (
+                            <option
+                              key={idx}
+                              value={item.sp_type}
+                              id={item.space_id}
+                            >
+                              {item.sp_type}
+                            </option>
+                          );
+                        })}
                     </select>
                   </div>
+                  <div className="checkout-options">
+                    {resData.length > 2 ? "Two space options available" : ""}
+                  </div>
 
-                  {selectedSpace && (
-                    <div>
-                      <p>Selected Vehicle: {selectedType}</p>
-                      <p>Final Price: ${selectedSpace.final_price}</p>
-                    </div>
-                  )}
+                  <div>
+                    <p>
+                      Selected Vehicle:{" "}
+                      {selectedType.length ? selectedType : resData[0].sp_type}
+                    </p>
+                    <p>
+                      Final Price: $
+                      {resData.find((item) => item.sp_type === selectedType)
+                        ?.final_price || resData[0].final_price}
+                    </p>
+                  </div>
 
                   <button type="submit">Confirm Order</button>
                 </form>
