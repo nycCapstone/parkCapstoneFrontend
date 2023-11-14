@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+
 import { checkDates } from "../../constants/helper/helper";
 import {
   searchLandingBookings,
@@ -35,7 +36,7 @@ const SearchForm = () => {
   });
 
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [err, setErr] = useState(false);
   const searchRef = useRef();
   const dispatch = useDispatch();
@@ -135,12 +136,11 @@ const SearchForm = () => {
         dispatch(searchResultsError(e));
       });
   };
-
+  console.log(checkInDate);
   return (
     <div>
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
-          <h2>Search for a parking space</h2>
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
             <input
               className="g-search"
@@ -150,71 +150,50 @@ const SearchForm = () => {
             />
           </Autocomplete>
         </div>
-
-        <div className="start-container">
-          <div className="start-date">
-            <label>Enter After: </label>
+        <div className="search-landing-container">
+          <div className="start-container">
+            <label className="start-label">Check-In:</label>
             <DatePicker
+              className="input-date"
+              showTimeSelect
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
               timeIntervals={15}
-              value={`${
-                checkInDate
-                  ? checkInDate.toLocaleDateString()
-                  : new Date().toLocaleDateString()
-              } ${
-                checkInDate
-                  ? checkInDate.toLocaleTimeString()
-                  : new Date().toLocaleTimeString()
-              }`}
-              showTimeSelect
-              style={{ innerWidth: "4rem" }}
             />
+            <p className="select-time" dateFormat="" showTimeSelect>
+              {checkInDate.toLocaleTimeString()}
+            </p>
           </div>
-          <div style={{ float: "right", marginLeft: "2rem" }}>
-            <FaArrowAltCircleDown
-              onClick={() => {
-                setCheckInDate(new Date());
-                setCheckOutDate(null);
-              }}
-            />
-          </div>
-          <div className="start-time"></div>
-        </div>
-        <div className="end-container">
-          <div className="end-date">
-            <label>Leave Before:</label>
+          <div className="end-container">
+            <label className="end-label">Check-Out:</label>
             <DatePicker
+              className="input-date"
               selectsEnd
               selected={checkOutDate}
               onChange={(date) => setCheckOutDate(date)}
               shouldCloseOnSelect={false}
-              value={
-                err
-                  ? "Book 3 hour difference"
-                  : `${
-                      checkOutDate
-                        ? checkOutDate.toLocaleDateString()
-                        : new Date().toLocaleDateString()
-                    } ${
-                      checkOutDate
-                        ? checkOutDate.toLocaleTimeString()
-                        : new Date().toLocaleTimeString()
-                    }`
-              }
-              style={{ innerWidth: "4rem" }}
               timeIntervals={15}
               showTimeSelect
             />
+
+            <p className="select-time"> {checkOutDate.toLocaleTimeString()}</p>
           </div>
-          <div className="end-time"></div>
         </div>
+
         <button className="submit-button" type="submit">
           Search
         </button>
+        <div>
+          <FaArrowAltCircleDown
+            onClick={() => {
+              setCheckInDate(new Date());
+              setCheckOutDate(new Date());
+            }}
+          />
+        </div>
       </form>
     </div>
   );

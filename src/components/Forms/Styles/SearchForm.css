@@ -44,30 +44,33 @@
 
 .g-search {
   height: 2.5rem;
-  width: 70%;
+  width: 75%;
   border: 0;
   border-bottom: 1px solid black;
   font-size: 14px;
-  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   border-radius: 0.4rem;
+  background-color: #f5f7f8;
 }
 .g-search::placeholder {
   text-align: center;
-  color: rgb(191, 193, 193);
-  opacity: 70%;
+
+  opacity: 90%;
 }
-.time-date {
-  display: flex;
-  gap: 2rem;
+
+.search-landing-container {
   width: 70%;
-  margin: 1rem auto;
+  margin: 0.7rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .start-container,
 .end-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .start-label,
@@ -76,14 +79,13 @@
   font-weight: 400;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   padding-bottom: 1rem;
-  justify-self: start;
 }
 
 .input-date,
 .select-time {
   font-size: 15px;
   height: 2rem;
-  width: 10rem;
+  width: 9rem;
   border: 1.5px solid #ddd;
   background-color: white;
   border-radius: 0.2rem;
@@ -92,11 +94,15 @@
   }
 }
 .select-time {
-  padding: 3px 4rem 3px 2px;
+  text-align: start;
+  padding-left: 8px;
+  padding-top: 5px;
 }
-
+.select-time::placeholder {
+  color: black;
+}
 .submit-button {
-  margin: 1.5rem 0rem;
+  margin: 0.7rem 0rem;
   width: 6rem;
   height: 2.5rem;
   background: #ff5757;
@@ -111,29 +117,3 @@
     transform: scale(0.96);
   }
 }
-
-.date-button {
-  margin-right: 10px;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.date-time-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-/* .TimePickerComponent select {
-  width: 150px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 14px;
-  margin-left: 10px;
-} */
