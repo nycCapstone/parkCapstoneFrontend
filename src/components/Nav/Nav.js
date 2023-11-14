@@ -1,13 +1,16 @@
 import React from "react";
-import { carvaletlogo } from "../../assets";
+import { carvaletlogo, appLogo, ori_logo } from "../../assets";
 import NavInfo from "./NavInfo";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useLogout from "../../hooks/useLogout";
-
+import { CgMenu } from "react-icons/cg";
+import { CgCloseR } from "react-icons/cg";
+import { useState } from "react";
 import "./Nav.css";
 
 function Nav() {
+  const [showMenu, setShowMenu] = useState(false);
   const userStatus = useSelector((state) => state.roles?.Client);
 
   const logout = useLogout();
@@ -17,34 +20,48 @@ function Nav() {
   };
 
   return (
-    <nav className="navbar">
+    <nav className={showMenu ? "navbar active" : "navbar"}>
       <div className="left-nav">
         <Link to="/">
-          <img className="logo" src={carvaletlogo} alt="logo" />
+          <img className="logo" src={ori_logo} alt="logo" />
         </Link>
       </div>
       <div className="right-nav">
-        <div className="nav-links">
-          <Link className="about" to="/about">
-            About Us
-          </Link>
-          {userStatus ? (
-            <>
-              <NavInfo />
-              <Link className="sign-up" onClick={signOut}>
-                Sign Out
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link className="log-in" to="/login">
-                Login
-              </Link>
-              <Link className="sign-up" to="/register">
-                Sign up
-              </Link>
-            </>
-          )}
+        {userStatus ? (
+          <div className="nav-links">
+            <Link className="about" to="/about">
+              About Us
+            </Link>
+            <NavInfo />
+            <Link className="sign-up" onClick={signOut}>
+              Sign Out
+            </Link>
+          </div>
+        ) : (
+          <div className="nav-links">
+            <Link className="about" to="/about">
+              About Us
+            </Link>
+            <Link className="log-in" to="/login">
+              Login
+            </Link>
+            <Link className="sign-up" to="/register">
+              Sign Up
+            </Link>
+          </div>
+        )}
+
+        <div className="mobile-navbar-btn">
+          <CgMenu
+            name="menu-outline"
+            className="mobile-nav-icon"
+            onClick={() => setShowMenu(true)}
+          />
+          <CgCloseR
+            name="close-outline"
+            className="close-outline mobile-nav-icon"
+            onClick={() => setShowMenu(false)}
+          />
         </div>
       </div>
     </nav>
