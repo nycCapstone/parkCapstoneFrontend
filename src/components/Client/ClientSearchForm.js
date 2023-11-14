@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { searchBookings } from "../../redux/client/clientSearchSlice";
 import DatePicker from "react-datepicker";
 import { checkDates } from "../../constants/helper/helper";
+import { FcCalendar } from "react-icons/fc";
+import { FcAlarmClock } from "react-icons/fc";
 import "react-datepicker/dist/react-datepicker.css";
 import "../Forms/Styles/SearchForm.css";
 
@@ -86,11 +88,13 @@ const ClientSearchForm = () => {
       ])
     );
   };
-
+  console.log(checkInDate);
   return (
-    <div>
+    <div className="client-page-search">
+      <p className="client-header">Reserve your spot</p>
+      {err && <p className="min-parking-errormsg">Min: 30 mins. Try Again!</p>}
       <form onSubmit={searchForAvail}>
-        <h2>Search for a Space</h2>
+        <p>Book Parking Near</p>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
           <input
             type="text"
@@ -99,45 +103,59 @@ const ClientSearchForm = () => {
                 ? "Search for a spot (eg. NYC NY 1001)"
                 : userData.address
             }
-            className="g-search"
+            className="cl-search"
             ref={searchRef}
           />
         </Autocomplete>
-        <div style={{ cursor: "pointer" }}>
-          <label>Enter After: </label>
-          <DatePicker
-            selectsStart
-            selected={checkInDate}
-            onChange={(date) => setCheckInDate(date)}
-            startDate={checkInDate}
-            minDate={new Date()}
-            shouldCloseOnSelect={false}
-            timeIntervals={15}
-            value={`${checkInDate.toLocaleDateString()} ${checkInDate.toLocaleTimeString()}`}
-            showTimeSelect
-            style={{ innerWidth: "4rem" }}
-          />
+        <div className="client-search-space">
+          <div className="client-search-checkIn">
+            <p className="table-header">Check-In</p>
+            <div className="date_icon">
+              <DatePicker
+                className="date-field"
+                selectsStart
+                selected={checkInDate}
+                onChange={(date) => setCheckInDate(date)}
+                startDate={new Date()}
+                minDate={new Date()}
+                shouldCloseOnSelect={false}
+                placeholderText={checkInDate}
+                timeIntervals={15}
+                showTimeSelect
+              />
+              <FcCalendar size={25} className="icon-style" />
+            </div>
+            <div className="time_icon">
+              <p className="time-field"> {checkInDate.toLocaleTimeString()}</p>
+              <FcAlarmClock size={25} className="icon-style" />
+            </div>
+          </div>
+
+          <div className="client-search-checkout">
+            <p className="table-header">Check-Out</p>
+
+            <div className="date_icon">
+              <DatePicker
+                className="date-field"
+                selectsEnd
+                selected={checkOutDate}
+                onChange={(date) => setCheckOutDate(date)}
+                endDate={checkOutDate}
+                minDate={checkInDate}
+                shouldCloseOnSelect={false}
+                timeIntervals={15}
+                showTimeSelect
+              />
+              <FcCalendar size={25} className="icon-style" />
+            </div>
+            <div className="time_icon">
+              <p className="time-field"> {checkOutDate.toLocaleTimeString()}</p>
+              <FcAlarmClock size={25} className="icon-style" />
+            </div>
+          </div>
         </div>
-        <div style={{ cursor: "pointer" }}>
-          <label>Leave Before:</label>
-          <DatePicker
-            selectsEnd
-            selected={checkOutDate}
-            onChange={(date) => setCheckOutDate(date)}
-            endDate={checkOutDate}
-            minDate={checkInDate}
-            shouldCloseOnSelect={false}
-            value={
-              err
-                ? "Book 3 hour difference"
-                : `${checkOutDate.toLocaleDateString()} ${checkOutDate.toLocaleTimeString()}`
-            }
-            style={{ innerWidth: "4rem" }}
-            timeIntervals={15}
-            showTimeSelect
-          />
-        </div>
-        <button className="button-cta" type="submit">
+
+        <button className="client-search-button" type="submit">
           Search
         </button>
       </form>

@@ -152,20 +152,25 @@ const SearchForm = () => {
 
         <div className="start-container">
           <div className="start-date">
+
             <label className="start-label">Enter After: </label>
+
             <DatePicker
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
+
               timeIntervals={30}
+
               value={`${
                 checkInDate
                   ? checkInDate.toLocaleDateString()
                   : new Date().toLocaleDateString()
               } ${
                 checkInDate
+
                   ? checkInDate.toLocaleTimeString(undefined, {
                       hour: "numeric",
                       minute: "numeric",
@@ -176,17 +181,22 @@ const SearchForm = () => {
                       minute: "numeric",
                       hour12: true,
                     })
+
               }`}
               showTimeSelect
               style={{ innerWidth: "4rem" }}
             />
+
           </div>
+
 
           <div className="start-time"></div>
         </div>
         <div className="end-container">
           <div className="end-date">
+
             <label className="end-label">Leave Before:</label>
+
             <DatePicker
               selectsEnd
               selected={checkOutDate}
@@ -201,6 +211,7 @@ const SearchForm = () => {
                         : new Date().toLocaleDateString()
                     } ${
                       checkOutDate
+
                         ? checkOutDate.toLocaleTimeString(undefined, {
                             hour: "numeric",
                             minute: "numeric",
@@ -215,10 +226,12 @@ const SearchForm = () => {
               }
               style={{ innerWidth: "4rem" }}
               timeIntervals={30}
+
               showTimeSelect
             />
           </div>
           <div className="end-time"></div>
+
           <div className="end-time"></div>
         </div>
         <div style={{ float: "right", marginLeft: "2rem" }}>
@@ -228,6 +241,7 @@ const SearchForm = () => {
               setCheckOutDate(null);
             }}
           />
+
         </div>
         <button className="submit-button" type="submit">
           Search

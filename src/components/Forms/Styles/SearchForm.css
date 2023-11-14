@@ -34,13 +34,14 @@
   max-width: 120px;
 }
 
-.landing-searchbar h2 {
+.search-header {
   margin: 0;
   font-family: Roboto, sans-serif;
   color: white;
   text-shadow: 2px 2px 4px rgba(130, 0, 0, 0.82);
   margin-bottom: 5px;
 }
+
 
 .start-label,
 .end-label {
@@ -65,22 +66,25 @@
   color: rgb(191, 193, 193);
   opacity: 70%;
 }
-
-.start-container {
+.time-date {
   display: flex;
+
   justify-content: center;
+
 }
 
+.start-container,
 .end-container {
   display: flex;
   justify-content: center;
+
 }
 
 .submit-button {
-  margin-bottom: 1rem;
+  margin: 1.5rem 0rem;
   width: 6rem;
   height: 2.5rem;
-  background: #ff3131;
+  background: #ff5757;
   color: white;
   font-size: 15px;
   text-transform: uppercase;
@@ -109,15 +113,7 @@
   margin-bottom: 10px;
 }
 
-.TimePickerComponent select {
-  width: 150px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 14px;
-  margin-left: 10px;
-}
+
 
 @media (max-width: 768px) {
   .start-label,
@@ -126,3 +122,4 @@
     font-weight: 500;
   }
 }
+
