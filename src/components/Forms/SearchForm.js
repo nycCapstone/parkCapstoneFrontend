@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+
 import { checkDates } from "../../constants/helper/helper";
 import {
   searchLandingBookings,
@@ -136,9 +137,9 @@ const SearchForm = () => {
         dispatch(searchResultsError(e));
       });
   };
-
+  console.log(checkInDate);
   return (
-    <div className="searchform">
+    <div>
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
@@ -150,11 +151,12 @@ const SearchForm = () => {
             />
           </Autocomplete>
         </div>
-
-        <div className="start-container">
-          <div className="start-date">
-            <label className="start-label">Enter After: </label>
+        <div className="search-landing-container">
+          <div className="start-container">
+            <label className="start-label">Check-In:</label>
             <DatePicker
+              className="input-date"
+              showTimeSelect
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
@@ -170,13 +172,10 @@ const SearchForm = () => {
               })}
             </p>
           </div>
-
-          <div className="start-time"></div>
-        </div>
-        <div className="end-container">
-          <div className="end-date">
-            <label className="end-label">Leave Before:</label>
+          <div className="end-container">
+            <label className="end-label">Check-Out:</label>
             <DatePicker
+              className="input-date"
               selectsEnd
               selected={checkOutDate}
               minDate={checkInDate}
@@ -209,9 +208,18 @@ const SearchForm = () => {
             }}
           />
         </div>
+
         <button className="submit-button" type="submit">
           Search
         </button>
+        <div>
+          <FaArrowAltCircleDown
+            onClick={() => {
+              setCheckInDate(new Date());
+              setCheckOutDate(new Date());
+            }}
+          />
+        </div>
       </form>
     </div>
   );

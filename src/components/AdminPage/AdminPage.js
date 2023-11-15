@@ -1,6 +1,7 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
 import Loading from "../../assets/Spinners/Loading";
+import { Link } from "react-router-dom";
 import "./AdminPage.css";
 
 const AdminPage = () => {
@@ -49,6 +50,7 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
+          <Link to="/client/transactions">My Transactions</Link>
         </div>
       </div>
     );
