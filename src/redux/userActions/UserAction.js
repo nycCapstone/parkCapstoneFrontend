@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "./userApiSlice";
 import Loading from "../../assets/Spinners/Loading";
+import { Link } from "react-router-dom";
 
 const UserAction = () => {
   // TODO style this component, call to action needed.

@@ -54,7 +54,7 @@ const ChangeTime = () => {
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
-              timeIntervals={15}
+              timeIntervals={30}
               value={`${
                 checkInDate
                   ? checkInDate.toLocaleDateString()
@@ -101,7 +101,7 @@ const ChangeTime = () => {
                     }`
               }
               style={{ innerWidth: "4rem" }}
-              timeIntervals={15}
+              timeIntervals={30}
               showTimeSelect
             />
           </div>

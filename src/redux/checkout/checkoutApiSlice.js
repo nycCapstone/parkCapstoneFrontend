@@ -16,11 +16,28 @@ export const checkoutApiSlice = apiSlice.injectEndpoints({
                 body: { ...data }
             }),
             invalidatesTags: ["clientBookings"]
+        }),
+        newClientPmt: builder.mutation({
+            query: (data) => ({
+                url: '/checkout/new-clientpmt',
+                method: 'POST',
+                body: { ...data }
+            }),
+            invalidatesTags: ["myPayments"]
+        }),
+        getClientTransactions: builder.query({
+            query: () => ({
+                url: '/checkout/payment-activity',
+                method: 'GET',
+                providesTags: ["myPayments"]
+            }),
         })
     })
 })
 
 export const {
     useGetBookingsQuery,
-    useInsertBookingMutation
+    useInsertBookingMutation,
+    useNewClientPmtMutation,
+    useGetClientTransactionsQuery
 } = checkoutApiSlice

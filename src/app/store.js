@@ -19,7 +19,7 @@ export const store = configureStore({
     landing: landingSearchReducer,
     checkout: checkoutReducer,
     reservation: reservationReducer,
-    client: clientSearchReducer,
+    client: clientSearchReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -8,9 +8,9 @@ import SearchLoading from "../../assets/Spinners/SearchLoading";
 
 const ReservationDetails = ({ checkoutData, userData }) => {
   const checkoutObj = useSelector((state) => state.checkout);
+  const resData = reservationData(checkoutData, checkoutObj);
   const [loading, setIsLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("");
-  const resData = reservationData(checkoutData, checkoutObj);
 
   const [insertBooking] = useInsertBookingMutation();
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
   useEffect(() => {
     if (resData && resData[0]?.property_id) {
       setIsLoading(false);
-    }
+    } else setIsLoading(true);
   }, []);
 
   const handleTypeChange = (event) => {
@@ -46,6 +46,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
           setRInfo({
             selected_space: selectedSpace,
             query_data: data,
+            nav_id: Math.ceil(Math.random()*250).toString(),
             ...res,
           })
         );
@@ -70,7 +71,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
                 <form onSubmit={handleSubmit}>
                   <div>
                     <label>Select Vehicle Type:</label>
-                    <select value={selectedType} onChange={handleTypeChange}>
+                    <select value={selectedType} onChange={handleTypeChange} required>
                       <option value="">Select</option>
                       {resData
                         .filter((item) => item?.row_num)

@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = { go: false };
 
 const clientSearchSlice = createSlice({
   name: "client",
   initialState,
   reducers: {
-    searchBookings: (state, action) => {return action.payload}
+    searchBookings: (state, action) => {state.go = true },
+    resetBookings: (state, action) => {state.go = false }
   }
 });
 
-export const getCLSearchStatus = (state) => state.client.length === 0
+export const getCLSearchStatus = (state) => state?.go.client === true;
 
-export const { searchBookings } = clientSearchSlice.actions;
+export const { searchBookings, resetBookings } = clientSearchSlice.actions;
 
 export default clientSearchSlice.reducer;

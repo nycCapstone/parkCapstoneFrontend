@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { resetLandingCache } from "../../../redux/landing/landingSearchSlice";
+import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
 
 const Payment = () => {
   //reservation information
@@ -8,21 +10,39 @@ const Payment = () => {
   //query_data
   //Array[] space_id, final_price, check_in time, check_out time
   const resInfo = useSelector((state) => state.reservation);
-  const dispatch = useDispatch();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+  const [err, setErr] = useState(false);
+  const [newClientPmt] = useNewClientPmtMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
-    dispatch(resetLandingCache());
+    if ([cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
+      return;
+    }
+    await newClientPmt({ data: [expiryDate, resInfo.booking_id] })
+      .unwrap()
+      .then((res) => {
+        if (!res.success) {
+          setErr(true);
+          return
+        }
+        dispatch(resetLandingCache());
+        navigate(`/client/transactions/${resInfo.nav_id}/${res.pmt_id}`);
+      }).catch(e => console.error(e));
   };
 
   return (
     <div>
       <h2>Checkout</h2>
       <div>
+        <div>
+          {err && <div>Error</div>}
+        </div>
         {/* Display details related to the item being purchased */}
         <p>Price: ${resInfo.selected_space.final_price}</p>
         <p>Location of your space: {resInfo.selected_space.prop_address}</p>

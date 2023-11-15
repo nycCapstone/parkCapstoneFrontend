@@ -33,7 +33,7 @@ export function checkDates(dateString1, dateString2) {
 
   const hoursDifference = timeDifference / (1000 * 60 * 60);
 
-  return hoursDifference > 2;
+  return hoursDifference >= 3;
 }
 
 function calculateDateDifferenceInDays(dateString1, dateString2) {

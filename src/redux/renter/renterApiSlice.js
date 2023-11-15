@@ -14,9 +14,28 @@ export const renterApiSlice = apiSlice.injectEndpoints({
                 providesTags: ['spacesData']
             })
         }),
+        getSoldSpaces: builder.query({
+            query: () => ({
+                url: `/renters/get-soldbookings`,
+                providesTags: ['soldSpaces']
+            })
+        }),
+        getActiveByOwnerId: builder.query({
+            query: () => ({
+                url: `/renters/get-bookingactivity`,
+                providesTags: ['activeSpaces']
+            })
+        }),
         updateSingleSpace: builder.mutation({
             query: (body) => ({
                 url: `/renters/update-singlespace-info`,
+                body: {...body},
+                method: 'PUT',
+            })
+        }),
+        updateSingleBookingStatus: builder.mutation({
+            query: (body) => ({
+                url: `/renters/update-singlebooking-status`,
                 body: {...body},
                 method: 'PUT',
             })
@@ -40,5 +59,5 @@ export const renterApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetPropertiesQuery, useSubmitPropertyMutation, useGetPropAndSpaceInfoQuery, useUpdateSingleSpaceMutation,
-    usePostNewSpacesMutation
+    usePostNewSpacesMutation, useGetSoldSpacesQuery, useGetActiveByOwnerIdQuery, useUpdateSingleBookingStatusMutation
 } = renterApiSlice

@@ -5,12 +5,12 @@ import { useParams } from "react-router-dom";
 import { inputUserInfo } from "../../redux/checkout/checkoutSlice";
 import { searchLandingMutate } from "../../redux/landing/landingSearchSlice";
 import { useEffect, useState } from "react";
-import User from "./User";
+import ReservationDetails from "./ReservationDetails";
 import Reservation from "./Reservation";
+import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-import ReservationDetails from "./ReservationDetails";
 
 const Checkout = () => {
   const role = useSelector((state) => !state.roles.hasOwnProperty("Client"));
@@ -53,7 +53,7 @@ const Checkout = () => {
     }
   }, [checkoutData]);
 
-  if ((isSuccess || isUninitialized) && checkoutSuccess && checkoutData?.length) {
+  if ((isSuccess || isUninitialized) && checkoutData?.length) {
     return (
       <div>
         <section>

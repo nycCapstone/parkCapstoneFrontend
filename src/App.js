@@ -10,7 +10,7 @@ import Home from "./components/Dashboard/Home";
 import Client from "./components/Client/Client";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
-import Renter from "./components/Renter/Renter";
+import RenterM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 import Landing from "./components/Landing/Landing";
@@ -21,6 +21,11 @@ import SearchResults from "./components/Spaces/SearchResults";
 import MadeSearch from "./components/State/MadeSearch";
 import Checkout from "./components/Checkout/Checkout";
 import Payment from "./components/Checkout/Billing/Payment";
+import RenterLanding from "./components/Renter/RenterLanding";
+import RenterActivity from "./components/Renter/Components/RenterActivity";
+import ClientSearchPage from "./components/Client/ClientSearchPage";
+import CLSearchResults from "./components/Client/Views/CLSearchResults";
+import MyActivity from "./components/Client/MyActivity";
 function App() {
   return (
     <div className="approot">
@@ -57,6 +62,15 @@ function App() {
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
             >
               <Route path="client" element={<Client />} />
+              <Route path="client/search" element={<ClientSearchPage />} />
+              <Route
+                path="client/search-result"
+                element={<CLSearchResults />}
+              />
+              <Route
+                path="client/transactions/:nav_id?/:pmt_id?"
+                element={<MyActivity />}
+              />
             </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
@@ -68,7 +82,9 @@ function App() {
               />
             </Route>
             <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
-              <Route path="renter" element={<Renter />} />
+              <Route path="/renter" element={<RenterLanding />} />
+              <Route path="/renter/manage" element={<RenterM />} />
+              <Route path="/renter/space-activity" element={<RenterActivity />} />
             </Route>
           </Route>
           {/* catch all */}

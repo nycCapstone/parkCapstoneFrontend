@@ -1,14 +1,15 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { searchBookings } from "../../redux/client/clientSearchSlice";
+import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
 import DatePicker from "react-datepicker";
-import { checkDates } from "../../constants/helper/helper";
+import { checkDates } from "../../../constants/helper/helper";
 import { FcCalendar } from "react-icons/fc";
 import { FcAlarmClock } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import "../Forms/Styles/SearchForm.css";
+import "../../Forms/Styles/SearchForm.css";
 
 const ClientSearchForm = () => {
   const [placesLibrary] = useState(["places"]);
@@ -20,10 +21,11 @@ const ClientSearchForm = () => {
   const [searchResult, setSearchResult] = useState("");
   const [formattedAddress, setFormattedAddress] = useState({});
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
   const [err, setErr] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchRef = useRef();
 
   useEffect(() => {
@@ -59,7 +61,6 @@ const ClientSearchForm = () => {
         setFormattedAddress({ addr: fA, zipCode: "" });
       }
 
-      console.log(`Formatted Address: ${fA}`);
     } else {
       alert("Please enter text");
     }
@@ -80,19 +81,20 @@ const ClientSearchForm = () => {
       return;
     }
     dispatch(
-      searchBookings([
+      searchLandingBookings([
         formattedAddress?.zipCode || "",
         formattedAddress?.addr || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
       ])
     );
+    navigate("/client/search-result")
   };
-  console.log(checkInDate);
+
   return (
     <div className="client-page-search">
       <p className="client-header">Reserve your spot</p>
-      {err && <p className="min-parking-errormsg">Min: 30 mins. Try Again!</p>}
+      {err && <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>}
       <form onSubmit={searchForAvail}>
         <p>Book Parking Near</p>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
@@ -113,15 +115,13 @@ const ClientSearchForm = () => {
             <div className="date_icon">
               <DatePicker
                 className="date-field"
+                showTimeSelect
                 selectsStart
                 selected={checkInDate}
                 onChange={(date) => setCheckInDate(date)}
-                startDate={new Date()}
                 minDate={new Date()}
                 shouldCloseOnSelect={false}
-                placeholderText={checkInDate}
-                timeIntervals={15}
-                showTimeSelect
+                timeIntervals={30}
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
@@ -139,11 +139,10 @@ const ClientSearchForm = () => {
                 className="date-field"
                 selectsEnd
                 selected={checkOutDate}
-                onChange={(date) => setCheckOutDate(date)}
-                endDate={checkOutDate}
                 minDate={checkInDate}
+                onChange={(date) => setCheckOutDate(date)}
                 shouldCloseOnSelect={false}
-                timeIntervals={15}
+                timeIntervals={30}
                 showTimeSelect
               />
               <FcCalendar size={25} className="icon-style" />

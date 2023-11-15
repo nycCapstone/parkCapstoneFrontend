@@ -31,3 +31,15 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+  .centered-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Optionally, set a height to center vertically */
+  }
+  
+  .centered-nav div {
+    display: flex;
+    gap: 20px; /* Adjust the gap as needed */
+  }
+  
