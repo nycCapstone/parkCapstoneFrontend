@@ -149,6 +149,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="text"
                 id="first_name"
                 ref={userRef}
@@ -178,6 +179,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="text"
                 id="last_name"
                 ref={userRef}
@@ -205,6 +207,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 placeholder="Email"
                 type="email"
                 id="email"
@@ -244,6 +247,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="text"
                 id="address"
                 ref={userRef}
@@ -272,6 +276,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="text"
                 id="city"
                 ref={userRef}
@@ -300,6 +305,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="text"
                 id="state"
                 ref={userRef}
@@ -328,6 +334,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="password"
                 id="password"
                 onChange={(e) => setPwd(e.target.value)}
@@ -364,6 +371,7 @@ const Register = () => {
                 />
               </label>
               <input
+                className="register-input"
                 type="password"
                 id="confirm_pwd"
                 onChange={(e) => setMatchPwd(e.target.value)}

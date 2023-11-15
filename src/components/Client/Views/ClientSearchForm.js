@@ -49,10 +49,10 @@ const ClientSearchForm = () => {
       if (place.geometry && place.geometry.location) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-      
-        setGeoLocation({ lat, lng, });
+
+        setGeoLocation({ lat, lng });
       } else {
-        console.error('No geometry information found for the selected place.');
+        console.error("No geometry information found for the selected place.");
       }
       console.log(`Formatted Address: ${fA}`);
     }
@@ -62,9 +62,9 @@ const ClientSearchForm = () => {
     e.preventDefault();
     const selectedDateTime = new Date(checkInDate);
     if (!locationdata?.lat) {
-        searchRef.current.focus();
-        return;
-      }
+      searchRef.current.focus();
+      return;
+    }
     if (
       new Date(checkOutDate) <= selectedDateTime ||
       !checkDates(checkInDate, checkOutDate)
@@ -80,13 +80,14 @@ const ClientSearchForm = () => {
         checkOutDate.toISOString(),
       ])
     );
-    navigate("/client/search-result")
+    navigate("/client/search-result");
   };
-
   return (
     <div className="client-page-search">
       <p className="client-header">Reserve your spot</p>
-      {err && <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>}
+      {err && (
+        <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>
+      )}
       <form onSubmit={searchForAvail}>
         <p>Book Parking Near</p>
         <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>

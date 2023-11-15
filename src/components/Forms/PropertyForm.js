@@ -6,7 +6,8 @@ import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useSubmitPropertyMutation } from "../../redux/renter/renterApiSlice";
 import { useGetPropertiesQuery } from "../../redux/renter/renterApiSlice";
 import Loading from "../../assets/Spinners/Loading";
-
+import { CiLocationOn } from "react-icons/ci";
+import "./Styles/PropertyForm.css";
 const PropertyForm = () => {
   const { data: userData, isLoading, isSuccess, error } = useGetUserInfoQuery();
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -57,7 +58,7 @@ const PropertyForm = () => {
     if (searchResult != null) {
       const place = searchResult.getPlace();
       const fA = place.formatted_address;
-      if (count>99) {
+      if (count > 99) {
         return;
       }
       if (place.geometry && place.geometry.location) {
@@ -93,22 +94,23 @@ const PropertyForm = () => {
 
   if (isSuccess && isLoaded) {
     return (
-      <div>
-        <h2>Please Enter the Property Location</h2>
-        <div style={{ marginTop: "1em" }}>
-          <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+      <div className="renter-property">
+        <p>Where's your property located?</p>
+        <div className="add_location">
+          <CiLocationOn className="location-icon" />
+          <Autocomplete
+            onPlaceChanged={onPlaceChanged}
+            onLoad={onLoad}
+            className="renter-search"
+          >
             <input
               type="text"
-              placeholder={userData?.renter_address}
-              style={{
-                width: "20rem",
-                height: "3rem"
-              }}
+              className="ren-search"
+              placeholder={`Enter your address`}
             />
           </Autocomplete>
         </div>
-        <br />
-        <h2>Property Details</h2>
+
         {count && (
           <Formik
             initialValues={initialValues}
@@ -131,11 +133,15 @@ const PropertyForm = () => {
               }
             }}
           >
-            {({values}) => (
-              <Form>
-                <div>
-                  <label htmlFor="zip">ZIP Code:</label>
+            {({ values }) => (
+              <Form className="property-details">
+                <p>Enter Property Details</p>
+                <div className="input-block">
+                  <label htmlFor="zip" className="input-label">
+                    Zip Code:
+                  </label>
                   <Field
+                    className="register-input"
                     type="text"
                     id="zip"
                     name="zip"
@@ -144,9 +150,16 @@ const PropertyForm = () => {
                   <ErrorMessage name="zip" component="div" className="error" />
                 </div>
 
-                <div>
-                  <label htmlFor="number_spaces">Number of Spaces:</label>
-                  <Field as="select" id="number_spaces" name="number_spaces">
+                <div className="input-block">
+                  <label htmlFor="number_spaces" className="input-label">
+                    Number of Spaces:
+                  </label>
+                  <Field
+                    className="num_spaces"
+                    as="select"
+                    id="number_spaces"
+                    name="number_spaces"
+                  >
                     {Array.from({ length: 10 }, (_, i) => (
                       <option key={i} value={i + 1}>
                         {i + 1}
@@ -160,9 +173,12 @@ const PropertyForm = () => {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="picture">Image URL:</label>
+                <div className="input-block">
+                  <label htmlFor="picture" className="input-label">
+                    Image URL:
+                  </label>
                   <Field
+                    className="register-input"
                     type="text"
                     id="picture"
                     name="picture"
@@ -175,15 +191,29 @@ const PropertyForm = () => {
                   />
                 </div>
 
-                <div>
-                  <label>Billing Type:</label>
-                  <div role="group" aria-labelledby="billing_type">
+                <div className="input-block">
+                  <label className="input-label">Billing Type:</label>
+                  <div
+                    className="register-input radio-option"
+                    role="group"
+                    aria-labelledby="billing_type"
+                  >
                     <label>
-                      <Field type="radio" name="billing_type" value="fixed" />
+                      <Field
+                        type="radio"
+                        name="billing_type"
+                        value="fixed"
+                        className="radiobtn-gap"
+                      />
                       Fixed
                     </label>
                     <label>
-                      <Field type="radio" name="billing_type" value="hourly" />
+                      <Field
+                        className="radiobtn-gap"
+                        type="radio"
+                        name="billing_type"
+                        value="hourly"
+                      />
                       Hourly
                     </label>
                   </div>
@@ -195,7 +225,11 @@ const PropertyForm = () => {
                 </div>
 
                 <div>
-                  <button type="submit" disabled={zipCode !== values.zip}>
+                  <button
+                    type="submit"
+                    className="logIn-button"
+                    disabled={zipCode !== values.zip}
+                  >
                     Submit
                   </button>
                 </div>

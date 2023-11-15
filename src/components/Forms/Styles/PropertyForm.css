@@ -1,0 +1,86 @@
+.renter-property {
+  width: 70%;
+  margin: 3rem auto;
+
+  & p {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .add_location {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 0.3fr 4fr;
+    background-color: rgb(249, 249, 255);
+    height: 4rem;
+    border: 1px solid lightgray;
+    border-radius: 0.4rem;
+    margin: 1.5rem 0;
+    &:focus-within {
+      border: 1px solid black;
+    }
+    .location-icon {
+      justify-self: end;
+      align-self: center;
+    }
+    .renter-search {
+      width: 100%;
+      justify-self: start;
+      align-self: center;
+      padding-left: 0.7rem;
+    }
+    .ren-search {
+      font-size: 15px;
+      background-color: rgb(249, 249, 255);
+      width: 100%;
+      border: 0;
+      outline: none;
+      &::placeholder {
+        font-size: 15px;
+      }
+    }
+  }
+  .property-details {
+    & p {
+      margin-top: 0.3rem;
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .input-block {
+      width: 60%;
+      background-color: rgb(249, 249, 255);
+
+      .register-input {
+        height: 0.7rem;
+      }
+      .input-label {
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .radio-option {
+        display: flex;
+        gap: 3rem;
+        padding-bottom: 10px;
+      }
+      .num_spaces {
+        width: 40%;
+        outline: none;
+        border: 0;
+        background-color: rgb(249, 249, 255);
+        padding-left: 5px;
+        padding-bottom: 14px;
+      }
+      .error {
+        font-size: 12px;
+        margin-top: 0.3px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+      }
+      .radiobtn-gap {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

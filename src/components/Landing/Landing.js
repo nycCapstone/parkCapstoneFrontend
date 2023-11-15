@@ -12,7 +12,7 @@ import "./Styles/Landing.css";
 
 function Landing() {
   return (
-    <>
+    <div>
       <Overlay>
         <Hero />
         <div className="main_container">
@@ -62,7 +62,7 @@ function Landing() {
           </div>
         </div>
       </Overlay>
-    </>
+    </div>
   );
 }
 

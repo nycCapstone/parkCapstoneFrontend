@@ -8,7 +8,8 @@ import { useState, useEffect, useReducer } from "react";
 import makeFormData from "../../../constants/reducers/propertyspace";
 import RenterLoading from "../../../assets/Spinners/RenterLoading";
 import { v4 as uuidv4 } from "uuid";
-import "../Styles/SpacesList.css"
+
+import "../Styles/SpacesList.css";
 
 const PropertySpace = (props) => {
   const {
@@ -21,6 +22,7 @@ const PropertySpace = (props) => {
   } = useGetPropAndSpaceInfoQuery(props.propertyId);
   const { data: renterData } = useGetPropertiesQuery();
   const [initialArr, setInitialArr] = useState(null);
+
   const [updateSingleSpace] = useUpdateSingleSpaceMutation();
   const [postNewSpaces] = usePostNewSpacesMutation();
 
@@ -50,8 +52,8 @@ const PropertySpace = (props) => {
               : form;
           } else if (action.field === "checkbox") {
             return index + 1 === action.space_no
-            ? { ...form, [action.field]: action.payload }
-            : form           
+              ? { ...form, [action.field]: action.payload }
+              : form;
           }
           return form;
         });
@@ -98,6 +100,7 @@ const PropertySpace = (props) => {
 
     const handleSubmit = async (e, i) => {
       e.preventDefault();
+
       if (
         formArr[i]?.space_id &&
         JSON.stringify(formArr[i]) !== JSON.stringify(initialArr[i])
@@ -138,98 +141,99 @@ const PropertySpace = (props) => {
           .then(() => refetch())
           .catch((e) => console.error(e));
       }
+      alert("The details for the parking spot has been saved!");
       console.log("Submitted Space Type:", formArr);
     };
 
     return (
-      <div>
-        <div className="r-sp-reslist">
-          {formArr.length > 0 &&
-            formArr.map((item, i) => {
-              if (!item.hasOwnProperty("submit_details")) {
-                return (
-                  <div key={uuidv4()}>
-                    <form onSubmit={(e) => handleSubmit(e, i)}>
-                      <div className="r-sp-info">
-                        <p>
-                          Space Number{"(location on lot)"}: {item.space_no}
-                        </p>
-                        {item?.space_id && (
-                          <p style={{ fontSize: "0.75rem" }}>
-                            Space ID: {item.space_id}
-                          </p>
-                        )}
-                        <div>
-                          <label htmlFor="sp_type">Space Type:</label>
-                          <select
-                            id="sp_type"
-                            name="sp_type"
-                            value={formArr[i].sp_type}
-                            onChange={(e) =>
-                              handleSpaceSelectChange(e, item.space_no)
-                            }
-                          >
-                            <option value="car">Car</option>
-                            <option value="truck">Truck</option>
-                          </select>
-                        </div>
-                        {item?.space_id && (
-                          <p>Occupied: {item.occupied ? "Yes" : "No"}</p>
-                        )}
-                        <div className="cost-info">
-                          <div>
-                            <label htmlFor="price">
-                              Price (15 - 300) per {item.billing}:
-                            </label>
-                            <input
-                              type="number"
-                              id="price"
-                              name="price"
-                              value={formArr[i].price}
-                              onChange={(e) =>
-                                handleSpaceSelectChange(
-                                  e,
-                                  item.space_no,
-                                  item.sp_type
-                                )
-                              }
-                              min={15}
-                              max={300}
-                              step="5"
-                            />
-                          </div>
-                        </div>
-                        {!item?.space_id && (
-                          <div className="saveCheck">
-                            <input
-                              type="checkbox"
-                              id="checkbox"
-                              name="checkbox"
-                              onChange={(e) =>
-                                handleSpaceSelectChange(e, item.space_no)
-                              }
-                              checked={formArr[i].checkbox}
-                            />
-                            <label htmlFor="checkbox">save details</label>
-                          </div>
-                        )}
-                        {item?.space_id && (
-                          <button type="submit">update details</button>
-                        )}
+      <div className="property-space">
+        {formArr.length > 0 &&
+          formArr.map((item, i) => {
+            if (!item.hasOwnProperty("submit_details")) {
+              return (
+                <form
+                  className="property-space-form"
+                  onSubmit={(e) => handleSubmit(e, i)}
+                >
+                  <div key={uuidv4()} className="r-sp-info">
+                    <p>Space Number: {item.space_no}</p>
+                    {item?.space_id && <p>Space ID: {item.space_id}</p>}
+
+                    {item?.space_id && (
+                      <p>Occupied: {item.occupied ? "Yes" : "No"}</p>
+                    )}
+                    <div className="cost-info">
+                      <label htmlFor="price">
+                        Price/{item.billing}(min:$15):
+                      </label>
+                      <input
+                        className="pricePerDay"
+                        type="number"
+                        id="price"
+                        name="price"
+                        value={formArr[i].price}
+                        onChange={(e) =>
+                          handleSpaceSelectChange(
+                            e,
+                            item.space_no,
+                            item.sp_type
+                          )
+                        }
+                        min={15}
+                        max={300}
+                        step="5"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="sp_type">Space Type:</label>
+                      <select
+                        className="property-space-select"
+                        id="sp_type"
+                        name="sp_type"
+                        value={formArr[i].sp_type}
+                        onChange={(e) =>
+                          handleSpaceSelectChange(e, item.space_no)
+                        }
+                      >
+                        <option value="car">Car</option>
+                        <option value="truck">Truck</option>
+                      </select>
+                    </div>
+                    {!item?.space_id && (
+                      <div className="save-details">
+                        <input
+                          type="checkbox"
+                          id="checkbox"
+                          name="checkbox"
+                          onChange={(e) =>
+                            handleSpaceSelectChange(e, item.space_no)
+                          }
+                          checked={formArr[i].checkbox}
+                        />
+                        <label htmlFor="checkbox">Save Details</label>
                       </div>
-                    </form>
+                    )}
+                    {item?.space_id && (
+                      <button className="property-space-button" type="submit">
+                        Update Details
+                      </button>
+                    )}
                   </div>
-                );
-              } else
-                return (
-                  <div className="spot-info" key={uuidv4()}>
-                    <button type="click" onClick={(e) => handleSubmit(e, i)}>
-                      submit details
-                    </button>
-                  </div>
-                );
-            })}
-        </div>
+                </form>
+              );
+            } else
+              return (
+                <div key={uuidv4()} className="property-space-submit">
+                  <button
+                    className="property-space-button"
+                    type="click"
+                    onClick={(e) => handleSubmit(e, i)}
+                  >
+                    Submit Details
+                  </button>
+                </div>
+              );
+          })}
       </div>
     );
   }

@@ -39,7 +39,8 @@
   letter-spacing: 0.7px;
 }
 
-input {
+.login-input,
+.register-input {
   border: 0;
   outline: none;
   height: 1rem;

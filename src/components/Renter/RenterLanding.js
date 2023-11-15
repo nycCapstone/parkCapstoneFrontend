@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import SoldSpaces from "./Components/SoldSpaces";
 import { useSelector } from "react-redux";
-import "./Styles/Renter.css"
 
 const RenterLanding = () => {
   const userRole = useSelector((state) => state.roles);
