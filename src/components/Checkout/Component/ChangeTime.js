@@ -1,16 +1,19 @@
-import { searchLandingMutate, searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
+import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import { checkDates } from "../../../constants/helper/helper";
+import DatePicker from "react-datepicker";
+import { FcCalendar } from "react-icons/fc";
+import { FcAlarmClock } from "react-icons/fc";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
+import "../Styles/ChangeTime.css"
 import "../../Forms/Styles/SearchForm.css";
 
 const ChangeTime = () => {
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
   const [err, setErr] = useState(false);
   const query = useSelector(state => state.landing);
   const dispatch = useDispatch();
@@ -43,73 +46,65 @@ const ChangeTime = () => {
   };
 
   return (
-    <div className="checkout-reschedule">
-      <form className="checkout-reschedule-form" onSubmit={getNewTimeSpot}>
-        <div className="start-container">
-          <div className="start-date">
-            <label>Enter After: </label>
-            <DatePicker
-              selectsStart
-              selected={checkInDate}
-              onChange={(date) => setCheckInDate(date)}
-              minDate={new Date()}
-              shouldCloseOnSelect={false}
-              timeIntervals={30}
-              value={`${
-                checkInDate
-                  ? checkInDate.toLocaleDateString()
-                  : new Date().toLocaleDateString()
-              } ${
-                checkInDate
-                  ? checkInDate.toLocaleTimeString()
-                  : new Date().toLocaleTimeString()
-              }`}
-              showTimeSelect
-              style={{ innerWidth: "4rem" }}
-            />
+    <div className="chtime-page-search">
+      {err && <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>}
+      <form onSubmit={getNewTimeSpot}>
+        <div className="chtime-search-space">
+          <div className="chtime-search-checkIn">
+            <p className="table-header">Check-In</p>
+            <div className="date_icon">
+              <DatePicker
+                className="date-field"
+                selectsStart
+                showTimeSelect
+                selected={checkInDate}
+                onChange={(date) => setCheckInDate(date)}
+                minDate={new Date()}
+                shouldCloseOnSelect={false}
+                timeIntervals={30}
+              />
+              <FcCalendar size={25} className="icon-style" />
+            </div>
+            <div className="time_icon">
+              <p className="time-field"> {checkInDate.toLocaleTimeString()}</p>
+              <FcAlarmClock size={25} className="icon-style" />
+            </div>
           </div>
-          <div style={{ float: "right", marginLeft: "2rem" }}>
-            <FaArrowAltCircleDown
-              onClick={() => {
-                setCheckInDate(new Date());
-                setCheckOutDate(null);
-              }}
-            />
+
+          <div className="chtime-search-checkout">
+            <p className="table-header">Check-Out</p>
+
+            <div className="date_icon">
+              <DatePicker
+                className="date-field"
+                selectsEnd
+                showTimeSelect
+                selected={checkOutDate}
+                minDate={checkInDate}
+                onChange={(date) => setCheckOutDate(date)}
+                shouldCloseOnSelect={false}
+                timeIntervals={30}
+              />
+              <FcCalendar size={25} className="icon-style" />
+            </div>
+            <div className="time_icon">
+              <p className="time-field"> {checkOutDate.toLocaleTimeString()}</p>
+              <FcAlarmClock size={25} className="icon-style" />
+            </div>
           </div>
-          <div className="start-time"></div>
         </div>
-        <div className="end-container">
-          <div className="end-date">
-            <label>Leave Before:</label>
-            <DatePicker
-              selectsEnd
-              selected={checkOutDate}
-              onChange={(date) => setCheckOutDate(date)}
-              minDate={checkInDate}
-              shouldCloseOnSelect={false}
-              value={
-                err
-                  ? "Book 3 hour difference"
-                  : `${
-                      checkOutDate
-                        ? checkOutDate.toLocaleDateString()
-                        : new Date().toLocaleDateString()
-                    } ${
-                      checkOutDate
-                        ? checkOutDate.toLocaleTimeString()
-                        : new Date().toLocaleTimeString()
-                    }`
-              }
-              style={{ innerWidth: "4rem" }}
-              timeIntervals={30}
-              showTimeSelect
-            />
-          </div>
-          <div className="end-time"></div>
-        </div>
-        <button style={{ color: "gray" }} type="submit">
-          Submit new Time
+
+        <button className="chtime-search-button" type="submit">
+          Submit new time
         </button>
+        <div className="change-time-reset">
+          <FaArrowAltCircleDown
+            onClick={() => {
+              setCheckInDate(new Date());
+              setCheckOutDate(checkInDate);
+            }}
+          />
+        </div>
       </form>
     </div>
   );

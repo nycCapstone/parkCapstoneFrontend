@@ -19,7 +19,7 @@ const ClientSearchForm = () => {
   });
   const { data: userData, isLoading, error } = useGetUserInfoQuery();
   const [searchResult, setSearchResult] = useState("");
-  const [formattedAddress, setFormattedAddress] = useState({});
+  const [locationdata, setGeoLocation] = useState({});
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(checkInDate);
   const [err, setErr] = useState(false);
@@ -46,33 +46,25 @@ const ClientSearchForm = () => {
     if (searchResult != null) {
       const place = searchResult.getPlace();
       const fA = place.formatted_address;
-      if (
-        !place?.address_components?.some((item) => {
-          let c = item;
-          if (item?.types?.includes("postal_code")) {
-            const z = c?.long_name || c?.short_name;
-            setFormattedAddress({ addr: fA, zipCode: z });
-            return true;
-          } else {
-            return false;
-          }
-        })
-      ) {
-        setFormattedAddress({ addr: fA, zipCode: "" });
+      if (place.geometry && place.geometry.location) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+      
+        setGeoLocation({ lat, lng, });
+      } else {
+        console.error('No geometry information found for the selected place.');
       }
-
-    } else {
-      alert("Please enter text");
+      console.log(`Formatted Address: ${fA}`);
     }
   }
 
   const searchForAvail = (e) => {
     e.preventDefault();
     const selectedDateTime = new Date(checkInDate);
-    if (!formattedAddress?.addr) {
-      searchRef.current.focus();
-      return;
-    }
+    if (!locationdata?.lat) {
+        searchRef.current.focus();
+        return;
+      }
     if (
       new Date(checkOutDate) <= selectedDateTime ||
       !checkDates(checkInDate, checkOutDate)
@@ -82,8 +74,8 @@ const ClientSearchForm = () => {
     }
     dispatch(
       searchLandingBookings([
-        formattedAddress?.zipCode || "",
-        formattedAddress?.addr || "",
+        locationdata.lat,
+        locationdata?.lng || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
       ])

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/auth/authSlice";
+import RenterLoading from "../../assets/Spinners/RenterLoading";
 import useRefreshToken from "../../hooks/useRefreshToken";
 
 const PersistLogin = () => {
@@ -31,11 +32,7 @@ const PersistLogin = () => {
   return (
     <>
       {isLoading && !ct ? (
-        <>
-          <div>Loading...</div>
-          <div>Loading...</div>
-          <div>Loading...</div>
-        </>
+        <RenterLoading />
       ) : (
         <Outlet />
       )}

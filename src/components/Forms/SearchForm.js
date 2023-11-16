@@ -27,7 +27,7 @@ const SearchForm = () => {
     libraries: placesLibrary,
   });
   const [searchResult, setSearchResult] = useState("");
-  const [formattedAddress, setFormattedAddress] = useState({});
+  const [locationdata, setGeoLocation] = useState({});
   const placeHolder = useSelector((state) => {
     if (state.searchResults.data?.length) {
       return state.searchResults.data[0].prop_address;
@@ -39,6 +39,7 @@ const SearchForm = () => {
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(checkInDate);
   const [timeQuery, setTimeQuery] = useState(null);
+  const [formattedAddress, setFormattedAddress] = useState(null);
   const [err, setErr] = useState(false);
   const searchRef = useRef();
   const dispatch = useDispatch();
@@ -62,6 +63,14 @@ const SearchForm = () => {
     if (searchResult != null) {
       const place = searchResult.getPlace();
       const fA = place.formatted_address;
+      if (place.geometry && place.geometry.location) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+      
+        setGeoLocation({ lat, lng, });
+      } else {
+        console.error('No geometry information found for the selected place.');
+      }
       if (
         !place?.address_components?.some((item) => {
           let c = item;
@@ -76,20 +85,13 @@ const SearchForm = () => {
       ) {
         setFormattedAddress({ addr: fA, zipCode: "" });
       }
-
       console.log(`Formatted Address: ${fA}`);
-    } else {
-      alert("Please enter text");
     }
-  }
-
-  if (!isLoaded) {
-    return <div>Loading...</div>;
   }
 
   const getRelevantSpots = async (e) => {
     e.preventDefault();
-    if (!formattedAddress?.addr) {
+    if (!locationdata?.lat) {
       searchRef.current.focus();
       return;
     }
@@ -104,8 +106,8 @@ const SearchForm = () => {
       }
       dispatch(
         searchLandingBookings([
-          formattedAddress?.zipCode || "",
-          formattedAddress?.addr || "",
+          locationdata.lat,
+          locationdata?.lng || "",
           checkInDate.toISOString(),
           checkOutDate.toISOString(),
         ])
@@ -117,7 +119,7 @@ const SearchForm = () => {
     dispatch(searchResultsLoading());
     await axios
       .get(
-        `/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`
+        `/get-spaces/geolocation?lat=${locationdata.lat}&lng=${locationdata.lng}`
       )
       .then((res) => {
         let searchStore = {
@@ -145,9 +147,9 @@ const SearchForm = () => {
         dispatch(searchResultsError(e));
       });
   };
-  console.log(checkInDate);
+
   return (
-    <div>
+
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
@@ -221,7 +223,6 @@ const SearchForm = () => {
           Search
         </button>
       </form>
-    </div>
   );
 };
 

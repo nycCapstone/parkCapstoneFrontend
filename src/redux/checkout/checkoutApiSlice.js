@@ -22,8 +22,7 @@ export const checkoutApiSlice = apiSlice.injectEndpoints({
                 url: '/checkout/new-clientpmt',
                 method: 'POST',
                 body: { ...data }
-            }),
-            invalidatesTags: ["myPayments"]
+            })
         }),
         getClientTransactions: builder.query({
             query: () => ({

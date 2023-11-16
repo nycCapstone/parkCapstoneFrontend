@@ -1,7 +1,7 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Loading from "../../assets/Spinners/Loading";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
@@ -73,7 +73,7 @@ function ParkingSpotDetailPage() {
   }
 
   if (isLoading) {
-    return <Loading />;
+    return <SearchLoading />;
   }
 
   if (error || isUninitialized) {

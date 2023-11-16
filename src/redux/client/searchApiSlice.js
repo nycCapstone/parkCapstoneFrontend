@@ -11,7 +11,7 @@ export const searchApiSlice = apiSlice.injectEndpoints({
         }),
         getAvailLandingSpots: builder.query({
             query: (data) => ({
-                url: `/get-spaces/landing?zip=${data[0]}&addr=${data[1]}&start=${data[2]}&end=${data[3]}`,
+                url: `/get-spaces/location-and-time?lat=${data[0]}&lng=${data[1]}&start=${data[2]}&end=${data[3]}`,
                 providesTags: ['landingSearches'],
                 method: 'GET'
             })

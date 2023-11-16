@@ -31,8 +31,6 @@ const Admin = () => {
     return (
       <section>
         <AdminPage />
-        <div className="flexGrow">
-        </div>
         <section className="home-container">
           <h1 className="welcome-heading">Welcome Home</h1>
           {data?.email && <p className="user-email">Email: {data?.email}</p>}

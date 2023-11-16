@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
-import Loading from "../../assets/Spinners/Loading";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 
 const AddressForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -31,7 +31,7 @@ const AddressForm = () => {
 
   if (isLoading || !isLoaded) {
     return (
-      <Loading />
+      <SearchLoading />
     );
   }
   if (isSuccess && isLoaded) {
@@ -100,13 +100,7 @@ const AddressForm = () => {
               : formattedAddress}
           </p>
         </div>
-        {formIsLoading ? (
-          <div>
-            <p>Loading.....</p>
-            <p>Loading.....</p>
-            <p>Loading.....</p>
-            <p>Loading.....</p>
-          </div>
+        {formIsLoading ? ( <SearchLoading />
         ) : (
           <>
             <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>

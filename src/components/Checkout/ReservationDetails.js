@@ -19,7 +19,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
   useEffect(() => {
     if (resData && resData[0]?.property_id) {
       setIsLoading(false);
-    } else setIsLoading(true);
+    }
   }, []);
 
   const handleTypeChange = (event) => {

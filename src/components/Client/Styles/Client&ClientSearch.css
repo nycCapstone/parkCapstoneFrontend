@@ -73,3 +73,40 @@
   color: #ff5757;
   margin-bottom: 1rem;
 }
+
+.cl-views-header {
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+  background-color: #f0f0f0; /* Set your desired background color */
+}
+
+.cl-h-svgleft {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.cl-views-header h1 {
+  margin: 0;
+}
+
+.clview-navbar {
+  background-color: #faa4a4;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clview-nav-item {
+  margin-right: 20px;
+}
+
+.clview-nav-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.clview-nav-item a:hover {
+  text-decoration: underline;
+}
