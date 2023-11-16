@@ -1,5 +1,5 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import "./Details.css";
@@ -59,10 +59,10 @@ function ParkingSpotDetailPage() {
   if (isLoading) {
     return <Loading />
   }
- 
+
   if (error || isUninitialized) {
     if (error) return <div>Api Down</div>
-    return <div>Waiting for Login</div>
+   return <Navigate to="/login"/>
   }
 }
 
