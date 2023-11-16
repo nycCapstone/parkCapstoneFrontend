@@ -1,11 +1,15 @@
+/* Updated styles for better aesthetics */
+
 .search-reslist {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
 }
+
 .spot-info p {
   margin-top: 1rem;
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -15,12 +19,12 @@
 
 .table th,
 .table td {
-  padding: 8px;
+  padding: 12px;
   border-bottom: 1px solid #ddd;
 }
 
 .table th {
-  background-color: #f2f2f2;
+  background-color: #f5f5f5;
   font-weight: bold;
 }
 
@@ -37,12 +41,11 @@
 }
 
 .spot-info {
-  background: rgb(255, 244, 244);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 244, 244, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: left;
-  opacity: 70%;
 }
 
 .cost-info div,
@@ -52,20 +55,21 @@
 }
 
 .cost-info h4 {
-  font-weight: 400;
-  color: rgb(0, 55, 2);
+  font-weight: 500;
+  color: #003700;
   margin-right: 0.5rem;
 }
 
 .cost-info p {
-  color: rgb(0, 0, 0);
+  color: #333;
 }
 
 .s-res-header-text {
-  font-size: larger;
+  font-size: x-large;
   margin: 0;
   text-align: center;
   margin-bottom: 2rem;
+  color: #004080;
 }
 
 .search-main {
@@ -82,12 +86,72 @@
   background-color: #0077cc;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .spot-info .show-me-button:hover {
   background-color: #0055aa;
+}
+
+/* Updated styles for the dropdown */
+.sort-button-container {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.sort-dropdown {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.sort-dropdown:hover {
+  border-color: #0077cc;
+  background-color: #f5f5f5;
+}
+
+.sort-dropdown:focus {
+  outline: none;
+  border-color: #0077cc;
+  background-color: #f5f5f5;
+}
+
+.sort-dropdown option {
+  background-color: #fff;
+  color: #333;
+}
+
+.sort-dropdown.low {
+  border-color: #4caf50;
+}
+
+.sort-dropdown.high {
+  border-color: #e74c3c;
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.location-info i {
+  margin-right: 0.5rem;
+  font-size: 1.4rem;
+  color: #0077cc;
+}
+
+.location-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
 }

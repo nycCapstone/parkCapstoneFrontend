@@ -7,11 +7,18 @@ import "./Details.css";
 function ParkingSpotDetailPage() {
   const { id } = useParams();
   const accessToken = useSelector((state) => state.auth.accessToken);
-  const { data: responseData, isSuccess, error, isLoading, isUninitialized } = useGetOneSpotQuery(id, {skip: !accessToken });
+  const {
+    data: responseData,
+    isSuccess,
+    error,
+    isLoading,
+    isUninitialized,
+  } = useGetOneSpotQuery(id, { skip: !accessToken });
 
   if (isSuccess) {
     const spotDetails = responseData[0];
-    return <div className="parking-spot-details-page">
+    return (
+      <div className="parking-spot-details-page">
         <h1>Parking Spot Details</h1>
         <div className="details">
           <p className="detail-label">Address:</p>
@@ -34,6 +41,10 @@ function ParkingSpotDetailPage() {
           <div>
             <h3>Renter Information</h3>
             <div className="details">
+              <p className="detail-label">Renter ID:</p>
+              <p className="detail-value">{spotDetails.renter_id}</p>
+            </div>
+            <div className="details">
               <p className="detail-label">First Name:</p>
               <p className="detail-value">{spotDetails.renter_first_name}</p>
             </div>
@@ -45,6 +56,10 @@ function ParkingSpotDetailPage() {
               <p className="detail-label">Email:</p>
               <p className="detail-value">{spotDetails.renter_email}</p>
             </div>
+            <div className="details">
+              <p className="detail-label">Address:</p>
+              <p className="detail-value">{spotDetails.renter_address}</p>
+            </div>
           </div>
         )}
 
@@ -54,15 +69,16 @@ function ParkingSpotDetailPage() {
           Go back to Search Results
         </Link>
       </div>
+    );
   }
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   if (error || isUninitialized) {
-    if (error) return <div>Api Down</div>
-   return <Navigate to="/login"/>
+    if (error) return <div>Api Down</div>;
+    return <Navigate to="/login" />;
   }
 }
 
