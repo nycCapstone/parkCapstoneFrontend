@@ -210,14 +210,6 @@ const SearchForm = () => {
           <div className="end-time"></div>
           <div className="end-time"></div>
         </div>
-        <div style={{ float: "right", marginLeft: "2rem" }}>
-          <FaArrowAltCircleDown
-            onClick={() => {
-              setCheckInDate(new Date());
-              setCheckOutDate(checkInDate);
-            }}
-          />
-        </div>
 
         <button className="submit-button" type="submit">
           Search
