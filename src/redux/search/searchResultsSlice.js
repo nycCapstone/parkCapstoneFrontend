@@ -1,14 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-//searchResults object from landing page search
-//from zipcode + address search.
+
 const searchResultsSlice = createSlice({
   name: "searchResults",
   initialState: {
     data: null,
     loading: false,
     error: null,
+    filters: {
+      sortByPrice: false,
+    },
+    location: null,
   },
   reducers: {
+    setSearchResults: (state, action) => {
+      state.data = action.payload.results;
+      state.location = action.payload.location;
+      state.loading = false;
+      state.error = null;
+    },
     searchResultsLoading: (state) => {
       state.loading = true;
       state.error = null;
@@ -40,16 +49,22 @@ const searchResultsSlice = createSlice({
       state.data = null;
       state.loading = false;
       state.error = null;
-    }
+      state.location = null;
+    },
+    setSortByPrice: (state, action) => {
+      state.filters.sortByPrice = action.payload;
+    },
   },
 });
 
 export const {
+  setSearchResults,
   searchResultsLoading,
   searchResultsSuccess,
   searchResultsError,
   searchResultsMutate,
-  resetSearchState
+  resetSearchState,
+  setSortByPrice,
 } = searchResultsSlice.actions;
 
 export default searchResultsSlice.reducer;

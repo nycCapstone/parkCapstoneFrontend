@@ -3,6 +3,7 @@ import {
   searchResultsSuccess,
   searchResultsLoading,
   searchResultsError,
+  setSearchResults,
 } from "../../redux/search/searchResultsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
@@ -125,8 +126,15 @@ const SearchForm = () => {
             checkInDate && checkInDate.toISOString(),
             checkOutDate && checkOutDate.toISOString(),
           ],
+          location: {
+            addr: formattedAddress.addr,
+            zipCode: formattedAddress.zipCode,
+          },
         };
-        if (res.data?.length > 0) dispatch(searchResultsSuccess(searchStore));
+        if (res.data?.length > 0) {
+          dispatch(setSearchResults(searchStore));
+          dispatch(searchResultsSuccess(searchStore));
+        }
         if (res.data?.length === 0) {
           dispatch(searchResultsError("no results found"));
         }
