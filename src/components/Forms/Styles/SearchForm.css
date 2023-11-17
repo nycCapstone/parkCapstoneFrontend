@@ -42,6 +42,14 @@
   margin-bottom: 5px;
 }
 
+.start-label,
+.end-label {
+  color: white;
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding-bottom: 1rem;
+}
+
 .g-search {
   height: 2.5rem;
   width: 75%;
@@ -115,5 +123,12 @@
   cursor: pointer;
   &:hover {
     transform: scale(0.96);
+  }
+}
+@media (max-width: 768px) {
+  .start-label,
+  .end-label {
+    text-shadow: none;
+    font-weight: 500;
   }
 }

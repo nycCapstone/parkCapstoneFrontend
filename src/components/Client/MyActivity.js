@@ -1,17 +1,8 @@
 import { useGetClientTransactionsQuery } from "../../redux/checkout/checkoutApiSlice";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-import { useParams } from "react-router-dom";
-import { resetRInfoCache } from "../../redux/checkout/reservationSlice";
-import { resetSearchState } from "../../redux/search/searchResultsSlice";
-import { resetBookings } from "../../redux/client/clientSearchSlice";
 import "./Styles/MyActivity.css";
 
 const MyActivity = () => {
-  const { nav_id, pmt_id } = useParams();
-  const resInfo = useSelector((state) => state.reservation);
-  const dispatch = useDispatch();
   const {
     data: activity,
     isSuccess,
@@ -19,18 +10,6 @@ const MyActivity = () => {
     error,
     isUninitialized,
   } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
-
-  const [toast, setToast] = useState(null);
-
-  useEffect(() => {
-    if (resInfo?.nav_id === nav_id && pmt_id) {
-    //erase most recent reservation details
-      dispatch(resetRInfoCache());
-      dispatch(resetSearchState());
-      dispatch(resetBookings());
-      setToast(true);
-    }
-  }, []);
 
   if (isLoading || isUninitialized) {
     return <SearchLoading />;
@@ -40,18 +19,7 @@ const MyActivity = () => {
     return (
       <div className="myactivity-container">
         <h3>Most Recent bookings paid for</h3>
-        {toast && activity?.length > 0 && (
-          <div className="newest-transactions">
-            <div class="box">
-              <div class="success alert">
-                <div class="alert-body">
-                  {activity?.find((item) => item.pmt_id === pmt_id) &&
-                    "successfully paid"}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
         {activity?.length > 0 ? (
           <div className="payment-list">
             {activity.map((item, idx) => {
@@ -76,7 +44,9 @@ const MyActivity = () => {
             })}
           </div>
         ) : (
-          <div className="no-activity">No Data Yet</div>
+          <div className="no-activity">
+            You currently do not have any transactions yet!
+          </div>
         )}
       </div>
     );

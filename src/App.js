@@ -26,6 +26,7 @@ import RenterActivity from "./components/Renter/Components/RenterActivity";
 import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
 import MyActivity from "./components/Client/MyActivity";
+import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 function App() {
   return (
     <div className="approot">
@@ -68,9 +69,10 @@ function App() {
                 element={<CLSearchResults />}
               />
               <Route
-                path="client/transactions/:nav_id?/:pmt_id?"
-                element={<MyActivity />}
+                path="/client/pmt/success/:nav_id?/:pmt_id?"
+                element={<SuccessfulPurchase />}
               />
+              <Route path="client/transactions" element={<MyActivity />} />
             </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
@@ -84,7 +86,10 @@ function App() {
             <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
               <Route path="/renter" element={<RenterLanding />} />
               <Route path="/renter/manage" element={<RenterM />} />
-              <Route path="/renter/space-activity" element={<RenterActivity />} />
+              <Route
+                path="/renter/space-activity"
+                element={<RenterActivity />}
+              />
             </Route>
           </Route>
           {/* catch all */}

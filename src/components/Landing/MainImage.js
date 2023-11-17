@@ -13,18 +13,11 @@ const MainImage = () => {
       <img className="main-image" src={smilingadult} alt="smilingadult" />
       <div className="overlay">
         <div className="fw-bold">Your Space. Their Convenience.</div>
-        <div>
-          <SearchForm />
 
-          <div>
-            {isLoading && (
-              <div>
-                <Loading />
-              </div>
-            )}
-            {isError && <div className="capsule fail">{isError}</div>}
-          </div>
-        </div>
+        <SearchForm />
+
+        {isLoading && <Loading />}
+        {isError && <div className="capsule fail">{isError}</div>}
       </div>
     </div>
   );

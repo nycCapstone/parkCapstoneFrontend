@@ -21,7 +21,7 @@ const Payment = () => {
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
-    if ([cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
+    if ([cardNumber, expiryDate, cvv, nameOnCard].some((item) => item === "")) {
       return;
     }
     await newClientPmt({ data: [expiryDate, resInfo.booking_id] })
@@ -29,20 +29,19 @@ const Payment = () => {
       .then((res) => {
         if (!res.success) {
           setErr(true);
-          return
+          return;
         }
         dispatch(resetLandingCache());
-        navigate(`/client/transactions/${resInfo.nav_id}/${res.pmt_id}`);
-      }).catch(e => console.error(e));
+        navigate(`/client/pmt/success/${resInfo.nav_id}/${res.pmt_id}`);
+      })
+      .catch((e) => console.error(e));
   };
 
   return (
     <div>
       <h2>Checkout</h2>
       <div>
-        <div>
-          {err && <div>Error</div>}
-        </div>
+        <div>{err && <div>Error</div>}</div>
         {/* Display details related to the item being purchased */}
         <p>Price: ${resInfo.selected_space.final_price}</p>
         <p>Location of your space: {resInfo.selected_space.prop_address}</p>

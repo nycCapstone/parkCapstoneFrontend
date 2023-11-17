@@ -137,7 +137,7 @@ const SearchForm = () => {
         dispatch(searchResultsError(e));
       });
   };
-
+  console.log(checkInDate);
   return (
     <div>
       <form onSubmit={getRelevantSpots}>
@@ -166,10 +166,10 @@ const SearchForm = () => {
             />
             <p className="select-time">
               {checkInDate.toLocaleTimeString(undefined, {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
             </p>
           </div>
           <div className="end-container">
@@ -186,22 +186,21 @@ const SearchForm = () => {
               showTimeSelect
             />
 
-            <p className="select-time"> {
-                          err
-                          ? "Book 3 hour difference"
-                          :
-            checkOutDate.toLocaleTimeString(undefined, {
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            })}</p>
+            <p className="select-time">
+              {" "}
+              {err
+                ? "Book 3 hour difference"
+                : checkOutDate.toLocaleTimeString(undefined, {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+            </p>
           </div>
+          <div className="end-time"></div>
+          <div className="end-time"></div>
         </div>
-
-        <button className="submit-button" type="submit">
-          Search
-        </button>
-        <div>
+        <div style={{ float: "right", marginLeft: "2rem" }}>
           <FaArrowAltCircleDown
             onClick={() => {
               setCheckInDate(new Date());
@@ -209,6 +208,10 @@ const SearchForm = () => {
             }}
           />
         </div>
+
+        <button className="submit-button" type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
