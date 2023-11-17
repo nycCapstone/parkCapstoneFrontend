@@ -52,7 +52,7 @@
 
 .g-search {
   height: 2.5rem;
-  width: 75%;
+  width: 100%;
   border: 0;
   border-bottom: 1px solid black;
   font-size: 14px;
@@ -68,21 +68,16 @@
 }
 
 .search-landing-container {
-  width: 70%;
-  margin: 0.7rem auto;
+  width: 100%;
+  margin: 0.7rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.start-container,
-.end-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 0 50px;
 }
 
 .start-label,
 .end-label {
+  display: block;
   color: white;
   font-weight: 400;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
@@ -93,7 +88,8 @@
 .select-time {
   font-size: 15px;
   height: 2rem;
-  width: 9rem;
+  min-width: 100%;
+  width: 100%;
   border: 1.5px solid #ddd;
   background-color: white;
   border-radius: 0.2rem;
@@ -103,14 +99,15 @@
 }
 .select-time {
   text-align: start;
-  padding-left: 8px;
-  padding-top: 5px;
+  padding: 5px 8px;
+  /* padding-top: 5px; */
 }
 .select-time::placeholder {
   color: black;
 }
 .submit-button {
-  margin: 0.7rem 0rem;
+  display: block;
+  margin: 2rem auto 0;
   width: 6rem;
   height: 2.5rem;
   background: #ff5757;
@@ -125,6 +122,12 @@
     transform: scale(0.96);
   }
 }
+
+.search-form .react-datepicker-wrapper,
+.search-form .react-datepicker__input-container {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .start-label,
   .end-label {

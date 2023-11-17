@@ -66,10 +66,10 @@ const SearchForm = () => {
       if (place.geometry && place.geometry.location) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-      
-        setGeoLocation({ lat, lng, });
+
+        setGeoLocation({ lat, lng });
       } else {
-        console.error('No geometry information found for the selected place.');
+        console.error("No geometry information found for the selected place.");
       }
       if (
         !place?.address_components?.some((item) => {
@@ -149,80 +149,71 @@ const SearchForm = () => {
   };
 
   return (
-
-      <form onSubmit={getRelevantSpots}>
-        <div className="landing-searchbar">
-          <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-            <input
-              className="g-search"
-              type="text"
-              placeholder={placeHolder}
-              ref={searchRef}
-            />
-          </Autocomplete>
-        </div>
-        <div className="search-landing-container">
-          <div className="start-container">
-            <label className="start-label">Check-In:</label>
-            <DatePicker
-              className="input-date"
-              showTimeSelect
-              selectsStart
-              selected={checkInDate}
-              onChange={(date) => setCheckInDate(date)}
-              minDate={new Date()}
-              shouldCloseOnSelect={false}
-              timeIntervals={30}
-            />
-            <p className="select-time">
-              {checkInDate.toLocaleTimeString(undefined, {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}
-            </p>
-          </div>
-          <div className="end-container">
-            <label className="end-label">Check-Out:</label>
-            <DatePicker
-              className="input-date"
-              selectsEnd
-              selected={checkOutDate}
-              minDate={checkInDate}
-              onChange={(date) => setCheckOutDate(date)}
-              onInputClick={() => setTimeQuery(true)}
-              shouldCloseOnSelect={false}
-              timeIntervals={30}
-              showTimeSelect
-            />
-
-            <p className="select-time">
-              {" "}
-              {err
-                ? "Book 3 hour difference"
-                : checkOutDate.toLocaleTimeString(undefined, {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-            </p>
-          </div>
-          <div className="end-time"></div>
-          <div className="end-time"></div>
-        </div>
-        <div style={{ float: "right", marginLeft: "2rem" }}>
-          <FaArrowAltCircleDown
-            onClick={() => {
-              setCheckInDate(new Date());
-              setCheckOutDate(checkInDate);
-            }}
+    <form onSubmit={getRelevantSpots} className="search-form">
+      <div className="landing-searchbar">
+        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+          <input
+            className="g-search"
+            type="text"
+            placeholder={placeHolder}
+            ref={searchRef}
           />
+        </Autocomplete>
+      </div>
+      <div className="search-landing-container">
+        <div className="start-container">
+          <label className="start-label">Check-In:</label>
+          <DatePicker
+            className="input-date"
+            showTimeSelect
+            selectsStart
+            selected={checkInDate}
+            onChange={(date) => setCheckInDate(date)}
+            minDate={new Date()}
+            shouldCloseOnSelect={false}
+            timeIntervals={30}
+          />
+          <p className="select-time">
+            {checkInDate.toLocaleTimeString(undefined, {
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            })}
+          </p>
         </div>
+        <div className="end-container">
+          <label className="end-label">Check-Out:</label>
+          <DatePicker
+            className="input-date"
+            selectsEnd
+            selected={checkOutDate}
+            minDate={checkInDate}
+            onChange={(date) => setCheckOutDate(date)}
+            onInputClick={() => setTimeQuery(true)}
+            shouldCloseOnSelect={false}
+            timeIntervals={30}
+            showTimeSelect
+          />
 
-        <button className="submit-button" type="submit">
-          Search
-        </button>
-      </form>
+          <p className="select-time">
+            {" "}
+            {err
+              ? "Book 3 hour difference"
+              : checkOutDate.toLocaleTimeString(undefined, {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+          </p>
+        </div>
+        <div className="end-time"></div>
+        <div className="end-time"></div>
+      </div>
+
+      <button className="submit-button" type="submit">
+        Search
+      </button>
+    </form>
   );
 };
 

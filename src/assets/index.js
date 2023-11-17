@@ -5,6 +5,7 @@ import smilingadult from "./smilingadult.jpeg";
 import parking_reserved from "./parking_reserved.jpeg";
 import appLogo from "./appLogo.png";
 import ori_logo from "./ori_logo.png";
+import logo_final from "./logo_final.png";
 
 export {
   carvaletlogo,
@@ -14,4 +15,5 @@ export {
   smilingadult,
   appLogo,
   ori_logo,
+  logo_final,
 };

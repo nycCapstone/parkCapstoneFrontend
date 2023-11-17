@@ -43,10 +43,10 @@ const SuccessfulPurchase = () => {
 
   if (isSuccess) {
     return (
-      <div className="myactivity-container">
+      <div className="successful-purchase-container">
         {activity && toast ? (
           <>
-            <h3>
+            <h3 className="success-message">
               Congratulations, {userInfo.first_name}! Your reservation is
               confirmed!
             </h3>
@@ -56,18 +56,12 @@ const SuccessfulPurchase = () => {
                   <div className="success alert">
                     <div className="alert-body">
                       {activity?.find((item) => item.pmt_id === pmt_id) &&
-                        "successfully paid"}
+                        "Successfully paid"}
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "10px",
-                  margin: "10px",
-                }}
-              >
+              <div className="payment-details">
                 <p>Your Payment ID is {activity[0].pmt_id}</p>
                 <p>
                   Your reservation at{" "}
@@ -102,17 +96,22 @@ const SuccessfulPurchase = () => {
                 <p>Please print out this page for your records!</p>
               </div>
             </div>
+            <div className="record-message">
+              <p>Please print out this page for your records!</p>
+            </div>
           </>
         ) : (
           <div className="no-activity">No Data Yet</div>
         )}
-        <Link to="/admin">Administrator Page</Link>
+        <Link to="/admin" className="admin-link">
+          Administrator Page
+        </Link>
       </div>
     );
   }
 
   if (error) {
-    return <div>Api Down</div>;
+    return <div className="api-down-message">Api Down</div>;
   }
 };
 

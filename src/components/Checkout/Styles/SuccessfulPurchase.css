@@ -1,0 +1,50 @@
+.successful-purchase-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-message {
+  color: #27ae60;
+}
+
+.payment-list {
+  margin-top: none;
+}
+
+.box {
+  margin-top: none;
+}
+
+.success {
+  /* Add styles as needed */
+}
+
+.payment-details {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  margin-top: 2rem;
+}
+
+.record-message {
+  margin-top: 20px;
+  color: #3498db;
+}
+
+.no-activity {
+  color: #e74c3c;
+}
+
+.admin-link {
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+}
