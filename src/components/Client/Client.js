@@ -9,34 +9,35 @@ const Client = () => {
   const { data: userData, isLoading } = useGetUserInfoQuery();
   const roles = useSelector((state) => state.roles);
   return (
-    <div>
-      <section>
-        <div style={{ display: "flex" }}>
-          <div>
-            <Link to="/admin">
-              <FaChevronCircleLeft />
-            </Link>
-          </div>
-          <div>
-            <h1>Client Page</h1>
-          </div>
+    <div className="cl-views-container">
+      <header className="cl-views-header">
+        <div className="cl-h-svgleft">
+          <Link to="/admin">
+            <FaChevronCircleLeft />
+          </Link>
         </div>
+        <h1>Client Page</h1>
+      </header>
+      <nav className="clview-navbar">
         {isLoading ? (
           <Loading />
         ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
-          <nav>
-            <div>
+          <>
+            <div className="clview-nav-item">
               <p>Search and Make a new booking.</p>
               <Link to="/client/search">Search Page</Link>
             </div>
-            <div>
+            <div className="clview-nav-item">
               <Link to="/client/transactions">My Activity</Link>
             </div>
-          </nav>
+          </>
         ) : (
-          <div>Bookings made easy after you confirm your details.</div>
+          <div className="clview-nav-item">
+            Bookings made easy after you confirm your details.
+          </div>
         )}
-      </section>
+      </nav>
+
       <section>
         <ClientBookings />
       </section>

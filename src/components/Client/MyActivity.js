@@ -19,7 +19,6 @@ const MyActivity = () => {
     return (
       <div className="myactivity-container">
         <h3>Most Recent bookings paid for</h3>
-
         {activity?.length > 0 ? (
           <div className="payment-list">
             {activity.map((item, idx) => {

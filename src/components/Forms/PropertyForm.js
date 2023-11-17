@@ -18,6 +18,7 @@ const PropertyForm = () => {
   const [submitProperty] = useSubmitPropertyMutation();
   const [searchResult, setSearchResult] = useState("Result: none");
   const [formattedAddress, setFormattedAddress] = useState("");
+  const [locationdata, setGeoLocation] = useState({});
   const [zipCode, setZipCode] = useState(null);
   const [count, setCount] = useState(1);
 
@@ -59,6 +60,12 @@ const PropertyForm = () => {
       if (count>99) {
         return;
       }
+      if (place.geometry && place.geometry.location) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+      
+        setGeoLocation({ lat, lng, });
+      } 
 
       if (
         place?.address_components?.some((item) => {
@@ -107,13 +114,15 @@ const PropertyForm = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-              if (formattedAddress.length < 8) return;
+              if (formattedAddress.length < 8 || typeof locationdata?.lat !== 'number') return;
               if ((zipCode && values.zip !== zipCode) || !zipCode) return;
               try {
                 await submitProperty({
                   ...values,
                   owner_id: userData.id,
                   prop_address: formattedAddress,
+                  latitude: locationdata.lat,
+                  longitude: locationdata.lng
                 })
                   .unwrap()
                   .then(() => refetch());

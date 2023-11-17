@@ -53,7 +53,7 @@ const Checkout = () => {
     }
   }, [checkoutData]);
 
-  if ((isSuccess || isUninitialized) && checkoutData?.length) {
+  if ((isSuccess || isUninitialized) && checkoutData?.length > 0) {
     return (
       <div>
         <section>

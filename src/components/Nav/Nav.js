@@ -10,8 +10,8 @@ import { useState } from "react";
 import "./Nav.css";
 
 function Nav() {
-  const [showMenu, setShowMenu] = useState(false);
   const userStatus = useSelector((state) => state.roles?.Client);
+  const [showMenu, setShowMenu] = useState(false);
 
   const logout = useLogout();
 

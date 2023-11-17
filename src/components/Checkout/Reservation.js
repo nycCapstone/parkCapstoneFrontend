@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { checkoutPrice, formData } from "../../constants/helper/helper";
 import ChangeTime from "./Component/ChangeTime";
 import { useState, useEffect } from "react";
+import "./Styles/ChangeTime.css"
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 
 const Reservation = ({ checkoutData }) => {
@@ -29,13 +30,9 @@ const Reservation = ({ checkoutData }) => {
           </div>
           {dataObj && (
             <>
-              <aside>
-                <i
-                  onClick={() => setChTime(!chTime)}
-                  style={{ textDecorationLine: "true" }}
-                >
-                  Change Time
-                </i>
+              <aside
+              className="change-time-link">
+                <i onClick={() => setChTime(!chTime)}>Change Time</i>
               </aside>
               <div>
                 <section>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setSortByPrice,
-  setSearchResults,
+  setSortByPrice
 } from "../../redux/search/searchResultsSlice";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
-import { Link } from "react-router-dom";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
+import { Link } from "react-router-dom";
 import "./SearchResults.css";
 
 const SearchResults = () => {
@@ -34,6 +33,7 @@ const SearchResults = () => {
     if (searchStatus) {
       setUseArray(searchResults);
     } else if (isSuccess) {
+      //results with time blocks
       setUseArray(landingSearchResults);
     }
   }, [landingSearchResults, searchResults, searchStatus, isSuccess]);
@@ -60,7 +60,6 @@ const SearchResults = () => {
   console.log("searchLocation:", searchLocation);
 
   return (
-    <div>
       <main className="search-main">
         <h1 className="s-res-header-text">Search Results</h1>
 
@@ -95,7 +94,7 @@ const SearchResults = () => {
                 <p>Zip Code: {item.zip}</p>
                 {useArray?.results && (
                   <>
-                    <p>Availability: {avail ? "Yes" : "No"}</p>
+                    <p>Available now: {avail ? "Yes" : "No"}</p>
                     <p>Number of spaces: {item.count_spaces}</p>
                   </>
                 )}
@@ -137,7 +136,6 @@ const SearchResults = () => {
           })}
         </div>
       </main>
-    </div>
   );
 };
 

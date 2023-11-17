@@ -52,9 +52,9 @@ const SuccessfulPurchase = () => {
             </h3>
             <div className="payment-list">
               <div className="newest-transactions">
-                <div class="box">
-                  <div class="success alert">
-                    <div class="alert-body">
+                <div className="box">
+                  <div className="success alert">
+                    <div className="alert-body">
                       {activity?.find((item) => item.pmt_id === pmt_id) &&
                         "successfully paid"}
                     </div>

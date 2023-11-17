@@ -1,7 +1,7 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
-import Loading from "../../assets/Spinners/Loading";
 import { Link } from "react-router-dom";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./AdminPage.css";
 
 const AdminPage = () => {
@@ -10,7 +10,7 @@ const AdminPage = () => {
   if (isLoading) {
     return (
       // TODO all loading components
-      <Loading />
+      <SearchLoading />
     );
   }
 
