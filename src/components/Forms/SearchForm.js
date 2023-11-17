@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+
 import { checkDates } from "../../constants/helper/helper";
 import {
   searchLandingBookings,
@@ -34,10 +35,10 @@ const SearchForm = () => {
       return "Search for a spot (eg. NYC NY 1001)";
     }
   });
-  const searchResults = useSelector((state) => state.searchResults);
 
   const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
+  const [timeQuery, setTimeQuery] = useState(null);
   const [err, setErr] = useState(false);
   const searchRef = useRef();
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ const SearchForm = () => {
       searchRef.current.focus();
       return;
     }
-    if (checkOutDate) {
+    if (checkOutDate && timeQuery) {
       const selectedDateTime = new Date(checkInDate);
       if (
         new Date(checkOutDate) <= selectedDateTime ||
@@ -114,39 +115,41 @@ const SearchForm = () => {
       dispatch(resetLandingCache());
     }
     dispatch(searchResultsLoading());
-    try {
-      const response = await axios.get(
+    await axios
+      .get(
         `/get-spaces/address/a?zipCode=${formattedAddress.zipCode}&addr=${formattedAddress.addr}`
-      );
-
-      let searchStore = {
-        results: response.data,
-        location: formattedAddress,
-        params: [
-          checkInDate && checkInDate.toISOString(),
-          checkOutDate && checkOutDate.toISOString(),
-        ],
-      };
-
-      if (response.data?.length > 0) {
-        dispatch(setSearchResults(searchStore));
-        dispatch(searchResultsSuccess(searchStore));
-      }
-      if (response.data?.length === 0) {
-        dispatch(searchResultsError("no results found"));
-      }
-      navigate("/search-result");
-    } catch (error) {
-      console.error(error);
-      dispatch(searchResultsError(error));
-    }
+      )
+      .then((res) => {
+        let searchStore = {
+          results: res.data,
+          params: [
+            checkInDate && checkInDate.toISOString(),
+            checkOutDate && checkOutDate.toISOString(),
+          ],
+          location: {
+            addr: formattedAddress.addr,
+            zipCode: formattedAddress.zipCode,
+          },
+        };
+        if (res.data?.length > 0) {
+          dispatch(setSearchResults(searchStore));
+          dispatch(searchResultsSuccess(searchStore));
+        }
+        if (res.data?.length === 0) {
+          dispatch(searchResultsError("no results found"));
+        }
+        navigate("/search-result");
+      })
+      .catch((e) => {
+        console.error(e);
+        dispatch(searchResultsError(e));
+      });
   };
 
   return (
     <div>
       <form onSubmit={getRelevantSpots}>
         <div className="landing-searchbar">
-          <h2>Search for a parking space</h2>
           <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
             <input
               className="g-search"
@@ -156,71 +159,65 @@ const SearchForm = () => {
             />
           </Autocomplete>
         </div>
-
-        <div className="start-container">
-          <div className="start-date">
-            <label>Enter After: </label>
+        <div className="search-landing-container">
+          <div className="start-container">
+            <label className="start-label">Check-In:</label>
             <DatePicker
+              className="input-date"
+              showTimeSelect
               selectsStart
               selected={checkInDate}
               onChange={(date) => setCheckInDate(date)}
               minDate={new Date()}
               shouldCloseOnSelect={false}
-              timeIntervals={15}
-              value={`${
-                checkInDate
-                  ? checkInDate.toLocaleDateString()
-                  : new Date().toLocaleDateString()
-              } ${
-                checkInDate
-                  ? checkInDate.toLocaleTimeString()
-                  : new Date().toLocaleTimeString()
-              }`}
-              showTimeSelect
-              style={{ innerWidth: "4rem" }}
+              timeIntervals={30}
             />
+            <p className="select-time">
+              {checkInDate.toLocaleTimeString(undefined, {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
+            </p>
           </div>
-          <div style={{ float: "right", marginLeft: "2rem" }}>
-            <FaArrowAltCircleDown
-              onClick={() => {
-                setCheckInDate(new Date());
-                setCheckOutDate(null);
-              }}
-            />
-          </div>
-          <div className="start-time"></div>
-        </div>
-        <div className="end-container">
-          <div className="end-date">
-            <label>Leave Before:</label>
+          <div className="end-container">
+            <label className="end-label">Check-Out:</label>
             <DatePicker
+              className="input-date"
               selectsEnd
               selected={checkOutDate}
+              minDate={checkInDate}
               onChange={(date) => setCheckOutDate(date)}
+              onInputClick={() => setTimeQuery(true)}
               shouldCloseOnSelect={false}
-              value={
-                err
-                  ? "Book 3 hour difference"
-                  : `${
-                      checkOutDate
-                        ? checkOutDate.toLocaleDateString()
-                        : new Date().toLocaleDateString()
-                    } ${
-                      checkOutDate
-                        ? checkOutDate.toLocaleTimeString()
-                        : new Date().toLocaleTimeString()
-                    }`
-              }
-              style={{ innerWidth: "4rem" }}
-              timeIntervals={15}
+              timeIntervals={30}
               showTimeSelect
             />
+
+            <p className="select-time">
+              {" "}
+              {err
+                ? "Book 3 hour difference"
+                : checkOutDate.toLocaleTimeString(undefined, {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+            </p>
           </div>
-          <div className="end-time"></div>
         </div>
+
         <button className="submit-button" type="submit">
           Search
         </button>
+        <div>
+          <FaArrowAltCircleDown
+            onClick={() => {
+              setCheckInDate(new Date());
+              setCheckOutDate(checkInDate);
+            }}
+          />
+        </div>
       </form>
     </div>
   );
