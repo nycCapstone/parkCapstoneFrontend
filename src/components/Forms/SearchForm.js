@@ -212,14 +212,6 @@ const SearchForm = () => {
         <button className="submit-button" type="submit">
           Search
         </button>
-        <div>
-          <FaArrowAltCircleDown
-            onClick={() => {
-              setCheckInDate(new Date());
-              setCheckOutDate(new Date());
-            }}
-          />
-        </div>
       </form>
     </div>
   );
