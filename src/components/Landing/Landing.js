@@ -1,4 +1,4 @@
-import MainImage from "./MainImage";
+import Hero from "./Hero";
 import {
   smilingadult,
   reservedforyou,
@@ -14,9 +14,7 @@ function Landing() {
   return (
     <>
       <Overlay>
-        <header className="mainimage">
-          <MainImage />
-        </header>
+        <Hero />
         <div className="main_container">
           <section className="landing-intro">
             <h2>Welcome to CarValet</h2>

@@ -1,5 +1,5 @@
 import React from "react";
-import { carvaletlogo, appLogo, ori_logo } from "../../assets";
+import { logo_final, ori_logo } from "../../assets";
 import NavInfo from "./NavInfo";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ function Nav() {
     <nav className={showMenu ? "navbar active" : "navbar"}>
       <div className="left-nav">
         <Link to="/">
-          <img className="logo" src={ori_logo} alt="logo" />
+          <img className="logo" src={logo_final} alt="logo" />
         </Link>
       </div>
       <div className="right-nav">
