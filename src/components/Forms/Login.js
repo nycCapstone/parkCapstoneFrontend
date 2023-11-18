@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [login] = useLoginMutation();
+  const storedRedirect = localStorage.getItem("redirectAfterLogin");
   let from = location.state?.from?.pathname || "/admin";
 
   const userRef = useRef();
@@ -42,7 +43,10 @@ const Login = () => {
           dispatch(setAuth(res));
         });
       localStorage.setItem("persist", true);
-      navigate("/admin");
+
+      // const redirectTo = location.state?.redirectTo;
+
+      navigate(storedRedirect || from);
     } catch (err) {
       console.error(err);
 
