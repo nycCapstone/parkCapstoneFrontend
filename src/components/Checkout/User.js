@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CHECK_FOR_EMAIL_URL } from "../../constants/helper/helper";
 import axios from "../../api/axios";
+import "./Styles/UserCheckout.css";
 
 const User = ({ userData }) => {
   const [email, setEmail] = useState("");
@@ -20,17 +21,17 @@ const User = ({ userData }) => {
           setRegister({ email: null });
         }
       })
-      .catch((e) => {
+      .catch(() => {
         setRegister({ email: "X" });
       });
   };
 
   return (
-    <div style={{ backgroundColor: userData?.email ? "lightgray" : "" }}>
-      <div>
+    <div className="userinfo-card">
+      <div className="ch-numicon">
         <i>1</i>
-        <h3>Account Info</h3>
       </div>
+      <h3>Account Info</h3>
       {!userData?.email && (
         <div>
           <form onSubmit={handleSubmit}>
@@ -46,7 +47,7 @@ const User = ({ userData }) => {
             <button type="submit">Continue as Guest</button>
           </form>
           <div>
-            <Link to="/login">Sign in or Create Account</Link>
+            <Link to="/login/true">Sign in or Create Account</Link>
           </div>
           <div>
             {register && register.email === "X" && (
@@ -68,7 +69,7 @@ const User = ({ userData }) => {
         </div>
       )}
       {userData?.email && (
-        <div>
+        <div className="ch-userinfo-list">
           <ul>
             <li key={1}>{userData.email}</li>
           </ul>

@@ -1,40 +1,36 @@
 import { useSelector } from "react-redux";
-import { checkoutPrice, formData } from "../../constants/helper/helper";
 import ChangeTime from "./Component/ChangeTime";
 import { useState, useEffect } from "react";
-import "./Styles/ChangeTime.css"
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import "./Styles/ChangeTime.css";
 
-const Reservation = ({ checkoutData }) => {
+const Reservation = ({ resData }) => {
   const searchObj = useSelector((state) => state.checkout);
   const [chTime, setChTime] = useState(false);
   const [loading, setIsLoading] = useState(true);
 
-  const dataObj = formData(checkoutData);
-
   useEffect(() => {
-    if (dataObj?.property_id) {
+    if (resData[0]?.property_id) {
       setIsLoading(false);
     }
   }, []);
 
   return (
-    <div>
+    <div className="reservation-container">
       {loading ? (
         <SearchLoading />
       ) : (
         <>
-          <div>
+          <div className="ch-numicon">
             <i>2</i>
-            <h3>Reservation Summary</h3>
           </div>
-          {dataObj && (
+          <h3>Reservation Summary</h3>
+          {resData && (
             <>
-              <aside
-              className="change-time-link">
+              <aside className="change-time-link">
                 <i onClick={() => setChTime(!chTime)}>Change Time</i>
               </aside>
-              <div>
+              <div className="resrundown-container">
                 <section>
                   <p>Enter After</p>
                   <p style={{ fontWeight: "bold" }}>{`${new Date(
@@ -52,26 +48,15 @@ const Reservation = ({ checkoutData }) => {
                   ).toLocaleTimeString()}`}</p>
                 </section>
                 <section>
-                  <div>
-                    Economy Price: $
-                    {(
-                      checkoutPrice(
-                        searchObj.query[searchObj.query.length - 1][2],
-                        searchObj.query[searchObj.query.length - 1][3],
-                        dataObj.billing_type
-                      ) * +dataObj.price
-                    ).toFixed(2)}
+                  <div className="r-summary-finalp">
+                    Economy Price: ${resData[0].final_price}
                   </div>
                 </section>
               </div>
-              {chTime && (
-                <section>
-                  <ChangeTime />
-                </section>
-              )}
+              {chTime && <ChangeTime />}
             </>
           )}
-          {!dataObj && (
+          {!resData && (
             <div>
               No Reservation Data for this property at the reservation block
             </div>

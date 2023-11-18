@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 
 const Admin = () => {
 
-  const { data, isLoading, isError, isSuccess, refetch } = useGetUserInfoQuery();
+  const { data, isLoading, isError, isSuccess, error, refetch } = useGetUserInfoQuery();
 
   const logout = useLogout();
 
@@ -57,7 +57,10 @@ const Admin = () => {
     );
   }
 
-  return null;
+  if (error) {
+    return <div>Api Down</div>
+  }
+
 };
 
 export default Admin;

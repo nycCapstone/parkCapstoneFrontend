@@ -3,6 +3,7 @@ import { useGetActiveByOwnerIdQuery } from "../../../redux/renter/renterApiSlice
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import UpdateActivity from "./UpdateActivity"
 import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import "../Styles/RenterActivity.css"
 //Show list of active bookings where the end time is coming up very soon.
 // TODO style list
 const RenterActivity = () => {

@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom";
 import { inputUserInfo } from "../../redux/checkout/checkoutSlice";
 import { searchLandingMutate } from "../../redux/landing/landingSearchSlice";
 import { useEffect, useState } from "react";
+import { reservationData } from "../../constants/helper/helper";
 import ReservationDetails from "./ReservationDetails";
 import Reservation from "./Reservation";
 import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import "./Styles/CheckoutLayout.css"
 
 const Checkout = () => {
   const role = useSelector((state) => !state.roles.hasOwnProperty("Client"));
@@ -26,7 +28,6 @@ const Checkout = () => {
 
   const {
     data: checkoutData,
-    isSuccess: checkoutSuccess,
     error: checkoutError,
   } = useGetByPidAndTimeQuery([
     property_id,
@@ -54,20 +55,21 @@ const Checkout = () => {
   }, [checkoutData]);
 
   if ((isSuccess || isUninitialized) && checkoutData?.length > 0) {
+    const resData = reservationData(checkoutData, query);
     return (
-      <div>
+      <div className="checkout-layout-container">
         <section>
           <User userData={userData} />
         </section>
         <section>
-          <Reservation checkoutData={checkoutData} />
           <SmallSummary checkoutData={checkoutData} />
-        </section>
+          <Reservation resData={resData} />
         <section>
           <EmptyResult infoPrompt={infoPrompt} />
         </section>
+        </section>
         <section>
-          <ReservationDetails checkoutData={checkoutData} userData={userData} />
+          <ReservationDetails userData={userData} resData={resData} />
         </section>
       </div>
     );
