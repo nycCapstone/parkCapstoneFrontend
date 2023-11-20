@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> 4486d0f (updated filtering method)
 import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
@@ -6,7 +10,6 @@ import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { Link } from "react-router-dom";
 import "./SearchResults.css";
-
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searchResults.data);
   const searchLocation = useSelector((state) => state.searchResults.location);
@@ -42,8 +45,11 @@ const SearchResults = () => {
         return action.payload.sort((a, b) => a.price - b.price);
       case "low":
         return action.payload.sort((a, b) => b.price - a.price);
+<<<<<<< HEAD
       default:
         return [];
+=======
+>>>>>>> 4486d0f (updated filtering method)
     }
   };
 

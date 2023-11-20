@@ -43,16 +43,9 @@ const Login = () => {
           dispatch(setAuth(res));
         });
       localStorage.setItem("persist", true);
-<<<<<<< HEAD
       if (checkout) {
-        navigate(-1)
+        navigate(-1);
       } else navigate("/admin");
-=======
-
-      // const redirectTo = location.state?.redirectTo;
-
-      navigate(storedRedirect || from);
->>>>>>> 179bc25 (new login state)
     } catch (err) {
       console.error(err);
 
