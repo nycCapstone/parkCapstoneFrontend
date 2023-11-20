@@ -7,12 +7,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* h2 .billing-header {
-  background-color: #e74c3c;
-  text-align: center;
-} */
-
-h2 {
+.payment-container h2 {
   color: #333;
   text-align: center;
   margin-top: 2rem;
@@ -24,7 +19,7 @@ h2 {
   margin-left: 2rem;
 }
 
-.error-message {
+.payment-container .error-message {
   color: #e74c3c;
 }
 
@@ -41,7 +36,7 @@ h2 {
   margin: 0 5rem;
 }
 
-label {
+.payment-container label {
   display: block;
   font-size: 16px;
   color: #333;
@@ -57,7 +52,7 @@ label {
   font-size: 1.3rem;
 }
 
-input {
+.payment-container input {
   padding: 15px;
   font-size: 16px;
   border: 1px solid #ddd;
@@ -65,7 +60,7 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.payment-button {
   padding: 10px;
   background-color: #3498db;
   color: #fff;
@@ -77,7 +72,7 @@ button {
   margin: 0 auto;
 }
 
-button:hover {
+.payment-container button:hover {
   background-color: #2980b9;
 }
 
@@ -86,11 +81,11 @@ button:hover {
     padding: 10px;
   }
 
-  input {
+  .payment-container input {
     font-size: 14px;
   }
 
-  button {
+  .payment-button {
     font-size: 16px;
   }
 }

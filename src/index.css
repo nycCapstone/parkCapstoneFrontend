@@ -8,21 +8,10 @@
   font-family: "Work Sans", sans-serif;
 }
 
-li {
-  list-style-type: none;
-}
-
 body {
   min-height: 100vh;
   min-width: 100vh;
   overflow-x: hidden;
-}
-.instructions > svg {
-  margin-right: 0.25rem;
-}
-
-.hide {
-  display: none;
 }
 
 .flexGrow {
