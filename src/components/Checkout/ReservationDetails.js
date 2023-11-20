@@ -5,6 +5,7 @@ import { useInsertBookingMutation } from "../../redux/checkout/checkoutApiSlice"
 import { setRInfo } from "../../redux/checkout/reservationSlice";
 import { useNavigate } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import "./Styles/ReservationDetails.css";
 
 const ReservationDetails = ({ checkoutData, userData }) => {
   const checkoutObj = useSelector((state) => state.checkout);
@@ -46,7 +47,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
           setRInfo({
             selected_space: selectedSpace,
             query_data: data,
-            nav_id: Math.ceil(Math.random()*250).toString(),
+            nav_id: Math.ceil(Math.random() * 250).toString(),
             ...res,
           })
         );
@@ -71,7 +72,11 @@ const ReservationDetails = ({ checkoutData, userData }) => {
                 <form onSubmit={handleSubmit}>
                   <div>
                     <label>Select Vehicle Type:</label>
-                    <select value={selectedType} onChange={handleTypeChange} required>
+                    <select
+                      value={selectedType}
+                      onChange={handleTypeChange}
+                      required
+                    >
                       <option value="">Select</option>
                       {resData
                         .filter((item) => item?.row_num)
@@ -104,7 +109,7 @@ const ReservationDetails = ({ checkoutData, userData }) => {
                     </p>
                   </div>
 
-                  <button type="submit">Confirm Order</button>
+                  <button type="submit">Go To Payment Details</button>
                 </form>
               </>
             )}

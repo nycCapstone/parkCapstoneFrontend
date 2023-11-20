@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { resetLandingCache } from "../../../redux/landing/landingSearchSlice";
 import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
+import "./Payment.css";
 
 const Payment = () => {
   //reservation information
@@ -38,52 +39,63 @@ const Payment = () => {
   };
 
   return (
-    <div>
-      <h2>Checkout</h2>
-      <div>
-        <div>{err && <div>Error</div>}</div>
+    <div className="payment-container">
+      <h2 className="billing-header">Billing Information</h2>
+      <div className="purchase-details">
+        <div>{err && <div className="error-message">Error</div>}</div>
         {/* Display details related to the item being purchased */}
-        <p>Price: ${resInfo.selected_space.final_price}</p>
-        <p>Location of your space: {resInfo.selected_space.prop_address}</p>
-        <p>postal_code: {resInfo.selected_space.zip}</p>
-        <p>Space No: {resInfo.selected_space.space_no}</p>
+        <p className="price">
+          <span className="category-price">Price:</span> $
+          {resInfo.selected_space.final_price}
+        </p>
+        <p className="location">
+          <span className="category-location">Parking Location:</span>{" "}
+          {resInfo.selected_space.prop_address.slice(0, -5)}
+        </p>
+        {/* <p>postal_code: {resInfo.selected_space.zip}</p> */}
+        <p className="space-number">
+          <span className="category-space-number">Space No:</span>{" "}
+          {resInfo.selected_space.space_no}
+        </p>
       </div>
 
       {/* Payment form */}
-      <form onSubmit={handlePaymentSubmit}>
+      <form className="payment-form" onSubmit={handlePaymentSubmit}>
         <label>
-          Card Number:
+          <span className="label-card-name">Name on Card</span>
+          <br />
+          <input
+            type="text"
+            value={nameOnCard}
+            onChange={(e) => setNameOnCard(e.target.value)}
+          />
+        </label>
+        <label>
+          <span className="label-card-num">Card Number</span>
+          <br />
           <input
             type="text"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
           />
         </label>
-        <br />
         <label>
-          Expiry Date:
+          <span className="label-card-exp">Expiration Date</span>
+          <br />
           <input
             type="text"
             value={expiryDate}
             onChange={(e) => setExpiryDate(e.target.value)}
           />
         </label>
-        <br />
+
         <label>
-          CVV:
+          <span className="label-card-cvv">CVV (security code)</span>
+          <br />
           <input
             type="text"
             value={cvv}
             onChange={(e) => setCvv(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Name on Card:
-          <input
-            type="text"
-            value={nameOnCard}
-            onChange={(e) => setNameOnCard(e.target.value)}
           />
         </label>
         <br />

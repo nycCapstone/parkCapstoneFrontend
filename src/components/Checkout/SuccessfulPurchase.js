@@ -46,10 +46,10 @@ const SuccessfulPurchase = () => {
       <div className="successful-purchase-container">
         {activity && toast ? (
           <>
-            <h3 className="success-message">
+            <h2 className="success-message">
               Congratulations, {userInfo.first_name}! Your reservation is
               confirmed!
-            </h3>
+            </h2>
             <div className="payment-list">
               <div className="newest-transactions">
                 <div className="box">
@@ -62,38 +62,53 @@ const SuccessfulPurchase = () => {
                 </div>
               </div>
               <div className="payment-details">
-                <p>Your Payment ID is {activity[0].pmt_id}</p>
                 <p>
-                  Your reservation at{" "}
-                  {reservationInfo.selected_space.prop_address} from{" "}
-                  {new Date(reservationInfo.query_data[2]).toLocaleTimeString(
-                    undefined,
-                    {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    }
-                  )}{" "}
-                  on{" "}
-                  {new Date(reservationInfo.query_data[2]).toLocaleDateString()}{" "}
-                  to{" "}
-                  {new Date(reservationInfo.query_data[3]).toLocaleTimeString(
-                    undefined,
-                    {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    }
-                  )}{" "}
-                  on{" "}
-                  {new Date(reservationInfo.query_data[3]).toLocaleDateString()}{" "}
-                  is all set!
+                  <span className="conf-details">
+                    Your Payment ID is{" "}
+                    <span className="pymt-id">{activity[0].pmt_id}</span>
+                  </span>
                 </p>
+                <br />
                 <p>
-                  Your reservation total is $
-                  {reservationInfo.selected_space.final_price}
+                  <span className="conf-details">
+                    Your reservation at{" "}
+                    {reservationInfo.selected_space.prop_address} from{" "}
+                    {new Date(reservationInfo.query_data[2]).toLocaleTimeString(
+                      undefined,
+                      {
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      }
+                    )}{" "}
+                    on{" "}
+                    {new Date(
+                      reservationInfo.query_data[2]
+                    ).toLocaleDateString()}{" "}
+                    to{" "}
+                    {new Date(reservationInfo.query_data[3]).toLocaleTimeString(
+                      undefined,
+                      {
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      }
+                    )}{" "}
+                    on{" "}
+                    {new Date(
+                      reservationInfo.query_data[3]
+                    ).toLocaleDateString()}{" "}
+                    is all set!
+                  </span>
                 </p>
-                <p>Please print out this page for your records!</p>
+                <br />
+                <p>
+                  <span className="conf-details">
+                    {" "}
+                    Your reservation total is $
+                    {reservationInfo.selected_space.final_price}
+                  </span>
+                </p>
               </div>
             </div>
             <div className="record-message">
@@ -111,7 +126,7 @@ const SuccessfulPurchase = () => {
   }
 
   if (error) {
-    return <div className="api-down-message">Api Down</div>;
+    return <div className="api-down-message">API Down</div>;
   }
 };
 
