@@ -43,7 +43,7 @@
 
   .nav-links {
     height: 45vh;
-    width: 100vw;
+    width: 100%;
     position: absolute;
     background-color: black;
     top: 0;
@@ -52,7 +52,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transform: translateX(100%);
+    transform: translateX(-100%);
 
     & a {
       margin-bottom: 2rem;
@@ -78,4 +78,7 @@
       z-index: 999;
     }
   }
+}
+
+@media (max-width: 480px) {
 }
