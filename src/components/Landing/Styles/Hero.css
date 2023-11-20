@@ -81,3 +81,9 @@
 .hero__form button:focus-visible {
   border-color: #fff;
 }
+
+@media (max-width: 480px) {
+  .hero__content h2 {
+    max-width: 80%;
+  }
+}
