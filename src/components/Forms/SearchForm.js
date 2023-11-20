@@ -91,7 +91,7 @@ const SearchForm = () => {
 
   const getRelevantSpots = async (e) => {
     e.preventDefault();
-    if (!locationdata?.lat) {
+    if (!locationdata?.lat || !locationdata?.lng) {
       searchRef.current.focus();
       return;
     }
@@ -107,7 +107,7 @@ const SearchForm = () => {
       dispatch(
         searchLandingBookings([
           locationdata.lat,
-          locationdata?.lng || "",
+          locationdata.lng,
           checkInDate.toISOString(),
           checkOutDate.toISOString(),
         ])
@@ -131,6 +131,8 @@ const SearchForm = () => {
           location: {
             addr: formattedAddress.addr,
             zipCode: formattedAddress.zipCode,
+            lat: locationdata.lat,
+            lng: locationdata.lng,
           },
         };
         if (res.data?.length > 0) {
@@ -140,7 +142,7 @@ const SearchForm = () => {
         if (res.data?.length === 0) {
           dispatch(searchResultsError("no results found"));
         }
-        navigate("/search-result");
+        navigate("/search-result", { state: searchStore.location });
       })
       .catch((e) => {
         console.error(e);

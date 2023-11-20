@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import * as geolib from "geolib";
+
 import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
@@ -6,6 +8,7 @@ import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { Link } from "react-router-dom";
 import "./SearchResults.css";
+
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searchResults.data);
   const searchLocation = useSelector((state) => state.searchResults.location);
@@ -16,7 +19,6 @@ const SearchResults = () => {
     data: landingSearchResults,
     isSuccess,
     isLoading,
-    //this sorts by time and distance
   } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], {
     skip: searchStatus,
   });
@@ -24,18 +26,64 @@ const SearchResults = () => {
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
+    console.log("Search Arr:", searchArr);
+    console.log("Last Search Arr:", searchArr[searchArr.length - 1]);
+
+    console.log("Landing Search Results Data:", landingSearchResults);
+    console.log("Search Status:", searchStatus);
+    console.log("Is Success:", isSuccess);
+
     if (searchStatus || isSuccess) {
       setUseArray(chooseArray({ type: "distance" }));
     }
-  }, [landingSearchResults]);
+  }, [landingSearchResults, searchStatus, isSuccess, searchArr]);
+
+  const calculateDistance = (searchLocation, result) => {
+    const startPoint = {
+      latitude: searchLocation.lat,
+      longitude: searchLocation.lng,
+    };
+
+    const endPoint = {
+      latitude: result.latitude,
+      longitude: result.longitude,
+    };
+
+    console.log("startPoint:", startPoint);
+    console.log("endPoint:", endPoint);
+
+    if (
+      !startPoint.latitude ||
+      !startPoint.longitude ||
+      !endPoint.latitude ||
+      !endPoint.longitude
+    ) {
+      console.error("Invalid coordinates:", startPoint, endPoint);
+      return 0;
+    }
+
+    const distance = geolib.getDistance(startPoint, endPoint);
+
+    return distance * 0.00062137119;
+  };
 
   const chooseArray = (action) => {
     switch (action.type) {
       case "distance":
         if (searchStatus) {
-          return searchResults.results.filter((item) => +item.row_num === 1);
+          return searchResults.results
+            .filter((item) => +item.row_num === 1)
+            .map((item) => ({
+              ...item,
+              distance: calculateDistance(searchLocation, item),
+            }));
         } else if (isSuccess) {
-          return landingSearchResults.filter((item) => +item.row_num === 1);
+          return landingSearchResults
+            .filter((item) => +item.row_num === 1)
+            .map((item) => ({
+              ...item,
+              distance: calculateDistance(searchLocation, item),
+            }));
         }
       case "high":
         return action.payload.sort((a, b) => a.price - b.price);
@@ -72,7 +120,7 @@ const SearchResults = () => {
           >
             <option value="high">Low to High</option>
             <option value="low">High to Low</option>
-            <option value="distance">distance</option>
+            <option value="distance">Distance</option>
           </select>
         </div>
         <div>
@@ -117,12 +165,22 @@ const SearchResults = () => {
                       <tr>
                         <th>Commuter price</th>
                         <th>Large vehicle price</th>
+                        {selectedOption === "distance" && (
+                          <th>Distance (miles)</th>
+                        )}
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>${cartruckp[0]}</td>
                         <td>${cartruckp[1]}</td>
+                        {selectedOption === "distance" && (
+                          <td>
+                            {typeof item.distance === "number"
+                              ? item.distance.toFixed(2)
+                              : "N/A"}
+                          </td>
+                        )}
                       </tr>
                     </tbody>
                   </table>
