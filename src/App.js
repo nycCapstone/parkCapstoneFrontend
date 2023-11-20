@@ -27,6 +27,7 @@ import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
 import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
+
 function App() {
   return (
     <div className="approot">
