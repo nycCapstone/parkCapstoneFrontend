@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [login] = useLoginMutation();
-  const storedRedirect = localStorage.getItem("redirectAfterLogin");
+  const { checkout } = useParams();
   let from = location.state?.from?.pathname || "/admin";
 
   const userRef = useRef();

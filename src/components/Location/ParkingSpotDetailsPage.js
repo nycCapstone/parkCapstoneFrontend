@@ -52,10 +52,10 @@ function ParkingSpotDetailPage() {
               <p className="detail-label">Last Name:</p>
               <p className="detail-value">{spotDetails.client_last_name}</p>
             </div>
-            <div className="details">
+            {/* <div className="details">
               <p className="detail-label">Email:</p>
-              <p className="detail-value">{spotDetails.renter_email}</p>
-            </div>
+              <p className="detail-value">{spotDetails.client_email}</p>
+            </div> */}
             <div className="details">
               <p className="detail-label">Address:</p>
               <p className="detail-value">{spotDetails.renter_address}</p>

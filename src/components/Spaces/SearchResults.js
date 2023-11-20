@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-
 import React, { useEffect, useState } from "react";
-
 import * as geolib from "geolib";
-
 import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
@@ -15,7 +11,6 @@ import "./SearchResults.css";
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searchResults.data);
   const searchLocation = useSelector((state) => state.searchResults.location);
-
   const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
   const {
@@ -31,13 +26,14 @@ const SearchResults = () => {
   useEffect(() => {
     console.log("Search Arr:", searchArr);
     console.log("Last Search Arr:", searchArr[searchArr.length - 1]);
-
     console.log("Landing Search Results Data:", landingSearchResults);
     console.log("Search Status:", searchStatus);
     console.log("Is Success:", isSuccess);
 
+    let results = searchResults?.results || landingSearchResults;
+
     if (searchStatus || isSuccess) {
-      setUseArray(chooseArray({ type: "distance" }));
+      setUseArray(chooseArray({ type: selectedOption, payload: results }));
     }
   }, [landingSearchResults, searchStatus, isSuccess, searchArr]);
 
@@ -71,30 +67,34 @@ const SearchResults = () => {
   };
 
   const chooseArray = (action) => {
+    let filteredResults;
+
     switch (action.type) {
       case "distance":
-        if (searchStatus) {
-          return searchResults.results
-            .filter((item) => +item.row_num === 1)
-            .map((item) => ({
-              ...item,
-              distance: calculateDistance(searchLocation, item),
-            }));
-        } else if (isSuccess) {
-          return landingSearchResults
-            .filter((item) => +item.row_num === 1)
-            .map((item) => ({
-              ...item,
-              distance: calculateDistance(searchLocation, item),
-            }));
-        }
+        filteredResults = (action.payload || []).filter(
+          (item) => +item.row_num === 1
+        );
+        return filteredResults.map((item) => ({
+          ...item,
+          distance: calculateDistance(searchLocation, item),
+        }));
+
       case "high":
-        return action.payload.sort((a, b) => a.price - b.price);
+        filteredResults = [...action.payload].sort((a, b) => a.price - b.price);
+        break;
+
       case "low":
-        return action.payload.sort((a, b) => b.price - a.price);
+        filteredResults = [...action.payload].sort((a, b) => b.price - a.price);
+        break;
+
       default:
         return [];
     }
+
+    return filteredResults.map((item) => ({
+      ...item,
+      distance: calculateDistance(searchLocation, item),
+    }));
   };
 
   if (isLoading || !useArray) {
@@ -170,22 +170,18 @@ const SearchResults = () => {
                       <tr>
                         <th>Commuter price</th>
                         <th>Large vehicle price</th>
-                        {selectedOption === "distance" && (
-                          <th>Distance (miles)</th>
-                        )}
+                        <th>Distance (miles)</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>${cartruckp[0]}</td>
                         <td>${cartruckp[1]}</td>
-                        {selectedOption === "distance" && (
-                          <td>
-                            {typeof item.distance === "number"
-                              ? item.distance.toFixed(2)
-                              : "N/A"}
-                          </td>
-                        )}
+                        <td>
+                          {typeof item.distance === "number"
+                            ? item.distance.toFixed(2)
+                            : "N/A"}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
