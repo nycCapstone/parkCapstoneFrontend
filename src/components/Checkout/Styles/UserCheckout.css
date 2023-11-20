@@ -1,0 +1,28 @@
+.userinfo-card {
+  background-color: lightgray;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ch-numicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #708090;
+  border-radius: 50%;
+  background-color: rgb(233, 255, 229);
+}
+
+.ch-numicon i {
+  font-style: italic;
+  margin-right: 5px;
+}
+
+.userinfo-card li {
+  list-style: none;
+}

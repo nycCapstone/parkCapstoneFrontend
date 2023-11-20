@@ -1,6 +1,6 @@
 .chtime-page-search {
-    width: 70%;
-    margin: 2rem auto;
+    margin: 1rem auto;
+    padding-left: 2rem;
   }
   .cl-search {
     width: 60%;
@@ -38,22 +38,23 @@
   }
   
   .chtime-search-button {
-    margin: 2.5rem 0 6rem 0;
+    margin: 2rem 0 2rem 0;
     width: 5rem;
     height: 2rem;
     background: #ff5757;
     color: white;
-    font-size: 15px;
+    font-size: small;
     text-transform: uppercase;
     border: 0;
     border-radius: 0.3rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
     cursor: pointer;
-    &:hover {
-      transform: scale(0.96);
-    }
   }
-  
+
+  .chtime-search-button:hover {
+    transform: scale(0.96);
+  }
+   
   .date_icon,
   .time_icon {
     display: grid;
@@ -78,11 +79,11 @@
     display: flex;
     justify-content: left;
     padding: 10px;
-    background-color: #f0f0f0; /* Set your desired background color */
+    background-color: #f0f0f0;
   }
   
   .cl-h-svgleft {
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px; 
   }
   
   .cl-views-header h1 {
@@ -119,4 +120,10 @@
     cursor: pointer;
     text-decoration: underline;
     color: blue;
+    width: fit-content;
   }
+
+.change-time-reset {
+  display: inline-block;
+  margin-left: 2rem;
+}

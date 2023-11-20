@@ -65,7 +65,7 @@ export function checkoutPrice(dateString1, dateString2, type) {
     return hoursDiff;
   }
 }
-
+//possibly delete
 export function formData(checkoutData) {
   if (!checkoutData?.length) return null;
   for (let s of checkoutData) {
@@ -85,10 +85,10 @@ export function formData(checkoutData) {
   return null;
 }
 
-export function reservationData(checkoutData, checkoutObj) {
-  if (checkoutData?.length === 0 || !checkoutObj?.query) return null;
-  let start = checkoutObj.query[checkoutObj.query.length-1][2];
-  let end = checkoutObj.query[checkoutObj.query.length-1][3];
+export function reservationData(checkoutData, query) {
+  if (checkoutData?.length === 0 || !query?.length) return null;
+  let start = query[query.length-1][2];
+  let end = query[query.length-1][3];
   //getting the unique types of spaces
   let f = checkoutData.filter(item => +item.row_num === 1);
   f = f.map((item, _) => {

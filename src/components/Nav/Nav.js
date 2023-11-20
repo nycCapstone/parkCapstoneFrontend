@@ -1,12 +1,11 @@
-import React from "react";
-import { logo_final, ori_logo } from "../../assets";
-import NavInfo from "./NavInfo";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import useLogout from "../../hooks/useLogout";
+import { useState } from "react";
+import NavInfo from "./NavInfo";
+import { logo_final } from "../../assets";
+import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { CgCloseR } from "react-icons/cg";
-import { useState } from "react";
+import useLogout from "../../hooks/useLogout";
 import "./Nav.css";
 
 function Nav() {

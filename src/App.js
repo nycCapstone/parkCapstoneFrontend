@@ -37,7 +37,7 @@ function App() {
           {/* public routes */}
           <Route path="/" element={<Landing />} />
           <Route path="go" element={<Landing />} />
-          <Route path="login" element={<Login />} />
+          <Route path="/login/:checkout?" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="confirmation" element={<ConfirmEmail />} />
           <Route path="unauthorized" element={<Unauthorized />} />

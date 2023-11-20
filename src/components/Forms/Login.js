@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [login] = useLoginMutation();
+  const { checkout } = useParams();
   let from = location.state?.from?.pathname || "/admin";
 
   const userRef = useRef();
@@ -42,7 +43,9 @@ const Login = () => {
           dispatch(setAuth(res));
         });
       localStorage.setItem("persist", true);
-      navigate("/admin");
+      if (checkout) {
+        navigate(-1)
+      } else navigate("/admin");
     } catch (err) {
       console.error(err);
 

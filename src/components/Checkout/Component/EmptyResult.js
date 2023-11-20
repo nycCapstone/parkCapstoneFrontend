@@ -25,7 +25,6 @@ if (show) {
     return null;
 }
 
-
 };
 
 export default EmptyResult;

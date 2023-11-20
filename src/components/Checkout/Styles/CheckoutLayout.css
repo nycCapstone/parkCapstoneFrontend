@@ -1,0 +1,19 @@
+.checkout-layout-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .checkout-layout-container > section {
+    padding: 16px;
+    border: 1px solid #ddd;
+  }
+
+  .checkout-layout-container h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 0.75em;
+    margin-top: 0.5em;
+  }
+  
