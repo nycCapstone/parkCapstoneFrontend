@@ -60,6 +60,7 @@
   font-weight: normal;
   border-radius: 0.4rem;
   background-color: #f5f7f8;
+  padding-left: 12px;
 }
 .g-search::placeholder {
   text-align: center;
@@ -93,6 +94,7 @@
   border: 1.5px solid #ddd;
   background-color: white;
   border-radius: 0.2rem;
+  padding-left: 8px;
   &:focus-within {
     border-color: #8c7569;
   }

@@ -78,6 +78,7 @@ const Login = () => {
               Email
             </label>
             <input
+              className="login-input"
               type="email"
               id="email"
               ref={userRef}
@@ -93,6 +94,7 @@ const Login = () => {
               Password
             </label>
             <input
+              className="login-input"
               type="password"
               id="password"
               onChange={(e) => setPwd(e.target.value)}

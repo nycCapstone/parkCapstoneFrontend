@@ -1,25 +1,73 @@
-.r-sp-reslist {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-  
-  @media (max-width: 1200px) {
-    .r-sp-reslist {
-      grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
-    }
-  }
-  
-  @media (max-width: 500px) {
-    .r-sp-reslist {
-      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    }
-  }
-  
+.property-space {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 7px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 1.5rem;
+
   .r-sp-info {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
     background: rgba(255, 255, 255, 0.651);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: left;
+    padding: 15px;
+    .property-space-select {
+      border: 1px solid #f57575;
+      border-radius: 5px;
+      margin-left: 5px;
+      width: 4rem;
+    }
+    .pricePerDay {
+      margin-left: 5px;
+      border: 1px solid #f57575;
+      border-radius: 3px;
+    }
+
+    .save-details {
+      margin-top: 1rem;
+      font-size: 14px;
+    }
   }
+  .property-space-submit {
+    grid-row: 4/5;
+  }
+
+  .property-space-button {
+    width: 7rem;
+    height: 1.75rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: #068fff;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    &:hover {
+      transform: scale(0.96);
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .property-space {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    padding: 1rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .property-space {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    .r-sp-info {
+      width: 18rem;
+      margin-bottom: 1rem;
+    }
+    .property-space-submit {
+      grid-row: 9/10;
+    }
+  }
+}

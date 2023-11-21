@@ -1,45 +1,54 @@
+.renterM-header {
+  font-size: 25px;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+.renter-prop {
+  width: 85%;
+  margin: 3rem auto;
+  background-color: rgb(249, 249, 255);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
-.lot-info {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    text-align: left;
+  .renter-prop-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
-  
-  .lot-info h3 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .lot-info p {
-    font-size: 16px;
-    color: #666;
-    margin: 5px 0;
-  }
-  
-  .lot-earn-info {
-    margin-top: 20px;
-  }
+  .renter-prop-info {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 2rem;
 
-  .lot-earn-item {
-    flex: 1;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    .renter-prop-info1 {
+      & p {
+        margin-bottom: 10px;
+      }
+      .renter-prop-button {
+        margin-top: 1rem;
+        width: 7rem;
+        height: 2rem;
+        border: none;
+        border-radius: 0.3rem;
+        background-color: #068fff;
+        color: white;
+        cursor: pointer;
+        margin: 1rem 0rem;
+        &:hover {
+          transform: scale(0.96);
+        }
+      }
+    }
+    .renter-prop-info2 {
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: opacity 0.3s ease, transform 0.2s ease;
+    }
+    .renter-prop-info2-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  .centered-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Optionally, set a height to center vertically */
-  }
-  
-  .centered-nav div {
-    display: flex;
-    gap: 20px; /* Adjust the gap as needed */
-  }
-  
+}

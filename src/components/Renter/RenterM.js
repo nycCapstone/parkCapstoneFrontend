@@ -5,6 +5,7 @@ import PropertyForm from "../Forms/PropertyForm";
 import PropertySpace from "./Components/PropertySpace";
 import { useState, useEffect } from "react";
 import RenterLoading from "../../assets/Spinners/RenterLoading";
+import "./Styles/Renter.css";
 //Manage Renter Spaces
 const RenterM = () => {
   const { data: userData } = useGetUserInfoQuery();
@@ -15,7 +16,8 @@ const RenterM = () => {
     error,
     refetch,
   } = useGetPropertiesQuery();
-  const [showDetails, setShowDetails] = useState(null);
+
+  const [spaceDetails, setSpaceDetails] = useState({});
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,52 +36,68 @@ const RenterM = () => {
       <div className="r-manage-container">
         <main>
           <section>
-            <h1>Manage your locations</h1>
-            <br />
             {userData?.all_is_auth && (
               <>
-                <p>This is where you can make new available spots.</p>
+                <p className="renterM-header">
+                  This is where you can make new available spots.
+                </p>
                 <PropertyForm />
 
-                <div className="renter-prop-elem">
-                  <h3>Your current properties</h3>
+                <div className="renter-prop">
+                  <h3 className="renter-prop-header">
+                    Your current properties
+                  </h3>
                   {renterData?.length > 0 &&
                     renterData.map((item, i) => {
                       return (
-                        <div className="lot-info" key={i}>
-                          <h3>{i + 1}</h3>
-                          <p>ID: {item.property_id}</p>
-                          <p>Address: {item.prop_address}</p>
-                          <p>Zip Code: {item.zip}</p>
-                          <p>
-                            Location Verified?:{" "}
-                            {item.location_verified ? "Yes" : "No"}
-                          </p>
-                          {!item.location_verified && (
-                            <Link to="/admin/confirm-details">
-                              Confirm your Property Location
-                            </Link>
-                          )}
-                          <p>Number of Spaces: {item.number_spaces}</p>
-                          <div className="lot-earn-info">
-                            <h3>Statement</h3>
-                            <div className="lot-list">
-                              <div className="lot-earn-item">
-                                <p>Billing Type: {item.billing_type}</p>
+                        <div className="renter-prop-info" key={i}>
+                          <div className="renter-prop-info1">
+                            <p>ID: {item.property_id}</p>
+                            <p>Address: {item.prop_address}</p>
+                            <p>Zip Code: {item.zip}</p>
+                            <p>
+                              Location Verified?:{" "}
+                              {item.location_verified ? "Yes" : "No"}
+                            </p>
+                            {!item.location_verified && (
+                              <Link to="/admin/confirm-details">
+                                Confirm your Property Location
+                              </Link>
+                            )}
+                            <p>Number of Spaces: {item.number_spaces}</p>
+                            <div className="lot-earn-info">
+                              <p>Statement</p>
+                              <div className="lot-list">
+                                <div className="lot-earn-item">
+                                  <p>Billing Type: {item.billing_type}</p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          {item.picture && (
-                            <img src={item.picture} alt="placeholder" />
-                          )}
-                          <div>
+                            {item.picture && (
+                              <img src={item.picture} alt="placeholder" />
+                            )}
                             <button
+                              className="renter-prop-button"
                               type="click"
-                              onClick={() => setShowDetails(i)}
+                              onClick={() => {
+                                setSpaceDetails((prevDetails) => ({
+                                  ...prevDetails,
+                                  [i]: !prevDetails[i],
+                                }));
+                              }}
                             >
-                              Space Details at this Property
+                              {spaceDetails[i]
+                                ? "Close Details"
+                                : "Update/Submit"}
                             </button>
-                            {showDetails === i && (
+                          </div>
+
+                          <div
+                            className={`renter-prop-info2 ${
+                              spaceDetails[i] ? "renter-prop-info2-active" : ""
+                            }`}
+                          >
+                            {spaceDetails[i] && (
                               <PropertySpace propertyId={item.property_id} />
                             )}
                           </div>
@@ -97,9 +115,6 @@ const RenterM = () => {
                 </div>
               </div>
             )}
-            <div className="flexGrow">
-              <Link to="/home">Home</Link>
-            </div>
           </section>
         </main>
       </div>
