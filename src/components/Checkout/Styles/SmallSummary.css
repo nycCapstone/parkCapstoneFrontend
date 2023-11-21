@@ -1,24 +1,15 @@
-.ss-card {
+.ss-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: auto;
     background-color: lightgray;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    margin: 10px;
   }
-  
-  .ss-card-header {
-    display: flex;
-    justify-content: space-between;
+
+  .ss-card {
+    padding: 0.5em;
+    margin: 0.5em;
   }
-  
-  .ss-summary-pic img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-  }
-  
-  .ss-card-footer {
-    margin-top: 15px;
-  }
-  

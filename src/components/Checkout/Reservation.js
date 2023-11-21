@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import ChangeTime from "./Component/ChangeTime";
 import { useState, useEffect } from "react";
+import ChangeTime from "./Component/ChangeTime";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Styles/ChangeTime.css";
 
@@ -31,17 +31,17 @@ const Reservation = ({ resData }) => {
                 <i onClick={() => setChTime(!chTime)}>Change Time</i>
               </aside>
               <div className="resrundown-container">
-                <section>
-                  <p>Enter After</p>
-                  <p style={{ fontWeight: "bold" }}>{`${new Date(
+                <section className="resrundown-times">
+                  <p className="">Enter After:</p>
+                  <p>{`${new Date(
                     searchObj.query[searchObj.query.length - 1][2]
                   ).toLocaleDateString()} ${new Date(
                     searchObj.query[searchObj.query.length - 1][2]
                   ).toLocaleTimeString()}`}</p>
                 </section>
-                <section>
-                  <p>Exit Before</p>
-                  <p style={{ fontWeight: "bold" }}>{`${new Date(
+                <section className="resrundown-times">
+                  <p>Exit Before:</p>
+                  <p>{`${new Date(
                     searchObj.query[searchObj.query.length - 1][3]
                   ).toLocaleDateString()} ${new Date(
                     searchObj.query[searchObj.query.length - 1][3]

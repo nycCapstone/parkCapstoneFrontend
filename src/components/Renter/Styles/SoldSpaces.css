@@ -1,0 +1,23 @@
+.sold-spaces-container {
+  min-height: 100vh;
+}
+
+.sold-spaces-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin: 2rem;
+}
+
+.sold-spaces-l-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  width: 70%;
+}
+
+@media (max-width: 700px) {
+    .sold-spaces-l-item {
+        width: 100%;
+    }
+}

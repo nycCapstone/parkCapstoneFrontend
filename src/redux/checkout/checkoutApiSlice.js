@@ -24,6 +24,13 @@ export const checkoutApiSlice = apiSlice.injectEndpoints({
                 body: { ...data }
             })
         }),
+        newCheckoutSession: builder.mutation({
+            query: (data) => ({
+                url: '/checkout/create-checkout-session',
+                method: 'POST',
+                body: { ...data }
+            })
+        }),
         getClientTransactions: builder.query({
             query: () => ({
                 url: '/checkout/payment-activity',
@@ -38,5 +45,6 @@ export const {
     useGetBookingsQuery,
     useInsertBookingMutation,
     useNewClientPmtMutation,
-    useGetClientTransactionsQuery
+    useGetClientTransactionsQuery,
+    useNewCheckoutSessionMutation
 } = checkoutApiSlice

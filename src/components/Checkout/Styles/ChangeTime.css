@@ -114,6 +114,8 @@
 
   .change-time-link {
     background-color: lightgrey;
+    opacity: 80%;
+    margin: 1rem;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

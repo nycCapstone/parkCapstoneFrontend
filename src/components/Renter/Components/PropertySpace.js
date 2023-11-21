@@ -154,8 +154,9 @@ const PropertySpace = (props) => {
                 <form
                   className="property-space-form"
                   onSubmit={(e) => handleSubmit(e, i)}
+                  key={uuidv4()} 
                 >
-                  <div key={uuidv4()} className="r-sp-info">
+                  <div className="r-sp-info">
                     <p>Space Number: {item.space_no}</p>
                     {item?.space_id && <p>Space ID: {item.space_id}</p>}
 

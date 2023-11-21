@@ -27,7 +27,7 @@
   margin-bottom: 10px;
 }
 
-.res-detail-container button {
+.res-detail-container .res-detail-btn-g {
   background-color: #4caf50;
   color: #fff;
   padding: 10px;
@@ -36,11 +36,24 @@
   border-radius: 4px;
 }
 
-.res-detail-container button:hover {
+.res-detail-container .res-detail-btn-n {
+  background-color: lightgray;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.res-detail-container .res-detail-btn-g:hover {
   background-color: #45a049;
 }
 
 .res-detail-container .conflict-message {
   color: #ff5733;
   margin-top: 10px;
+}
+
+.res-detail-container form p {
+  font-size: large;
 }
