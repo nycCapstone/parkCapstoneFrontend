@@ -24,12 +24,6 @@ const SearchResults = () => {
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
-    console.log("Search Arr:", searchArr);
-    console.log("Last Search Arr:", searchArr[searchArr.length - 1]);
-    console.log("Landing Search Results Data:", landingSearchResults);
-    console.log("Search Status:", searchStatus);
-    console.log("Is Success:", isSuccess);
-
     let results = searchResults?.results || landingSearchResults;
 
     if (searchStatus || isSuccess) {
@@ -48,16 +42,12 @@ const SearchResults = () => {
       longitude: result.longitude,
     };
 
-    console.log("startPoint:", startPoint);
-    console.log("endPoint:", endPoint);
-
     if (
       !startPoint.latitude ||
       !startPoint.longitude ||
       !endPoint.latitude ||
       !endPoint.longitude
     ) {
-      console.error("Invalid coordinates:", startPoint, endPoint);
       return 0;
     }
 
