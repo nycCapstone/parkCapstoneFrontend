@@ -152,3 +152,25 @@
   font-size: 1rem;
   color: #555;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.checkout-button,
+.show-me-button {
+  background-color: #00cc0e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.checkout-button:hover,
+.show-me-button:hover {
+  background-color: #0055aa;
+}

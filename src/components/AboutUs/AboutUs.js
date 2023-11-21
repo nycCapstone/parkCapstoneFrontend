@@ -3,6 +3,7 @@ import jibonImage from "../../assets/paul.jpg";
 import zalmanImage from "../../assets/zalman.jpeg";
 import daveImage from "../../assets/dave.jpeg";
 import karmaImage from "../../assets/karma.jpeg";
+import YasserImage from "../../assets/yasser.jpeg";
 
 import "./AboutUs.css";
 
@@ -174,6 +175,43 @@ function AboutUs() {
                     rel="noopener noreferrer"
                   >
                     Karma
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="team">
+          <div className="team-member">
+            <div className="team-member-inner">
+              <div className="team-member-front">
+                <h3>Yasser</h3>
+                <img src={YasserImage} alt="Karma" />
+                <p>Full-stack Developer</p>
+              </div>
+              <div className="team-member-back">
+                <h3>Yasser</h3>
+                <p>Full-stack Developer</p>
+                <p>Skillset: React, Node.js, Express</p>
+                <p>Email: yassersaadi@pursuit.org</p>
+                <p>
+                  GitHub:{" "}
+                  <a
+                    href="https://github.com/YasserS-21"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Yasser
+                  </a>
+                </p>
+                <p>
+                  LinkedIn:{" "}
+                  <a
+                    href="https://www.linkedin.com/in/yasser-saadi/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Yasser
                   </a>
                 </p>
               </div>
