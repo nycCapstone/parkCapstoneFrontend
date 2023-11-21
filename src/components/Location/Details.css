@@ -2,18 +2,21 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: rgba(240, 240, 240, 0.95);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #ff5757;
+  text-align: center;
 }
 
 .details {
-  margin: 10px 0;
+  margin: 15px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -24,22 +27,27 @@ h1 {
 }
 
 .detail-value {
-  color: #777;
+  color: #555;
 }
 
 button.book-now-button {
   background-color: #0077cc;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 24px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 button.book-now-button:hover {
-  background-color: #0055aa;
+  background-color: #ff5757;
 }
 
 a.go-back-link {
@@ -49,8 +57,11 @@ a.go-back-link {
   text-decoration: none;
   color: #0077cc;
   font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s;
 }
 
 a.go-back-link:hover {
   text-decoration: underline;
+  color: #ff5757;
 }
