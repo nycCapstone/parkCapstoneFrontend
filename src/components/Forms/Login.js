@@ -44,7 +44,7 @@ const Login = () => {
         });
       localStorage.setItem("persist", true);
       if (checkout) {
-        navigate(-1)
+        navigate(-1);
       } else navigate("/admin");
     } catch (err) {
       console.error(err);
