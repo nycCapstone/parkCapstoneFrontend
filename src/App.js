@@ -8,8 +8,6 @@ import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import Home from "./components/Dashboard/Home";
 import Client from "./components/Client/Client";
-import Missing from "./components/Missing";
-import Unauthorized from "./components/Unauthorized";
 import RenterM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
@@ -27,8 +25,11 @@ import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
 import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
+import Missing from "./components/Missing";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
+
   return (
     <div className="approot">
       <Nav />
@@ -52,7 +53,7 @@ function App() {
                 element={<ParkingSpotDetailsPage />}
               />
               <Route path="/checkout/:property_id" element={<Checkout />} />
-              <Route path="/payment/:booking_id" element={<Payment />} />
+              <Route path="/payment/:booking_id" element={<Payment/>} />
             </Route>
             <Route
               element={<RequireAuth allowedRoles={["Client", "Renter"]} />}

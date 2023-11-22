@@ -12,30 +12,27 @@ import "../Styles/Client.css";
 
 const CLSearchResults = () => {
   const searchStatus = useSelector(getLanSearchStatus);
-  const searchArr = useSelector(state => state.landing);
-  const dispatch = useDispatch()
+  const searchArr = useSelector((state) => state.landing);
+  const dispatch = useDispatch();
 
   const {
     data: clientSearches,
     isSuccess,
     isFetching,
     error,
-    isLoading
-  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], { skip: searchStatus });
+    isLoading,
+  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], {
+    skip: searchStatus,
+  });
 
   useEffect(() => {
     if (clientSearches?.length) {
-
       dispatch(searchBookings());
     }
-
-  }, [clientSearches])
-  
+  }, [clientSearches]);
 
   if (isLoading || isFetching) {
-    return (
-        <CLLoading />
-    );
+    return <CLLoading />;
   }
 
   if (error) {
@@ -43,11 +40,12 @@ const CLSearchResults = () => {
   }
 
   if (isSuccess) {
-    const clSearchResults = clientSearches.filter(item => +item.row_num === 1);
+    const clSearchResults = clientSearches.filter(
+      (item) => +item.row_num === 1
+    );
     return (
-      <><div>
-        Result of your Search
-      </div>
+      <>
+        <div>Result of your Search</div>
         {clSearchResults.length === 0 ? (
           <div>No Results Yet</div>
         ) : (
@@ -58,9 +56,11 @@ const CLSearchResults = () => {
             <main className="search-main">
               <div className="search-reslist">
                 {clSearchResults.map((item, i) => {
-                  let cartruckp = getCarTruckPrice(clSearchResults, item.property_id);
+                  let cartruckp = getCarTruckPrice(
+                    clSearchResults,
+                    item.property_id
+                  );
                   return (
-
                     <div className="spot-info" key={i}>
                       <p>Address: {item.prop_address}</p>
                       <p>Zip Code: {item.zip}</p>
@@ -79,32 +79,32 @@ const CLSearchResults = () => {
                         )}
                       </div>
                       <Link
-                      className="button-square button-primary"
-                      to={`/checkout/${item.property_id.substring(
-                        0,
-                        13
-                      )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                        searchArr[searchArr.length - 1][3]
-                      }`}
-                    >
-                      Book Now
-                    </Link>
-                    <div className="cl-st-continer">
-                                      <table className="table">
-                                      <thead>
-                                        <tr>
-                                          <th>Commuter price</th>
-                                          <th>Large vehicle price</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td>${cartruckp[0]}</td>
-                                          <td>${cartruckp[1]}</td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                    </div>
+                        className="button-square button-primary"
+                        to={`/checkout/${item.property_id.substring(
+                          0,
+                          13
+                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                          searchArr[searchArr.length - 1][3]
+                        }`}
+                      >
+                        Book Now
+                      </Link>
+                      <div className="cl-st-continer">
+                        <table className="table">
+                          <thead>
+                            <tr>
+                              <th>Commuter price</th>
+                              <th>Large vehicle price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>${cartruckp[0]}</td>
+                              <td>${cartruckp[1]}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   );
                 })}

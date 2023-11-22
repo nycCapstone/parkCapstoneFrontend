@@ -11,8 +11,9 @@ import Reservation from "./Reservation";
 import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
+import MapView from "../Maps/MapView";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-import "./Styles/CheckoutLayout.css"
+import "./Styles/CheckoutLayout.css";
 
 const Checkout = () => {
   const role = useSelector((state) => !state.roles.hasOwnProperty("Client"));
@@ -26,10 +27,7 @@ const Checkout = () => {
     isUninitialized,
   } = useGetUserInfoQuery({}, { skip: role });
 
-  const {
-    data: checkoutData,
-    error: checkoutError,
-  } = useGetByPidAndTimeQuery([
+  const { data: checkoutData, error: checkoutError, refetch } = useGetByPidAndTimeQuery([
     property_id,
     query[query.length - 1][2],
     query[query.length - 1][3],
@@ -55,7 +53,13 @@ const Checkout = () => {
   }, [checkoutData]);
 
   if ((isSuccess || isUninitialized) && checkoutData?.length > 0) {
+    let lat;
+    let lng;
     const resData = reservationData(checkoutData, query);
+    if (resData[0]?.latitude && resData[0]?.longitude) {
+      lat = resData[0].latitude;
+      lng = resData[0].longitude;
+    }
     return (
       <div className="checkout-layout-container">
         <section>
@@ -64,13 +68,23 @@ const Checkout = () => {
         <section>
           <SmallSummary checkoutData={checkoutData} />
           <Reservation resData={resData} />
+          <section>
+            <EmptyResult infoPrompt={infoPrompt} />
+          </section>
+        </section>
+        <section className="ch-mapview">
+          <MapView
+            lat={lat}
+            lng={lng}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        </section>
         <section>
-          <EmptyResult infoPrompt={infoPrompt} />
+          <ReservationDetails userData={userData} resData={resData} checkoutData={checkoutData} refetch={refetch} />
         </section>
-        </section>
-        <section>
-          <ReservationDetails userData={userData} resData={resData} />
-        </section>
+
       </div>
     );
   } else if (error || checkoutError) {

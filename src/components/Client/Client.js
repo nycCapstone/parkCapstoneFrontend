@@ -37,7 +37,6 @@ const Client = () => {
           </div>
         )}
       </nav>
-
       <section>
         <ClientBookings />
       </section>

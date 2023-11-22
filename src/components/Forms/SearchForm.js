@@ -29,8 +29,8 @@ const SearchForm = () => {
   const [searchResult, setSearchResult] = useState("");
   const [locationdata, setGeoLocation] = useState({});
   const placeHolder = useSelector((state) => {
-    if (state.searchResults.data?.length) {
-      return state.searchResults.data[0].prop_address;
+    if (state.searchResults.data?.results?.length) {
+      return state.searchResults.data.results[0].prop_address;
     } else {
       return "Search for a spot (eg. NYC NY 1001)";
     }
@@ -42,6 +42,7 @@ const SearchForm = () => {
   const [formattedAddress, setFormattedAddress] = useState(null);
   const [err, setErr] = useState(false);
   const searchRef = useRef();
+  const btnRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,6 +51,12 @@ const SearchForm = () => {
       setErr(false);
     }
   }, [checkOutDate]);
+
+  useEffect(() => {
+    if (locationdata?.lng || timeQuery !== null) {
+      btnRef.current.focus();
+    }
+  }, [checkOutDate, locationdata]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -66,7 +73,6 @@ const SearchForm = () => {
       if (place.geometry && place.geometry.location) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-
         setGeoLocation({ lat, lng });
       } else {
         console.error("No geometry information found for the selected place.");
@@ -124,10 +130,6 @@ const SearchForm = () => {
       .then((res) => {
         let searchStore = {
           results: res.data,
-          params: [
-            checkInDate && checkInDate.toISOString(),
-            checkOutDate && checkOutDate.toISOString(),
-          ],
           location: {
             addr: formattedAddress.addr,
             zipCode: formattedAddress.zipCode,
@@ -191,7 +193,7 @@ const SearchForm = () => {
             selected={checkOutDate}
             minDate={checkInDate}
             onChange={(date) => setCheckOutDate(date)}
-            onInputClick={() => setTimeQuery(true)}
+            onInputClick={() =>{ setTimeQuery(true);}}
             shouldCloseOnSelect={false}
             timeIntervals={30}
             showTimeSelect
@@ -212,7 +214,7 @@ const SearchForm = () => {
         <div className="end-time"></div>
       </div>
 
-      <button className="submit-button" type="submit">
+      <button className="submit-button" type="submit" ref={btnRef}>
         Search
       </button>
     </form>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as geolib from "geolib";
 import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
@@ -67,7 +67,7 @@ const SearchResults = () => {
         return filteredResults.map((item) => ({
           ...item,
           distance: calculateDistance(searchLocation, item),
-        }));
+        })).sort((a, b) => a.distance - b.distance );
 
       case "high":
         filteredResults = [...action.payload].sort((a, b) => a.price - b.price);
@@ -95,7 +95,6 @@ const SearchResults = () => {
     return (
       <main className="search-main">
         <h1 className="s-res-header-text">Search Results</h1>
-
         <div className="sort-button-container">
           <label htmlFor="sortByPrice">Filter:</label>
           <select

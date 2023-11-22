@@ -52,10 +52,9 @@ const Payment = () => {
           <span className="category-location">Parking Location:</span>{" "}
           {resInfo.selected_space.prop_address.slice(0, -5)}
         </p>
-        {/* <p>postal_code: {resInfo.selected_space.zip}</p> */}
         <p className="space-number">
           <span className="category-space-number">Space No:</span>{" "}
-          {resInfo.selected_space.space_no}
+          {resInfo.query_data[0].find(item => item.space_id === resInfo.booking_space_id)?.space_no}
         </p>
       </div>
 

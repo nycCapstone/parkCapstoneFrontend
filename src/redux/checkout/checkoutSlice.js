@@ -11,7 +11,7 @@ const checkoutSlice = createSlice({
   }
 });
 
-export const getCheckoutState = (state) => state?.info
+export const getCheckoutState = (state) => state?.checkout
 
 export const { inputUserInfo, resetCheckoutCache } = checkoutSlice.actions;
 

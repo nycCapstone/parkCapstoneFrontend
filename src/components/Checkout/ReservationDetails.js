@@ -3,24 +3,20 @@ import { useEffect, useState } from "react";
 import { useInsertBookingMutation } from "../../redux/checkout/checkoutApiSlice";
 import { setRInfo } from "../../redux/checkout/reservationSlice";
 import { useNavigate } from "react-router-dom";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Styles/ResDetails.css";
 
-const ReservationDetails = ({ userData, resData }) => {
+const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
   const checkoutObj = useSelector((state) => state.checkout);
-  const [loading, setIsLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("");
   const [err, setErr] = useState(false);
+  const [BookingErr, setBookingErr] = useState(false);
   const [enabled, setEnabled] = useState(false);
 
   const [insertBooking] = useInsertBookingMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    if (resData && resData[0]?.property_id) {
-      setIsLoading(false);
-    }
     if (!userData?.id) {
       setEnabled(true)
     }
@@ -36,14 +32,29 @@ const ReservationDetails = ({ userData, resData }) => {
       setErr(true);
       return;
     }
-    const selectedSpace = resData?.find(
-      (space) => space.sp_type === selectedType
-    );
+
+    let groupedSpaces = []
+    let selectedSpace = {};
+
+    for (let r of checkoutData) {
+      if (r.sp_type === selectedType) {
+        groupedSpaces.push(r);
+      }
+    };
+
+    for (let z of resData) {
+      if (!selectedSpace?.sp_type && z.sp_type === selectedType) {
+        selectedSpace = z;
+      }
+    }
+
+    const start = checkoutObj.query[checkoutObj.query.length - 1][2];
+    const end = checkoutObj.query[checkoutObj.query.length - 1][3];
     const data = [
-      selectedSpace.space_id,
+      groupedSpaces.map(item => item.space_id),
       selectedSpace.final_price,
-      checkoutObj.query[checkoutObj.query.length - 1][2],
-      checkoutObj.query[checkoutObj.query.length - 1][3],
+      start,
+      end
     ];
     await insertBooking({
       data,
@@ -52,8 +63,9 @@ const ReservationDetails = ({ userData, resData }) => {
       .then((res) => {
         dispatch(
           setRInfo({
-            selected_space: selectedSpace,
-            query_data: data,
+            selected_space: {prop_address: selectedSpace.prop_address,
+            final_price: selectedSpace.final_price, },
+            query_data: [groupedSpaces.map(item => ({ space_id: item.space_id, space_no: item.space_no })), selectedSpace.final_price, start, end],
             nav_id: Math.ceil(Math.random() * 250).toString(),
             ...res,
           })
@@ -61,14 +73,21 @@ const ReservationDetails = ({ userData, resData }) => {
         //navigate to new page with bookings table lookup id.
         navigate(`/payment/${res.booking_id}`);
       })
-      .catch((e) => console.error(e));
+      .catch((e) =>{ 
+        console.error(e);
+        setEnabled(true);
+        setBookingErr(true);
+      });
   };
+
+  const handleInsertError = () => {
+    refetch();
+    setBookingErr(false);
+    setEnabled(false);
+  }
 
   return (
     <div className="res-detail-container">
-      {loading ? (
-        <SearchLoading />
-      ) : (
         <>
           {!checkoutObj?.conflict && (
             <>
@@ -116,8 +135,14 @@ const ReservationDetails = ({ userData, resData }) => {
                   </p>
                 </div>
 
-                <button type="submit" disabled={enabled}>Go To Payment Details</button>
+                <button type="submit" disabled={enabled} className={enabled ? "res-detail-btn-n" : "res-detail-btn-g"}>Go To Payment Details</button>
               </form>
+              {BookingErr && (
+                <div className="">
+                  Sorry Spot was taken, please retry
+                  <button onClick={handleInsertError}>New Checkout</button>
+                </div>
+              )}
               {err && (
                 <div className="res-fail-container">
                   Need Account to be Logged In to Reserve
@@ -132,7 +157,6 @@ const ReservationDetails = ({ userData, resData }) => {
             </>
           )}
         </>
-      )}
     </div>
   );
 };

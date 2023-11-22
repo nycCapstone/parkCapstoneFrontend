@@ -5,13 +5,15 @@ const SmallSummary = ({ checkoutData }) => {
   const Summary = getSummaryInfo(checkoutData);
   return (
     <div
-      className="ss-card"
+      className="ss-grid-container"
     >
       {Summary[0]?.property_id ? (
-        <div className="ss-card-header">
+        <>
+        <div className="ss-card">
           <p>{Summary[0].prop_address}</p>
           <p>{Summary[0].billing_type}</p>
-          <div className="summary-pic">
+          </div>
+          <div className="ss-card">
             {Summary[Summary.length - 1].picture && (
               <img
                 alt="ss-summary-pic"
@@ -19,13 +21,13 @@ const SmallSummary = ({ checkoutData }) => {
               />
             )}
           </div>
-          <div className="ss-card-footer">
+          <div className="ss-card">
             Parking provided for:{" "}
             {Summary.some((item) => item.sp_type === "truck")
               ? "large and small vehicles"
               : "all commuters"}
           </div>
-        </div>
+        </>
       ) : (
         <div className="no-summary">No Summary</div>
       )}

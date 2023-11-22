@@ -1,6 +1,7 @@
 import { useGetSoldSpacesQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useEffect } from "react";
+import "../Styles/SoldSpaces.css"
 import RenterLoading from "../../../assets/Spinners/RenterLoading";
 
 const SoldSpaces = () => {
@@ -22,19 +23,15 @@ const SoldSpaces = () => {
 
  if (isSuccess) {
     return (
-        <div className="soldSpaces-container">
+        <div className="sold-spaces-container">
           {!soldSpaces.length && <div>No sold spaces yet</div>}
           {soldSpaces.length > 0 && (
-            <div>
+            <div className="sold-spaces-list">
               <h3>Your sold spaces</h3>
               {soldSpaces.map((booking, idx) => (
                 <div
                   key={booking.booking_id}
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    margin: "10px",
-                  }}
+                  className="sold-spaces-l-item"
                 >
                     <i>{idx+1}</i>
                   <p>Booking ID: {booking.booking_id}</p>

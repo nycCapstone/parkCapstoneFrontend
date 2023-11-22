@@ -34,7 +34,7 @@ const ClientBookings = () => {
       <div className="bookings-container">
         {!bookings.length && <div>No bookings made yet</div>}
         {bookings.length > 0 && (
-          <div>
+            <>
             <h3>Your bookings</h3>
             <div className="bookings-grid-container">
 
@@ -54,7 +54,7 @@ const ClientBookings = () => {
               </div>
             ))}
             </div>
-          </div>
+            </>
         )}
       </div>
     );

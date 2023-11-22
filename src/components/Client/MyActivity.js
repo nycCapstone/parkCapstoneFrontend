@@ -18,19 +18,14 @@ const MyActivity = () => {
   if (isSuccess) {
     return (
       <div className="myactivity-container">
-        <h3>Most Recent bookings paid for</h3>
+        <header>
+          <h3>Most Recent bookings paid for</h3>
+        </header>
         {activity?.length > 0 ? (
           <div className="payment-list">
             {activity.map((item, idx) => {
               return (
-                <div
-                  key={idx}
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    margin: "10px",
-                  }}
-                >
+                <div key={idx} className="payment-list-item">
                   <i>{idx + 1}</i>
                   <p>Pmt Id: {item.pmt_id}</p>
                   <p>Card Expires: {item.expiry}</p>
