@@ -1,8 +1,12 @@
-.renterM-header {
-  font-size: 25px;
-  text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 4rem;
+.renter-container {
+  min-height: 100vh;
+}
+
+.r-manage-container header {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #ffd6d6;
 }
 .renter-prop {
   width: 85%;
@@ -52,3 +56,39 @@
     }
   }
 }
+
+.centered-nav {
+  display: flex;
+  justify-content: center;
+  background-color: #ffa7a7; 
+  padding: 10px; 
+}
+
+.centered-nav div {
+  display: flex;
+}
+
+.centered-nav a {
+  color: #fff; 
+  text-decoration: none;
+  padding: 10px; 
+  margin: 0 10px; 
+  border-radius: 5px; 
+}
+
+.centered-nav a span{
+  color: green; 
+  text-decoration: none;
+  padding: 10px; 
+  margin: 0 10px; 
+  border-radius: 5px; 
+}
+
+.centered-nav a:hover {
+  background-color: #555;
+}
+
+.earnings-total-container a:hover {
+  background-color: #ffa7a7;
+}
+
