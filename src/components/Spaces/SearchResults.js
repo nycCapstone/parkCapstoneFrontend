@@ -24,12 +24,6 @@ const SearchResults = () => {
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
-    console.log("Search Arr:", searchArr);
-    console.log("Last Search Arr:", searchArr[searchArr.length - 1]);
-    console.log("Landing Search Results Data:", landingSearchResults);
-    console.log("Search Status:", searchStatus);
-    console.log("Is Success:", isSuccess);
-
     let results = searchResults?.results || landingSearchResults;
 
     if (searchStatus || isSuccess) {
@@ -48,16 +42,12 @@ const SearchResults = () => {
       longitude: result.longitude,
     };
 
-    console.log("startPoint:", startPoint);
-    console.log("endPoint:", endPoint);
-
     if (
       !startPoint.latitude ||
       !startPoint.longitude ||
       !endPoint.latitude ||
       !endPoint.longitude
     ) {
-      console.error("Invalid coordinates:", startPoint, endPoint);
       return 0;
     }
 
@@ -107,7 +97,7 @@ const SearchResults = () => {
         <h1 className="s-res-header-text">Search Results</h1>
 
         <div className="sort-button-container">
-          <label htmlFor="sortByPrice">Sort by Price:</label>
+          <label htmlFor="sortByPrice">Filter:</label>
           <select
             id="sortByPrice"
             className="sort-dropdown"
@@ -123,9 +113,9 @@ const SearchResults = () => {
               setSelectedOption(e.target.value);
             }}
           >
-            <option value="high">Low to High</option>
-            <option value="low">High to Low</option>
-            <option value="distance">Distance</option>
+            <option value="high">Price: Low to High</option>
+            <option value="low">Price: High to Low</option>
+            <option value="distance">Distance: Closest</option>
           </select>
         </div>
         <div>
@@ -153,18 +143,20 @@ const SearchResults = () => {
                     </>
                   )}
                   <p>Billing Type: {item.billing_type}</p>
-                  {!searchStatus && (
-                    <Link
-                      to={`/checkout/${item.property_id.substring(
-                        0,
-                        13
-                      )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                        searchArr[searchArr.length - 1][3]
-                      }`}
-                    >
-                      Checkout
-                    </Link>
-                  )}
+                  <div className="button-container">
+                    {!searchStatus && (
+                      <Link
+                        to={`/checkout/${item.property_id.substring(
+                          0,
+                          13
+                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                          searchArr[searchArr.length - 1][3]
+                        }`}
+                      >
+                        <button className="checkout-button">Checkout</button>
+                      </Link>
+                    )}
+                  </div>
                   <table className="table">
                     <thead>
                       <tr>
