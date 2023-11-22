@@ -64,10 +64,12 @@ const SearchResults = () => {
         filteredResults = (action.payload || []).filter(
           (item) => +item.row_num === 1
         );
-        return filteredResults.map((item) => ({
-          ...item,
-          distance: calculateDistance(searchLocation, item),
-        }));
+        return filteredResults
+          .map((item) => ({
+            ...item,
+            distance: calculateDistance(searchLocation, item),
+          }))
+          .sort((a, b) => a.distance - b.distance);
 
       case "high":
         filteredResults = [...action.payload].sort((a, b) => a.price - b.price);
@@ -119,12 +121,21 @@ const SearchResults = () => {
           </select>
         </div>
         <div>
-          {searchLocation && (
-            <div className="location-info">
-              <i className="fas fa-map-marker-alt"></i>
-              <h3>Destination: {searchLocation.addr}</h3>
-            </div>
-          )}
+          <div className="destination-container">
+            {searchLocation && (
+              <>
+                <i
+                  className="fa-light fa-location-dot fa-flip fa-lg"
+                  style={{ color: "#f52905" }}
+                ></i>
+
+                <div className="destination-info">
+                  <h3 className="destination-title">Your Destination</h3>
+                  <p className="destination-address">{searchLocation.addr}</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         <div className="search-reslist">
           {useArray?.length > 0 &&
@@ -136,6 +147,7 @@ const SearchResults = () => {
                 <div className="spot-info" key={i}>
                   <p>Address: {item.prop_address}</p>
                   <p>Zip Code: {item.zip}</p>
+
                   {searchStatus && (
                     <>
                       <p>Available now: {avail ? "Yes" : "No"}</p>
@@ -143,20 +155,6 @@ const SearchResults = () => {
                     </>
                   )}
                   <p>Billing Type: {item.billing_type}</p>
-                  <div className="button-container">
-                    {!searchStatus && (
-                      <Link
-                        to={`/checkout/${item.property_id.substring(
-                          0,
-                          13
-                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                          searchArr[searchArr.length - 1][3]
-                        }`}
-                      >
-                        <button className="checkout-button">Checkout</button>
-                      </Link>
-                    )}
-                  </div>
                   <table className="table">
                     <thead>
                       <tr>
@@ -177,11 +175,23 @@ const SearchResults = () => {
                       </tr>
                     </tbody>
                   </table>
-                  <div>
+                  <div className="button-container">
                     {item.picture && <img alt="propimage" src={item.picture} />}
                     <Link to={`/parking-spots/${item.space_id}`}>
                       <button className="show-me-button">Show More</button>
                     </Link>
+                    {!searchStatus && (
+                      <Link
+                        to={`/checkout/${item.property_id.substring(
+                          0,
+                          13
+                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                          searchArr[searchArr.length - 1][3]
+                        }`}
+                      >
+                        <button className="checkout-button">Checkout</button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               );
