@@ -1,9 +1,20 @@
 import ClientSearchForm from "./Views/ClientSearchForm";
+import { Link } from "react-router-dom";
+import { FaChevronCircleLeft } from "react-icons/fa";
+import "./Styles/Client.css"
 
 const ClientSearchPage = () => {
   return (
     <div className="cl-search-container">
-      <h3>Enter Place and Time you are interested in</h3>
+      <header>
+      <div className="cl-h-svgleft">
+          <Link to="/client">
+            <FaChevronCircleLeft />
+          </Link>
+        </div>
+
+      <h1>Enter Place and Time you are interested in</h1>
+      </header>
       <ClientSearchForm/>
     </div>
   )

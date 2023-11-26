@@ -24,8 +24,7 @@ const Client = () => {
         ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
           <>
             <div className="clview-nav-item">
-              <p>Search and Make a new booking.</p>
-              <Link to="/client/search">Search Page</Link>
+              <Link to="/client/search">Search and Make a new booking. <br/>Search Page</Link>
             </div>
             <div className="clview-nav-item">
               <Link to="/client/transactions">My Activity</Link>

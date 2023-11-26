@@ -26,6 +26,11 @@ export const renterApiSlice = apiSlice.injectEndpoints({
                 providesTags: ['activeSpaces']
             })
         }),
+        getEarningsByOwnerId: builder.query({
+            query: () => ({
+                url: `/renters/get-totalearnings`
+            })
+        }),
         updateSingleSpace: builder.mutation({
             query: (body) => ({
                 url: `/renters/update-singlespace-info`,
@@ -59,5 +64,6 @@ export const renterApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetPropertiesQuery, useSubmitPropertyMutation, useGetPropAndSpaceInfoQuery, useUpdateSingleSpaceMutation,
-    usePostNewSpacesMutation, useGetSoldSpacesQuery, useGetActiveByOwnerIdQuery, useUpdateSingleBookingStatusMutation
+    usePostNewSpacesMutation, useGetSoldSpacesQuery, useGetActiveByOwnerIdQuery, useUpdateSingleBookingStatusMutation,
+    useGetEarningsByOwnerIdQuery
 } = renterApiSlice

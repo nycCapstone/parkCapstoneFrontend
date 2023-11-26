@@ -5,6 +5,7 @@ import PropertyForm from "../Forms/PropertyForm";
 import PropertySpace from "./Components/PropertySpace";
 import { useState, useEffect } from "react";
 import RenterLoading from "../../assets/Spinners/RenterLoading";
+import { FaChevronCircleLeft } from "react-icons/fa";
 import "./Styles/Renter.css";
 //Manage Renter Spaces
 const RenterM = () => {
@@ -17,7 +18,7 @@ const RenterM = () => {
     refetch,
   } = useGetPropertiesQuery();
 
-  const [spaceDetails, setSpaceDetails] = useState({});
+  const [spaceDetails, setSpaceDetails] = useState(null);
 
   useEffect(() => {
     if (isSuccess) {
@@ -38,9 +39,16 @@ const RenterM = () => {
           <section>
             {userData?.all_is_auth && (
               <>
-                <p className="renterM-header">
-                  This is where you can make new available spots.
-                </p>
+                <header>
+                  <div className="cl-h-svgleft">
+                    <Link to="/renter">
+                      <FaChevronCircleLeft />
+                    </Link>
+                  </div>
+                  <h3 className="renterM-header">
+                    This is where you can make new available spots.
+                  </h3>
+                </header>
                 <PropertyForm />
 
                 <div className="renter-prop">
@@ -80,13 +88,11 @@ const RenterM = () => {
                               className="renter-prop-button"
                               type="click"
                               onClick={() => {
-                                setSpaceDetails((prevDetails) => ({
-                                  ...prevDetails,
-                                  [i]: !prevDetails[i],
-                                }));
+                                if (i !== spaceDetails) setSpaceDetails(i);
+                                else setSpaceDetails(null);
                               }}
                             >
-                              {spaceDetails[i]
+                              {spaceDetails === i
                                 ? "Close Details"
                                 : "Update/Submit"}
                             </button>
@@ -94,10 +100,12 @@ const RenterM = () => {
 
                           <div
                             className={`renter-prop-info2 ${
-                              spaceDetails[i] ? "renter-prop-info2-active" : ""
+                              spaceDetails === i
+                                ? "renter-prop-info2-active"
+                                : ""
                             }`}
                           >
-                            {spaceDetails[i] && (
+                            {spaceDetails === i && (
                               <PropertySpace propertyId={item.property_id} />
                             )}
                           </div>

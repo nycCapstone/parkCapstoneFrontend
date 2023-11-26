@@ -24,7 +24,7 @@ const SearchResults = () => {
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
-    let results = searchResults?.results || landingSearchResults;
+    let results = landingSearchResults || searchResults?.results;
 
     if (searchStatus || isSuccess) {
       setUseArray(chooseArray({ type: selectedOption, payload: results }));
@@ -92,7 +92,7 @@ const SearchResults = () => {
   if (isLoading || !useArray) {
     return <SearchLoading />;
   } else if (useArray) {
-    let results = searchResults?.results || landingSearchResults;
+    let results = landingSearchResults || searchResults?.results;
 
     return (
       <main className="search-main">
@@ -139,8 +139,8 @@ const SearchResults = () => {
         <div className="search-reslist">
           {useArray?.length > 0 &&
             useArray.map((item, i) => {
-              let avail = item.count_spaces !== item.occupied;
-              let cartruckp = getCarTruckPrice(useArray, item.property_id);
+              let avail = item.count_spaces !== item?.occupied;
+              let cartruckp = getCarTruckPrice(results, item.property_id);
 
               return (
                 <div className="spot-info" key={i}>
