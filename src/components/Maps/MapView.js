@@ -6,7 +6,7 @@ const containerStyle = {
   height: "25rem",
 };
 
-const MapView = ({ lat, lng }) => {
+const MapView = ({ lat, lng, zoom }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
@@ -14,15 +14,12 @@ const MapView = ({ lat, lng }) => {
 
   const [map, setMap] = useState(null);
 
-  const onLoad = useCallback(
-    (map) => {
-      const bounds = new window.google.maps.LatLngBounds({ lat, lng });
-      map.fitBounds(bounds);
+  const onLoad = useCallback((map) => {
+    // const bounds = new window.google.maps.LatLngBounds({ lat, lng });
+    // map.fitBounds(bounds);
 
-      setMap(map);
-    },
-    [lat, lng]
-  );
+    setMap(map);
+  }, []);
 
   const onUnmount = useCallback(() => {
     setMap(null);
@@ -32,7 +29,7 @@ const MapView = ({ lat, lng }) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={{ lat, lng }}
-      zoom={18}
+      zoom={zoom || 18}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
