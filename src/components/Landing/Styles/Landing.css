@@ -70,9 +70,9 @@
   background-color: #ff5757;
   color: white;
   cursor: pointer;
-  /* &:hover {
+  &:hover {
     transform: scale(0.96);
-  } */
+  }
 }
 .app-description {
   display: grid;

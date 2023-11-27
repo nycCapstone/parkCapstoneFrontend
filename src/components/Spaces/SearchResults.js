@@ -217,8 +217,8 @@ const SearchResults = () => {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             markerArray={useArray.map((item) => {
-                return { lat: item.latitude, lng: item.longitude };
-              })}
+              return { lat: item.latitude, lng: item.longitude };
+            })}
           />
         </section>
       </div>
