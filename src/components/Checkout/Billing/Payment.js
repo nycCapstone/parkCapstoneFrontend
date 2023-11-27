@@ -62,11 +62,11 @@ const Payment = () => {
 
     },
     onSubmit: async (values) => {
-      console.log("worked?")
+      console.log()
       if (![cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
         return;
       }
-      await newClientPmt({ data: [expiryDate, resInfo.booking_id] })
+      await newClientPmt({ data: [`${values.expiryMonth}/${values.expiryYear}`, resInfo.booking_id] })
         .unwrap()
         .then((res) => {
           if (!res.success) {
@@ -78,10 +78,6 @@ const Payment = () => {
         }).catch(e => console.error(e));
    },
   });
-
-  const handlePaymentSubmit = async (e) => {
-    console.log("this?")
-  };
 
   const handleCardNumberChange= (event) => {
     setCardNumber(event.target.value);
@@ -208,6 +204,9 @@ const Payment = () => {
             <option value="42">42</option>
             <option value="43">43</option>
           </select>
+          {formik.touched.expiryYear && formik.errors.expiryYear ? (
+          <div style={{ color: 'red' }}>{formik.errors.expiryYear}</div>
+        ) : null}
         </label>
         <br />
 
