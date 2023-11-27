@@ -145,7 +145,6 @@ const SearchResults = () => {
               return (
                 <div className="spot-info" key={i}>
                   <p>Address: {item.prop_address}</p>
-                  <p>Zip Code: {item.zip}</p>
 
                   {searchStatus && (
                     <>
@@ -159,6 +158,7 @@ const SearchResults = () => {
                   <p>
                     Distance From Destination(miles): {item.distance.toFixed(2)}
                   </p>
+
                   <table className="table">
                     <thead>
                       <tr>
