@@ -57,30 +57,30 @@ const Payment = () => {
       if (!values.nameOnCard) {
         errors.nameOnCard = 'Required';
       }
-      console.log(errors)
+
+      return errors
+
     },
-    onSubmit: (e) => {
+    onSubmit: async (values) => {
       console.log("worked?")
-      setExpiryDate(`${expiryMonth}/${expiryYear}`)
-      handlePaymentSubmit(e)
+      if (![cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
+        return;
+      }
+      await newClientPmt({ data: [expiryDate, resInfo.booking_id] })
+        .unwrap()
+        .then((res) => {
+          if (!res.success) {
+            setErr(true);
+            return
+          }
+          dispatch(resetLandingCache());
+          navigate(`/client/pmt/success/${resInfo.nav_id}/${res.pmt_id}`);
+        }).catch(e => console.error(e));
    },
   });
 
   const handlePaymentSubmit = async (e) => {
     console.log("this?")
-    if ([cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
-      return;
-    }
-    await newClientPmt({ data: [expiryDate, resInfo.booking_id] })
-      .unwrap()
-      .then((res) => {
-        if (!res.success) {
-          setErr(true);
-          return
-        }
-        dispatch(resetLandingCache());
-        navigate(`/client/pmt/sucess/${resInfo.nav_id}/${res.pmt_id}`);
-      }).catch(e => console.error(e));
   };
 
   const handleCardNumberChange= (event) => {
@@ -221,6 +221,9 @@ const Payment = () => {
             onChange={handleCvvChange}
             onBlur={formik.handleBlur}
           />
+          {formik.touched.cvv && formik.errors.cvv ? (
+          <div style={{ color: 'red' }}>{formik.errors.cvv}</div>
+        ) : null}
         </label>
         <br />
         <button className="payment-button" type="submit">
