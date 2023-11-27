@@ -91,6 +91,7 @@
 .marketing-image {
   grid-area: image;
   border-radius: 2%;
+  width: 100%;
 }
 
 .pic-text {

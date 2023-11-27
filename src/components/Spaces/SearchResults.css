@@ -44,6 +44,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .search-reslist {
+    grid-template-columns: 2fr;
+  }
+}
+
 .spot-info {
   background: rgba(255, 244, 244, 0.9);
   border-radius: 12px;
