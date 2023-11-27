@@ -124,8 +124,8 @@ const SearchResults = () => {
             {searchLocation && (
               <>
                 <i
-                  className="fa-light fa-location-dot fa-flip fa-lg"
-                  style={{ color: "#f52905" }}
+                  className="fa-solid fa-location-dot fa-flip"
+                  style={{ color: "#f41901" }}
                 ></i>
 
                 <div className="destination-info">
