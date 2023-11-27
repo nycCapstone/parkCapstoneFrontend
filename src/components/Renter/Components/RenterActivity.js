@@ -59,7 +59,7 @@ const RenterActivity = () => {
                 ))}
                 </section>
                 <section>
-                    <UpdateActivity bId={bId} Activity={ activeSpaces } refetch={refetch} />
+                    <UpdateActivity bId={bId} Activity={activeSpaces} refetch={refetch} />
                 </section>
               </div>
             )}

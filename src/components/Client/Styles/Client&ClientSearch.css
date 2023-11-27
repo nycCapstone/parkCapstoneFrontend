@@ -99,14 +99,11 @@
 }
 
 .clview-nav-item {
-  margin-right: 20px;
+  margin-right: 4rem;
+  margin-left: 4rem;
+  text-align: center;
 }
 
-.clview-nav-item a {
-  color: white;
-  text-decoration: none;
-}
-
-.clview-nav-item a:hover {
-  text-decoration: underline;
-}
+.clview-nav-item:hover {
+  background-color: lightgrey;
+} 

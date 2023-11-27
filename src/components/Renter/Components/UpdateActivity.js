@@ -21,7 +21,7 @@ const UpdateActivity = ({ bId, Activity, refetch }) => {
         booking_id: obj?.booking_id,
       })
         .unwrap()
-        .then(() => {setSuccess(true); refetch()})
+        .then(() => {setSuccess(true); setIsChecked(false); refetch();})
         .catch((e) => console.error(e));
     }
   };
