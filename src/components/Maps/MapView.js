@@ -32,7 +32,7 @@ const MapView = ({ lat, lng }) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={{ lat, lng }}
-      zoom={13}
+      zoom={18}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >

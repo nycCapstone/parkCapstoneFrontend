@@ -1,11 +1,17 @@
 .parking-spot-details-page {
-  max-width: 500px;
+  display: flex;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(240, 240, 240, 0.95);
-  border: 1px solid #ddd;
+  /* background-color: rgba(240, 240, 240, 0.95); */
+  /* border: 1px solid #ddd; */
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+}
+
+.details-container {
+  flex: 1;
+  padding-right: 50px;
 }
 
 h1 {
@@ -13,6 +19,12 @@ h1 {
   margin-bottom: 20px;
   color: #ff5757;
   text-align: center;
+}
+
+.ps-mapview {
+  flex: 1;
+  position: relative;
+  margin-left: 50px;
 }
 
 .details {
