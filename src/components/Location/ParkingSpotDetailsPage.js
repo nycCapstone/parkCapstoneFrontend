@@ -2,6 +2,7 @@ import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import MapView from "../Maps/MapView";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
@@ -17,57 +18,70 @@ function ParkingSpotDetailPage() {
 
   if (isSuccess) {
     const spotDetails = responseData[0];
+    const lat = spotDetails.latitude;
+    const lng = spotDetails.longitude;
+
     return (
       <div className="parking-spot-details-page">
-        <h1>Parking Spot Details</h1>
-        <div className="details">
-          <p className="detail-label">Address:</p>
-          <p className="detail-value">{spotDetails.prop_address}</p>
-        </div>
-        <div className="details">
-          <p className="detail-label">Number of Spaces:</p>
-          <p className="detail-value">{spotDetails.number_spaces}</p>
-        </div>
-        <div className="details">
-          <p className="detail-label">Billing Type:</p>
-          <p className="detail-value">{spotDetails.billing_type}</p>
-        </div>
-        <div className="details">
-          <p className="detail-label">Owner ID:</p>
-          <p className="detail-value">{spotDetails.space_owner_id}</p>
-        </div>
-
-        {spotDetails.renter_id && (
-          <div>
-            <h3>Renter Information</h3>
-            <div className="details">
-              <p className="detail-label">Renter ID:</p>
-              <p className="detail-value">{spotDetails.renter_id}</p>
-            </div>
-            <div className="details">
-              <p className="detail-label">First Name:</p>
-              <p className="detail-value">{spotDetails.client_first_name}</p>
-            </div>
-            <div className="details">
-              <p className="detail-label">Last Name:</p>
-              <p className="detail-value">{spotDetails.client_last_name}</p>
-            </div>
-            {/* <div className="details">
+        <div className="details-container">
+          {/* Details Information */}
+          <h1>Parking Spot Details</h1>
+          <div className="details">
+            <p className="detail-label">Address:</p>
+            <p className="detail-value">{spotDetails.prop_address}</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Number of Spaces:</p>
+            <p className="detail-value">{spotDetails.number_spaces}</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Billing Type:</p>
+            <p className="detail-value">{spotDetails.billing_type}</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Owner ID:</p>
+            <p className="detail-value">{spotDetails.space_owner_id}</p>
+          </div>
+          {spotDetails.renter_id && (
+            <div>
+              <h3>Renter Information</h3>
+              <div className="details">
+                <p className="detail-label">Renter ID:</p>
+                <p className="detail-value">{spotDetails.renter_id}</p>
+              </div>
+              <div className="details">
+                <p className="detail-label">First Name:</p>
+                <p className="detail-value">{spotDetails.client_first_name}</p>
+              </div>
+              <div className="details">
+                <p className="detail-label">Last Name:</p>
+                <p className="detail-value">{spotDetails.client_last_name}</p>
+              </div>
+              {/* <div className="details">
               <p className="detail-label">Email:</p>
               <p className="detail-value">{spotDetails.client_email}</p>
             </div> */}
-            <div className="details">
-              <p className="detail-label">Address:</p>
-              <p className="detail-value">{spotDetails.renter_address}</p>
+              <div className="details">
+                <p className="detail-label">Address:</p>
+                <p className="detail-value">{spotDetails.renter_address}</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+          <button className="book-now-button">Book Now</button>
+          <Link to="/search-result" className="go-back-link">
+            Go back to Search Results
+          </Link>
+        </div>
 
-        <button className="book-now-button">Book Now</button>
-
-        <Link to="/search-result" className="go-back-link">
-          Go back to Search Results
-        </Link>
+        <section className="ps-mapview">
+          <MapView
+            lat={lat}
+            lng={lng}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        </section>
       </div>
     );
   }

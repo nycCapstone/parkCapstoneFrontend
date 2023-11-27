@@ -154,30 +154,35 @@ const SearchResults = () => {
                     </>
                   )}
                   <p>Billing Type: {item.billing_type}</p>
+                  <br></br>
+
+                  <p>
+                    Distance From Destination(miles): {item.distance.toFixed(2)}
+                  </p>
                   <table className="table">
                     <thead>
                       <tr>
                         <th>Commuter price</th>
                         <th>Large vehicle price</th>
-                        <th>Distance (miles)</th>
+                        {/* <th>Distance (miles)</th> */}
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>${cartruckp[0]}</td>
                         <td>${cartruckp[1]}</td>
-                        <td>
+                        {/* <td>
                           {typeof item.distance === "number"
                             ? item.distance.toFixed(2)
                             : "N/A"}
-                        </td>
+                        </td> */}
                       </tr>
                     </tbody>
                   </table>
                   <div className="button-container">
                     {item.picture && <img alt="propimage" src={item.picture} />}
                     <Link to={`/parking-spots/${item.space_id}`}>
-                      <button className="show-me-button">Show More</button>
+                      <button className="show-me-button">View More</button>
                     </Link>
                     {!searchStatus && (
                       <Link
