@@ -18,3 +18,12 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
 }
+
+.s-loading-container {
+  min-height: 100vh;
+}
+
+.missing-container,
+.unauthorized-container {
+  min-height: 100vh;
+}

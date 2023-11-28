@@ -36,9 +36,9 @@ export function checkDates(dateString1, dateString2) {
   return hoursDifference >= 3;
 }
 
-function calculateDateDifferenceInDays(dateString1, dateString2) {
+export function calculateDateDifferenceInDays(dateString1) {
   const date1 = new Date(dateString1);
-  const date2 = new Date(dateString2);
+  const date2 = new Date();
 
   const timeDifference = Math.abs(date2 - date1);
 

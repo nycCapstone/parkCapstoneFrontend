@@ -10,7 +10,9 @@ const AdminPage = () => {
   if (isLoading) {
     return (
       // TODO all loading components
-      <SearchLoading />
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
     );
   }
 

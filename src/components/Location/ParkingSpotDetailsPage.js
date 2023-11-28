@@ -2,7 +2,7 @@ import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-import MapView from "../Maps/MapView";
+import PSMapView from "./PSMapView";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
@@ -42,13 +42,13 @@ function ParkingSpotDetailPage() {
             <p className="detail-label">Owner ID:</p>
             <p className="detail-value">{spotDetails.space_owner_id}</p>
           </div>
+          <div className="details">
+            <p className="detail-label">Rating:</p>
+            <p className="detail-value">{spotDetails.rating || 5.00}</p>
+          </div>
           {spotDetails.renter_id && (
             <div>
               <h3>Renter Information</h3>
-              <div className="details">
-                <p className="detail-label">Renter ID:</p>
-                <p className="detail-value">{spotDetails.renter_id}</p>
-              </div>
               <div className="details">
                 <p className="detail-label">First Name:</p>
                 <p className="detail-value">{spotDetails.client_first_name}</p>
@@ -57,10 +57,6 @@ function ParkingSpotDetailPage() {
                 <p className="detail-label">Last Name:</p>
                 <p className="detail-value">{spotDetails.client_last_name}</p>
               </div>
-              {/* <div className="details">
-              <p className="detail-label">Email:</p>
-              <p className="detail-value">{spotDetails.client_email}</p>
-            </div> */}
               <div className="details">
                 <p className="detail-label">Address:</p>
                 <p className="detail-value">{spotDetails.renter_address}</p>
@@ -74,7 +70,7 @@ function ParkingSpotDetailPage() {
         </div>
 
         <section className="ps-mapview">
-          <MapView
+          <PSMapView
             lat={lat}
             lng={lng}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
@@ -87,7 +83,7 @@ function ParkingSpotDetailPage() {
   }
 
   if (isLoading) {
-    return <SearchLoading />;
+    return <div className="s-loading-container"><SearchLoading /></div>;
   }
 
   if (error || isUninitialized) {

@@ -2,12 +2,10 @@ import React, { useCallback, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 
-const MapView = ({ lat, lng, zoom, markerArray }) => {
+const PSMapView = ({ lat, lng, zoom }) => {
   const containerStyle = {
-      position: "relative",
-      overflow: "hidden",
-      width: "100%",
-      height: "260%"
+      width: "25rem",
+      height: "25rem"
     };
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -29,23 +27,15 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={{ lat, lng }}
-      zoom={zoom || 12}
+      zoom={zoom || 18}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      {markerArray.length>0 && markerArray.map((item, i) => {
-          return <Marker icon={{
-            path: window.google.maps.SymbolPath.CIRCLE,
-            fillColor: i === 0 ? 'blue' : 'red',
-            fillOpacity: 1,
-            strokeWeight: 0,
-            scale: 10,
-          }} position={{ lat: item.lat, lng: item.lng }} />
-      })}
+      {lat && lng && <Marker position={{ lat, lng }} />}
     </GoogleMap>
   ) : (
     <></>
   );
 };
 
-export default React.memo(MapView);
+export default React.memo(PSMapView);

@@ -1,7 +1,13 @@
+.search-res-mapview {
+  height: calc(100vh - 63px);
+  flex: 1;
+}
+
 .search-reslist {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100rem;
 }
 
 .spot-info p {
@@ -44,6 +50,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: left;
+  margin: 5px;
 }
 
 .cost-info div,
@@ -71,7 +78,9 @@
 }
 
 .search-main {
-  margin: 2rem;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  min-width: max-content;
 }
 
 @media (max-width: 500px) {
@@ -96,8 +105,9 @@
 }
 
 .sort-button-container {
-  text-align: right;
+  text-align: left;
   margin-bottom: 1rem;
+  display: block;
 }
 
 .sort-dropdown {
@@ -209,6 +219,32 @@
   color: #ecf0f1;
 }
 
-.search-main {
-  margin: 2rem;
+.search-and-map-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.search-and-map-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  .search-main {
+    margin: 0.5rem;
+  }
+  .search-reslist {
+    gap: 1rem;
+  }
+  .search-and-map-container {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  .search-res-mapview {
+    display: none;
+  }
 }

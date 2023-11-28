@@ -32,7 +32,7 @@ const CLSearchResults = () => {
   }, [clientSearches]);
 
   if (isLoading || isFetching) {
-    return <CLLoading />;
+    return <div className="s-loading-container"><CLLoading /></div>;
   }
 
   if (error) {
@@ -45,11 +45,10 @@ const CLSearchResults = () => {
     );
     return (
       <>
-        <div>Result of your Search</div>
-        {clSearchResults.length === 0 ? (
+        {clSearchResults?.length === 0 ? (
           <div>No Results Yet</div>
         ) : (
-          <>
+          <div className="client-s-res-container">
             <div className="s-res-header">
               <h1 className="s-res-header-text">Available Parking Spots</h1>
             </div>
@@ -110,7 +109,7 @@ const CLSearchResults = () => {
                 })}
               </div>
             </main>
-          </>
+          </div>
         )}
       </>
     );

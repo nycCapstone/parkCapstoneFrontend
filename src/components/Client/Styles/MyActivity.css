@@ -18,6 +18,23 @@
 .payment-list-item {
   border: 1px solid #ddd;
   padding: 10px;
-  margin: 10px;
+  padding-left: 2rem;
+  margin: 0 auto;
   width: 70%;
+}
+
+@media (max-width: 881px) {
+  .payment-list {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0.5rem;
+  }
+  .payment-list-item {
+    width: 90%;
+    padding: none;
+    padding-left: 2rem;
+  }
+  .myactivity-container {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }

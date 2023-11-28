@@ -5,6 +5,7 @@ import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice"
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import MapView from "../Maps/MapView";
 import { Link } from "react-router-dom";
 import "./SearchResults.css";
 
@@ -90,118 +91,137 @@ const SearchResults = () => {
   };
 
   if (isLoading || !useArray) {
-    return <SearchLoading />;
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
   } else if (useArray) {
     let results = landingSearchResults || searchResults?.results;
 
     return (
-      <main className="search-main">
-        <h1 className="s-res-header-text">Search Results</h1>
-        <div className="sort-button-container">
-          <label htmlFor="sortByPrice">Filter:</label>
-          <select
-            id="sortByPrice"
-            className="sort-dropdown"
-            value={selectedOption}
-            onChange={(e) => {
-              setUseArray(
-                chooseArray({
-                  type: e.target.value,
-                  payload: results.filter((item) => +item.row_num === 1),
-                })
-              );
+      <div className="search-and-map-container">
+        <main className="search-main">
+          <div className="sort-button-container">
+            <div className="destination-container">
+              {searchLocation && (
+                <>
+                  <i
+                    className="fa-solid fa-location-dot fa-flip"
+                    style={{ color: "#f41901" }}
+                  ></i>
 
-              setSelectedOption(e.target.value);
-            }}
-          >
-            <option value="high">Price: Low to High</option>
-            <option value="low">Price: High to Low</option>
-            <option value="distance">Distance: Closest</option>
-          </select>
-        </div>
-        <div>
-          <div className="destination-container">
-            {searchLocation && (
-              <>
-                <i
-                  className="fa-solid fa-location-dot fa-flip"
-                  style={{ color: "#f41901" }}
-                ></i>
+                  <div className="destination-info">
+                    <h3 className="destination-title">Your Destination</h3>
+                    <p className="destination-address">{searchLocation.addr}</p>
+                  </div>
+                </>
+              )}
+            </div>
+            <label htmlFor="sortByPrice">Filter:</label>
+            <select
+              id="sortByPrice"
+              className="sort-dropdown"
+              value={selectedOption}
+              onChange={(e) => {
+                setUseArray(
+                  chooseArray({
+                    type: e.target.value,
+                    payload: results.filter((item) => +item.row_num === 1),
+                  })
+                );
 
-                <div className="destination-info">
-                  <h3 className="destination-title">Your Destination</h3>
-                  <p className="destination-address">{searchLocation.addr}</p>
-                </div>
-              </>
-            )}
+                setSelectedOption(e.target.value);
+              }}
+            >
+              <option value="high">Price: Low to High</option>
+              <option value="low">Price: High to Low</option>
+              <option value="distance">Distance: Closest</option>
+            </select>
           </div>
-        </div>
-        <div className="search-reslist">
-          {useArray?.length > 0 &&
-            useArray.map((item, i) => {
-              let avail = item.count_spaces !== item?.occupied;
-              let cartruckp = getCarTruckPrice(results, item.property_id);
 
-              return (
-                <div className="spot-info" key={i}>
-                  <p>Address: {item.prop_address}</p>
+          <div className="search-reslist">
+            {useArray?.length > 0 &&
+              useArray.map((item, i) => {
+                let avail = item.count_spaces !== item?.occupied;
+                let cartruckp = getCarTruckPrice(results, item.property_id);
 
-                  {searchStatus && (
-                    <>
-                      <p>Available now: {avail ? "Yes" : "No"}</p>
-                      <p>Number of spaces: {item.count_spaces}</p>
-                    </>
-                  )}
-                  <p>Billing Type: {item.billing_type}</p>
-                  <br></br>
+                return (
+                  <div className="spot-info" key={i}>
+                    <p>Address: {item.prop_address}</p>
 
-                  <p>
-                    Distance From Destination(miles): {item.distance.toFixed(2)}
-                  </p>
+                    {searchStatus && (
+                      <>
+                        <p>Available now: {avail ? "Yes" : "No"}</p>
+                        <p>Number of spaces: {item.count_spaces}</p>
+                      </>
+                    )}
+                    <p>Billing Type: {item.billing_type}</p>
+                    <br></br>
 
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Commuter price</th>
-                        <th>Large vehicle price</th>
-                        {/* <th>Distance (miles)</th> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>${cartruckp[0]}</td>
-                        <td>${cartruckp[1]}</td>
-                        {/* <td>
+                    <p>
+                      Distance From Destination(miles):{" "}
+                      {item.distance.toFixed(2)}
+                    </p>
+
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>Commuter price</th>
+                          <th>Large vehicle price</th>
+                          {/* <th>Distance (miles)</th> */}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>${cartruckp[0]}</td>
+                          <td>${cartruckp[1]}</td>
+                          {/* <td>
                           {typeof item.distance === "number"
                             ? item.distance.toFixed(2)
                             : "N/A"}
                         </td> */}
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="button-container">
-                    {item.picture && <img alt="propimage" src={item.picture} />}
-                    <Link to={`/parking-spots/${item.space_id}`}>
-                      <button className="show-me-button">View More</button>
-                    </Link>
-                    {!searchStatus && (
-                      <Link
-                        to={`/checkout/${item.property_id.substring(
-                          0,
-                          13
-                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                          searchArr[searchArr.length - 1][3]
-                        }`}
-                      >
-                        <button className="checkout-button">Checkout</button>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="button-container">
+                      {item.picture && (
+                        <img alt="propimage" src={item.picture} />
+                      )}
+                      <Link to={`/parking-spots/${item.space_id}`}>
+                        <button className="show-me-button">View More</button>
                       </Link>
-                    )}
+                      {!searchStatus && (
+                        <Link
+                          to={`/checkout/${item.property_id.substring(
+                            0,
+                            13
+                          )}/?starts=${
+                            searchArr[searchArr.length - 1][2]
+                          }&ends=${searchArr[searchArr.length - 1][3]}`}
+                        >
+                          <button className="checkout-button">Checkout</button>
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-        </div>
-      </main>
+                );
+              })}
+          </div>
+        </main>
+        <section className="search-res-mapview">
+          <MapView
+            lat={useArray[0].latitude}
+            lng={useArray[0].longitude}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markerArray={useArray.map((item) => {
+                return { lat: item.latitude, lng: item.longitude };
+              })}
+          />
+        </section>
+      </div>
     );
   } else {
     return <div>Empty Results</div>;
