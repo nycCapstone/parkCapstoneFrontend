@@ -11,7 +11,7 @@ import Reservation from "./Reservation";
 import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
-import MapView from "../Maps/MapView";
+import PSMapView from "../Location/PSMapView";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Styles/CheckoutLayout.css";
 
@@ -73,7 +73,7 @@ const Checkout = () => {
           </section>
         </section>
         <section className="ch-mapview">
-          <MapView
+          <PSMapView
             lat={lat}
             lng={lng}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}

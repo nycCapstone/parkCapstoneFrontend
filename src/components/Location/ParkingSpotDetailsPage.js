@@ -2,7 +2,7 @@ import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-import MapView from "../Maps/MapView";
+import PSMapView from "./PSMapView";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
@@ -70,7 +70,7 @@ function ParkingSpotDetailPage() {
         </div>
 
         <section className="ps-mapview">
-          <MapView
+          <PSMapView
             lat={lat}
             lng={lng}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
