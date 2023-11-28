@@ -1,5 +1,7 @@
 import { useGetClientTransactionsQuery } from "../../redux/checkout/checkoutApiSlice";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+import { FaChevronCircleLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./Styles/MyActivity.css";
 
 const MyActivity = () => {
@@ -12,14 +14,19 @@ const MyActivity = () => {
   } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
 
   if (isLoading || isUninitialized) {
-    return <SearchLoading />;
+    return <div className="s-loading-container"><SearchLoading /></div>;
   }
 
   if (isSuccess) {
     return (
       <div className="myactivity-container">
         <header>
-          <h3>Most Recent bookings paid for</h3>
+        <div className="cl-h-svgleft">
+          <Link to="/admin">
+            <FaChevronCircleLeft />
+          </Link>
+        </div>
+          <h2>Most Recent bookings paid for</h2>
         </header>
         {activity?.length > 0 ? (
           <div className="payment-list">

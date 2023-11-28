@@ -79,8 +79,7 @@
 .centered-nav a span{
   color: green; 
   text-decoration: none;
-  padding: 10px; 
-  margin: 0 10px; 
+  margin: 0; 
   border-radius: 5px; 
 }
 

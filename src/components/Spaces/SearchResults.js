@@ -90,7 +90,7 @@ const SearchResults = () => {
   };
 
   if (isLoading || !useArray) {
-    return <SearchLoading />;
+    return <div className="s-loading-container"><SearchLoading /></div>;
   } else if (useArray) {
     let results = landingSearchResults || searchResults?.results;
 

@@ -212,3 +212,12 @@
 .search-main {
   margin: 2rem;
 }
+
+@media (max-width: 500px) {
+  .search-main {
+    margin: 0.5rem;
+  }
+  .search-reslist {
+    gap: 1rem;
+  }
+}

@@ -33,7 +33,6 @@ const MapView = ({ lat, lng, zoom }) => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <></>
       {lat && lng && <Marker position={{ lat, lng }} />}
     </GoogleMap>
   ) : (

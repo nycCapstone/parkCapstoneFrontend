@@ -1,17 +1,40 @@
 .bookings-container {
-    min-height: 100vh;
-  }
-  
+  min-height: 100vh;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.bookings-container header {
+  text-align: center;
+  margin: 1rem;
+}
+
+.bookings-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.booking-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  padding-left: 2rem;
+  margin: 0 auto;
+  width: 70%;
+}
+
+@media (max-width: 881px) {
   .bookings-grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
   }
-  
   .booking-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    width: 70%;
+    width: 90%;
+    padding: none;
+    padding-left: 2rem;
   }
-  
+  .bookings-container {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}

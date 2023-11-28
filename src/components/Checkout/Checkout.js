@@ -89,7 +89,7 @@ const Checkout = () => {
     );
   } else if (error || checkoutError) {
     return <div>Checkout Api down</div>;
-  } else return <SearchLoading />;
+  } else return <div className="s-loading-container"><SearchLoading /></div>;
 };
 
 export default Checkout;

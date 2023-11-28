@@ -15,7 +15,6 @@ const Earnings = () => {
         }
      }, [])
     
-
     if (isLoading) {
         return <RenterLoading/>
     }
@@ -28,7 +27,7 @@ const Earnings = () => {
                     ?
                     <span>
                     Your Earnings{" "}
-                    {earningsData[0].sum}
+                    {earningsData[0].sum.toFixed(2)}
                     </span>
                     :
                     <>

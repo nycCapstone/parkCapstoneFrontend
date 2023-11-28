@@ -5,7 +5,7 @@ const Unauthorized = () => {
     const goBack = () => navigate(-1);
 
     return (
-        <section>
+        <section className="unauthorized-container">
             <h1>Unauthorized</h1>
             <br />
             <p>You do not have access to the requested page.</p>

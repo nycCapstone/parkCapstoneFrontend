@@ -32,7 +32,9 @@ const PersistLogin = () => {
   return (
     <>
       {isLoading && !ct ? (
-        <RenterLoading />
+        <div className="s-loading-container">
+          <RenterLoading />
+        </div>
       ) : (
         <Outlet />
       )}
