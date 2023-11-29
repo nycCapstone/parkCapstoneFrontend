@@ -18,10 +18,10 @@ function Landing() {
         <div className="main_container">
           <section className="landing-intro">
             <h2>Welcome to CarValet</h2>
-            <p>
+            <div className="landing-content-description-1">
               Find the perfect parking spot by neighborhood, borough, city, or
               zip code. Book your parking space with ease and convenience.
-            </p>
+            </div>
           </section>
           <div className="landing-body">
             <section className="app-description">
@@ -32,10 +32,10 @@ function Landing() {
               />
               <div className="pic-text">
                 <h2>Your Parking Spot, Reserved Just for You</h2>
-                <p>
+                <div className="landing-content-description-2">
                   Don't worry about finding a parking spot. We've got your
                   parking needs covered.
-                </p>
+                </div>
                 <Link className="client" to="/client">
                   <button className="reserve-now">Reserve Now</button>
                 </Link>
@@ -50,10 +50,10 @@ function Landing() {
               />
               <div className="pic-text">
                 <h2>Make extra money by renting your parking space</h2>
-                <p>
+                <div className="landing-content-description-3">
                   Join our community of happy drivers and parking spot renters
                   who have found their perfect parking solution.
-                </p>
+                </div>
                 <Link className="sign-up" to="/register">
                   <button className="become-renter">Renter SignUp</button>
                 </Link>
