@@ -1,17 +1,29 @@
 import React, { useCallback, useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
 const MapView = ({ lat, lng, zoom, markerArray }) => {
   const containerStyle = {
     position: "relative",
     overflow: "hidden",
     width: "100%",
-    height: "260%",
+    height: `1600px`,
   };
+
+  const mapOptions = {
+    mapContainerStyle: containerStyle
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
   });
+
+  const markerIdx = markerArray?.length-1;
 
   const [map, setMap] = useState(null);
 
@@ -25,8 +37,8 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={{ lat, lng }}
+      {...mapOptions}
+      center={{ lat: lat - 0.18, lng }}
       zoom={zoom || 12}
       onLoad={onLoad}
       onUnmount={onUnmount}
@@ -37,13 +49,20 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
             <Marker
               icon={{
                 path: window.google.maps.SymbolPath.CIRCLE,
-                fillColor: i === 0 ? "blue" : "red",
+                fillColor: i === markerIdx ? "blue" : "red",
                 fillOpacity: 1,
                 strokeWeight: 0,
                 scale: 10,
               }}
               position={{ lat: item.lat, lng: item.lng }}
-            />
+              key={i}
+            >
+                <InfoWindow>
+                  <div className="infowindow-price" style={{ fontWeight: i===markerIdx ? "bold" : "300"}} id={`${markerIdx-i}infowindow`}>
+                    <p>${item.price}</p>
+                  </div>
+                </InfoWindow>
+            </Marker>
           );
         })}
     </GoogleMap>

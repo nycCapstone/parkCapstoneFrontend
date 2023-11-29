@@ -45,7 +45,7 @@ const MyActivity = () => {
             })}
           </div>
         ) : (
-          <div className="no-activity">
+          <div className="no-activity" style={{marginLeft: "2rem"}}>
             You currently do not have any transactions yet!
           </div>
         )}

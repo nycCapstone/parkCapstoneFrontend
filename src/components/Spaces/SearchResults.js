@@ -69,8 +69,8 @@ const SearchResults = () => {
           .map((item) => ({
             ...item,
             distance: calculateDistance(searchLocation, item),
-          }))
-          .sort((a, b) => a.distance - b.distance);
+          })).filter(item => item.distance<51).sort((a, b) => a.distance - b.distance);
+
 
       case "high":
         filteredResults = [...action.payload].sort((a, b) => a.price - b.price);
@@ -87,9 +87,27 @@ const SearchResults = () => {
     return filteredResults.map((item) => ({
       ...item,
       distance: calculateDistance(searchLocation, item),
-    }));
+    })).filter(item => item.distance < 51);
   };
 
+  const handleMouseEnter = (i) => {
+    let wid = document.getElementById(`${i}infowindow`);
+    if (wid) {
+      wid.style.color = "red";
+      wid.style.fontWeight = "bold";
+    }
+  };
+
+  const handleMouseLeave = (i) => {
+    let wid = document.getElementById(`${i}infowindow`);
+    if (wid) {
+
+      wid.style.color = "black";
+      if (i>0) {
+        wid.style.fontWeight = 300;
+      }
+    }
+  };
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
@@ -101,7 +119,7 @@ const SearchResults = () => {
 
     return (
       <div className="search-and-map-container">
-        <main className="search-main">
+        <main className="search-main" >
           <div className="sort-button-container">
             <div className="destination-container">
               {searchLocation && (
@@ -147,8 +165,13 @@ const SearchResults = () => {
                 let cartruckp = getCarTruckPrice(results, item.property_id);
 
                 return (
-                  <div className="spot-info" key={i}>
-                    <p>Address: {item.prop_address}</p>
+                  <div
+                    className="spot-info"
+                    key={i}
+                    onMouseEnter={() => handleMouseEnter(i)}
+                    onMouseLeave={() => handleMouseLeave(i)}
+                  >
+                    <p style={{fontSize: "large"}}>{item.prop_address}</p>
 
                     {searchStatus && (
                       <>
@@ -156,8 +179,7 @@ const SearchResults = () => {
                         <p>Number of spaces: {item.count_spaces}</p>
                       </>
                     )}
-                    <p>Billing Type: {item.billing_type}</p>
-                    <br></br>
+                    <p>Billing Type: {item.billing_type==="fixed" ? "full day" : "hourly"}</p>
 
                     <p>
                       Distance From Destination(miles):{" "}
@@ -169,18 +191,12 @@ const SearchResults = () => {
                         <tr>
                           <th>Commuter price</th>
                           <th>Large vehicle price</th>
-                          {/* <th>Distance (miles)</th> */}
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>${cartruckp[0]}</td>
                           <td>${cartruckp[1]}</td>
-                          {/* <td>
-                          {typeof item.distance === "number"
-                            ? item.distance.toFixed(2)
-                            : "N/A"}
-                        </td> */}
                         </tr>
                       </tbody>
                     </table>
@@ -217,8 +233,12 @@ const SearchResults = () => {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             markerArray={useArray.map((item) => {
-              return { lat: item.latitude, lng: item.longitude };
-            })}
+              return {
+                lat: item.latitude,
+                lng: item.longitude,
+                price: getCarTruckPrice(results, item.property_id)[0]
+              };
+            }).reverse()}
           />
         </section>
       </div>
