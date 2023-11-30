@@ -1,14 +1,14 @@
 import { useGetClientTransactionsQuery } from "../../redux/checkout/checkoutApiSlice";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { useParams } from "react-router-dom";
 import { resetRInfoCache } from "../../redux/checkout/reservationSlice";
 import { resetSearchState } from "../../redux/search/searchResultsSlice";
 import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import "./Styles/SuccessfulPurchase.css";
+import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { Link } from "react-router-dom";
+import "./Styles/SuccessfulPurchase.css";
 
 const SuccessfulPurchase = () => {
   const { data: userInfo } = useGetUserInfoQuery();

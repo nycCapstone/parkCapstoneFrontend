@@ -14,13 +14,6 @@ body {
   overflow-x: hidden;
 }
 
-.flexGrow {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
 .s-loading-container {
   min-height: 100vh;
 }
@@ -28,4 +21,10 @@ body {
 .missing-container,
 .unauthorized-container {
   min-height: 100vh;
+  text-align: center;
+}
+
+.unauthorized-container .flexGrow{
+  margin: 0 auto;
+  margin-top: 2rem;
 }

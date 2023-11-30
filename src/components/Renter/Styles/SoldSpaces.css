@@ -17,7 +17,8 @@
 .sold-spaces-l-item {
   border: 1px solid #ddd;
   padding: 10px;
-  margin: 10px;
+  padding-left: 2rem;
+  margin: 0 auto;
   width: 70%;
 }
 
