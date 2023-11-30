@@ -1,12 +1,63 @@
 .renter-act-container {
-  min-height: 80rem;
-}
+  width: 80%;
+  margin: 2rem auto;
+  .status-clients {
+    margin-bottom: 2rem;
+  }
 
-.renter-act-container header {
-  display: flex;
-  justify-content: center;
-  padding: 1.5rem;
-  background-color: #ffa7a7;
-  color: white;
-}
+  .renter-uplist-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
 
+    .rent-act-singleSpot {
+      padding: 1rem;
+      width: 60%;
+      border: 1px solid lightgray;
+      border-radius: 8px;
+      display: flex;
+      gap: 8px;
+      .rent-act-singleSpotInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .renter-prop-button {
+          margin-top: 0.5rem;
+          width: 5rem;
+          height: 1.5rem;
+          border: none;
+          border-radius: 0.3rem;
+          background-color: #068fff;
+          color: white;
+          cursor: pointer;
+          margin: 1rem 0rem;
+          &:hover {
+            transform: scale(0.96);
+          }
+        }
+        .update-NotOccupied {
+          margin-top: 1rem;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          .mark-here,
+          .mark-here-checkbox {
+            align-self: center;
+          }
+          .commit-button {
+            width: 5rem;
+            height: 1.5rem;
+            border: none;
+            border-radius: 0.3rem;
+            background-color: #068fff;
+            color: white;
+            cursor: pointer;
+
+            &:hover {
+              transform: scale(0.96);
+            }
+          }
+        }
+      }
+    }
+  }
+}
