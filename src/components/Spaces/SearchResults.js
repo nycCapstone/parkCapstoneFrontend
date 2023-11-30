@@ -187,11 +187,13 @@ const SearchResults = () => {
                     </p>
 
                     <p>
-                      <i
-                        class="fa-solid fa-person-walking-arrow-right fa-beat"
-                        style={{ color: "#f41901" }}
-                      ></i>
-                      Distance(miles): {item.distance.toFixed(2)}
+                      <h3>
+                        <i
+                          class="fa-solid fa-person-walking-arrow-right fa-beat"
+                          style={{ color: "#f41901" }}
+                        ></i>
+                        Distance(miles): {item.distance.toFixed(2)}
+                      </h3>
                     </p>
 
                     <table className="table">

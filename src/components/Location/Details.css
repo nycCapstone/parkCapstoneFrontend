@@ -71,7 +71,7 @@ button.book-now-button:hover {
 
 a.go-back-link {
   display: block;
-  text-align: center;
+  text-align: left;
   margin-top: 20px;
   text-decoration: none;
   color: #0077cc;
@@ -83,4 +83,8 @@ a.go-back-link {
 a.go-back-link:hover {
   text-decoration: underline;
   color: #ff5757;
+}
+
+.go-back-icon {
+  margin-right: 5px;
 }

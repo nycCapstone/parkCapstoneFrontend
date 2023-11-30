@@ -26,7 +26,7 @@ function ParkingSpotDetailPage() {
         <div className="details-container">
           {/* Details Information */}
           <div className="title">
-            <h1>Address: {spotDetails.prop_address}</h1>
+            <h1>{spotDetails.prop_address}</h1>
           </div>
 
           {/* <div className="details">
@@ -60,7 +60,7 @@ function ParkingSpotDetailPage() {
           )}
           <button className="book-now-button">Book Now</button>
           <Link to="/search-result" className="go-back-link">
-            Go back to Search Results
+            <span className="go-back-icon">&#8678;</span> Go back
           </Link>
         </div>
 
