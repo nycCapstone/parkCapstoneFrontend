@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-
 const PSMapView = ({ lat, lng, zoom }) => {
   const containerStyle = {
-      width: "25rem",
-      height: "25rem"
-    };
+    width: "25rem",
+    height: "30rem",
+  };
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
@@ -15,7 +14,6 @@ const PSMapView = ({ lat, lng, zoom }) => {
   const [map, setMap] = useState(null);
 
   const onLoad = useCallback((map) => {
-
     setMap(map);
   }, []);
 

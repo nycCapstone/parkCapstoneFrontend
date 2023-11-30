@@ -25,7 +25,10 @@ function ParkingSpotDetailPage() {
       <div className="parking-spot-details-page">
         <div className="details-container">
           {/* Details Information */}
-          <h1>Parking Spot Details</h1>
+          <div className="title">
+            <h1>Parking Spot Details</h1>
+          </div>
+
           <div className="details">
             <p className="detail-label">Address:</p>
             <p className="detail-value">{spotDetails.prop_address}</p>
@@ -44,7 +47,7 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
-            <p className="detail-value">{spotDetails.rating || 5.00}</p>
+            <p className="detail-value">{spotDetails.rating || 5.0}</p>
           </div>
           {spotDetails.renter_id && (
             <div>
@@ -83,7 +86,11 @@ function ParkingSpotDetailPage() {
   }
 
   if (isLoading) {
-    return <div className="s-loading-container"><SearchLoading /></div>;
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
   }
 
   if (error || isUninitialized) {
