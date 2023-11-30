@@ -69,8 +69,9 @@ const SearchResults = () => {
           .map((item) => ({
             ...item,
             distance: calculateDistance(searchLocation, item),
-          })).filter(item => item.distance<51).sort((a, b) => a.distance - b.distance);
-
+          }))
+          .filter((item) => item.distance < 51)
+          .sort((a, b) => a.distance - b.distance);
 
       case "high":
         filteredResults = [...action.payload].sort((a, b) => a.price - b.price);
@@ -84,10 +85,12 @@ const SearchResults = () => {
         return [];
     }
 
-    return filteredResults.map((item) => ({
-      ...item,
-      distance: calculateDistance(searchLocation, item),
-    })).filter(item => item.distance < 51);
+    return filteredResults
+      .map((item) => ({
+        ...item,
+        distance: calculateDistance(searchLocation, item),
+      }))
+      .filter((item) => item.distance < 51);
   };
 
   const handleMouseEnter = (i) => {
@@ -101,9 +104,8 @@ const SearchResults = () => {
   const handleMouseLeave = (i) => {
     let wid = document.getElementById(`${i}infowindow`);
     if (wid) {
-
       wid.style.color = "black";
-      if (i>0) {
+      if (i > 0) {
         wid.style.fontWeight = 300;
       }
     }
@@ -119,7 +121,7 @@ const SearchResults = () => {
 
     return (
       <div className="search-and-map-container">
-        <main className="search-main" >
+        <main className="search-main">
           <div className="sort-button-container">
             <div className="destination-container">
               {searchLocation && (
@@ -171,7 +173,7 @@ const SearchResults = () => {
                     onMouseEnter={() => handleMouseEnter(i)}
                     onMouseLeave={() => handleMouseLeave(i)}
                   >
-                    <p style={{fontSize: "large"}}>{item.prop_address}</p>
+                    <p style={{ fontSize: "large" }}>{item.prop_address}</p>
 
                     {searchStatus && (
                       <>
@@ -179,7 +181,10 @@ const SearchResults = () => {
                         <p>Number of spaces: {item.count_spaces}</p>
                       </>
                     )}
-                    <p>Billing Type: {item.billing_type==="fixed" ? "full day" : "hourly"}</p>
+                    <p>
+                      Billing Type:{" "}
+                      {item.billing_type === "fixed" ? "full day" : "hourly"}
+                    </p>
 
                     <p>
                       <i
@@ -239,7 +244,7 @@ const SearchResults = () => {
               return {
                 lat: item.latitude,
                 lng: item.longitude,
-                price: getCarTruckPrice(results, item.property_id)[0]
+                price: getCarTruckPrice(results, item.property_id)[0],
               };
             })}
           />
