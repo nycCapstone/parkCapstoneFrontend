@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { resetLandingCache } from "../../../redux/landing/landingSearchSlice";
 import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
+import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useFormik } from "formik";
 import { CiCreditCard1 } from "react-icons/ci";
 import "./Payment.css";
@@ -12,6 +13,7 @@ const Payment = () => {
   //selected_space {}
   //query_data
   //Array[] space_id, final_price, check_in time, check_out time
+  const { data: userData } = useGetUserInfoQuery();
   const resInfo = useSelector((state) => state.reservation);
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -74,6 +76,12 @@ const Payment = () => {
           `${values.expiryMonth}/${values.expiryYear}`,
           resInfo.booking_id,
         ],
+        email: [
+          resInfo.booking_id,
+          resInfo.selected_space.prop_address,
+          resInfo.query_data,
+          userData.email
+        ]
       })
         .unwrap()
         .then((res) => {

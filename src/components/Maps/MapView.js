@@ -23,8 +23,6 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
   });
 
-  const markerIdx = markerArray?.length-1;
-
   const [map, setMap] = useState(null);
 
   const onLoad = useCallback((map) => {
@@ -49,7 +47,7 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
             <Marker
               icon={{
                 path: window.google.maps.SymbolPath.CIRCLE,
-                fillColor: i === markerIdx ? "blue" : "red",
+                fillColor: i === 0 ? "blue" : "red",
                 fillOpacity: 1,
                 strokeWeight: 0,
                 scale: 10,
@@ -58,7 +56,7 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
               key={i}
             >
                 <InfoWindow>
-                  <div className="infowindow-price" style={{ fontWeight: i===markerIdx ? "bold" : "300"}} id={`${markerIdx-i}infowindow`}>
+                  <div className="infowindow-price" style={{ fontWeight: i===0 ? "bold" : "300"}} id={`${i}infowindow`}>
                     <p>${item.price}</p>
                   </div>
                 </InfoWindow>

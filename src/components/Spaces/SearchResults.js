@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import * as geolib from "geolib";
-import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
+import { useSelector } from "react-redux";
+import * as geolib from "geolib";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import MapView from "../Maps/MapView";
 import { Link } from "react-router-dom";
@@ -238,7 +238,7 @@ const SearchResults = () => {
                 lng: item.longitude,
                 price: getCarTruckPrice(results, item.property_id)[0]
               };
-            }).reverse()}
+            })}
           />
         </section>
       </div>
