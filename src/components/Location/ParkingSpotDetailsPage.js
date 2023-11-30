@@ -28,11 +28,6 @@ function ParkingSpotDetailPage() {
           <div className="title">
             <h1>{spotDetails.prop_address}</h1>
           </div>
-
-          {/* <div className="details">
-            <p className="detail-label">Address:</p>
-            <p className="detail-value">{spotDetails.prop_address}</p>
-          </div> */}
           <div className="details">
             <p className="detail-label">Number of Spaces:</p>
             <p className="detail-value">{spotDetails.number_spaces}</p>
