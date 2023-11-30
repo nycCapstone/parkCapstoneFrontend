@@ -7,6 +7,7 @@ import { resetSearchState } from "../../redux/search/searchResultsSlice";
 import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
+// import PSMapView from "./PSMapView";
 import { Link } from "react-router-dom";
 import "./Styles/SuccessfulPurchase.css";
 
@@ -50,6 +51,7 @@ const SuccessfulPurchase = () => {
               Congratulations, {userInfo.first_name}! Your reservation is
               confirmed!
             </h2>
+            {/* <h3>{JSON.stringify(reservationInfo)}</h3> */}
             <div className="payment-list">
               <div className="newest-transactions">
                 <div className="box">
@@ -61,6 +63,17 @@ const SuccessfulPurchase = () => {
                   </div>
                 </div>
               </div>
+              {/* <div className="success-map">
+                <section className="ps-mapview">
+                  <PSMapView
+                    lat={lat}
+                    lng={lng}
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                    containerElement={<div style={{ height: `100%` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                  />
+                </section>
+              </div> */}
               <div className="payment-details">
                 <p>
                   <span className="conf-details">
