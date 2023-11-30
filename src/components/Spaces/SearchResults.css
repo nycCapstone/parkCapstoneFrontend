@@ -1,5 +1,5 @@
 .search-res-mapview {
-  height: calc(100vh - 63px);
+  height: calc(100vh - 41px);
   flex: 1;
 }
 
@@ -41,12 +41,6 @@
 @media (max-width: 500px) {
   .search-reslist {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .search-reslist {
-    grid-template-columns: 2fr;
   }
 }
 
