@@ -192,7 +192,7 @@ const SearchResults = () => {
                         <img alt="propimage" src={item.picture} />
                       )}
                       <Link to={`/parking-spots/${item.space_id}`}>
-                        <button className="show-me-button">View More</button>
+                        <button className="show-me-button">View Details</button>
                       </Link>
                       {!searchStatus && (
                         <Link
