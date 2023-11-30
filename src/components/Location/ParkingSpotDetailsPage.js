@@ -44,22 +44,14 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
-            <p className="detail-value">{spotDetails.rating || 5.00}</p>
+            <p className="detail-value">{spotDetails.rating || 5.0}</p>
           </div>
           {spotDetails.renter_id && (
             <div>
               <h3>Renter Information</h3>
               <div className="details">
-                <p className="detail-label">First Name:</p>
+                <p className="detail-label">Spot Owner Name:</p>
                 <p className="detail-value">{spotDetails.client_first_name}</p>
-              </div>
-              <div className="details">
-                <p className="detail-label">Last Name:</p>
-                <p className="detail-value">{spotDetails.client_last_name}</p>
-              </div>
-              <div className="details">
-                <p className="detail-label">Address:</p>
-                <p className="detail-value">{spotDetails.renter_address}</p>
               </div>
             </div>
           )}
@@ -83,7 +75,11 @@ function ParkingSpotDetailPage() {
   }
 
   if (isLoading) {
-    return <div className="s-loading-container"><SearchLoading /></div>;
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
   }
 
   if (error || isUninitialized) {
