@@ -29,7 +29,7 @@ const RenterM = () => {
   }, []);
 
   if (isLoading) {
-    return <RenterLoading />;
+    return <div className="s-loading-container"><RenterLoading /></div>;
   }
 
   if (isSuccess) {

@@ -1,13 +1,19 @@
 .renter-container {
-  min-height: 100vh;
+  min-height: 80rem;
 }
 
 .r-manage-container header {
   display: flex;
   justify-content: center;
   padding: 1.5rem;
-  background-color: #ffd6d6;
+  background-color: #ffa7a7;
+  margin-bottom: 1rem;
 }
+
+.r-manage-container h3 {
+  color: white;
+}
+
 .renter-prop {
   width: 85%;
   margin: 3rem auto;
@@ -19,7 +25,8 @@
 
   .renter-prop-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
+    color: black;
   }
   .renter-prop-info {
     display: grid;
@@ -48,7 +55,9 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition: opacity 0.3s ease, transform 0.2s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
@@ -59,38 +68,51 @@
 
 .centered-nav {
   display: flex;
-  justify-content: center;
-  background-color: #ffa7a7; 
-  padding: 10px; 
+  justify-content: space-evenly;
+  background-color: #ffa7a7;
+  padding: 10px;
 }
 
 .centered-nav div {
   display: flex;
 }
 
-.centered-nav a {
-  color: #fff; 
+.ctr-nav-r-links a {
   text-decoration: none;
-  padding: 10px; 
-  margin: 0 10px; 
-  border-radius: 5px; 
+  padding: 10px;
+  margin: 0 10px;
+  border-radius: 5px;
+  color: white;
 }
 
-.centered-nav a span{
-  color: green; 
+.ctr-nav-r-links .cl-h-svgleft svg {
+  color: purple;
+}
+
+.earnings-total-container a {
   text-decoration: none;
-  margin: 0; 
-  border-radius: 5px; 
+  padding: 10px;
+  margin: 0 10px;
+  border-radius: 5px;
+  color: white;
 }
 
-.centered-nav a:hover {
-  background-color: #555;
-}
-
-.earnings-total-container a:hover {
-  background-color: #ffa7a7;
+.earnings-total-container a span {
+  color: green;
+  text-decoration: none;
+  margin: 0;
+  border-radius: 5px;
 }
 
 .renter-landing-divert {
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .renter-prop .renter-prop-header {
+    margin-bottom: 1rem;
+  }
+  .renter-prop {
+    margin: 2rem auto;
+  }
 }

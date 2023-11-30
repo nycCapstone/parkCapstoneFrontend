@@ -22,3 +22,11 @@
   margin: 0 auto;
   margin-top: 2rem;
 }
+
+.login-form-container form input {
+  font-size: 20px;
+}
+
+.register-form-container form input {
+  font-size: 18px;
+}

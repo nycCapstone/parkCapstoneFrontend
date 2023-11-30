@@ -6,7 +6,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="container">
+    <footer className="footer-container">
       <div className="app-slogan">
         <h4>CarValet</h4>
         <p className="slogan">"Your Space. Their Convenience"</p>
@@ -14,7 +14,6 @@ const Footer = () => {
 
       <div className="socials">
         <h5>Follow Us</h5>
-        {/* <Link to="/admin">Admin</Link> */}
         <div className="social-icons">
           <div>
             <FaInstagram className="icon" />

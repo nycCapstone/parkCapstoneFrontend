@@ -27,7 +27,7 @@ const PropertyForm = () => {
     zip: Yup.string()
       .matches(/^\d{5}(-\d{4})?$/, `Must match ${zipCode || "input location"}`)
       .required(
-        `confirm zipcode is ${zipCode || "the result from google maps"}`
+        `confirm zipcode is ${zipCode || "the result from google maps"}`,
       ),
     number_spaces: Yup.number()
       .min(1, "Minimum 1 space")
@@ -39,7 +39,7 @@ const PropertyForm = () => {
       .nullable(),
     billing_type: Yup.string().oneOf(
       ["fixed", "hourly"],
-      "Invalid billing type"
+      "Invalid billing type",
     ),
   });
 
@@ -64,9 +64,8 @@ const PropertyForm = () => {
       if (place.geometry && place.geometry.location) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-      
-        setGeoLocation({ lat, lng, });
-      } 
+        setGeoLocation({ lat, lng });
+      }
 
       if (
         place?.address_components?.some((item) => {
@@ -116,7 +115,11 @@ const PropertyForm = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-              if (formattedAddress.length < 8 || typeof locationdata?.lat !== 'number') return;
+              if (
+                formattedAddress.length < 8 ||
+                typeof locationdata?.lat !== "number"
+              )
+                return;
               if ((zipCode && values.zip !== zipCode) || !zipCode) return;
               try {
                 await submitProperty({
@@ -124,7 +127,7 @@ const PropertyForm = () => {
                   owner_id: userData.id,
                   prop_address: formattedAddress,
                   latitude: locationdata.lat,
-                  longitude: locationdata.lng
+                  longitude: locationdata.lng,
                 })
                   .unwrap()
                   .then(() => refetch());
