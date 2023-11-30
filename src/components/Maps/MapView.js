@@ -15,7 +15,7 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
   };
 
   const mapOptions = {
-    mapContainerStyle: containerStyle
+    mapContainerStyle: containerStyle,
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -55,11 +55,15 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
               position={{ lat: item.lat, lng: item.lng }}
               key={i}
             >
-                <InfoWindow>
-                  <div className="infowindow-price" style={{ fontWeight: i===0 ? "bold" : "300"}} id={`${i}infowindow`}>
-                    <p>${item.price}</p>
-                  </div>
-                </InfoWindow>
+              <InfoWindow>
+                <div
+                  className="infowindow-price"
+                  style={{ fontWeight: i === 0 ? "bold" : "300" }}
+                  id={`${i}infowindow`}
+                >
+                  <p>${item.price}</p>
+                </div>
+              </InfoWindow>
             </Marker>
           );
         })}
