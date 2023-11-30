@@ -13,6 +13,7 @@ const Payment = () => {
   //Array[] space_id, final_price, check_in time, check_out time
   const resInfo = useSelector((state) => state.reservation);
   const [cardNumber, setCardNumber] = useState("");
+  const maxCardNumberDigits = 16;
   const [expiryDate, setExpiryDate] = useState('')
   const [expiryMonth, setExpiryMonth] = useState('');
   const [expiryYear, setExpiryYear] = useState('');
@@ -36,10 +37,16 @@ const Payment = () => {
 
       if (!values.cardNumber) {
         errors.cardNumber = 'Required';
-      } else if (!/^\d{16}$/.test(values.cardNumber)) {
-        errors.cardNumber = 'Invalid card number';
+      } else {
+        const cardNumberWithoutSpaces = values.cardNumber.replace(/\s/g, '');
+        if (!/^\d{16}$/.test(cardNumberWithoutSpaces)) {
+          errors.cardNumber = 'Invalid card number. Must be 16 digits.';
+        } else if (!/^\d+$/.test(cardNumberWithoutSpaces)) {
+          errors.cardNumber = 'Only numbers are allowed.'
+        }else if (cardNumberWithoutSpaces.length > maxCardNumberDigits) {
+          errors.cardNumber = `Maximum ${maxCardNumberDigits} digits allowed.`;
+        }
       }
-
       if (!values.expiryMonth) {
         errors.expiryMonth = 'Required';
       }
@@ -62,7 +69,6 @@ const Payment = () => {
 
     },
     onSubmit: async (values) => {
-      console.log()
       if (![cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
         return;
       }
@@ -79,9 +85,22 @@ const Payment = () => {
    },
   });
 
+
   const handleCardNumberChange= (event) => {
     setCardNumber(event.target.value);
-    formik.handleChange(event);
+    const { value } = event.target;
+    let numeric = value.replace(/\D/g, '') // remove non numeric
+      
+    const formattedValue = numeric
+      .replace(/\s/g, '') // Remove existing spaces
+      .match(/.{1,4}/g) // Match every 4 characters
+    if (formattedValue!= null){
+    if (numeric.length <= 16) {
+      formik.handleChange({ target: { name: 'cardNumber', value: formattedValue.join(' ') } });
+    }
+    }
+    else formik.handleChange({ target: { name: 'cardNumber', value: value } })
+
   };
 
   const handleExpiryMonthChange = (event) => {
@@ -94,8 +113,17 @@ const Payment = () => {
     formik.handleChange(event);
   };
   const handleCvvChange = (event) => {
-    setCvv(event.target.value);
-    formik.handleChange(event);
+    
+    const { value } = event.target;
+    console.log(value)
+    const numericValue = value.replace(/\D/g, '');
+    setCvv(numericValue);
+    // Limit the input to the maximum number of characters
+    console.log(numericValue.length)
+    if (numericValue.length <= 3) {
+      formik.handleChange({ target: { name: 'cvv', value: numericValue } });
+    } else 
+    console.log(numericValue.length<=3)
   };
 
   const handleNameChange = (event) => {
@@ -132,9 +160,13 @@ const Payment = () => {
             type="text"
             id="nameOnCard"
             value={nameOnCard}
+            placeholder="John Doe"
             onChange={handleNameChange}
             onBlur={formik.handleBlur}
           />
+          {formik.touched.nameOnCard && formik.errors.nameOnCard ? (
+          <div style={{ color: 'red' }}>{formik.errors.nameOnCard}</div>
+        ) : null}
         </label>
         <label>
           <span className="label-card-num">Card Number</span>
@@ -142,8 +174,9 @@ const Payment = () => {
           <input
             type="text"
             id="cardNumber"
-            value={cardNumber}
+            value={formik.values.cardNumber}
             onChange={handleCardNumberChange}
+            placeholder="1234 1234 1234 1234"
             onBlur={formik.handleBlur}
           />
           {formik.touched.cardNumber && formik.errors.cardNumber ? (
@@ -159,7 +192,8 @@ const Payment = () => {
             onBlur={formik.handleBlur}
             value={expiryMonth}
           >
-            <option value="null">--</option>
+            <option value="null">Month</option>
+            <option value="1">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
             <option value="4">04</option>
@@ -172,16 +206,13 @@ const Payment = () => {
             <option value="11">11</option>
             <option value="12">12</option>
           </select>
-          {formik.touched.expiryMonth && formik.errors.expiryMonth ? (
-          <div style={{ color: 'red' }}>{formik.errors.expiryMonth}</div>
-        ) : null}
           <select 
           id="expiryYear" 
           onChange={handleExpiryYearChange}
           onBlur={formik.handleBlur}
           value={expiryYear}
           >
-            <option value="null">--</option>            
+            <option value="null">Year</option>            
             <option value="23">23</option>
             <option value="24">24</option>
             <option value="25">25</option>
@@ -204,8 +235,8 @@ const Payment = () => {
             <option value="42">42</option>
             <option value="43">43</option>
           </select>
-          {formik.touched.expiryYear && formik.errors.expiryYear ? (
-          <div style={{ color: 'red' }}>{formik.errors.expiryYear}</div>
+          {(formik.touched.expiryYear && formik.errors.expiryYear) || (formik.touched.expiryMonth && formik.errors.expiryMonth) ? (
+          <div style={{ color: 'red' }}>{'Required'}</div>
         ) : null}
         </label>
         <br />
@@ -216,7 +247,8 @@ const Payment = () => {
           <input
             type="text"
             id="cvv"
-            value={cvv}
+            value={formik.values.cvv}
+            placeholder = "123"
             onChange={handleCvvChange}
             onBlur={formik.handleBlur}
           />
