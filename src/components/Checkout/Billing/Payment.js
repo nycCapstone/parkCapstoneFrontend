@@ -13,7 +13,6 @@ const Payment = () => {
   //Array[] space_id, final_price, check_in time, check_out time
   const resInfo = useSelector((state) => state.reservation);
   const [cardNumber, setCardNumber] = useState("");
-  const maxCardNumberDigits = 16;
   const [expiryDate, setExpiryDate] = useState('')
   const [expiryMonth, setExpiryMonth] = useState('');
   const [expiryYear, setExpiryYear] = useState('');
@@ -115,15 +114,11 @@ const Payment = () => {
   const handleCvvChange = (event) => {
     
     const { value } = event.target;
-    console.log(value)
     const numericValue = value.replace(/\D/g, '');
     setCvv(numericValue);
-    // Limit the input to the maximum number of characters
-    console.log(numericValue.length)
     if (numericValue.length <= 3) {
       formik.handleChange({ target: { name: 'cvv', value: numericValue } });
     } else 
-    console.log(numericValue.length<=3)
   };
 
   const handleNameChange = (event) => {
