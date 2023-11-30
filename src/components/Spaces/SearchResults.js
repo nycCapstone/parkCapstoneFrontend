@@ -160,8 +160,11 @@ const SearchResults = () => {
                     <br></br>
 
                     <p>
-                      Distance From Destination(miles):{" "}
-                      {item.distance.toFixed(2)}
+                      <i
+                        class="fa-solid fa-person-walking-arrow-right fa-beat"
+                        style={{ color: "#f41901" }}
+                      ></i>
+                      Distance(miles): {item.distance.toFixed(2)}
                     </p>
 
                     <table className="table">

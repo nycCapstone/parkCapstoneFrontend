@@ -25,7 +25,10 @@ function ParkingSpotDetailPage() {
       <div className="parking-spot-details-page">
         <div className="details-container">
           {/* Details Information */}
-          <h1>Parking Spot Details</h1>
+          <div className="title">
+            <h1>Parking Spot Details</h1>
+          </div>
+
           <div className="details">
             <p className="detail-label">Address:</p>
             <p className="detail-value">{spotDetails.prop_address}</p>
