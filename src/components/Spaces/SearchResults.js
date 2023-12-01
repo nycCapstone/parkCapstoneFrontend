@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import * as geolib from "geolib";
-import { useSelector } from "react-redux";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
+import { useSelector } from "react-redux";
+import * as geolib from "geolib";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import MapView from "../Maps/MapView";
 import { Link } from "react-router-dom";
@@ -70,6 +70,7 @@ const SearchResults = () => {
             ...item,
             distance: calculateDistance(searchLocation, item),
           }))
+          .filter((item) => item.distance < 51)
           .sort((a, b) => a.distance - b.distance);
 
       case "high":
@@ -84,12 +85,31 @@ const SearchResults = () => {
         return [];
     }
 
-    return filteredResults.map((item) => ({
-      ...item,
-      distance: calculateDistance(searchLocation, item),
-    }));
+    return filteredResults
+      .map((item) => ({
+        ...item,
+        distance: calculateDistance(searchLocation, item),
+      }))
+      .filter((item) => item.distance < 51);
   };
 
+  const handleMouseEnter = (i) => {
+    let wid = document.getElementById(`${i}infowindow`);
+    if (wid) {
+      wid.style.color = "red";
+      wid.style.fontWeight = "bold";
+    }
+  };
+
+  const handleMouseLeave = (i) => {
+    let wid = document.getElementById(`${i}infowindow`);
+    if (wid) {
+      wid.style.color = "black";
+      if (i > 0) {
+        wid.style.fontWeight = 300;
+      }
+    }
+  };
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
@@ -147,8 +167,13 @@ const SearchResults = () => {
                 let cartruckp = getCarTruckPrice(results, item.property_id);
 
                 return (
-                  <div className="spot-info" key={i}>
-                    <p>Address: {item.prop_address}</p>
+                  <div
+                    className="spot-info"
+                    key={i}
+                    onMouseEnter={() => handleMouseEnter(i)}
+                    onMouseLeave={() => handleMouseLeave(i)}
+                  >
+                    <p style={{ fontSize: "large" }}>{item.prop_address}</p>
 
                     {searchStatus && (
                       <>
@@ -156,12 +181,19 @@ const SearchResults = () => {
                         <p>Number of spaces: {item.count_spaces}</p>
                       </>
                     )}
-                    <p>Billing Type: {item.billing_type}</p>
-                    <br></br>
+                    <p>
+                      Billing Type:{" "}
+                      {item.billing_type === "fixed" ? "full day" : "hourly"}
+                    </p>
 
                     <p>
-                      Distance From Destination(miles):{" "}
-                      {item.distance.toFixed(2)}
+                      <h3>
+                        <i
+                          class="fa-solid fa-person-walking-arrow-right fa-beat"
+                          style={{ color: "#f41901" }}
+                        ></i>
+                        Distance(miles): {item.distance.toFixed(2)}
+                      </h3>
                     </p>
 
                     <table className="table">
@@ -169,18 +201,12 @@ const SearchResults = () => {
                         <tr>
                           <th>Commuter price</th>
                           <th>Large vehicle price</th>
-                          {/* <th>Distance (miles)</th> */}
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>${cartruckp[0]}</td>
                           <td>${cartruckp[1]}</td>
-                          {/* <td>
-                          {typeof item.distance === "number"
-                            ? item.distance.toFixed(2)
-                            : "N/A"}
-                        </td> */}
                         </tr>
                       </tbody>
                     </table>
@@ -189,7 +215,7 @@ const SearchResults = () => {
                         <img alt="propimage" src={item.picture} />
                       )}
                       <Link to={`/parking-spots/${item.space_id}`}>
-                        <button className="show-me-button">View More</button>
+                        <button className="show-me-button">View Details</button>
                       </Link>
                       {!searchStatus && (
                         <Link
@@ -217,8 +243,12 @@ const SearchResults = () => {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             markerArray={useArray.map((item) => {
-                return { lat: item.latitude, lng: item.longitude };
-              })}
+              return {
+                lat: item.latitude,
+                lng: item.longitude,
+                price: getCarTruckPrice(results, item.property_id)[0],
+              };
+            })}
           />
         </section>
       </div>

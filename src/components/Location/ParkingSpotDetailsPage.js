@@ -25,10 +25,8 @@ function ParkingSpotDetailPage() {
       <div className="parking-spot-details-page">
         <div className="details-container">
           {/* Details Information */}
-          <h1>Parking Spot Details</h1>
-          <div className="details">
-            <p className="detail-label">Address:</p>
-            <p className="detail-value">{spotDetails.prop_address}</p>
+          <div className="title">
+            <h1>{spotDetails.prop_address}</h1>
           </div>
           <div className="details">
             <p className="detail-label">Number of Spaces:</p>
@@ -36,7 +34,7 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">{spotDetails.billing_type}</p>
+            <p className="detail-value">{spotDetails.billing_type}/daily</p>
           </div>
           <div className="details">
             <p className="detail-label">Owner ID:</p>
@@ -44,28 +42,20 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
-            <p className="detail-value">{spotDetails.rating || 5.00}</p>
+            <p className="detail-value">{spotDetails.rating || 5.0}</p>
           </div>
           {spotDetails.renter_id && (
             <div>
               <h3>Renter Information</h3>
               <div className="details">
-                <p className="detail-label">First Name:</p>
+                <p className="detail-label">Spot Owner Name:</p>
                 <p className="detail-value">{spotDetails.client_first_name}</p>
-              </div>
-              <div className="details">
-                <p className="detail-label">Last Name:</p>
-                <p className="detail-value">{spotDetails.client_last_name}</p>
-              </div>
-              <div className="details">
-                <p className="detail-label">Address:</p>
-                <p className="detail-value">{spotDetails.renter_address}</p>
               </div>
             </div>
           )}
           <button className="book-now-button">Book Now</button>
           <Link to="/search-result" className="go-back-link">
-            Go back to Search Results
+            <span className="go-back-icon">&#8678;</span> Go back
           </Link>
         </div>
 
@@ -83,7 +73,11 @@ function ParkingSpotDetailPage() {
   }
 
   if (isLoading) {
-    return <div className="s-loading-container"><SearchLoading /></div>;
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
   }
 
   if (error || isUninitialized) {

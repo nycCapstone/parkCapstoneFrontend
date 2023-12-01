@@ -61,18 +61,19 @@
 .become-renter,
 .reserve-now {
   padding: 8px;
-  font-size: medium;
+  font-size: larger;
   text-align: center;
-  width: 6rem;
+  /* width: 6rem; */
   /* height: 2.7rem; */
   border: none;
   border-radius: 0.3rem;
   background-color: #ff5757;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   color: white;
   cursor: pointer;
-  /* &:hover {
+  &:hover {
     transform: scale(0.96);
-  } */
+  }
 }
 .app-description {
   display: grid;
@@ -85,19 +86,33 @@
 }
 
 .app-description:nth-child(odd) {
+  background-color: #dcdcdc;
+}
+
+.app-description:nth-child(odd) {
   grid-template-areas: "info image";
 }
 
 .marketing-image {
   grid-area: image;
   border-radius: 2%;
+  width: 75%;
 }
 
 .pic-text {
   grid-area: info;
 }
 
+.landing-body section:first-child img {
+  margin: auto;
+  width: 60%;
+}
+
 @media (max-width: 768px) {
+  .main_container {
+    padding: 0px;
+  }
+
   .app-description,
   .app-description:nth-child(odd) {
     grid-template-columns: 1fr;
@@ -110,4 +125,20 @@
   .marketing-image {
     margin: 0 auto;
   }
+
+  .landing-body section:first-child img {
+    width: 60%;
+  }
+
+  .landing-intro {
+    margin: 0 auto;
+    padding: 30px;
+  }
+}
+
+.landing-content-description-1,
+.landing-content-description-2,
+.landing-content-description-3 {
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
 }

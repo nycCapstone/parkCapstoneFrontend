@@ -3,7 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { resetLandingCache } from "../../../redux/landing/landingSearchSlice";
 import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
-import {useFormik} from "formik";
+import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
+import { useFormik } from "formik";
+import { CiCreditCard1 } from "react-icons/ci";
 import "./Payment.css";
 
 const Payment = () => {
@@ -11,11 +13,12 @@ const Payment = () => {
   //selected_space {}
   //query_data
   //Array[] space_id, final_price, check_in time, check_out time
+  const { data: userData } = useGetUserInfoQuery();
   const resInfo = useSelector((state) => state.reservation);
   const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState('')
-  const [expiryMonth, setExpiryMonth] = useState('');
-  const [expiryYear, setExpiryYear] = useState('');
+  const [expiryDate, setExpiryDate] = useState("");
+  const [expiryMonth, setExpiryMonth] = useState("");
+  const [expiryYear, setExpiryYear] = useState("");
   const [cvv, setCvv] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
   const [err, setErr] = useState(false);
@@ -25,11 +28,11 @@ const Payment = () => {
 
   const formik = useFormik({
     initialValues: {
-      cardNumber: '',
-      expiryMonth: '',
-      expiryYear: '',
-      cvv: '',
-      nameOnCard: '',
+      cardNumber: "",
+      expiryMonth: "",
+      expiryYear: "",
+      cvv: "",
+      nameOnCard: "",
     },
     validate: (values) => {
       const errors = {};
@@ -42,48 +45,59 @@ const Payment = () => {
           errors.cardNumber = 'Invalid card number. Must be 16 digits.';
         } else if (!/^\d+$/.test(cardNumberWithoutSpaces)) {
           errors.cardNumber = 'Only numbers are allowed.'
-        }else if (cardNumberWithoutSpaces.length > maxCardNumberDigits) {
-          errors.cardNumber = `Maximum ${maxCardNumberDigits} digits allowed.`;
-        }
+        }else if (cardNumberWithoutSpaces.length > 16) {
+          errors.cardNumber = `Maximum 16 digits allowed.`;
       }
+     }
       if (!values.expiryMonth) {
-        errors.expiryMonth = 'Required';
+        errors.expiryMonth = "*Month required.";
       }
 
       if (!values.expiryYear) {
-        errors.expiryYear = 'Required';
+        errors.expiryYear = "*Year required.";
       }
 
       if (!values.cvv) {
-        errors.cvv = 'Required';
+        errors.cvv = "*Required";
       } else if (!/^\d{3,4}$/.test(values.cvv)) {
-        errors.cvv = 'Invalid CVV';
+        errors.cvv = "*Invalid CVV";
       }
 
       if (!values.nameOnCard) {
-        errors.nameOnCard = 'Required';
+        errors.nameOnCard = "*Required";
+      } else if (values.nameOnCard.length < 2) {
+        errors.nameOnCard = "*Name must be atleast 2 characters";
       }
-
-      return errors
-
+      return errors;
     },
     onSubmit: async (values) => {
       if (![cardNumber, expiryDate, cvv, nameOnCard].some(item => item === "")) {
         return;
       }
-      await newClientPmt({ data: [`${values.expiryMonth}/${values.expiryYear}`, resInfo.booking_id] })
+      await newClientPmt({
+        data: [
+          `${values.expiryMonth}/${values.expiryYear}`,
+          resInfo.booking_id,
+        ],
+        email: [
+          resInfo.booking_id,
+          resInfo.selected_space.prop_address,
+          resInfo.query_data,
+          userData.email
+        ]
+      })
         .unwrap()
         .then((res) => {
           if (!res.success) {
             setErr(true);
-            return
+            return;
           }
           dispatch(resetLandingCache());
           navigate(`/client/pmt/success/${resInfo.nav_id}/${res.pmt_id}`);
-        }).catch(e => console.error(e));
-   },
+        })
+        .catch((e) => console.error(e));
+    },
   });
-
 
   const handleCardNumberChange= (event) => {
     setCardNumber(event.target.value);
@@ -99,7 +113,6 @@ const Payment = () => {
     }
     }
     else formik.handleChange({ target: { name: 'cardNumber', value: value } })
-
   };
 
   const handleExpiryMonthChange = (event) => {
@@ -112,13 +125,12 @@ const Payment = () => {
     formik.handleChange(event);
   };
   const handleCvvChange = (event) => {
-    
     const { value } = event.target;
     const numericValue = value.replace(/\D/g, '');
     setCvv(numericValue);
     if (numericValue.length <= 3) {
       formik.handleChange({ target: { name: 'cvv', value: numericValue } });
-    } else 
+    }
   };
 
   const handleNameChange = (event) => {
@@ -127,61 +139,54 @@ const Payment = () => {
   };
 
   return (
-    <div className="payment-container">
-      <h2 className="billing-header">Billing Information</h2>
-      <div className="purchase-details">
-        <div>{err && <div className="error-message">Error</div>}</div>
-        {/* Display details related to the item being purchased */}
-        <p className="price">
-          <span className="category-price">Price:</span> $
-          {resInfo.selected_space.final_price}
-        </p>
-        <p className="location">
-          <span className="category-location">Parking Location:</span>{" "}
-          {resInfo.selected_space.prop_address.slice(0, -5)}
-        </p>
-        <p className="space-number">
-          <span className="category-space-number">Space No:</span>{" "}
-          {resInfo.query_data[0].find(item => item.space_id === resInfo.booking_space_id)?.space_no}
-        </p>
-      </div>
+    <div className="checkout">
+      <div className="payment-container">
+        {/* Payment form */}
+        <form className="payment-form" onSubmit={formik.handleSubmit}>
+          <p className="billing-header">Payment Details</p>
+          <div className="input-block">
+            <label className="input-label">Name on Card</label>
+            <input
+              className="login-input"
+              id="nameOnCard"
+              type="text"
+              placeholder="eg: John Doe"
+              value={nameOnCard}
+              onChange={handleNameChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
 
-      {/* Payment form */}
-      <form className="payment-form" onSubmit={formik.handleSubmit}>
-        <label>
-          <span className="label-card-name">Name on Card</span>
-          <br />
-          <input
-            type="text"
-            id="nameOnCard"
-            value={nameOnCard}
-            placeholder="John Doe"
-            onChange={handleNameChange}
-            onBlur={formik.handleBlur}
-          />
           {formik.touched.nameOnCard && formik.errors.nameOnCard ? (
-          <div style={{ color: 'red' }}>{formik.errors.nameOnCard}</div>
-        ) : null}
-        </label>
-        <label>
-          <span className="label-card-num">Card Number</span>
-          <br />
-          <input
-            type="text"
-            id="cardNumber"
-            value={formik.values.cardNumber}
-            onChange={handleCardNumberChange}
-            placeholder="1234 1234 1234 1234"
-            onBlur={formik.handleBlur}
-          />
+            <p className="error-payment-msg">*{formik.errors.nameOnCard}</p>
+          ) : null}
+
+          <div className="input-block">
+            <label className="input-label">Card Number</label>
+            <div className="credit-info">
+              <CiCreditCard1 className="creditCardIcon" />
+              <input
+                placeholder="1234 1234 1234 1234"
+                id="cardNumber"
+                className="login-input"
+                type="text"
+                value={formik.values.cardNumber}
+                onChange={handleCardNumberChange}
+                onBlur={formik.handleBlur}
+              />       
           {formik.touched.cardNumber && formik.errors.cardNumber ? (
-          <div style={{ color: 'red' }}>{formik.errors.cardNumber}</div>
-        ) : null}
-        </label>
-        <label>
-          <span className="label-card-exp">Expiration Date</span>
+            <p className="error-payment-msg">*{formik.errors.cardNumber}</p>
+          ) : null}
+            </div>
+    
+          </div>
+
+          <div className="input-block">
+          <label className="input-label">Expiration Date</label>
+          <div className="card-select-month-year">
           <br />
           <select 
+            className="select-block"
             id="expiryMonth"
             onChange={handleExpiryMonthChange}
             onBlur={formik.handleBlur}
@@ -202,6 +207,7 @@ const Payment = () => {
             <option value="12">12</option>
           </select>
           <select 
+          className="select-block"
           id="expiryYear" 
           onChange={handleExpiryYearChange}
           onBlur={formik.handleBlur}
@@ -231,36 +237,78 @@ const Payment = () => {
             <option value="43">43</option>
           </select>
           {(formik.touched.expiryYear && formik.errors.expiryYear) || (formik.touched.expiryMonth && formik.errors.expiryMonth) ? (
-          <div style={{ color: 'red' }}>{'Required'}</div>
-        ) : null}
-        </label>
+          <p className="error-payment-msg">*{"Required"}</p>
+        ) : null}   
+        </div>
+        </div>
         <br />
 
-        <label>
-          <span className="label-card-cvv">CVV (security code)</span>
-          <br />
-          <input
-            type="text"
-            id="cvv"
-            value={formik.values.cvv}
-            placeholder = "123"
-            onChange={handleCvvChange}
-            onBlur={formik.handleBlur}
-          />
+          <div className="input-block">
+            <label className="input-label">CVV (security code)</label>
+            <input
+              className="login-input"
+              type="text"
+              id="cvv"
+              value={formik.values.cvv}
+              placeholder = "123"
+              onChange={handleCvvChange}
+              onBlur={formik.handleBlur}
+            />
           {formik.touched.cvv && formik.errors.cvv ? (
-          <div style={{ color: 'red' }}>{formik.errors.cvv}</div>
-        ) : null}
-        </label>
-        <br />
-        <button className="payment-button" type="submit">
-          Submit Payment
-        </button>
-      </form>
+            <p className="error-payment-msg ">{formik.errors.cvv}</p>
+          ) : null}
+          </div>
+
+          <button className="payment-button" type="submit">
+            Pay ${Number(resInfo.selected_space.final_price) + 5}
+          </button>
+        </form>
+        <div className="purchase-details">
+          <div>{err && <div className="error-message">Error</div>}</div>
+          {/* Display details related to the item being purchased */}
+          <p className="summary">Parking Summary</p>
+          <div className="firstPayment">
+            <p className="location">
+              <span className="category-location">Parking Location:</span>{" "}
+              <strong>
+                {resInfo.selected_space.prop_address.slice(0, -5)}
+              </strong>
+            </p>
+            <p className="space-number">
+              <span className="category-space-number">Space No:</span>{" "}
+              <strong>
+                {
+                  resInfo.query_data[0].find(
+                    (item) => item.space_id === resInfo.booking_space_id
+                  )?.space_no
+                }
+              </strong>
+            </p>
+          </div>
+          <div className="secondPayment">
+            <div className="subTotal">
+              <label className="price">Sub Total:</label>
+              <span>${resInfo.selected_space.final_price}</span>
+            </div>
+            <div className="serviceFee">
+              <label>Service Fee</label>
+              <span>$5.00</span>
+            </div>
+            <div className="total">
+              <label>
+                <strong>Total:</strong>
+              </label>
+              <span>
+                <strong>
+                  ${Number(resInfo.selected_space.final_price) + 5}
+                </strong>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-
 export default Payment;
-
-

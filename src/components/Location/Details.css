@@ -3,10 +3,8 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  /* background-color: rgba(240, 240, 240, 0.95); */
-  /* border: 1px solid #ddd; */
   border-radius: 10px;
-  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+  height: 1600px;
 }
 
 .details-container {
@@ -14,10 +12,14 @@
   padding-right: 50px;
 }
 
-h1 {
-  font-size: 28px;
+.parking-spot-details-page .details-container h1 {
+  font-size: 24px;
   margin-bottom: 20px;
   color: #ff5757;
+  text-align: left;
+}
+
+.title {
   text-align: center;
 }
 
@@ -25,36 +27,39 @@ h1 {
   flex: 1;
   position: relative;
   margin-left: 50px;
+  margin-top: 15px;
 }
 
 .details {
-  margin: 15px 0;
+  margin: 20px 0;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .detail-label {
   font-weight: bold;
   color: #333;
+  margin-bottom: 5px;
 }
 
 .detail-value {
   color: #555;
+  font-size: 18px;
 }
 
 button.book-now-button {
   background-color: #0077cc;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  font-size: 16px;
+  font-size: 20px;
   transition: background-color 0.3s;
 }
 
@@ -64,16 +69,20 @@ button.book-now-button:hover {
 
 a.go-back-link {
   display: block;
-  text-align: center;
+  text-align: left;
   margin-top: 20px;
   text-decoration: none;
   color: #0077cc;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   transition: color 0.3s;
 }
 
 a.go-back-link:hover {
   text-decoration: underline;
   color: #ff5757;
+}
+
+.go-back-icon {
+  margin-right: 5px;
 }
