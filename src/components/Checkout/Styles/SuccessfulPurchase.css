@@ -1,7 +1,7 @@
 .successful-purchase-container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 2rem auto;
+  padding: 1rem;
   background-color: #f8f8f8;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,8 @@
 }
 
 .payment-list {
-  margin-top: 0;
+  margin-top: 1rem;
+  display: flex;
 }
 
 .box {
@@ -28,28 +29,50 @@
   background-color: #f8f8f8;
 }
 
+.success-map {
+  padding: 10px;
+  margin: 10px;
+}
+
 .payment-details {
   /* border: 1px solid #ddd; */
   padding: 10px;
   margin: 10px;
   background-color: #f8f8f8;
   border-radius: 4px;
-  margin-top: 3.5rem;
+  /* margin-top: 3.5rem; */
 }
 
-.conf-details {
+ul.success-conf-details-list {
+  list-style-type: none;
+}
+
+.success-conf-details-list {
+  font-size: 1.1rem;
+}
+
+.conf-details-pymt-message {
   font-size: large;
   margin-bottom: 1rem;
 }
 
-.pymt-id {
+.conf-details-pymt-message,
+.conf-parking-location,
+.conf-check-in-date-time,
+.conf-check-out-date-time,
+.conf-details-total-price {
   font-weight: bold;
+}
+
+.pymt-id {
+  font-weight: 500;
 }
 
 .record-message {
   margin-top: 20px;
   color: #3498db;
   text-align: center;
+  font-size: 1.1rem;
 }
 
 .no-activity {
@@ -65,107 +88,140 @@
   text-align: center;
 }
 
-.box{
-  margin-top:60px;
-  display:flex;
-  justify-content:space-around;
-  flex-wrap:wrap;
+.box {
+  /* margin-top: 60px; */
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
 }
 
-.alert{
-  margin-top:25px;
-  background-color:#fff;
-  font-size:25px;
-  font-family:sans-serif;
-  text-align:center;
-  width:300px;
-  height:100px;
+.ps-mapview {
+  flex: 1;
+  position: relative;
+  margin-left: 50px;
+  margin-top: 15px;
+}
+
+.success-map .ps-mapview .gm-control-active,
+.success-map .ps-mapview .gm-fullscreen-control {
+  display: none;
+}
+
+.alert {
+  margin-top: 25px;
+  font-size: 25px;
+  font-family: sans-serif;
+  text-align: center;
+  width: 300px;
+  height: 100px;
   padding-top: 150px;
-  position:relative;
-  border: 1px solid #efefda;
-  border-radius: 2%;
-  box-shadow:0px 0px 3px 1px #ccc;
+  position: relative;
 }
 
-.alert::before{
-  width:100px;
-  height:100px;
-  position:absolute;
+.alert::before {
+  width: 100px;
+  height: 100px;
+  position: absolute;
   border-radius: 100%;
   inset: 20px 0px 0px 100px;
   font-size: 60px;
   line-height: 100px;
-  border : 5px solid gray;
+  border: 5px solid gray;
   animation-name: reveal;
   animation-duration: 1.5s;
   animation-timing-function: ease-in-out;
 }
 
-.alert>.alert-body{
-  opacity:0;
+.alert > .alert-body {
+  opacity: 0;
   animation-name: reveal-message;
-  animation-duration:1s;
+  animation-duration: 1s;
   animation-timing-function: ease-out;
-  animation-delay:1.5s;
-  animation-fill-mode:forwards;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards;
 }
 
-@keyframes reveal-message{
-  from{
-    opacity:0;
+@keyframes reveal-message {
+  from {
+    opacity: 0;
   }
-  to{
-    opacity:1;
+  to {
+    opacity: 1;
   }
 }
 
-.success{
-  color:green;
+.success {
+  color: green;
 }
 
-.success::before{
-  content: '✓';
+.success::before {
+  content: "✓";
   background-color: #eff;
-  box-shadow: 0px 0px 12px 7px rgba(200,255,150,0.8) inset;
-  border : 5px solid green;
+  box-shadow: 0px 0px 12px 7px rgba(200, 255, 150, 0.8) inset;
+  border: 5px solid green;
 }
 
-.error{
+.error {
   color: red;
 }
 
-.error::before{
-  content: '✗';
+.error::before {
+  content: "✗";
   background-color: #fef;
-  box-shadow: 0px 0px 12px 7px rgba(255,200,150,0.8) inset;
-  border : 5px solid red;
+  box-shadow: 0px 0px 12px 7px rgba(255, 200, 150, 0.8) inset;
+  border: 5px solid red;
 }
 
 @keyframes reveal {
-  0%{
+  0% {
     border: 5px solid transparent;
     color: transparent;
-    box-shadow: 0px 0px 12px 7px rgba(255,250,250,0.8) inset;
+    box-shadow: 0px 0px 12px 7px rgba(255, 250, 250, 0.8) inset;
     transform: rotate(1000deg);
   }
   25% {
-    border-top:5px solid gray;
+    border-top: 5px solid gray;
     color: transparent;
-    box-shadow: 0px 0px 17px 10px rgba(255,250,250,0.8) inset;
-    }
-  50%{
+    box-shadow: 0px 0px 17px 10px rgba(255, 250, 250, 0.8) inset;
+  }
+  50% {
     border-right: 5px solid gray;
-    border-left : 5px solid gray;
-    color:transparent;
-    box-shadow: 0px 0px 17px 10px rgba(200,200,200,0.8) inset;
+    border-left: 5px solid gray;
+    color: transparent;
+    box-shadow: 0px 0px 17px 10px rgba(200, 200, 200, 0.8) inset;
   }
   75% {
     border-bottom: 5px solid gray;
-    color:gray;
-    box-shadow: 0px 0px 12px 7px rgba(200,200,200,0.8) inset;
-    }
-  100%{
+    color: gray;
+    box-shadow: 0px 0px 12px 7px rgba(200, 200, 200, 0.8) inset;
+  }
+  100% {
     border: 5px solid gray;
-    box-shadow: 0px 0px 12px 7px rgba(200,200,200,0.8) inset;
+    box-shadow: 0px 0px 12px 7px rgba(200, 200, 200, 0.8) inset;
+  }
+}
+
+@media (max-width: 700px) {
+  .payment-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .conf-details-pymt-message,
+  .conf-location,
+  .conf-check-in,
+  .conf-checkout,
+  .conf-price {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 700px) {
+  .conf-details-pymt-message,
+  .conf-location,
+  .conf-check-in,
+  .conf-checkout,
+  .conf-price {
+    font-size: 1.35rem;
   }
 }
