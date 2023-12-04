@@ -27,76 +27,78 @@ import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
+import "./App.css";
 
 function App() {
-
   return (
     <div className="approot">
       <Nav />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="go" element={<Landing />} />
-          <Route path="/login/:checkout?" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="confirmation" element={<ConfirmEmail />} />
-          <Route path="unauthorized" element={<Unauthorized />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="*" element={<Missing />} />
-          {/* we want to protect these routes */}
-          <Route element={<PersistLogin />}>
-            <Route element={<MadeSearch />}>
-              <Route path="/search-result" element={<SearchResults />} />
+      <main className="page-content">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* public routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="go" element={<Landing />} />
+            <Route path="/login/:checkout?" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="confirmation" element={<ConfirmEmail />} />
+            <Route path="unauthorized" element={<Unauthorized />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="*" element={<Missing />} />
+            {/* we want to protect these routes */}
+            <Route element={<PersistLogin />}>
+              <Route element={<MadeSearch />}>
+                <Route path="/search-result" element={<SearchResults />} />
+                <Route
+                  path="/parking-spots/:id"
+                  element={<ParkingSpotDetailsPage />}
+                />
+                <Route path="/checkout/:property_id" element={<Checkout />} />
+                <Route path="/payment/:booking_id" element={<Payment />} />
+              </Route>
               <Route
-                path="/parking-spots/:id"
-                element={<ParkingSpotDetailsPage />}
-              />
-              <Route path="/checkout/:property_id" element={<Checkout />} />
-              <Route path="/payment/:booking_id" element={<Payment/>} />
-            </Route>
-            <Route
-              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
-            >
-              <Route path="home" element={<Home />} />
-            </Route>
+                element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+              >
+                <Route path="home" element={<Home />} />
+              </Route>
 
-            <Route
-              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
-            >
-              <Route path="client" element={<Client />} />
-              <Route path="client/search" element={<ClientSearchPage />} />
               <Route
-                path="client/search-result"
-                element={<CLSearchResults />}
-              />
+                element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+              >
+                <Route path="client" element={<Client />} />
+                <Route path="client/search" element={<ClientSearchPage />} />
+                <Route
+                  path="client/search-result"
+                  element={<CLSearchResults />}
+                />
+                <Route
+                  path="/client/pmt/success/:nav_id?/:pmt_id?"
+                  element={<SuccessfulPurchase />}
+                />
+                <Route path="client/transactions" element={<MyActivity />} />
+              </Route>
               <Route
-                path="/client/pmt/success/:nav_id?/:pmt_id?"
-                element={<SuccessfulPurchase />}
-              />
-              <Route path="client/transactions" element={<MyActivity />} />
+                element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
+              >
+                <Route path="admin" element={<Admin />} />
+                <Route
+                  path="admin/confirm-details"
+                  element={<ConfirmDetails />}
+                />
+              </Route>
+              <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
+                <Route path="/renter" element={<RenterLanding />} />
+                <Route path="/renter/manage" element={<RenterM />} />
+                <Route
+                  path="/renter/space-activity"
+                  element={<RenterActivity />}
+                />
+              </Route>
             </Route>
-            <Route
-              element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
-            >
-              <Route path="admin" element={<Admin />} />
-              <Route
-                path="admin/confirm-details"
-                element={<ConfirmDetails />}
-              />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
-              <Route path="/renter" element={<RenterLanding />} />
-              <Route path="/renter/manage" element={<RenterM />} />
-              <Route
-                path="/renter/space-activity"
-                element={<RenterActivity />}
-              />
-            </Route>
+            {/* catch all */}
           </Route>
-          {/* catch all */}
-        </Route>
-      </Routes>
+        </Routes>
+      </main>
       <Footer />
     </div>
   );
