@@ -7,24 +7,26 @@ import {
 } from "../../assets";
 import { Link } from "react-router-dom";
 import Overlay from "../../common/Overlay";
-
 import "./Styles/Landing.css";
 
 function Landing() {
   return (
-    <div>
+    <div className="landing">
       <Overlay>
         <Hero />
-        <div className="main_container">
-          <section className="landing-intro">
+
+        <section className="landing-intro">
+          <div className="container">
             <h2>Welcome to CarValet</h2>
-            <div className="landing-content-description-1">
+            <div className="landing-content-description">
               Find the perfect parking spot by neighborhood, borough, city, or
               zip code. Book your parking space with ease and convenience.
             </div>
-          </section>
-          <div className="landing-body">
-            <section className="app-description">
+          </div>
+        </section>
+        <div className="landing-body">
+          <section className="app-description">
+            <div className="container">
               <img
                 src={reservedforyou}
                 alt="Reserved for You"
@@ -32,7 +34,7 @@ function Landing() {
               />
               <div className="pic-text">
                 <h2>Your Parking Spot, Reserved Just for You</h2>
-                <div className="landing-content-description-2">
+                <div className="landing-content-description">
                   Don't worry about finding a parking spot. We've got your
                   parking needs covered.
                 </div>
@@ -40,9 +42,11 @@ function Landing() {
                   <button className="reserve-now">Reserve Now</button>
                 </Link>
               </div>
-            </section>
+            </div>
+          </section>
 
-            <section className="app-description">
+          <section className="app-description">
+            <div className="container">
               <img
                 src={happycarcouple}
                 alt="Happy Car Couple"
@@ -50,7 +54,7 @@ function Landing() {
               />
               <div className="pic-text">
                 <h2>Make extra money by renting your parking space</h2>
-                <div className="landing-content-description-3">
+                <div className="landing-content-description">
                   Join our community of happy drivers and parking spot renters
                   who have found their perfect parking solution.
                 </div>
@@ -58,8 +62,8 @@ function Landing() {
                   <button className="become-renter">Renter SignUp</button>
                 </Link>
               </div>
-            </section>
-          </div>
+            </div>
+          </section>
         </div>
       </Overlay>
     </div>
