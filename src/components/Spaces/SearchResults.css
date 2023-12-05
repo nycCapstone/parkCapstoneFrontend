@@ -9,6 +9,11 @@
   height: 90rem;
 }
 
+div.spot-info,
+th.search_results_table_head {
+  background-color: rgb(253 236 236 / 90%);
+}
+
 .spot-info p {
   margin-top: 1rem;
 }
@@ -23,21 +28,42 @@
 .table th,
 .table td {
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
 }
 
 .table th {
-  background-color: #f5f5f5;
   font-weight: bold;
+  font-size: 1.3;
+}
+
+.table th {
+  font-size: 1.25rem;
+}
+
+.table td {
+  font-size: 1.2rem;
 }
 
 .spot-info {
-  background: rgba(255, 244, 244, 0.9);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: left;
   margin: 5px;
+}
+
+.search_results_address {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.search_results_distance {
+  font-size: 1.1rem;
+  padding-right: 0.5rem;
+}
+
+.search_results_billing_type {
+  font-size: 1.1rem;
 }
 
 .cost-info div,
@@ -74,21 +100,6 @@
   .search-main {
     margin: 1rem;
   }
-}
-
-.spot-info .show-me-button {
-  background-color: #0591f5;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.spot-info .show-me-button:hover {
-  background-color: rgb(5, 29, 242);
 }
 
 .sort-button-container {
@@ -159,18 +170,30 @@
 
 .checkout-button,
 .show-me-button {
-  background-color: #03750b;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
-  font-weight: bold;
+  font-size: 1.1rem;
   cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.checkout-button:hover,
-.show-me-button:hover {
+.checkout-button:hover {
   background-color: #aa0000;
+}
+
+.spot-info .show-me-button:hover {
+  background-color: rgb(143, 143, 143);
+}
+
+.checkout-button {
+  background-color: #ff5757;
+}
+
+.spot-info .show-me-button {
+  background-color: rgb(173, 173, 173);
 }
 
 .destination-container {
@@ -192,6 +215,7 @@
 .destination-info {
   margin-left: 10px;
   flex-grow: 1;
+  align-items: center;
 }
 
 .destination-title {
@@ -232,10 +256,60 @@
     /* overflow-y: visible; */
     height: auto;
   }
+  .table th,
+  .table td {
+    font-size: 1.2rem;
+  }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
   .search-and-map-container {
     flex-wrap: wrap;
+  }
+
+  .table th,
+  .table td {
+    padding: 6px;
+  }
+
+  .spot-info {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .search_results_address {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .search_results_distance {
+    font-size: 1.2rem;
+  }
+
+  .search_results_billing_type {
+    font-size: 1.2rem;
+  }
+
+  .table th {
+    font-size: 1.25rem;
+  }
+
+  .table td {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    gap: 15px;
+    position: relative;
   }
 }
