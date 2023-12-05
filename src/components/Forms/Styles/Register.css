@@ -120,3 +120,17 @@
 .hide {
   display: none;
 }
+
+@media (max-width: 480px) {
+  section.register {
+    min-width: 90%;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 786px) {
+  section.register {
+    width: 75%;
+    margin: 1rem;
+  }
+}
