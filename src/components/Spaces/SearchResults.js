@@ -206,10 +206,12 @@ const SearchResults = () => {
                       <thead>
                         <tr>
                           <th className="search_results_table_head">
+
                             Small Vehicle
                           </th>
                           <th className="search_results_table_head">
                             Large vehicle
+
                           </th>
                         </tr>
                       </thead>
