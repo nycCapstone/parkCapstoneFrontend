@@ -130,10 +130,11 @@ const SearchResults = () => {
                     className="fa-solid fa-location-dot fa-flip"
                     style={{ color: "#f41901" }}
                   ></i>
-
                   <div className="destination-info">
                     <h3 className="destination-title">Your Destination</h3>
-                    <p className="destination-address">{searchLocation.addr}</p>
+                    <p className="destination-address">
+                      {searchLocation.addr.slice(0, -5)}
+                    </p>
                   </div>
                 </>
               )}
@@ -173,7 +174,22 @@ const SearchResults = () => {
                     onMouseEnter={() => handleMouseEnter(i)}
                     onMouseLeave={() => handleMouseLeave(i)}
                   >
-                    <p style={{ fontSize: "large" }}>{item.prop_address}</p>
+                    <p className="search_results_address">
+                      {item.prop_address.slice(0, -5)}
+                    </p>
+                    <p>
+                      {/* <i
+                        className="fa-solid fa-person-walking-arrow-right fa-beat"
+                        style={{ color: "#f41901" }}
+                      ></i> */}
+                      <span className="search_results_distance">
+                        Distance: {item.distance.toFixed(2)} miles
+                      </span>{" "}
+                      <i
+                        className="fa-solid fa-person-walking-arrow-right fa-beat"
+                        style={{ color: "#f41901" }}
+                      ></i>
+                    </p>
 
                     {searchStatus && (
                       <>
@@ -181,26 +197,20 @@ const SearchResults = () => {
                         <p>Number of spaces: {item.count_spaces}</p>
                       </>
                     )}
-                    <p>
+                    <p className="search_results_billing_type">
                       Billing Type:{" "}
                       {item.billing_type === "fixed" ? "full day" : "hourly"}
-                    </p>
-
-                    <p>
-                      <h3>
-                        <i
-                          class="fa-solid fa-person-walking-arrow-right fa-beat"
-                          style={{ color: "#f41901" }}
-                        ></i>
-                        Distance(miles): {item.distance.toFixed(2)}
-                      </h3>
                     </p>
 
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>Commuter price</th>
-                          <th>Large vehicle price</th>
+                          <th className="search_results_table_head">
+                            Small Vehicle price
+                          </th>
+                          <th className="search_results_table_head">
+                            Large vehicle price
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
