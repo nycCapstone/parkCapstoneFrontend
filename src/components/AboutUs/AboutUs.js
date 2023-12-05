@@ -12,10 +12,10 @@ function AboutUs() {
     <div className="about-us">
       <h1>About Us</h1>
       <p>
-        Welcome to our innovative parking solution app! Our platform is designed
-        to streamline the parking experience for both drivers and property
-        owners. Whether you're a commuter seeking a convenient spot or a
-        property owner with available parking spaces, we've got you covered.
+        Welcome to CarValet! Our platform is designed to simplify and streamline
+        the parking experience for both drivers and property owners. Whether
+        you're a commuter seeking a convenient spot or a property owner with
+        available parking spaces, we've got you covered.
       </p>
       <p>
         Our mission is to revolutionize the way people think about parking,
