@@ -4,7 +4,7 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 const PSMapView = ({ lat, lng, zoom }) => {
   const containerStyle = {
     width: "25rem",
-    height: "30rem",
+    height: "25rem",
   };
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",

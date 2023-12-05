@@ -1,12 +1,18 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
+import { Link, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "./PSMapView";
+import { RatingStars } from "./RatingStars";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
-  const { id } = useParams();
+  const { id, checkIn, checkOut } = useParams();
+  console.log("params:", { id, checkIn, checkOut });
+
   const accessToken = useSelector((state) => state.auth.accessToken);
   const {
     data: responseData,
@@ -16,6 +22,27 @@ function ParkingSpotDetailPage() {
     isUninitialized,
   } = useGetOneSpotQuery(id, { skip: !accessToken });
 
+  const navigate = useNavigate();
+
+  const handleBookNow = (checkIn, checkOut) => {
+    console.log("checkIn:", checkIn);
+    console.log("checkOut:", checkOut);
+
+    if (
+      checkIn &&
+      checkOut &&
+      checkIn.trim() !== "" &&
+      checkOut.trim() !== ""
+    ) {
+      navigate(`/checkout/${id}?starts=${checkIn}&ends=${checkOut}`);
+    } else {
+      console.error("checkIn or checkOut is undefined or empty");
+    }
+  };
+
+  const params = useParams();
+  console.log("params:", params);
+
   if (isSuccess) {
     const spotDetails = responseData[0];
     const lat = spotDetails.latitude;
@@ -23,6 +50,9 @@ function ParkingSpotDetailPage() {
 
     return (
       <div className="parking-spot-details-page">
+        <Link to="/search-result" className="go-back-link">
+          <span className="go-back-icon">&#8678;</span> Go back
+        </Link>
         <div className="details-container">
           {/* Details Information */}
           <div className="title">
@@ -42,7 +72,9 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
-            <p className="detail-value">{spotDetails.rating || 5.0}</p>
+            <p className="detail-value">
+              <RatingStars rating={spotDetails.rating || 5.0} />
+            </p>
           </div>
           {spotDetails.renter_id && (
             <div>
@@ -53,10 +85,12 @@ function ParkingSpotDetailPage() {
               </div>
             </div>
           )}
-          <button className="book-now-button">Book Now</button>
-          <Link to="/search-result" className="go-back-link">
-            <span className="go-back-icon">&#8678;</span> Go back
-          </Link>
+          <button
+            className="book-now-button"
+            onClick={() => handleBookNow(checkIn, checkOut)}
+          >
+            Book Now
+          </button>
         </div>
 
         <section className="ps-mapview">

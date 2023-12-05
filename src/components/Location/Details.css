@@ -1,6 +1,6 @@
 .parking-spot-details-page {
   display: flex;
-  max-width: 900px;
+  max-width: auto;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -70,7 +70,9 @@ button.book-now-button:hover {
 a.go-back-link {
   display: block;
   text-align: left;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  margin-right: 100px;
+
   text-decoration: none;
   color: #0077cc;
   font-weight: bold;
@@ -85,4 +87,36 @@ a.go-back-link:hover {
 
 .go-back-icon {
   margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+  .details {
+    margin: 0;
+    padding: 5px;
+  }
 }

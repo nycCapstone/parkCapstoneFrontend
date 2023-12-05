@@ -226,9 +226,14 @@ const SearchResults = () => {
                       {item.picture && (
                         <img alt="propimage" src={item.picture} />
                       )}
-                      <Link to={`/parking-spots/${item.space_id}`}>
+                      <Link
+                        to={`/parking-spots/${item.space_id}?checkIn=${
+                          searchArr[searchArr.length - 1][2]
+                        }&checkOut=${searchArr[searchArr.length - 1][3]}`}
+                      >
                         <button className="show-me-button">View Details</button>
                       </Link>
+
                       {!searchStatus && (
                         <Link
                           to={`/checkout/${item.property_id.substring(
