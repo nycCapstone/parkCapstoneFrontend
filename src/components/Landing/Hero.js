@@ -10,7 +10,9 @@ function Hero() {
   return (
     <div className="hero">
       <div className="hero__content">
-        <h1>Your&nbsp;Space. Their&nbsp;Convenience.</h1>
+        <h1 className="hero_slogan">
+          Your&nbsp;Space. Their&nbsp;Convenience.
+        </h1>
         <SearchForm />
         {isLoading && <Loading />}
         {isError && <div className="capsule fail">{isError}</div>}
