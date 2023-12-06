@@ -4,7 +4,6 @@
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-  /* height: 1600px; */
 }
 
 .details-container {
@@ -87,6 +86,36 @@ a.go-back-link:hover {
 
 .go-back-icon {
   margin-right: 5px;
+}
+button.google-maps-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 36px;
+  margin: 20px auto;
+  display: none;
+  color: #ff2600;
+}
+
+@media (max-width: 900px) {
+  .ps-mapview {
+    display: none;
+  }
+
+  button.book-now-button {
+    margin-top: 20px;
+  }
+
+  button.google-maps-button {
+    display: block !important;
+  }
+
+  .google-maps-text {
+    text-align: center;
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #555; /* Set the color you want for the text */
+    display: block; /* Ensure it's displayed as a block element */
+  }
 }
 
 @media (max-width: 768px) {

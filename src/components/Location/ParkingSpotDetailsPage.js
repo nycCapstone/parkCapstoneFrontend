@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,10 +12,6 @@ function ParkingSpotDetailPage() {
   const { id } = useParams();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const checkIn = params.get("starts");
-  const checkOut = params.get("ends");
-  console.log("params:", { id, checkIn, checkOut });
-
   const navigate = useNavigate();
 
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -29,41 +25,30 @@ function ParkingSpotDetailPage() {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const starts = params.get("starts");
+  const ends = params.get("ends");
+
+  const isTimePicked = starts && ends;
+
   const handleBookNow = () => {
-    // const params = new URLSearchParams(window.location.search);
-    const starts = params.get("starts");
-    const ends = params.get("ends");
-
-    console.log("Book Now clicked. Parameters:", { id, starts, ends });
-
-    if (starts && ends && responseData && responseData.length > 0) {
-      const property_id = responseData[0].property_id;
-      navigate(
-        `/checkout/${property_id.substring(
-          0,
-          13
-        )}/?starts=${starts}&ends=${ends}`
-      );
-    } else {
-      console.error("starts, ends, or responseData is undefined or empty");
+    if (!isTimePicked || !responseData || responseData.length === 0) {
       setErrorMessage("Please go back and pick a time.");
+      return;
     }
+
+    const property_id = responseData[0].property_id;
+    navigate(
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
+    );
   };
 
-  useEffect(() => {
-    // const params = new URLSearchParams(window.location.search);
-    console.log("URL Parameters in useEffect:", {
-      id,
-      starts: checkIn,
-      ends: checkOut,
-    });
-    console.log("Query Parameters in useEffect:", params);
-  }, [id, checkIn, checkOut]);
-
-  // useEffect(() => {
-  //   const params = new URLSearchParams(window.location.search);
-  //   console.log("params:", params);
-  // }, []);
+  const openGoogleMaps = () => {
+    const lat = responseData[0].latitude;
+    const lng = responseData[0].longitude;
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+    );
+  };
 
   if (isSuccess) {
     const spotDetails = responseData[0];
@@ -75,6 +60,7 @@ function ParkingSpotDetailPage() {
         <Link to="/search-result" className="go-back-link">
           <span className="go-back-icon">&#8678;</span> Go back
         </Link>
+
         <div className="details-container">
           {/* Details Information */}
           <div className="title">
@@ -107,9 +93,30 @@ function ParkingSpotDetailPage() {
               </div>
             </div>
           )}
-          <button className="book-now-button" onClick={handleBookNow}>
+          <button
+            className="google-maps-button"
+            onClick={openGoogleMaps}
+            disabled={!isTimePicked}
+          >
+            <i
+              className="fa-solid fa-location-dot fa-beat"
+              style={{ color: "#ff2600" }}
+            ></i>
+            <span className="google-maps-text">View in Google Maps</span>
+          </button>
+
+          <button
+            className="book-now-button"
+            onClick={handleBookNow}
+            disabled={!isTimePicked}
+          >
             Book Now
           </button>
+          {!isTimePicked && (
+            <p className="booking-error-message">
+              Please go back and pick a time.
+            </p>
+          )}
         </div>
 
         <section className="ps-mapview">
