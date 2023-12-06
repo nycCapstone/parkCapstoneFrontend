@@ -61,7 +61,7 @@ const SuccessfulPurchase = () => {
                 </div>
               </div>
             </div>
-            <div className="payment-list">
+            <div className="success-payment-list">
               <div className="success-map">
                 <section className="conf-pymt-id-container">
                   <span className="conf-details-pymt-message">

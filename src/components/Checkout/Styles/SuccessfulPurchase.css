@@ -12,7 +12,7 @@
   color: #27ae60;
 }
 
-.payment-list {
+.success-payment-list {
   margin-top: 1rem;
   display: flex;
 }
@@ -204,7 +204,7 @@ ul.success-conf-details-list {
 }
 
 @media (max-width: 700px) {
-  .payment-list {
+  .success-payment-list {
     flex-direction: column;
     align-items: center;
   }

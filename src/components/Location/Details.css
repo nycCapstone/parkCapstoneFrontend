@@ -7,8 +7,7 @@
 }
 
 .details-container {
-  flex: 1;
-  padding-right: 50px;
+  padding-right: 3rem;
 }
 
 .parking-spot-details-page .details-container h1 {
@@ -36,6 +35,7 @@
 }
 
 .detail-label {
+  font-size: 1.3rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 5px;
@@ -47,35 +47,31 @@
 }
 
 button.book-now-button {
-  background-color: #0077cc;
+  border: 0.5px solid #adadad;
+  background-color: #ff5757;
   color: white;
-  border: none;
   padding: 14px 28px;
   border-radius: 10px;
-  font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 20px;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
   transition: background-color 0.3s;
 }
 
 button.book-now-button:hover {
-  background-color: #ff5757;
+  background-color: #aa0000;
 }
 
 a.go-back-link {
   display: block;
   text-align: left;
-  /* margin-top: 20px; */
-  margin-right: 100px;
-
+  margin-right: 4rem;
   text-decoration: none;
-  color: #0077cc;
+  color: #adadad;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   transition: color 0.3s;
 }
 
@@ -84,52 +80,100 @@ a.go-back-link:hover {
   color: #ff5757;
 }
 
+.showpage-map-button-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.1rem;
+}
+
 .go-back-icon {
   margin-right: 5px;
 }
 button.google-maps-button {
+  width: 75%;
+  color: white;
   background: none;
-  border: none;
+  background-color: #a1a1a1;
+  border-radius: 10px;
+  border: 0.5px solid #ff5757;
   cursor: pointer;
-  font-size: 36px;
-  margin: 20px auto;
-  display: none;
-  color: #ff2600;
+  font-size: 1.4rem;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+button.google-maps-button:hover {
+  background-color: rgb(202, 202, 202);
 }
 
 @media (max-width: 900px) {
+  div.parking-spot-details-page {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .parking-spot-details-page .details-container h1 {
+    text-align: center;
+    padding-top: 2rem;
+  }
   .ps-mapview {
     display: none;
-  }
-
-  button.book-now-button {
-    margin-top: 20px;
-  }
-
-  button.google-maps-button {
-    display: block !important;
-  }
-
-  .google-maps-text {
-    text-align: center;
-    font-size: 16px;
-    color: #ff2600;
-    display: block;
-  }
-}
-
-@media (max-width: 768px) {
-  .parking-spot-details-page {
-    padding: 10px;
   }
 
   .details-container {
     padding-right: 10px;
   }
 
+  button.book-now-button {
+    display: inline;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #adadad;
+  }
+
   a.go-back-link {
     margin-right: 10px;
   }
+  button.google-maps-button {
+    display: flex;
+    margin-left: auto;
+    margin-right: 2rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    width: 40%;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    /* margin-left: auto;
+    margin-right: 1rem; */
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .fa-solid.fa-location-dot {
+    margin-left: 3rem;
+  }
+}
+
+@media (max-width: 715px) {
+  button.google-maps-button {
+    width: 55%;
+  }
+  .fa-solid.fa-location-dot {
+    margin-left: 0rem;
+  }
+  /* span.google-maps-text {
+    align-items: center;
+    text-align: center;
+  } */
 }
 
 @media (max-width: 450px) {
@@ -147,5 +191,9 @@ button.google-maps-button {
   .details {
     margin: 0;
     padding: 5px;
+  }
+  button.google-maps-button {
+    width: 70%;
+    font-size: 1.5rem;
   }
 }

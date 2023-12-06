@@ -189,8 +189,8 @@ const SearchResults = () => {
                         Distance: {item.distance.toFixed(2)} miles
                       </span>{" "}
                       <i
-                        className="fa-solid fa-person-walking-arrow-right fa-beat"
-                        style={{ color: "#f41901" }}
+                        className="fa-solid fa-person-walking"
+                        style={{ color: "#000000" }}
                       ></i>
                     </p>
 
