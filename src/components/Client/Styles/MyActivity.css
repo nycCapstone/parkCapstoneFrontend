@@ -1,34 +1,46 @@
 .myactivity-container {
   min-height: 100vh;
-}
-
-.myactivity-container header {
-  display: flex;
-  justify-content: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+ }
+ 
+ 
+ .myactivity-container header {
+  text-align: center;
   margin: 1rem;
-}
-
-.payment-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 2rem;
-}
-
-.payment-list-item {
+ }
+ 
+ 
+ .payment-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+ }
+ 
+ 
+ .payment-list-item {
   border: 1px solid #ddd;
+  background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
-  width: calc(33.333% - 1rem);
-}
-
-@media (max-width: 881px) {
+  width: 70%;
+ }
+ .payment-label {
+  justify-self: middle;
+  padding: 8px;
+  color: rgb(233, 100, 121);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px
+ }
+ @media (max-width: 881px) {
   .payment-list {
+    grid-template-columns: repeat(1, 1fr);
     margin: 0.5rem;
   }
   .payment-list-item {
-    width: calc(100% - 1rem);
+    width: 90%;
     padding: none;
     padding-left: 2rem;
   }
@@ -36,16 +48,5 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
-}
-
-@media (max-width: 768px) {
-  .payment-list-item {
-    width: calc(80% - 1rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .payment-list-item {
-    width: 100%;
-  }
-}
+ }
+ 
