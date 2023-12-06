@@ -53,6 +53,7 @@ function App() {
                   path="/parking-spots/:id"
                   element={<ParkingSpotDetailsPage />}
                 />
+
                 <Route path="/checkout/:property_id" element={<Checkout />} />
                 <Route path="/payment/:booking_id" element={<Payment />} />
               </Route>

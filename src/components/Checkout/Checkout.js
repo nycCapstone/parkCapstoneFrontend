@@ -34,8 +34,8 @@ const Checkout = () => {
     refetch,
   } = useGetByPidAndTimeQuery([
     property_id,
-    query?.[query.length - 1][2],
-    query?.[query.length - 1][3],
+    query[query.length - 1][2],
+    query[query.length - 1][3],
   ]);
 
   const dispatch = useDispatch();
@@ -43,11 +43,10 @@ const Checkout = () => {
   useEffect(() => {
     if (checkoutData?.length > 0) {
       //checkout data
-      const [propertyId, checkIn, checkOut] = query[query.length - 1];
       dispatch(
         inputUserInfo({
           property_id,
-          user_id: userData?.id,
+          user_id: userData?.id || null,
           query: query,
           conflict: checkoutData[0]?.owner_id === userData?.id,
         })
@@ -56,7 +55,7 @@ const Checkout = () => {
       setInfoPrompt(query[query.length - 1][3]);
       dispatch(searchLandingMutate());
     }
-  }, [checkoutData, userData, query]);
+  }, [checkoutData]);
 
   if ((isSuccess || isUninitialized) && checkoutData?.length > 0) {
     let lat;

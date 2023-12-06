@@ -206,12 +206,10 @@ const SearchResults = () => {
                       <thead>
                         <tr>
                           <th className="search_results_table_head">
-
                             Small Vehicle
                           </th>
                           <th className="search_results_table_head">
                             Large vehicle
-
                           </th>
                         </tr>
                       </thead>
@@ -227,9 +225,9 @@ const SearchResults = () => {
                         <img alt="propimage" src={item.picture} />
                       )}
                       <Link
-                        to={`/parking-spots/${item.space_id}?checkIn=${
-                          searchArr[searchArr.length - 1][2]
-                        }&checkOut=${searchArr[searchArr.length - 1][3]}`}
+                        to={`/parking-spots/${item.space_id}?starts=${
+                          searchArr[searchArr.length - 1]?.[2]
+                        }&ends=${searchArr[searchArr.length - 1]?.[3]}`}
                       >
                         <button className="show-me-button">View Details</button>
                       </Link>

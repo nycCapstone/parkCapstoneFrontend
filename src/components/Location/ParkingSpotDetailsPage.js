@@ -1,17 +1,22 @@
+import React, { useEffect, useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
-import { Link, Navigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
-  const { id, checkIn, checkOut } = useParams();
+  const { id } = useParams();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const checkIn = params.get("starts");
+  const checkOut = params.get("ends");
   console.log("params:", { id, checkIn, checkOut });
+
+  const navigate = useNavigate();
 
   const accessToken = useSelector((state) => state.auth.accessToken);
   const {
@@ -22,26 +27,43 @@ function ParkingSpotDetailPage() {
     isUninitialized,
   } = useGetOneSpotQuery(id, { skip: !accessToken });
 
-  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleBookNow = (checkIn, checkOut) => {
-    console.log("checkIn:", checkIn);
-    console.log("checkOut:", checkOut);
+  const handleBookNow = () => {
+    // const params = new URLSearchParams(window.location.search);
+    const starts = params.get("starts");
+    const ends = params.get("ends");
 
-    if (
-      checkIn &&
-      checkOut &&
-      checkIn.trim() !== "" &&
-      checkOut.trim() !== ""
-    ) {
-      navigate(`/checkout/${id}?starts=${checkIn}&ends=${checkOut}`);
+    console.log("Book Now clicked. Parameters:", { id, starts, ends });
+
+    if (starts && ends && responseData && responseData.length > 0) {
+      const property_id = responseData[0].property_id;
+      navigate(
+        `/checkout/${property_id.substring(
+          0,
+          13
+        )}/?starts=${starts}&ends=${ends}`
+      );
     } else {
-      console.error("checkIn or checkOut is undefined or empty");
+      console.error("starts, ends, or responseData is undefined or empty");
+      setErrorMessage("Please go back and pick a time.");
     }
   };
 
-  const params = useParams();
-  console.log("params:", params);
+  useEffect(() => {
+    // const params = new URLSearchParams(window.location.search);
+    console.log("URL Parameters in useEffect:", {
+      id,
+      starts: checkIn,
+      ends: checkOut,
+    });
+    console.log("Query Parameters in useEffect:", params);
+  }, [id, checkIn, checkOut]);
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   console.log("params:", params);
+  // }, []);
 
   if (isSuccess) {
     const spotDetails = responseData[0];
@@ -85,10 +107,7 @@ function ParkingSpotDetailPage() {
               </div>
             </div>
           )}
-          <button
-            className="book-now-button"
-            onClick={() => handleBookNow(checkIn, checkOut)}
-          >
+          <button className="book-now-button" onClick={handleBookNow}>
             Book Now
           </button>
         </div>
