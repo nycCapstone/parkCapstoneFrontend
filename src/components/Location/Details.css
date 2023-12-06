@@ -1,10 +1,9 @@
 .parking-spot-details-page {
   display: flex;
-  max-width: 900px;
+  max-width: auto;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-  /* height: 1600px; */
 }
 
 .details-container {
@@ -70,7 +69,9 @@ button.book-now-button:hover {
 a.go-back-link {
   display: block;
   text-align: left;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  margin-right: 100px;
+
   text-decoration: none;
   color: #0077cc;
   font-weight: bold;
@@ -85,4 +86,66 @@ a.go-back-link:hover {
 
 .go-back-icon {
   margin-right: 5px;
+}
+button.google-maps-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 36px;
+  margin: 20px auto;
+  display: none;
+  color: #ff2600;
+}
+
+@media (max-width: 900px) {
+  .ps-mapview {
+    display: none;
+  }
+
+  button.book-now-button {
+    margin-top: 20px;
+  }
+
+  button.google-maps-button {
+    display: block !important;
+  }
+
+  .google-maps-text {
+    text-align: center;
+    font-size: 16px;
+    color: #ff2600;
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+  .details {
+    margin: 0;
+    padding: 5px;
+  }
 }

@@ -1,12 +1,19 @@
+import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "./PSMapView";
+import { RatingStars } from "./RatingStars";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
   const { id } = useParams();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+
   const accessToken = useSelector((state) => state.auth.accessToken);
   const {
     data: responseData,
@@ -16,6 +23,33 @@ function ParkingSpotDetailPage() {
     isUninitialized,
   } = useGetOneSpotQuery(id, { skip: !accessToken });
 
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const starts = params.get("starts");
+  const ends = params.get("ends");
+
+  const isTimePicked = starts && ends;
+
+  const handleBookNow = () => {
+    if (!isTimePicked || !responseData || responseData.length === 0) {
+      setErrorMessage("Please go back and pick a time.");
+      return;
+    }
+
+    const property_id = responseData[0].property_id;
+    navigate(
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
+    );
+  };
+
+  const openGoogleMaps = () => {
+    const lat = responseData[0].latitude;
+    const lng = responseData[0].longitude;
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+    );
+  };
+
   if (isSuccess) {
     const spotDetails = responseData[0];
     const lat = spotDetails.latitude;
@@ -23,6 +57,10 @@ function ParkingSpotDetailPage() {
 
     return (
       <div className="parking-spot-details-page">
+        <Link to="/search-result" className="go-back-link">
+          <span className="go-back-icon">&#8678;</span> Go back
+        </Link>
+
         <div className="details-container">
           {/* Details Information */}
           <div className="title">
@@ -42,7 +80,9 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
-            <p className="detail-value">{spotDetails.rating || 5.0}</p>
+            <p className="detail-value">
+              <RatingStars rating={spotDetails.rating || 5.0} />
+            </p>
           </div>
           {spotDetails.renter_id && (
             <div>
@@ -53,10 +93,30 @@ function ParkingSpotDetailPage() {
               </div>
             </div>
           )}
-          <button className="book-now-button">Book Now</button>
-          <Link to="/search-result" className="go-back-link">
-            <span className="go-back-icon">&#8678;</span> Go back
-          </Link>
+          <button
+            className="google-maps-button"
+            onClick={openGoogleMaps}
+            disabled={!isTimePicked}
+          >
+            <i
+              className="fa-solid fa-location-dot fa-beat"
+              style={{ color: "#ff2600" }}
+            ></i>
+            <span className="google-maps-text">View in Google Maps</span>
+          </button>
+
+          <button
+            className="book-now-button"
+            onClick={handleBookNow}
+            disabled={!isTimePicked}
+          >
+            Book Now
+          </button>
+          {!isTimePicked && (
+            <p className="booking-error-message">
+              Please go back and pick a time.
+            </p>
+          )}
         </div>
 
         <section className="ps-mapview">
