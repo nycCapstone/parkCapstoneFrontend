@@ -12,6 +12,7 @@ import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
+import PSMapViewSuccess from "../Location/PSMapViewSuccess";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Styles/CheckoutLayout.css";
 
@@ -27,7 +28,11 @@ const Checkout = () => {
     isUninitialized,
   } = useGetUserInfoQuery({}, { skip: role });
 
-  const { data: checkoutData, error: checkoutError, refetch } = useGetByPidAndTimeQuery([
+  const {
+    data: checkoutData,
+    error: checkoutError,
+    refetch,
+  } = useGetByPidAndTimeQuery([
     property_id,
     query[query.length - 1][2],
     query[query.length - 1][3],
@@ -61,35 +66,49 @@ const Checkout = () => {
       lng = resData[0].longitude;
     }
     return (
-      <div className="checkout-layout-container">
-        <section>
-          <User userData={userData} />
-        </section>
-        <section>
-          <SmallSummary checkoutData={checkoutData} />
-          <Reservation resData={resData} />
+      <div>
+        <h1 className="checkout-title">Checkout</h1>
+        <div className="checkout-layout-container">
           <section>
-            <EmptyResult infoPrompt={infoPrompt} />
+            <User userData={userData} />
           </section>
-        </section>
-        <section className="ch-mapview">
-          <PSMapView
-            lat={lat}
-            lng={lng}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </section>
-        <section>
-          <ReservationDetails userData={userData} resData={resData} checkoutData={checkoutData} refetch={refetch} />
-        </section>
+          <section>
+            <Reservation resData={resData} />
+            <SmallSummary checkoutData={checkoutData} />
 
+            <section>
+              <EmptyResult infoPrompt={infoPrompt} />
+            </section>
+          </section>
+          <section className="ch-mapview">
+            <PSMapView
+              lat={lat}
+              lng={lng}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+              containerElement={<div style={{ height: `100%` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
+          </section>
+
+          <section>
+            <ReservationDetails
+              userData={userData}
+              resData={resData}
+              checkoutData={checkoutData}
+              refetch={refetch}
+            />
+          </section>
+        </div>
       </div>
     );
   } else if (error || checkoutError) {
     return <div>Checkout Api down</div>;
-  } else return <div className="s-loading-container"><SearchLoading /></div>;
+  } else
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
 };
 
 export default Checkout;
