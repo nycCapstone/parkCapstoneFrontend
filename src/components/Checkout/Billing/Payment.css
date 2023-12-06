@@ -25,9 +25,11 @@
       background-color: white;
     }
     .billing-header {
-      font-size: large;
+      font-weight: bold;
+      font-size: 1.5rem;
       margin-bottom: 1.5rem;
     }
+
     .card-select-month-year {
       display: flex;
       gap: 2rem;
@@ -49,9 +51,6 @@
     flex-direction: column;
     border-radius: 8px;
     gap: 1rem;
-    .summary {
-      font-size: large;
-    }
     .firstPayment,
     .secondPayment {
       display: flex;
@@ -90,16 +89,30 @@
     }
   }
 }
-@media only screen and (max-width: 600px) {
+
+p.pymt-details-summary {
+  font-size: 1.4rem;
+}
+@media only screen and (max-width: 768px) {
   .payment-container {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .billing-header {
+    font-weight: bold;
+    font-size: 1.4rem;
   }
 
   .payment-container input {
-    font-size: 14px;
+    font-size: 1.1rem;
   }
 
   .payment-container button {
     font-size: 16px;
+  }
+  p.pymt-details-summary {
+    font-size: 1.3rem;
   }
 }

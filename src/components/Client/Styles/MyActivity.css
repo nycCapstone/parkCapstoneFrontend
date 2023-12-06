@@ -1,16 +1,16 @@
 .myactivity-container {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .myactivity-container header {
-    display: flex;
-    justify-content: center;
-    margin: 1rem;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
 }
 
 .payment-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin: 2rem;
 }
@@ -20,21 +20,32 @@
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
-  width: 70%;
+  width: calc(33.333% - 1rem);
 }
 
 @media (max-width: 881px) {
   .payment-list {
-    grid-template-columns: repeat(1, 1fr);
     margin: 0.5rem;
   }
   .payment-list-item {
-    width: 90%;
+    width: calc(100% - 1rem);
     padding: none;
     padding-left: 2rem;
   }
   .myactivity-container {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-list-item {
+    width: calc(80% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-list-item {
+    width: 100%;
   }
 }
