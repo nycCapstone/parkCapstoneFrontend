@@ -127,7 +127,7 @@ function ParkingSpotDetailPage() {
           >
             <i
               className="fa-solid fa-location-dot"
-              style={{ color: "#ff5757", marginRight: "0.5rem" }}
+              style={{ marginRight: "0.5rem" }}
             ></i>
             <span className="google-maps-text">View in Google Maps</span>
           </button>

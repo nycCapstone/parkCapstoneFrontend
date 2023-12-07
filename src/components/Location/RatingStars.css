@@ -1,0 +1,9 @@
+.rating-stars {
+  display: inline-block;
+  font-size: 25px;
+  color: #ff5757;
+}
+
+.rating-stars i {
+  margin-right: 2px;
+}
