@@ -36,8 +36,8 @@ const MapView = ({ lat, lng, zoom, markerArray }) => {
   return isLoaded ? (
     <GoogleMap
       {...mapOptions}
-      center={{ lat: lat - 0.18, lng }}
-      zoom={zoom || 13}
+      center={{ lat: lat - 0.13, lng }}
+      zoom={zoom || 12}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >

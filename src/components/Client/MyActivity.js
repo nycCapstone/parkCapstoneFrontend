@@ -14,25 +14,29 @@ const MyActivity = () => {
   } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
 
   if (isLoading || isUninitialized) {
-    return <div className="s-loading-container"><SearchLoading /></div>;
+    return (
+      <div className="s-loading-container">
+        <SearchLoading />
+      </div>
+    );
   }
 
   if (isSuccess) {
     return (
       <div className="myactivity-container">
         <header>
-        <div className="cl-h-svgleft">
-          <Link to="/admin">
-            <FaChevronCircleLeft />
-          </Link>
-        </div>
+          <div className="cl-h-svgleft">
+            <Link to="/client">
+              <FaChevronCircleLeft />
+            </Link>
+          </div>
           <h2>Most Recent bookings paid for</h2>
         </header>
         {activity?.length > 0 ? (
-          <div className="payment-list">
+          <div className="mi-payment-list">
             {activity.map((item, idx) => {
               return (
-                <div key={idx} className="payment-list-item">
+                <div key={idx} className="mi-payment-list-item">
                   <i>{idx + 1}</i>
                   <p>Pmt Id: {item.pmt_id}</p>
                   <p>Card Expires: {item.expiry}</p>
@@ -45,7 +49,7 @@ const MyActivity = () => {
             })}
           </div>
         ) : (
-          <div className="no-activity" style={{marginLeft: "2rem"}}>
+          <div className="no-activity" style={{ marginLeft: "2rem" }}>
             You currently do not have any transactions yet!
           </div>
         )}

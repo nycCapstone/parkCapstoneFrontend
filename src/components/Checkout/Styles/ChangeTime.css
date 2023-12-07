@@ -1,131 +1,135 @@
 .chtime-page-search {
-    margin: 1rem auto;
-    padding-left: 2rem;
-  }
-  .cl-search {
-    width: 60%;
-    margin-top: 1.5rem;
-    height: 2.5rem;
-    border: 0;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: normal;
-    border-radius: 0.4rem;
-    background-color: #f5f5f5;
-  }
-  .chtime-search-space {
-    width: 60%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .chtime-search-checkIn {
-    display: flex;
-    flex-direction: column;
-  }
-  .date-field,
-  .time-field {
-    height: 2rem;
-    width: 9rem;
-    font-size: 15px;
-    background-color: #f5f5f5;
-  }
-  .time-field {
-    padding: 8.5px;
-  }
-  .table-header {
-    margin: 1.5rem 0;
-    font-weight: bold;
-  }
-  
-  .chtime-search-button {
-    margin: 2rem 0 2rem 0;
-    width: 5rem;
-    height: 2rem;
-    background: #ff5757;
-    color: white;
-    font-size: small;
-    text-transform: uppercase;
-    border: 0;
-    border-radius: 0.3rem;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
-    cursor: pointer;
-  }
+  margin: 1rem auto;
+  padding-left: 2rem;
+}
+.cl-search {
+  width: 60%;
+  margin-top: 1.5rem;
+  height: 2.5rem;
+  border: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  border-radius: 0.4rem;
+  background-color: #f5f5f5;
+  padding-left: 12px;
+}
+.chtime-search-space {
+  width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.chtime-search-checkIn {
+  display: flex;
+  flex-direction: column;
+}
+.date-field,
+.time-field {
+  height: 2rem;
+  width: 9rem;
+  font-size: 15px;
+  background-color: #f5f5f5;
+}
+.time-field {
+  padding: 8.5px;
+}
+.table-header {
+  margin: 1.5rem 0;
+  font-weight: bold;
+}
 
-  .chtime-search-button:hover {
-    transform: scale(0.96);
-  }
-   
-  .date_icon,
-  .time_icon {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .icon-style {
-    padding-top: 3px;
-  }
-  .chtime-header {
-    width: 70%;
-    margin: 3rem auto;
-    font-size: 25px;
-  }
-  .min-parking-errormsg {
-    font-size: 1.2rem;
-    color: #ff5757;
-    margin-bottom: 1rem;
-  }
-  
-  .cl-views-header {
-    display: flex;
-    justify-content: left;
-    padding: 10px;
-    background-color: #f0f0f0;
-  }
-  
-  .cl-h-svgleft {
-    margin-right: 10px; 
-  }
-  
-  .cl-views-header h1 {
-    margin: 0;
-  }
-  
-  .clview-navbar {
-    background-color: #faa4a4;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .clview-nav-item {
-    margin-right: 20px;
-  }
-  
-  .clview-nav-item a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .clview-nav-item a:hover {
-    text-decoration: underline;
-  }  
+.chtime-search-button {
+  margin: 2rem 0 2rem 0;
+  width: 5rem;
+  height: 2rem;
+  background: #ff5757;
+  color: white;
+  font-size: small;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
 
-  .change-time-link {
-    background-color: lightgrey;
-    opacity: 80%;
-    margin: 1rem;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: underline;
-    color: blue;
-    width: fit-content;
-  }
+.chtime-search-button:hover {
+  transform: scale(0.96);
+}
+
+.date_icon,
+.time_icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.icon-style {
+  padding-top: 3px;
+}
+.chtime-header {
+  width: 70%;
+  margin: 3rem auto;
+  font-size: 25px;
+}
+.min-parking-errormsg {
+  font-size: 1.2rem;
+  color: #ff5757;
+  margin-bottom: 1rem;
+}
+
+.cl-views-header {
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.cl-h-svgleft {
+  margin-right: 10px;
+}
+
+.cl-views-header h1 {
+  margin: 0;
+}
+
+.clview-nav-item {
+  margin-right: 20px;
+}
+
+.clview-nav-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.clview-nav-item a:hover {
+  text-decoration: underline;
+}
+
+.change-time-link {
+  background-color: lightgrey;
+  opacity: 80%;
+  margin: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  width: fit-content;
+}
 
 .change-time-reset {
   display: inline-block;
   margin-left: 2rem;
+}
+@media (max-width: 650px) {
+  .chtime-page-search {
+    padding: 0 0;
+    margin: 0 auto;
+    width: 90%;
+  }
+}
+@media (max-width: 500px) {
+  .cl-search {
+    width: 80%;
+  }
 }

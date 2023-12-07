@@ -19,17 +19,17 @@ const RenterLanding = () => {
         ) : (
           <div className="renter-dashboard">
             <nav className="centered-nav">
-              <div className="cl-h-svgleft">
-                <Link to="/admin">
-                  <FaChevronCircleLeft />
-                </Link>
-              </div>
-              <div>
+              <div className="ctr-nav-r-links">
+                <div className="cl-h-svgleft">
+                  <Link to="/admin">
+                    <FaChevronCircleLeft />
+                  </Link>
+                </div>
                 <Link to="/renter/manage">Add Properties</Link>
                 <Link to="/renter/space-activity">Your Current Activity</Link>
-              </div>
-              <div className="earnings-total-container">
-                <Earnings />
+                <div className="earnings-total-container">
+                  <Earnings />
+                </div>
               </div>
             </nav>
             <main>

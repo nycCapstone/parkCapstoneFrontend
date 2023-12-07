@@ -2,7 +2,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 0;
 }
 
 .checkout-layout-container > section {
@@ -51,5 +53,18 @@
     flex-direction: column;
     gap: 16px;
     margin: 1rem;
+    .res-detail-container {
+      margin: 0 0;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .checkout-layout-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .checkout-title {
+    padding-bottom: 0;
   }
 }

@@ -4,16 +4,13 @@ import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
 import { setPersist, setAuth } from "../../redux/auth/authSlice";
-import "./Styles/login.css";
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const [login] = useLoginMutation();
   const { checkout } = useParams();
-  let from = location.state?.from?.pathname || "/admin";
 
   const userRef = useRef();
   const errRef = useRef();
@@ -61,7 +58,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-form-container">
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}

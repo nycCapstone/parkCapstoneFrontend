@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
+import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as geolib from "geolib";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import MapView from "../Maps/MapView";
@@ -14,6 +15,7 @@ const SearchResults = () => {
   const searchLocation = useSelector((state) => state.searchResults.location);
   const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
+  const dispatch = useDispatch();
   const {
     data: landingSearchResults,
     isSuccess,
@@ -30,6 +32,7 @@ const SearchResults = () => {
     if (searchStatus || isSuccess) {
       setUseArray(chooseArray({ type: selectedOption, payload: results }));
     }
+    dispatch(resetBookings());
   }, [landingSearchResults, searchStatus, isSuccess, searchArr]);
 
   const calculateDistance = (searchLocation, result) => {
@@ -63,7 +66,7 @@ const SearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
@@ -149,7 +152,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  })
+                  }),
                 );
 
                 setSelectedOption(e.target.value);
@@ -236,7 +239,7 @@ const SearchResults = () => {
                         <Link
                           to={`/checkout/${item.property_id.substring(
                             0,
-                            13
+                            13,
                           )}/?starts=${
                             searchArr[searchArr.length - 1][2]
                           }&ends=${searchArr[searchArr.length - 1][3]}`}

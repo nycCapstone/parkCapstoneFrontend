@@ -29,7 +29,7 @@ const Admin = () => {
   
   if (isSuccess) {
     return (
-      <section>
+      <div className="admin-all-container">
         <AdminPage />
         <section className="home-container">
           <h1 className="welcome-heading">Welcome Home</h1>
@@ -43,7 +43,7 @@ const Admin = () => {
               Go to the Renter
             </Link>
             <Link to="/go" className="nav-link">
-              Go to the link page
+              home page
             </Link>
           </div>
 
@@ -53,7 +53,7 @@ const Admin = () => {
             </button>
           </div>
         </section>
-      </section>
+      </div>
     );
   }
 
