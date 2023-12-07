@@ -33,11 +33,10 @@ const RenterActivity = () => {
   if (isSuccess) {
     return (
       <div className="renter-act-container">
+        <strong className="status-clients">The status of your clients</strong>
         {!activeSpaces.length && (
           <p className="renter-no-activity">No Activity at this time</p>
         )}
-        <h3 className="status-clients">The status of your clients</h3>
-
         {activeSpaces.length > 0 && (
           <div className="renter-uplist-container">
             {activeSpaces.map((booking, idx) => (
