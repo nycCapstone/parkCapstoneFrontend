@@ -1,11 +1,14 @@
 import { useUpdateSingleBookingStatusMutation } from "../../../redux/renter/renterApiSlice";
 import { useState } from "react";
-
+import "../Styles/RenterActivity.css";
 const UpdateActivity = ({ bId, Activity, refetch }) => {
   const [updateSingleBookingStatus] = useUpdateSingleBookingStatusMutation();
   const [isChecked, setIsChecked] = useState(false);
   const [success, setSuccess] = useState(null);
-  const obj = (Activity && Activity?.length) ? Activity.find(item => item.booking_id === bId) : null;
+  const obj =
+    Activity && Activity?.length
+      ? Activity.find((item) => item.booking_id === bId)
+      : null;
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -21,35 +24,40 @@ const UpdateActivity = ({ bId, Activity, refetch }) => {
         booking_id: obj?.booking_id,
       })
         .unwrap()
-        .then(() => {setSuccess(true); setIsChecked(false); refetch();})
+        .then(() => {
+          setSuccess(true);
+          setIsChecked(false);
+          refetch();
+        })
         .catch((e) => console.error(e));
     }
+    alert(`Update made on Booking Id ${bId}`);
   };
 
   return (
     <div className="update-a-container">
-      {(bId && obj) ? (
+      {bId && obj && (
         <div className="form-update-b-container">
-          <h3>Mark Booking ID: {obj.booking_id} as not occupied</h3>
+          <strong>Mark Booking ID: {obj.booking_id} as not occupied</strong>
           <form onSubmit={handleSubmit}>
-            <label>
-              Toggle Switch
+            <div className="update-NotOccupied">
+              <label className="mark-here">Mark Here</label>
               <input
+                className="mark-here-checkbox"
                 type="checkbox"
                 checked={isChecked}
                 onChange={handleCheckboxChange}
               />
-              <span className="switch"></span>
-            </label>
 
-            <button type="submit">Commit</button>
+              <button type="submit" className="commit-button">
+                Commit
+              </button>
+            </div>
           </form>
         </div>
-      ) : (
-        <div>Select Item to Update</div>
       )}
       <div className="update-status-container">
-        {success && <div>Update Made on {bId || ''}</div>}
+        {success && <div>Update Made on {bId || ""}</div>}
       </div>
     </div>
   );

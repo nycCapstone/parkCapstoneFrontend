@@ -77,7 +77,7 @@ const Payment = () => {
           [
             resInfo.query_data[0],
             `${new Date(resInfo.query_data[2]).toLocaleDateString()} ${new Date(
-              resInfo.query_data[2],
+              resInfo.query_data[2]
             ).toLocaleTimeString()}`,
           ],
           userData.email,
@@ -278,7 +278,7 @@ const Payment = () => {
               <strong>
                 {
                   resInfo.query_data[0].find(
-                    (item) => item.space_id === resInfo.booking_space_id,
+                    (item) => item.space_id === resInfo.booking_space_id
                   )?.space_no
                 }
               </strong>

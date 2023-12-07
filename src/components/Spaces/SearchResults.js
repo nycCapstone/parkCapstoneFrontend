@@ -59,7 +59,7 @@ const SearchResults = () => {
 
     return distance * 0.00062137119;
   };
-
+  console.log(useArray);
   const chooseArray = (action) => {
     let filteredResults;
 

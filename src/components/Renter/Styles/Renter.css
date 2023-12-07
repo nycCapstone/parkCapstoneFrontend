@@ -10,10 +10,9 @@
   margin-bottom: 1rem;
 }
 
-.r-manage-container h3 {
-  color: white;
+.renterM-header {
+  letter-spacing: 1.5px;
 }
-
 .renter-prop {
   width: 85%;
   margin: 3rem auto;
@@ -43,7 +42,7 @@
         height: 2rem;
         border: none;
         border-radius: 0.3rem;
-        background-color: #068fff;
+        background-color: #f57575;
         color: white;
         cursor: pointer;
         margin: 1rem 0rem;
@@ -55,9 +54,7 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition:
-        opacity 0.3s ease,
-        transform 0.2s ease;
+      transition: opacity 0.3s ease, transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
