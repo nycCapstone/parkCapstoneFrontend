@@ -193,6 +193,19 @@ const CLSearchResults = () => {
                       onMouseEnter={() => handleMouseEnter(i)}
                       onMouseLeave={() => handleMouseLeave(i)}
                     >
+                      <p>
+                        {/* <i
+                        className="fa-solid fa-person-walking-arrow-right fa-beat"
+                        style={{ color: "#f41901" }}
+                      ></i> */}
+                        <span className="search_results_distance">
+                          Distance: {item.distance.toFixed(2)} miles
+                        </span>{" "}
+                        <i
+                          className="fa-solid fa-person-walking"
+                          style={{ color: "#000000" }}
+                        ></i>
+                      </p>
                       <p>Address: {item.prop_address}</p>
                       <p>Zip Code: {item.zip}</p>
                       <p>Number Available Spaces: {item.count_spaces}</p>
