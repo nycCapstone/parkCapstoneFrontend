@@ -66,7 +66,7 @@ const SearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1,
+          (item) => +item.row_num === 1
         );
         return filteredResults
           .map((item) => ({
@@ -142,7 +142,9 @@ const SearchResults = () => {
                 </>
               )}
             </div>
-            <label htmlFor="sortByPrice">Filter:</label>
+            <label htmlFor="sortByPrice">
+              <i class="fa-solid fa-sort"></i> Filter:
+            </label>
             <select
               id="sortByPrice"
               className="sort-dropdown"
@@ -152,7 +154,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  }),
+                  })
                 );
 
                 setSelectedOption(e.target.value);
@@ -209,10 +211,10 @@ const SearchResults = () => {
                       <thead>
                         <tr>
                           <th className="search_results_table_head">
-                            Small Vehicle
+                            Small Vehicle <i class="fa-solid fa-car-side"></i>
                           </th>
                           <th className="search_results_table_head">
-                            Large vehicle
+                            Large vehicle <i class="fa-solid fa-truck"></i>
                           </th>
                         </tr>
                       </thead>
@@ -239,7 +241,7 @@ const SearchResults = () => {
                         <Link
                           to={`/checkout/${item.property_id.substring(
                             0,
-                            13,
+                            13
                           )}/?starts=${
                             searchArr[searchArr.length - 1][2]
                           }&ends=${searchArr[searchArr.length - 1][3]}`}

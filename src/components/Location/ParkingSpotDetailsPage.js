@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -57,7 +57,7 @@ function ParkingSpotDetailPage() {
 
     return (
       <div className="parking-spot-details-page">
-        <Link to="/search-result" className="go-back-link">
+        <Link className="go-back-link" onClick={() => navigate(-1)}>
           <span className="go-back-icon">&#8678;</span> Go back
         </Link>
 
