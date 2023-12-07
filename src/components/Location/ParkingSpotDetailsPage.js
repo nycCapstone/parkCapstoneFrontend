@@ -28,7 +28,7 @@ function ParkingSpotDetailPage() {
   const starts = params.get("starts");
   const ends = params.get("ends");
 
-  const isTimePicked = starts && ends;
+  const isTimePicked = ends;
 
   const handleBookNow = () => {
     if (!isTimePicked || !responseData || responseData.length === 0) {
@@ -64,7 +64,7 @@ function ParkingSpotDetailPage() {
         <div className="details-container">
           {/* Details Information */}
           <div className="title">
-            <h1>{spotDetails.prop_address}</h1>
+            <h1>{spotDetails.prop_address.slice(0, -5)}</h1>
           </div>
           <div className="details">
             <p className="detail-label">Number of Spaces:</p>
@@ -86,24 +86,16 @@ function ParkingSpotDetailPage() {
           </div>
           {spotDetails.renter_id && (
             <div>
-              <h3>Renter Information</h3>
+              {/* <h3>Renter Information</h3> */}
               <div className="details">
                 <p className="detail-label">Spot Owner Name:</p>
-                <p className="detail-value">{spotDetails.client_first_name}</p>
+                <p className="detail-value">
+                  {spotDetails.client_first_name[0].toUpperCase() +
+                    spotDetails.client_first_name.slice(1).toLowerCase()}
+                </p>
               </div>
             </div>
           )}
-          <button
-            className="google-maps-button"
-            onClick={openGoogleMaps}
-            disabled={!isTimePicked}
-          >
-            <i
-              className="fa-solid fa-location-dot fa-beat"
-              style={{ color: "#ff2600" }}
-            ></i>
-            <span className="google-maps-text">View in Google Maps</span>
-          </button>
 
           <button
             className="book-now-button"
@@ -118,16 +110,28 @@ function ParkingSpotDetailPage() {
             </p>
           )}
         </div>
-
-        <section className="ps-mapview">
-          <PSMapView
-            lat={lat}
-            lng={lng}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </section>
+        <div className="showpage-map-button-container">
+          <section className="ps-mapview">
+            <PSMapView
+              lat={lat}
+              lng={lng}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+              containerElement={<div style={{ height: `100%` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
+          </section>
+          <button
+            className="google-maps-button"
+            onClick={openGoogleMaps}
+            disabled={!isTimePicked}
+          >
+            <i
+              className="fa-solid fa-location-dot"
+              style={{ marginRight: "0.5rem" }}
+            ></i>
+            <span className="google-maps-text">View in Google Maps</span>
+          </button>
+        </div>
       </div>
     );
   }

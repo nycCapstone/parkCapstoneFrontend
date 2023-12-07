@@ -34,8 +34,8 @@ const Checkout = () => {
     refetch,
   } = useGetByPidAndTimeQuery([
     property_id,
-    query[query.length - 1][2],
-    query[query.length - 1][3],
+    query?.[query.length - 1]?.[2],
+    query?.[query.length - 1]?.[3],
   ]);
 
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Checkout = () => {
         }),
       );
     } else if (checkoutData?.length === 0) {
-      setInfoPrompt(query[query.length - 1][3]);
+      setInfoPrompt(query?.[query.length - 1]?.[3]);
       dispatch(searchLandingMutate());
     }
   }, [checkoutData]);
