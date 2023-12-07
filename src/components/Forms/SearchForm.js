@@ -19,6 +19,7 @@ import axios from "../../api/axios";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Styles/SearchForm.css";
+import { current } from "@reduxjs/toolkit";
 
 const SearchForm = () => {
   const [placesLibrary] = useState(["places"]);
@@ -35,9 +36,8 @@ const SearchForm = () => {
       return "Search for a spot (eg. NYC NY 1001)";
     }
   });
-
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
+  const [checkInDate, setCheckInDate] = useState(roundToNearest30());
+  const [checkOutDate, setCheckOutDate] = useState(checkOutLoad(checkInDate));
   const [timeQuery, setTimeQuery] = useState(null);
   const [formattedAddress, setFormattedAddress] = useState(null);
   const [err, setErr] = useState(false);
@@ -46,11 +46,55 @@ const SearchForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  function checkOutLoad(date = new Date()){
+    let tempCheck = new Date(date)
+    tempCheck.setHours(date.getHours()+3)
+    return tempCheck
+  }
+
+  function roundToNearest30(date = new Date()) {
+    const minutes = 30;
+    const ms = 1000 * 60 * minutes;
+  
+    //replace Math.round with Math.ceil to always round UP
+    return new Date(Math.round(date.getTime() / ms) * ms);
+  }
+
+  function handleCheckIn (date) {
+    setCheckInDate(date)
+    let tempCheck = new Date(date)
+    tempCheck.setHours(date.getHours()+3)
+    if (tempCheck.getTime() > checkOutDate.getTime()){
+      setCheckOutDate(tempCheck)
+    }
+  }
+  function handleCheckOut(date) {
+    setCheckOutDate(date)
+  }
+  function filterPassedTime(time) {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+    return currentDate.getTime() < selectedDate.getTime();
+  }
+  function filterPassedTimeCheckOut(time) {
+    const currentDate = checkInDate;
+    const selectedDate = new Date(time);
+    let tempCheck = new Date(currentDate)
+    tempCheck.setHours(tempCheck.getHours()+3)
+
+    if (tempCheck.getHours()==selectedDate.getHours() && selectedDate.getDate() === tempCheck.getDate()){
+      return (!(selectedDate.getMinutes() < currentDate.getMinutes()))
+    }else if (selectedDate.getDate() === currentDate.getDate()+1 && (((currentDate.getHours()+3)%24 >= 0) && ((currentDate.getHours()+3)%24 <= 3))){
+      return (!(selectedDate.getHours() < tempCheck.getHours())) 
+    } else 
+    return ((selectedDate.getHours()>= currentDate.getHours()+3) || !(currentDate.getDate() === selectedDate.getDate()));
+  }
+
   useEffect(() => {
     if (err) {
       setErr(false);
     }
-  }, [checkOutDate]);
+  }, [checkOutDate, checkInDate]);
 
   useEffect(() => {
     if (locationdata?.lng || timeQuery !== null) {
@@ -172,18 +216,24 @@ const SearchForm = () => {
             showTimeSelect
             selectsStart
             selected={checkInDate}
-            onChange={(date) => setCheckInDate(date)}
+            onChange={(date) => handleCheckIn(date)}
             minDate={new Date()}
             shouldCloseOnSelect={false}
             timeIntervals={30}
+            filterTime={filterPassedTime}
           />
-          <p className="select-time">
-            {checkInDate.toLocaleTimeString(undefined, {
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            })}
-          </p>
+            {<DatePicker
+              className="select-time"
+              selected={checkInDate}
+              onChange={(date) => { 
+                handleCheckIn(date)}}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              timeCaption="Time"
+              dateFormat="h:mm aa"
+              filterTime={filterPassedTime}
+            />}
         </div>
         <div className="end-container">
           <label className="end-label">Check-Out:</label>
@@ -192,23 +242,33 @@ const SearchForm = () => {
             selectsEnd
             selected={checkOutDate}
             minDate={checkInDate}
-            onChange={(date) => setCheckOutDate(date)}
+            onChange={(date) => handleCheckOut(date)}
             onInputClick={() =>{ setTimeQuery(true);}}
             shouldCloseOnSelect={false}
             timeIntervals={30}
             showTimeSelect
+            filterTime={filterPassedTimeCheckOut}
           />
 
-          <p className="select-time">
+
             {" "}
             {err
-              ? "Book 3 hour difference"
-              : checkOutDate.toLocaleTimeString(undefined, {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
-          </p>
+              ? <p className="select-time">
+                Book 3 hour Difference
+              </p>
+          
+              :     <DatePicker
+              className="select-time"
+              selected={checkOutDate}
+              onChange={(date) => handleCheckOut(date)}
+              onInputClick={() =>{ setTimeQuery(true);}}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              timeCaption="Time"
+              dateFormat="h:mm aa"
+              filterTime={filterPassedTimeCheckOut}
+            />}
         </div>
         <div className="end-time"></div>
         <div className="end-time"></div>
