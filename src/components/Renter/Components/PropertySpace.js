@@ -107,7 +107,9 @@ const PropertySpace = (props) => {
         JSON.stringify(formArr[i]) !== JSON.stringify(initialArr[i])
       ) {
         await updateSingleSpace({
-          spaceIds: formArr.filter(item => item.sp_type === formArr[i].sp_type).map(item => item.space_id),
+          spaceIds: formArr
+            .filter((item) => item.sp_type === formArr[i].sp_type)
+            .map((item) => item.space_id),
           setRow: {
             sp_type: formArr[i].sp_type,
             price: formArr[i].price,
@@ -119,34 +121,33 @@ const PropertySpace = (props) => {
             refetch();
           })
           .catch((e) => console.error(e));
-        } else if (
-          formArr[i]?.submit_details &&
-          formArr.some((item) => item?.checkbox === true)
-          ) {
-            let temp = formArr.filter(
-              (item) =>
-              !item.hasOwnProperty("submit_details") && item?.checkbox === true
-              );
-              
-              await postNewSpaces({
-                data: temp.map((item, i) => {
-                  delete item["checkbox"];
-                  delete item["billing"];
-                  return {
-                    ...item,
-                    space_owner_id: renterData[0].owner_id,
-                    property_lookup_id: props.propertyId,
-                  };
-                }),
-              })
-              .unwrap()
-              .then(() =>{ 
-                alert("The details for the parking spot has been saved!");
-                refetch()
-              })
+      } else if (
+        formArr[i]?.submit_details &&
+        formArr.some((item) => item?.checkbox === true)
+      ) {
+        let temp = formArr.filter(
+          (item) =>
+            !item.hasOwnProperty("submit_details") && item?.checkbox === true,
+        );
+
+        await postNewSpaces({
+          data: temp.map((item, i) => {
+            delete item["checkbox"];
+            delete item["billing"];
+            return {
+              ...item,
+              space_owner_id: renterData[0].owner_id,
+              property_lookup_id: props.propertyId,
+            };
+          }),
+        })
+          .unwrap()
+          .then(() => {
+            alert("The details for the parking spot has been saved!");
+            refetch();
+          })
           .catch((e) => console.error(e));
       }
-      console.log("Submitted Space Type:", formArr);
     };
 
     return (
@@ -158,7 +159,7 @@ const PropertySpace = (props) => {
                 <form
                   className="property-space-form"
                   onSubmit={(e) => handleSubmit(e, i)}
-                  key={uuidv4()} 
+                  key={uuidv4()}
                 >
                   <div className="r-sp-info">
                     <p>Space Number: {item.space_no}</p>
@@ -181,7 +182,7 @@ const PropertySpace = (props) => {
                           handleSpaceSelectChange(
                             e,
                             item.space_no,
-                            item.sp_type
+                            item.sp_type,
                           )
                         }
                         min={15}

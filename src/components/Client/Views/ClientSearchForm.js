@@ -3,6 +3,7 @@ import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
+import { searchBookings } from "../../../redux/client/clientSearchSlice";
 import DatePicker from "react-datepicker";
 import { checkDates } from "../../../constants/helper/helper";
 import { FcCalendar } from "react-icons/fc";
@@ -46,11 +47,11 @@ const ClientSearchForm = () => {
     if (searchResult != null) {
       const place = searchResult.getPlace();
       const fA = place.formatted_address;
-      if (place.geometry && place.geometry.location) {
+      if (place.geometry && place.geometry.location && fA?.length) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
 
-        setGeoLocation({ lat, lng });
+        setGeoLocation({ lat, lng, fA });
       } else {
         console.error("No geometry information found for the selected place.");
       }
@@ -80,6 +81,7 @@ const ClientSearchForm = () => {
         checkOutDate.toISOString(),
       ]),
     );
+    dispatch(searchBookings(locationdata.fA));
     navigate("/client/search-result");
   };
   return (
@@ -100,7 +102,7 @@ const ClientSearchForm = () => {
                 ? "Search for a spot (eg. NYC NY 1001)"
                 : userData.address
             }
-            className="cl-search"
+            className="cl-view-searchbar"
             ref={searchRef}
           />
         </Autocomplete>
@@ -120,7 +122,7 @@ const ClientSearchForm = () => {
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
-            <div className="time_icon">
+            <div className="cl_time_icon">
               <p className="time-field"> {checkInDate.toLocaleTimeString()}</p>
               <FcAlarmClock size={25} className="icon-style" />
             </div>
@@ -142,7 +144,7 @@ const ClientSearchForm = () => {
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
-            <div className="time_icon">
+            <div className="cl_time_icon">
               <p className="time-field"> {checkOutDate.toLocaleTimeString()}</p>
               <FcAlarmClock size={25} className="icon-style" />
             </div>

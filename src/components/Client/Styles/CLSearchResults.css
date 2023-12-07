@@ -70,6 +70,24 @@ a.button-square {
   height: 90rem;
 }
 
+.clv-cost-info {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem 0;
+}
+
+.clv-span-info {
+  white-space: nowrap;
+}
+
+.clv-span-info p {
+  margin-top: 0;
+}
+
+.clv-span-info h4 {
+  margin-bottom: 0;
+}
+
 .cl-s-and-map-container {
   display: flex;
   width: 100%;

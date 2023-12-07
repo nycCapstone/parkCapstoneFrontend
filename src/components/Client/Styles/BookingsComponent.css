@@ -2,40 +2,47 @@
   min-height: 100vh;
   margin-left: 2rem;
   margin-right: 2rem;
- }
- 
- 
- .bookings-container header {
+}
+
+.bookings-container header {
   text-align: center;
   margin: 1rem;
- }
- 
- 
- .bookings-grid-container {
+}
+
+.bookings-grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
- }
- 
+  gap: 0;
+}
+
 .booking-item {
   border: 1px solid #ddd;
-  
   background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
   margin-bottom: 1rem;
   width: 70%;
- }
- .booking-label {
+  border-radius: 0.6rem;
+}
+.booking-item:hover {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+.booking-label {
   justify-self: middle;
   padding: 8px;
   color: rgb(233, 100, 121);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.7px
- }
- .show-more-button {
+  letter-spacing: 0.7px;
+}
+.booking-addr-label {
+  color: rgb(233, 100, 121);
+}
+.booking-fc-label {
+  color: green;
+}
+.show-more-button {
   color: white;
   background-color: #ff5757;
   border: none;
@@ -46,15 +53,13 @@
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
- }
- 
- 
- .show-more-button:hover {
+}
+
+.show-more-button:hover {
   background-color: #aa0000;
- }
- 
- 
- @media (max-width: 881px) {
+}
+
+@media (max-width: 881px) {
   .bookings-grid-container {
     grid-template-columns: repeat(1, 1fr);
     gap: 0.5rem;
@@ -68,5 +73,4 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
- }
- 
+}

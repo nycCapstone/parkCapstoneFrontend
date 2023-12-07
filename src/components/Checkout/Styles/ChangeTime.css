@@ -15,23 +15,24 @@
   padding-left: 12px;
 }
 .chtime-search-space {
-  width: 60%;
+  width: 80%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
-.chtime-search-checkIn {
+.chtime-search-checkIn,
+.chtime-search-checkout {
   display: flex;
   flex-direction: column;
+  width: 40%;
 }
 .date-field,
 .time-field {
+  padding-left: 8.5px;
   height: 2rem;
   width: 9rem;
   font-size: 15px;
   background-color: #f5f5f5;
-}
-.time-field {
-  padding: 8.5px;
 }
 .table-header {
   margin: 1.5rem 0;
@@ -39,7 +40,7 @@
 }
 
 .chtime-search-button {
-  margin: 2rem 0 2rem 0;
+  margin: 1rem 0;
   width: 5rem;
   height: 2rem;
   background: #ff5757;
@@ -121,10 +122,18 @@
   display: inline-block;
   margin-left: 2rem;
 }
+
+@media (max-width: 1000px) {
+  .chtime-search-space {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+}
 @media (max-width: 650px) {
   .chtime-page-search {
-    padding: 0 0;
-    margin: 0 auto;
+    margin: 0 0;
     width: 90%;
   }
 }

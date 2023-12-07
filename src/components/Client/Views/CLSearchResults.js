@@ -15,8 +15,8 @@ import "../Styles/Client.css";
 const CLSearchResults = () => {
   const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
-  const dispatch = useDispatch();
-  const searchLocation = useSelector((state) => state.searchResults.location);
+  const searchLocation = useSelector((state) => state.landing);
+  const destination = useSelector((state) => state.client.go);
 
   const {
     data: clientSearches,
@@ -31,18 +31,17 @@ const CLSearchResults = () => {
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
-    if (clientSearches?.length) {
-      dispatch(searchBookings());
+    if (clientSearches?.length > 0) {
       setUseArray(
-        chooseArray({ type: selectedOption, payload: clientSearches })
+        chooseArray({ type: selectedOption, payload: clientSearches }),
       );
     }
   }, [clientSearches]);
 
   const calculateDistance = (searchLocation, result) => {
     const startPoint = {
-      latitude: searchLocation.lat,
-      longitude: searchLocation.lng,
+      latitude: searchLocation[searchLocation.length - 1][0],
+      longitude: searchLocation[searchLocation.length - 1][1],
     };
 
     const endPoint = {
@@ -70,7 +69,7 @@ const CLSearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
@@ -118,178 +117,136 @@ const CLSearchResults = () => {
     }
   };
 
-  if (isLoading || isFetching) {
+  if (isLoading || isFetching || !useArray?.length) {
     return (
       <div className="s-loading-container">
         <CLLoading />
       </div>
     );
-  }
+  } else if (isSuccess && useArray?.length) {
+    return (
+      <div className="cl-s-and-map-container">
+        <main className="cl-search-main">
+          <div className="cl-sort-button-container">
+            <div className="cl-destination-container">
+              {searchLocation && (
+                <>
+                  <i
+                    className="fa-solid fa-location-dot fa-flip"
+                    style={{ color: "#f41901" }}
+                  ></i>
 
-  if (error) {
+                  <div className="destination-info">
+                    <h3 className="destination-title">Your Destination</h3>
+                    <p className="destination-address">{destination}</p>
+                  </div>
+                </>
+              )}
+            </div>
+            <label htmlFor="sortByPrice">Filter:</label>
+            <select
+              id="sortByPrice"
+              className="sort-dropdown"
+              value={selectedOption}
+              onChange={(e) => {
+                setUseArray(
+                  chooseArray({
+                    type: e.target.value,
+                    payload: clientSearches.filter(
+                      (item) => +item.row_num === 1,
+                    ),
+                  }),
+                );
+
+                setSelectedOption(e.target.value);
+              }}
+            >
+              <option value="high">Price: Low to High</option>
+              <option value="low">Price: High to Low</option>
+              <option value="distance">Distance: Closest</option>
+            </select>
+          </div>
+
+          <div className="cl-search-reslist">
+            {useArray.map((item, i) => {
+              let cartruckp = getCarTruckPrice(
+                clientSearches,
+                item.property_id,
+              );
+              return (
+                <div
+                  className="spot-info"
+                  key={i}
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={() => handleMouseLeave(i)}
+                >
+                  <p>Address: {item.prop_address}</p>
+                  <p>Zip Code: {item.zip}</p>
+                  <p>Number Available Spaces: {item.count_spaces}</p>
+                  <div className="clv-cost-info">
+                    <span className="clv-span-info">
+                      <h4>Price</h4>
+                      <p>
+                        {item.billing_type}: {item.price.toFixed(2)}
+                      </p>
+                    </span>
+                  </div>
+                  <div>
+                    {item.picture && <img alt="propimage" src={item.picture} />}
+                  </div>
+                  <Link
+                    className="button-square button-primary"
+                    to={`/checkout/${item.property_id.substring(
+                      0,
+                      13,
+                    )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                      searchArr[searchArr.length - 1][3]
+                    }`}
+                  >
+                    Book Now
+                  </Link>
+                  <div className="cl-st-continer">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>Commuter price</th>
+                          <th>Large vehicle price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>${cartruckp[0]}</td>
+                          <td>${cartruckp[1]}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </main>
+        <section className="cl-s-res-mapview">
+          <MapView
+            lat={useArray[0].latitude}
+            lng={useArray[0].longitude}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markerArray={useArray.map((item) => {
+              return {
+                lat: item.latitude,
+                lng: item.longitude,
+                price: getCarTruckPrice(clientSearches, item.property_id)[0],
+              };
+            })}
+          />
+        </section>
+      </div>
+    );
+  } else {
     return <div>Api Down</div>;
   }
-
-  if (isSuccess) {
-    return (
-      <>
-        {!useArray?.length ? (
-          <div>No Results Yet</div>
-        ) : (
-          <div className="cl-s-and-map-container">
-            <main className="cl-search-main">
-              <div className="cl-sort-button-container">
-                <div className="cl-destination-container">
-                  {searchLocation && (
-                    <>
-                      <i
-                        className="fa-solid fa-location-dot fa-flip"
-                        style={{ color: "#f41901" }}
-                      ></i>
-
-                      <div className="destination-info">
-                        <h3 className="destination-title">Your Destination</h3>
-                        <p className="destination-address">
-                          {searchLocation.addr}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                </div>
-                <label htmlFor="sortByPrice">Filter:</label>
-                <select
-                  id="sortByPrice"
-                  className="sort-dropdown"
-                  value={selectedOption}
-                  onChange={(e) => {
-                    setUseArray(
-                      chooseArray({
-                        type: e.target.value,
-                        payload: clientSearches.filter(
-                          (item) => +item.row_num === 1
-                        ),
-                      })
-                    );
-
-                    setSelectedOption(e.target.value);
-                  }}
-                >
-                  <option value="high">Price: Low to High</option>
-                  <option value="low">Price: High to Low</option>
-                  <option value="distance">Distance: Closest</option>
-                </select>
-              </div>
-
-              <div className="cl-search-reslist">
-                {useArray.map((item, i) => {
-                  let cartruckp = getCarTruckPrice(
-                    clientSearches,
-                    item.property_id
-                  );
-                  return (
-                    <div
-                      className="spot-info"
-                      key={i}
-                      onMouseEnter={() => handleMouseEnter(i)}
-                      onMouseLeave={() => handleMouseLeave(i)}
-                    >
-                      <p>
-                        <span className="search_results_distance">
-                          Distance: {item.distance.toFixed(2)} miles
-                        </span>{" "}
-                        <i
-                          className="fa-solid fa-person-walking"
-                          style={{ color: "#000000" }}
-                        ></i>
-                      </p>
-                      <p>Address: {item.prop_address}</p>
-                      <p>Zip Code: {item.zip}</p>
-                      <p>Number Available Spaces: {item.count_spaces}</p>
-                      <div className="cost-info">
-                        <span className="span-info">
-                          <h4>Price</h4>{" "}
-                          <p>
-                            {item.billing_type}: {item.price.toFixed(2)}
-                          </p>
-                        </span>
-                      </div>
-                      <div>
-                        {item.picture && (
-                          <img alt="propimage" src={item.picture} />
-                        )}
-                      </div>
-
-                      <div className="cl-st-continer">
-                        <table className="table">
-                          <thead>
-                            <tr>
-                              <th>Commuter price</th>
-                              <th>Large vehicle price</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>${cartruckp[0]}</td>
-                              <td>${cartruckp[1]}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="button-container">
-                        <Link
-                          to={`/parking-spots/${item.space_id}?starts=${
-                            searchArr[searchArr.length - 1]?.[2]
-                          }&ends=${searchArr[searchArr.length - 1]?.[3]}`}
-                        >
-                          <button className="show-me-button">
-                            View Details
-                          </button>
-                        </Link>
-
-                        <div style={{ margin: "0 10px" }}></div>
-
-                        <Link
-                          className="button-square button-primary"
-                          to={`/checkout/${item.property_id.substring(
-                            0,
-                            13
-                          )}/?starts=${
-                            searchArr[searchArr.length - 1][2]
-                          }&ends=${searchArr[searchArr.length - 1][3]}`}
-                        >
-                          Book Now
-                        </Link>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </main>
-            <section className="cl-s-res-mapview">
-              <MapView
-                lat={useArray[0].latitude}
-                lng={useArray[0].longitude}
-                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                containerElement={<div style={{ height: `100%` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-                markerArray={useArray.map((item) => {
-                  return {
-                    lat: item.latitude,
-                    lng: item.longitude,
-                    price: getCarTruckPrice(
-                      clientSearches,
-                      item.property_id
-                    )[0],
-                  };
-                })}
-              />
-            </section>
-          </div>
-        )}
-      </>
-    );
-  }
-  return null;
 };
 
 export default CLSearchResults;
