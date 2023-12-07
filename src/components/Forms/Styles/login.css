@@ -1,13 +1,13 @@
-@media (max-width: 480px) {
+@media (max-width: 786px) {
   section.logIn {
-    min-width: 90%;
-    margin: 1rem;
+    padding: 2rem;
+    margin: 0;
+    width: auto;
   }
 }
 
-@media (max-width: 786px) {
+@media (max-width: 480px) {
   section.logIn {
-    width: 75%;
-    margin: 1rem;
+    padding: 1.5rem;
   }
 }

@@ -102,7 +102,7 @@
 .select-time {
   text-align: start;
   padding: 5px 8px;
-  /* padding-top: 5px; */
+  margin-top: 5px;
 }
 .select-time::placeholder {
   color: black;

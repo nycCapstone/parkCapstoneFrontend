@@ -26,3 +26,12 @@
 .userinfo-card li {
   list-style: none;
 }
+
+.us-chk-navigate {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.reservation-container {
+  margin-bottom: 0.5rem;
+}

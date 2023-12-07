@@ -23,7 +23,6 @@ const AdminPage = () => {
   if (isSuccess)
     return (
       <div className="admin-page">
-        <h1>Admin Page</h1>
         <div className="user-info">
           <h2>User Information</h2>
           <p>ID: {userInfo.id}</p>

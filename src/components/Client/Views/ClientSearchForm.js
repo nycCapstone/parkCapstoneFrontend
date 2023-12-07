@@ -78,13 +78,15 @@ const ClientSearchForm = () => {
         locationdata?.lng || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
-      ])
+      ]),
     );
     navigate("/client/search-result");
   };
   return (
     <div className="client-page-search">
-      <p className="client-header">Reserve your spot</p>
+      <div className="client-s-header">
+        <h3>Reserve your spot</h3>
+      </div>
       {err && (
         <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>
       )}

@@ -17,13 +17,14 @@
   gap: 20px;
  }
  
- 
- .booking-item {
+.booking-item {
   border: 1px solid #ddd;
+  
   background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
+  margin-bottom: 1rem;
   width: 70%;
  }
  .booking-label {

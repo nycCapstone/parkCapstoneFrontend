@@ -7,6 +7,7 @@
   padding: 3rem;
   border-radius: 1rem;
   background-color: #f9f9ff;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
   .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
@@ -43,7 +44,6 @@
 .register-input {
   border: 0;
   outline: none;
-  height: 1rem;
   padding: 8px;
   margin-bottom: 1rem;
   background-color: rgb(249 249 255);
@@ -121,16 +121,23 @@
   display: none;
 }
 
-@media (max-width: 480px) {
-  section.register {
-    min-width: 90%;
-    margin: 1rem;
+@media (max-width: 786px) {
+  .register,
+  .logIn {
+    width: 80%;
   }
 }
 
-@media (max-width: 786px) {
-  section.register {
-    width: 75%;
-    margin: 1rem;
+@media (max-width: 480px) {
+  .register,
+  .logIn {
+    min-width: 90%;
+    padding: 1rem;
+    .header {
+      padding: 1rem;
+    }
+    .input-block {
+      margin-top: 0.5rem;
+    }
   }
 }

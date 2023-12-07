@@ -1,11 +1,22 @@
 .myactivity-container {
+<<<<<<< HEAD
+  min-height: 100vh;
+=======
   min-height: 80rem;
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
 }
 
 .myactivity-container header {
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
+  margin: 1rem;
+}
 
+.payment-list {
+  display: flex;
+  flex-wrap: wrap;
+=======
   color: white;
   align-items: center;
   background: #ffa7a7;
@@ -15,6 +26,7 @@
 .mi-payment-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
   gap: 0.5rem;
   margin-bottom: 1rem;
   margin-top: 2rem;
@@ -22,33 +34,30 @@
 
 .mi-payment-list-item {
   border: 1px solid #ddd;
-  background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
-  width: 70%;
- }
-
- .payment-label {
-  justify-self: middle;
-  padding: 8px;
-  color: rgb(233, 100, 121);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.7px
- }
+  width: calc(33.333% - 1rem);
+}
 
 @media (max-width: 881px) {
+<<<<<<< HEAD
+  .payment-list {
+    margin: 0.5rem;
+  }
+  .payment-list-item {
+    width: calc(100% - 1rem);
+=======
   .mi-payment-list {
     grid-template-columns: repeat(1, 1fr);
     margin: 0.5rem;
   }
   .mi-payment-list-item {
     width: 90%;
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
     padding: none;
     padding-left: 2rem;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -62,4 +71,3 @@
     width: 100%;
   }
 }
-

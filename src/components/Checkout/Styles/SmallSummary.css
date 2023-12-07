@@ -1,15 +1,19 @@
-.ss-grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: auto;
-    background-color: lightgray;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    margin: 10px;
-  }
+.ss-info-container {
+  background-color: lightgray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  max-width: 20rem;
+}
 
-  .ss-card {
-    padding: 0.5em;
-    margin: 0.5em;
+.ss-card {
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+@media (max-width: 550px) {
+  .ss-info-container {
+    margin: 0;
+    max-width: 100rem;
   }
+}

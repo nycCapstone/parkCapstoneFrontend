@@ -1,0 +1,157 @@
+.parking-spot-details-page {
+  display: flex;
+  max-width: auto;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.details-container {
+  flex: 1;
+  padding-right: 50px;
+}
+
+.parking-spot-details-page .details-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ff5757;
+  text-align: left;
+}
+
+.title {
+  text-align: center;
+}
+
+.ps-mapview {
+  flex: 1;
+  position: relative;
+  margin-left: 50px;
+  margin-top: 15px;
+}
+
+.details {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  color: #555;
+  font-size: 18px;
+}
+
+button.book-now-button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+
+button.book-now-button:hover {
+  background-color: #ff5757;
+}
+
+a.go-back-link {
+  display: block;
+  text-align: left;
+  /* margin-top: 20px; */
+  margin-right: 100px;
+
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+a.go-back-link:hover {
+  text-decoration: underline;
+  color: #ff5757;
+}
+
+.go-back-icon {
+  margin-right: 5px;
+}
+<<<<<<< HEAD
+button.google-maps-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 36px;
+  margin: 20px auto;
+  display: none;
+  color: #ff2600;
+}
+=======
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
+
+@media (max-width: 900px) {
+  .ps-mapview {
+    display: none;
+  }
+<<<<<<< HEAD
+
+  button.book-now-button {
+    margin-top: 20px;
+  }
+
+  button.google-maps-button {
+    display: block !important;
+  }
+
+  .google-maps-text {
+    text-align: center;
+    font-size: 16px;
+    color: #ff2600;
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .parking-spot-details-page {
+    padding: 10px;
+  }
+
+  .details-container {
+    padding-right: 10px;
+  }
+
+  a.go-back-link {
+    margin-right: 10px;
+  }
+  .details {
+    margin: 0;
+    padding: 5px;
+  }
+=======
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
+}

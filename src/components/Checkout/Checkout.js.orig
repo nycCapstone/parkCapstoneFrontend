@@ -34,8 +34,8 @@ const Checkout = () => {
     refetch,
   } = useGetByPidAndTimeQuery([
     property_id,
-    query?.[query.length - 1]?.[2],
-    query?.[query.length - 1]?.[3],
+    query[query.length - 1][2],
+    query[query.length - 1][3],
   ]);
 
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Checkout = () => {
         }),
       );
     } else if (checkoutData?.length === 0) {
-      setInfoPrompt(query?.[query.length - 1]?.[3]);
+      setInfoPrompt(query[query.length - 1][3]);
       dispatch(searchLandingMutate());
     }
   }, [checkoutData]);
@@ -72,6 +72,7 @@ const Checkout = () => {
           <section>
             <User userData={userData} />
           </section>
+<<<<<<< HEAD
           <section>
             <Reservation resData={resData} />
             <SmallSummary checkoutData={checkoutData} />
@@ -99,6 +100,26 @@ const Checkout = () => {
             />
           </section>
         </div>
+=======
+        </section>
+        <section className="ch-mapview">
+          <PSMapView
+            lat={lat}
+            lng={lng}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        </section>
+        <section>
+          <ReservationDetails
+            userData={userData}
+            resData={resData}
+            checkoutData={checkoutData}
+            refetch={refetch}
+          />
+        </section>
+>>>>>>> 53ac69f (client search view and checkout page layout with css and media queries)
       </div>
     );
   } else if (error || checkoutError) {

@@ -2,6 +2,7 @@
   width: 70%;
   margin: 2rem auto;
 }
+
 .cl-search {
   width: 60%;
   margin-top: 1.5rem;
@@ -38,7 +39,7 @@
 }
 
 .client-search-button {
-  margin: 2.5rem 0 6rem 0;
+  margin: 1.5rem 0;
   width: 5rem;
   height: 2rem;
   background: #ff5757;
@@ -78,7 +79,7 @@
   display: flex;
   justify-content: left;
   padding: 10px;
-  background-color: #f0f0f0; /* Set your desired background color */
+  background-color: #140e0e; /* Set your desired background color */
 }
 
 .cl-h-svgleft {
@@ -90,7 +91,7 @@
 }
 
 .clview-navbar {
-  background-color: #faa4a4;
+  background-color: #ffa7a7;
   color: white;
   padding: 10px;
   display: flex;
@@ -106,4 +107,4 @@
 
 .clview-nav-item:hover {
   background-color: lightgrey;
-} 
+}

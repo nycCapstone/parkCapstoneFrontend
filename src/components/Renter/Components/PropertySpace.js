@@ -86,6 +86,7 @@ const PropertySpace = (props) => {
 
   if (isSuccess) {
     const handleSpaceSelectChange = (e, space_no, sp_type) => {
+      e.preventDefault();
       dispatch({
         type: "SPACE_SELECT_CHANGE",
         field: e.target.name,
@@ -106,7 +107,7 @@ const PropertySpace = (props) => {
         JSON.stringify(formArr[i]) !== JSON.stringify(initialArr[i])
       ) {
         await updateSingleSpace({
-          space_id: formArr[i].space_id,
+          spaceIds: formArr.filter(item => item.sp_type === formArr[i].sp_type).map(item => item.space_id),
           setRow: {
             sp_type: formArr[i].sp_type,
             price: formArr[i].price,

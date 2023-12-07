@@ -93,7 +93,7 @@ const Register = () => {
         }),
         {
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       setSuccess(email);
       //clear state and controlled inputs
@@ -117,7 +117,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div className="register-form-container">
       {success ? (
         <section className="register">
           <h1>Success!</h1>
@@ -436,7 +436,7 @@ const Register = () => {
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 };
 
