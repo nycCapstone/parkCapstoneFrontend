@@ -194,10 +194,6 @@ const CLSearchResults = () => {
                       onMouseLeave={() => handleMouseLeave(i)}
                     >
                       <p>
-                        {/* <i
-                        className="fa-solid fa-person-walking-arrow-right fa-beat"
-                        style={{ color: "#f41901" }}
-                      ></i> */}
                         <span className="search_results_distance">
                           Distance: {item.distance.toFixed(2)} miles
                         </span>{" "}
