@@ -59,14 +59,13 @@ const SearchResults = () => {
 
     return distance * 0.00062137119;
   };
-  console.log(useArray);
   const chooseArray = (action) => {
     let filteredResults;
 
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
@@ -143,7 +142,7 @@ const SearchResults = () => {
               )}
             </div>
             <label htmlFor="sortByPrice">
-              <i class="fa-solid fa-sort"></i> Filter:
+              <i className="fa-solid fa-sort"></i> Filter:
             </label>
             <select
               id="sortByPrice"
@@ -154,7 +153,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  })
+                  }),
                 );
 
                 setSelectedOption(e.target.value);
@@ -183,10 +182,6 @@ const SearchResults = () => {
                       {item.prop_address.slice(0, -5)}
                     </p>
                     <p>
-                      {/* <i
-                        className="fa-solid fa-person-walking-arrow-right fa-beat"
-                        style={{ color: "#f41901" }}
-                      ></i> */}
                       <span className="search_results_distance">
                         Distance: {item.distance.toFixed(2)} miles
                       </span>{" "}
@@ -211,10 +206,11 @@ const SearchResults = () => {
                       <thead>
                         <tr>
                           <th className="search_results_table_head">
-                            Small Vehicle <i class="fa-solid fa-car-side"></i>
+                            Small Vehicle{" "}
+                            <i className="fa-solid fa-car-side"></i>
                           </th>
                           <th className="search_results_table_head">
-                            Large vehicle <i class="fa-solid fa-truck"></i>
+                            Large vehicle <i className="fa-solid fa-truck"></i>
                           </th>
                         </tr>
                       </thead>
@@ -241,7 +237,7 @@ const SearchResults = () => {
                         <Link
                           to={`/checkout/${item.property_id.substring(
                             0,
-                            13
+                            13,
                           )}/?starts=${
                             searchArr[searchArr.length - 1][2]
                           }&ends=${searchArr[searchArr.length - 1][3]}`}

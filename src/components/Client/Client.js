@@ -12,20 +12,23 @@ const Client = () => {
   return (
     <div className="cl-views-container">
       <nav className="clview-navbar">
-            <div className="cl-h-svgleft">
-              <Link to="/admin">
-                <FaChevronCircleLeft />
-              </Link>
-            </div>
-            <h1>Client Page</h1>
+        <div className="cl-h-svgleft">
+          <Link to="/admin">
+            <FaChevronCircleLeft />
+          </Link>
+        </div>
+        <h2>Client Page</h2>
         {isLoading ? (
           <div className="s-loading-container">
-            <RenterLoading/>
+            <RenterLoading />
           </div>
-          ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
-            <>
+        ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
+          <>
             <div className="clview-nav-item">
-              <Link to="/client/search">Search and Make a new booking. <br/>Search Page</Link>
+              <Link to="/client/search">
+                Search and Make a new booking. <br />
+                Search Page
+              </Link>
             </div>
             <div className="clview-nav-item">
               <Link to="/client/transactions">My Activity</Link>
@@ -37,7 +40,7 @@ const Client = () => {
           </div>
         )}
       </nav>
-        <ClientBookings />
+      <ClientBookings />
     </div>
   );
 };

@@ -40,7 +40,6 @@ const ClientBookings = () => {
  if (error) {
    return <div>Api Down</div>;
  }
-console.log(bookings)
  if (isSuccess) {
    return (
      <div className="bookings-container">
@@ -59,11 +58,10 @@ console.log(bookings)
                    Start Time: {new Date(booking.start_time).toLocaleString()}
                  </p>
                  <p>End Time: {new Date(booking.end_time).toLocaleString()}</p>
-                 <p>Final Cost: ${booking.final_cost}</p>
+<p className="booking-addr-label">Address: {booking.prop_address}</p>
+                 <p className="booking-fc-label">Final Cost: ${booking.final_cost}</p>
                  <div style={{display: "flex", flexWrap: "wrap"}}>
                  <p>Rating: {booking.rating}</p>
-
-
                  {
                    calculateDateDifferenceInDays(booking.end_time) < 13 && <FaEdit style={{marginLeft: "1rem", cursor: "pointer"}} onClick={() => {
                      setShow(i)
@@ -72,9 +70,6 @@ console.log(bookings)
                  {
                    show === i && <EditStars booking={booking} setShow={setShow} refetch={refetch}/>
                  }
-                 <Link to={`/parking-spots/${booking.booking_space_id}`}>
-                       <button className="show-more-button">View Details</button>
-                 </Link>
                  </div>
                </div>
              ))}
@@ -88,5 +83,4 @@ console.log(bookings)
 
 
 export default ClientBookings;
-
 

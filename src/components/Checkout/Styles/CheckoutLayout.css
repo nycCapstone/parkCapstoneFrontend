@@ -2,14 +2,27 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin-left: 2rem;
-  margin-right: 2rem;
+
   margin-top: 0;
 }
 
-.checkout-layout-container > section {
+/* .checkout-layout-container > section { */
+/*   padding: 1rem; */
+/*   border: 1px solid #ddd; */
+/* } */
+
+.checkout-layout-container .ch1-gvjnv {
   padding: 1rem;
   border: 1px solid #ddd;
+}
+
+.checkout-layout-container .ch2-gvjnv {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  section {
+    padding: 1rem;
+    border: 1px solid #ddd;
+  }
 }
 
 .checkout-layout-container h3 {
@@ -27,6 +40,8 @@
 .ch-mapview {
   display: flex;
   justify-content: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
 }
 
 .resrundown-container section {
@@ -52,10 +67,14 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin: 1rem;
     .res-detail-container {
       margin: 0 0;
     }
+  }
+  .checkout-layout-container .ch2-gvjnv {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 }
 

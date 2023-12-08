@@ -15,15 +15,7 @@ const MyActivity = () => {
     isUninitialized,
   } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
 
-  if (isLoading || isUninitialized) {
-    return (
-      <div className="s-loading-container">
-        <SearchLoading />
-      </div>
-    );
-  }
-
-  if (isSuccess) {
+  if (isSuccess || isLoading || isUninitialized) {
     return (
       <div className="myactivity-container">
         <header>
@@ -34,13 +26,21 @@ const MyActivity = () => {
           </div>
           <h2>Most Recent bookings paid for</h2>
         </header>
+        {isLoading && isUninitialized && (
+          <div className="s-loading-container">
+            <SearchLoading />
+          </div>
+        )}
+
         {activity?.length > 0 ? (
           <div className="mi-payment-list">
             {activity.map((item, idx) => {
+              console.log(item);
               return (
                 <div key={idx} className="mi-payment-list-item">
                   <i>{idx + 1}</i>
                   <p className="payment-label">Pmt Id: {item.pmt_id}</p>
+
                   <p>Card Expires: {item.expiry}</p>
                   <p>Booking Id: {item.pmt_booking_id}</p>
                   <p>
@@ -57,14 +57,11 @@ const MyActivity = () => {
         )}
       </div>
     );
-  }
-
-  if (error) {
+  } else if (error) {
     return <div>Api Down</div>;
   }
 };
 
 
 export default MyActivity;
-
 

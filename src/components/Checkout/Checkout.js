@@ -69,10 +69,10 @@ const Checkout = () => {
       <div>
         <h1 className="checkout-title">Checkout</h1>
         <div className="checkout-layout-container">
-          <section>
+          <section className="ch1-gvjnv">
             <User userData={userData} />
           </section>
-          <section>
+          <section className="ch2-gvjnv">
             <Reservation resData={resData} />
             <SmallSummary checkoutData={checkoutData} />
 

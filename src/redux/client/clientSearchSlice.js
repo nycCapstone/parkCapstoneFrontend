@@ -7,7 +7,7 @@ const clientSearchSlice = createSlice({
   initialState,
   reducers: {
     searchBookings: (state, action) => {
-      state.go = true;
+      state.go = action.payload;
     },
     resetBookings: (state, action) => {
       state.go = false;
@@ -16,7 +16,7 @@ const clientSearchSlice = createSlice({
 });
 
 export const getCLSearchStatus = (state) => {
-  return state?.client.go === true;
+  return state.client?.go?.length;
 };
 
 export const { searchBookings, resetBookings } = clientSearchSlice.actions;

@@ -63,11 +63,18 @@
     grid-template-columns: 1fr;
     padding: 1rem;
     .r-sp-info {
-      width: 18rem;
+      width: 23rem;
       margin-bottom: 1rem;
     }
     .property-space-submit {
       grid-row: 9/10;
+    }
+  }
+}
+@media screen and (max-width: 410px) {
+  .property-space {
+    .r-sp-info {
+      width: 19rem;
     }
   }
 }

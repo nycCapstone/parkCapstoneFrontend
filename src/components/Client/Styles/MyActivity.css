@@ -27,16 +27,16 @@
   padding-left: 2rem;
   margin: 0 auto;
   width: 70%;
- }
+}
 
- .payment-label {
+.payment-label {
   justify-self: middle;
   padding: 8px;
   color: rgb(233, 100, 121);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.7px
- }
+  letter-spacing: 0.7px;
+}
 
 @media (max-width: 881px) {
   .mi-payment-list {
@@ -48,18 +48,4 @@
     padding: none;
     padding-left: 2rem;
   }
-
 }
-
-@media (max-width: 768px) {
-  .payment-list-item {
-    width: calc(80% - 1rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .payment-list-item {
-    width: 100%;
-  }
-}
-

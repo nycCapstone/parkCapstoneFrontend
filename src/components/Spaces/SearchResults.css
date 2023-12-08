@@ -292,7 +292,11 @@ th.search_results_table_head {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     text-align: left;
-    margin: 5px 0px;
+    margin: 5px;
+  }
+
+  .spot-info p {
+    margin-top: 0;
   }
 
   .search_results_address {

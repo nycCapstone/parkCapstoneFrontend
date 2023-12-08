@@ -61,6 +61,10 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.time_icon {
+  margin-top: 5px;
+}
+
 .icon-style {
   padding-top: 3px;
 }
@@ -82,10 +86,6 @@
   background-color: #140e0e; /* Set your desired background color */
 }
 
-.cl-h-svgleft {
-  margin-right: 10px; /* Adjust the margin as needed */
-}
-
 .cl-views-header h1 {
   margin: 0;
 }
@@ -93,18 +93,39 @@
 .clview-navbar {
   background-color: #ffa7a7;
   color: white;
-  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.clview-navbar h2 {
+  margin: 0 0;
 }
 
 .clview-nav-item {
-  margin-right: 4rem;
-  margin-left: 4rem;
+  margin: 0 2rem;
   text-align: center;
 }
 
 .clview-nav-item:hover {
   background-color: lightgrey;
+}
+
+@media (max-width: 1000px) {
+  .client-search-space {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .client-search-space {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .clview-navbar h2 {
+    display: none;
+  }
 }
