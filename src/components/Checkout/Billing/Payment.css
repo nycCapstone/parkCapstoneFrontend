@@ -14,6 +14,7 @@
       .creditCardIcon {
         font-size: 17px;
         margin-left: 6px;
+        margin-top: 6px;
       }
     }
     .month-year-error {
@@ -25,15 +26,14 @@
       background-color: white;
     }
     .billing-header {
-      font-weight: bold;
-      font-size: 1.5rem;
+      font-size: large;
       margin-bottom: 1.5rem;
     }
-
     .card-select-month-year {
       display: flex;
       gap: 2rem;
       padding: 7px;
+      margin-bottom: 1rem;
     }
     .select-block {
       border: 1.5px solid #ddd;
@@ -51,6 +51,9 @@
     flex-direction: column;
     border-radius: 8px;
     gap: 1rem;
+    .summary {
+      font-size: large;
+    }
     .firstPayment,
     .secondPayment {
       display: flex;
@@ -89,18 +92,20 @@
     }
   }
 }
-
-p.pymt-details-summary {
-  font-size: 1.4rem;
-}
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .payment-container {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    .purchase-details {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    .payment-form {
+      grid-row: 2;
+      .credit-info {
+        display: grid;
+        grid-template-columns: 0.2fr 4fr;
+        .creditCardIcon {
+          font-size: 17px;
+          margin-top: 10px;
+        }
+      }
     }
   }
 
