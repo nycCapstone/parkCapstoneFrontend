@@ -149,7 +149,7 @@ const Payment = () => {
               className="login-input"
               id="nameOnCard"
               type="text"
-              placeholder="eg: John Doe"
+              placeholder="John Doe"
               value={nameOnCard}
               onChange={handleNameChange}
               onBlur={formik.handleBlur}
@@ -157,7 +157,7 @@ const Payment = () => {
           </div>
 
           {formik.touched.nameOnCard && formik.errors.nameOnCard ? (
-            <p className="error-payment-msg">*{formik.errors.nameOnCard}</p>
+            <p className="error-payment-msg">{formik.errors.nameOnCard}</p>
           ) : null}
 
           <div className="input-block">
@@ -173,16 +173,15 @@ const Payment = () => {
                 onChange={handleCardNumberChange}
                 onBlur={formik.handleBlur}
               />
-              {formik.touched.cardNumber && formik.errors.cardNumber ? (
-                <p className="error-payment-msg">*{formik.errors.cardNumber}</p>
-              ) : null}
             </div>
           </div>
+          {formik.touched.cardNumber && formik.errors.cardNumber ? (
+            <p className="error-payment-msg">*{formik.errors.cardNumber}</p>
+          ) : null}
 
           <div className="input-block">
             <label className="input-label">Expiration Date</label>
             <div className="card-select-month-year">
-              <br />
               <select
                 className="select-block"
                 id="expiryMonth"
@@ -190,8 +189,8 @@ const Payment = () => {
                 onBlur={formik.handleBlur}
                 value={expiryMonth}
               >
-                <option value="null">Month</option>
-                <option value="1">01</option>
+                <option value="">Month</option>
+                <option value="2">01</option>
                 <option value="2">02</option>
                 <option value="3">03</option>
                 <option value="4">04</option>
@@ -211,7 +210,7 @@ const Payment = () => {
                 onBlur={formik.handleBlur}
                 value={expiryYear}
               >
-                <option value="null">Year</option>
+                <option value="">Year</option>
                 <option value="23">23</option>
                 <option value="24">24</option>
                 <option value="25">25</option>
@@ -234,13 +233,20 @@ const Payment = () => {
                 <option value="42">42</option>
                 <option value="43">43</option>
               </select>
-              {(formik.touched.expiryYear && formik.errors.expiryYear) ||
-              (formik.touched.expiryMonth && formik.errors.expiryMonth) ? (
-                <p className="error-payment-msg">*{"Required"}</p>
+            </div>
+          </div>
+          <div className="month-year-error">
+            <div>
+              {formik.touched.expiryYear && formik.errors.expiryYear ? (
+                <p className="error-payment-msg">{formik.errors.expiryYear}</p>
+              ) : null}
+            </div>
+            <div>
+              {formik.touched.expiryMonth && formik.errors.expiryMonth ? (
+                <p className="error-payment-msg">{formik.errors.expiryMonth}</p>
               ) : null}
             </div>
           </div>
-          <br />
 
           <div className="input-block">
             <label className="input-label">CVV (security code)</label>
@@ -253,10 +259,10 @@ const Payment = () => {
               onChange={handleCvvChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.cvv && formik.errors.cvv ? (
-              <p className="error-payment-msg ">{formik.errors.cvv}</p>
-            ) : null}
           </div>
+          {formik.touched.cvv && formik.errors.cvv ? (
+            <p className="error-payment-msg ">{formik.errors.cvv}</p>
+          ) : null}
 
           <button className="payment-button" type="submit">
             Pay ${Number(resInfo.selected_space.final_price) + 5}
