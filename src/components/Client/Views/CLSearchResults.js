@@ -194,17 +194,7 @@ const CLSearchResults = () => {
                   <div>
                     {item.picture && <img alt="propimage" src={item.picture} />}
                   </div>
-                  <Link
-                    className="button-square button-primary"
-                    to={`/checkout/${item.property_id.substring(
-                      0,
-                      13
-                    )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                      searchArr[searchArr.length - 1][3]
-                    }`}
-                  >
-                    Book Now
-                  </Link>
+
                   <div className="cl-st-continer">
                     <table className="table">
                       <thead>
@@ -220,6 +210,29 @@ const CLSearchResults = () => {
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+                  <div className="button-container">
+                    <Link
+                      to={`/parking-spots/${item.space_id}?starts=${
+                        searchArr[searchArr.length - 1]?.[2]
+                      }&ends=${searchArr[searchArr.length - 1]?.[3]}`}
+                    >
+                      <button className="show-me-button">View Details</button>
+                    </Link>
+
+                    <div style={{ margin: "0 10px" }}></div>
+
+                    <Link
+                      className="button-square button-primary"
+                      to={`/checkout/${item.property_id.substring(
+                        0,
+                        13
+                      )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                        searchArr[searchArr.length - 1][3]
+                      }`}
+                    >
+                      Book Now
+                    </Link>
                   </div>
                 </div>
               );

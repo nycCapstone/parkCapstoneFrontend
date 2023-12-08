@@ -23,6 +23,7 @@ import RenterLanding from "./components/Renter/RenterLanding";
 import RenterActivity from "./components/Renter/Components/RenterActivity";
 import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
+import SpotDetails from "./components/Client/SpotDetails";
 import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
@@ -53,6 +54,7 @@ function App() {
                   path="/parking-spots/:id"
                   element={<ParkingSpotDetailsPage />}
                 />
+                <Route path="/spot-details/:id" element={<SpotDetails />} />
 
                 <Route path="/checkout/:property_id" element={<Checkout />} />
                 <Route path="/payment/:booking_id" element={<Payment />} />
