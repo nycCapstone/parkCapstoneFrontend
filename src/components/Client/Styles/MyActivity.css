@@ -22,11 +22,21 @@
 
 .mi-payment-list-item {
   border: 1px solid #ddd;
+  background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
   width: 70%;
-}
+ }
+
+ .payment-label {
+  justify-self: middle;
+  padding: 8px;
+  color: rgb(233, 100, 121);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px
+ }
 
 @media (max-width: 881px) {
   .mi-payment-list {
@@ -38,6 +48,7 @@
     padding: none;
     padding-left: 2rem;
   }
+
 }
 
 @media (max-width: 768px) {
@@ -51,3 +62,4 @@
     width: 100%;
   }
 }
+

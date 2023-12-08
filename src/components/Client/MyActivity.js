@@ -4,7 +4,9 @@ import { FaChevronCircleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Styles/MyActivity.css";
 
+
 const MyActivity = () => {
+
   const {
     data: activity,
     isSuccess,
@@ -38,7 +40,7 @@ const MyActivity = () => {
               return (
                 <div key={idx} className="mi-payment-list-item">
                   <i>{idx + 1}</i>
-                  <p>Pmt Id: {item.pmt_id}</p>
+                  <p className="payment-label">Pmt Id: {item.pmt_id}</p>
                   <p>Card Expires: {item.expiry}</p>
                   <p>Booking Id: {item.pmt_booking_id}</p>
                   <p>
@@ -62,4 +64,7 @@ const MyActivity = () => {
   }
 };
 
+
 export default MyActivity;
+
+
