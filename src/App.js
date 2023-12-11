@@ -54,11 +54,10 @@ function App() {
                   path="/parking-spots/:id"
                   element={<ParkingSpotDetailsPage />}
                 />
-                <Route path="/spot-details/:id" element={<SpotDetails />} />
-
                 <Route path="/checkout/:property_id" element={<Checkout />} />
                 <Route path="/payment/:booking_id" element={<Payment />} />
               </Route>
+              <Route path="/spot-details/:id" element={<SpotDetails />} />
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
               >
