@@ -57,7 +57,6 @@ function ParkingSpotDetailPage() {
     const spotDetails = responseData[0];
     const lat = spotDetails.latitude;
     const lng = spotDetails.longitude;
-    console.log(spotDetails)
     return (
       <div className="parking-spot-details-page">
         <Link className="go-back-link" onClick={() => navigate(-1)}>
