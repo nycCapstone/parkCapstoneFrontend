@@ -57,7 +57,7 @@ const SearchForm = () => {
     const ms = 1000 * 60 * minutes;
   
     //replace Math.round with Math.ceil to always round UP
-    return new Date(Math.round(date.getTime() / ms) * ms);
+    return new Date(Math.ceil(date.getTime() / ms) * ms);
   }
 
   function handleCheckIn (date) {
@@ -145,7 +145,7 @@ const SearchForm = () => {
       searchRef.current.focus();
       return;
     }
-    if (checkOutDate && timeQuery) {
+    if (checkOutDate) {
       const selectedDateTime = new Date(checkInDate);
       if (
         new Date(checkOutDate) <= selectedDateTime ||
@@ -179,8 +179,11 @@ const SearchForm = () => {
             zipCode: formattedAddress.zipCode,
             lat: locationdata.lat,
             lng: locationdata.lng,
+            checkIn: checkInDate,
+            checkOut: checkOutDate
           },
         };
+        
         if (res.data?.length > 0) {
           dispatch(setSearchResults(searchStore));
           dispatch(searchResultsSuccess(searchStore));
@@ -188,7 +191,7 @@ const SearchForm = () => {
         if (res.data?.length === 0) {
           dispatch(searchResultsError("no results found"));
         }
-        navigate("/search-result", { state: searchStore.location });
+        navigate("/search-result", { state: searchStore.location});
       })
       .catch((e) => {
         console.error(e);
