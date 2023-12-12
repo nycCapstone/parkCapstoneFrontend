@@ -23,6 +23,10 @@ function SpotDetails() {
     isUninitialized,
   } = useGetOneSpotQuery(id, { skip: !accessToken });
 
+  useEffect(() => {
+    console.log("SpotDetails component mounted");
+  }, []);
+
   const [errorMessage, setErrorMessage] = useState(null);
 
   const openGoogleMaps = () => {

@@ -50,6 +50,7 @@ function App() {
             <Route element={<PersistLogin />}>
               <Route element={<MadeSearch />}>
                 <Route path="/search-result" element={<SearchResults />} />
+
                 <Route
                   path="/parking-spots/:id"
                   element={<ParkingSpotDetailsPage />}
