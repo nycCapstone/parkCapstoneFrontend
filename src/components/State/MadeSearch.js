@@ -6,7 +6,7 @@ const MadeSearch = () => {
   const CLsearchState = useSelector((state) => state.client.go?.length);
   const location = useLocation();
 
-  if (searchState.data?.results?.length > 0 || CLsearchState) {
+  if (typeof searchState?.location?.lat === "number" || CLsearchState) {
     return <Outlet />;
   } else {
     return <Navigate to="/go" state={{ from: location }} replace />;
@@ -14,4 +14,3 @@ const MadeSearch = () => {
 };
 
 export default MadeSearch;
-

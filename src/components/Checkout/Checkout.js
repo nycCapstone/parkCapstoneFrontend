@@ -12,7 +12,6 @@ import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
-import PSMapViewSuccess from "../Location/PSMapViewSuccess";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import "./Styles/CheckoutLayout.css";
 
@@ -34,8 +33,8 @@ const Checkout = () => {
     refetch,
   } = useGetByPidAndTimeQuery([
     property_id,
-    query?.[query.length - 1]?.[2],
-    query?.[query.length - 1]?.[3],
+    query[query.length - 1][2],
+    query[query.length - 1][3],
   ]);
 
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const Checkout = () => {
         }),
       );
     } else if (checkoutData?.length === 0) {
-      setInfoPrompt(query?.[query.length - 1]?.[3]);
+      setInfoPrompt(query[query.length - 1][3]);
       dispatch(searchLandingMutate());
     }
   }, [checkoutData]);
@@ -76,7 +75,7 @@ const Checkout = () => {
             <Reservation resData={resData} />
             <SmallSummary checkoutData={checkoutData} />
 
-            <section>
+            <section style={{ display: infoPrompt ? "block" : "none" }}>
               <EmptyResult infoPrompt={infoPrompt} />
             </section>
           </section>

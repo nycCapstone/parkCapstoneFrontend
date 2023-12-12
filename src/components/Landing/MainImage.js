@@ -10,7 +10,7 @@ const MainImage = () => {
   const isError = useSelector((state) => state.searchResults.error);
   return (
     <div className="main-image-container">
-      <img className="main-image" src={smilingadult} alt="smilingadult" />
+      <img className="main-image" src={smilingadult} alt="carvaletsplash" />
       <div className="overlay">
         <div className="fw-bold">Your Space. Their Convenience.</div>
 

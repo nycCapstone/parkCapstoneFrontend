@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
@@ -10,8 +9,7 @@ import "./Details.css";
 
 function ParkingSpotDetailPage() {
   const { id } = useParams();
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const query = useSelector((state) => state.landing);
   const navigate = useNavigate();
 
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -25,9 +23,9 @@ function ParkingSpotDetailPage() {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const starts = params.get("starts");
-  const ends = params.get("ends");
-
+  const ends =
+    query[query?.length - 1]?.length > 2 ? query[query.length - 1][3] : false;
+  const starts = ends ? query[query.length - 1][2] : false;
   const isTimePicked = ends;
 
   const handleBookNow = () => {
@@ -38,7 +36,10 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
+      `/checkout/${property_id.substring(
+        0,
+        13,
+      )}/?starts=${starts}&ends=${ends}`,
     );
   };
 
@@ -46,7 +47,7 @@ function ParkingSpotDetailPage() {
     const lat = responseData[0].latitude;
     const lng = responseData[0].longitude;
     window.open(
-      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
     );
   };
 
@@ -89,7 +90,6 @@ function ParkingSpotDetailPage() {
           </div>
           {spotDetails.renter_id && (
             <div>
-              {/* <h3>Renter Information</h3> */}
               <div className="details">
                 <p className="detail-label">Spot Owner Name:</p>
                 <p className="detail-value">

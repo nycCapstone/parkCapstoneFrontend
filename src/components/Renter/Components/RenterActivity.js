@@ -3,6 +3,8 @@ import { useGetActiveByOwnerIdQuery } from "../../../redux/renter/renterApiSlice
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import UpdateActivity from "./UpdateActivity";
 import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import { FaChevronCircleLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "../Styles/RenterActivity.css";
 //Show list of active bookings where the end time is coming up very soon.
 // TODO style list
@@ -35,7 +37,14 @@ const RenterActivity = () => {
       <div className="renter-act-container">
         <strong className="status-clients">The status of your clients</strong>
         {!activeSpaces.length && (
-          <p className="renter-no-activity">No Activity at this time</p>
+          <>
+            <div className="cl-h-svgleft">
+              <Link to="/renter">
+                <FaChevronCircleLeft />
+              </Link>
+            </div>
+            <p className="renter-no-activity">No Activity at this time</p>
+          </>
         )}
         {activeSpaces.length > 0 && (
           <div className="renter-uplist-container">

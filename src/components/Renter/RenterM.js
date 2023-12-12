@@ -29,7 +29,11 @@ const RenterM = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="s-loading-container"><RenterLoading /></div>;
+    return (
+      <div className="s-loading-container">
+        <RenterLoading />
+      </div>
+    );
   }
 
   if (isSuccess) {
@@ -74,7 +78,6 @@ const RenterM = () => {
                             )}
                             <p>Number of Spaces: {item.number_spaces}</p>
                             <div className="lot-earn-info">
-                              <p>Statement</p>
                               <div className="lot-list">
                                 <div className="lot-earn-item">
                                   <p>Billing Type: {item.billing_type}</p>

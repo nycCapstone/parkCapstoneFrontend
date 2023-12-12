@@ -1,15 +1,20 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
 import { searchBookings } from "../../../redux/client/clientSearchSlice";
+import { setSearchResults } from "../../../redux/search/searchResultsSlice";
 import DatePicker from "react-datepicker";
-import { checkDates } from "../../../constants/helper/helper";
 import { FcCalendar } from "react-icons/fc";
 import { FcAlarmClock } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import {
+  checkOutLoad,
+  roundToNearest30,
+  filterPassedTime,
+  filterPassedTimeCheckOut,
+} from "../../../constants/helper/time";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Forms/Styles/SearchForm.css";
 
@@ -22,17 +27,9 @@ const ClientSearchForm = () => {
   const { data: userData, isLoading, error } = useGetUserInfoQuery();
   const [searchResult, setSearchResult] = useState("");
   const [locationdata, setGeoLocation] = useState({});
-  const location = useSelector((state) => state.searchResults.location) || {};
-  const [checkInDate, setCheckInDate] = useState(
-    location?.checkIn || new Date()
-  );
 
-  const currentDate = new Date();
-  currentDate.setHours(currentDate.getHours() + 3);
-  const [checkOutDate, setCheckOutDate] = useState(
-    location?.checkOut || currentDate
-  );
-
+  const [checkInDate, setCheckInDate] = useState(roundToNearest30());
+  const [checkOutDate, setCheckOutDate] = useState(checkOutLoad(checkInDate));
   const [err, setErr] = useState(false);
 
   const dispatch = useDispatch();
@@ -52,35 +49,16 @@ const ClientSearchForm = () => {
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
   }
-
-  function filterPassedTime(time) {
-    const currentDate = new Date();
-    const selectedDate = new Date(time);
-    return currentDate.getTime() < selectedDate.getTime();
+  function handleCheckIn(date) {
+    setCheckInDate(date);
+    let tempCheck = new Date(date);
+    tempCheck.setHours(date.getHours() + 3);
+    if (tempCheck.getTime() > checkOutDate.getTime()) {
+      setCheckOutDate(tempCheck);
+    }
   }
-
-  function filterPassedTimeCheckOut(time) {
-    const currentDate = checkInDate;
-    const selectedDate = new Date(time);
-    let tempCheck = new Date(currentDate);
-    tempCheck.setHours(tempCheck.getHours() + 3);
-
-    if (
-      tempCheck.getHours() === selectedDate.getHours() &&
-      selectedDate.getDate() === tempCheck.getDate()
-    ) {
-      return !(selectedDate.getMinutes() < currentDate.getMinutes());
-    } else if (
-      selectedDate.getDate() === currentDate.getDate() + 1 &&
-      (currentDate.getHours() + 3) % 24 >= 0 &&
-      (currentDate.getHours() + 3) % 24 <= 3
-    ) {
-      return !(selectedDate.getHours() < tempCheck.getHours());
-    } else
-      return (
-        selectedDate.getHours() >= currentDate.getHours() + 3 ||
-        !(currentDate.getDate() === selectedDate.getDate())
-      );
+  function handleCheckOut(date) {
+    setCheckOutDate(date);
   }
 
   function onPlaceChanged() {
@@ -106,10 +84,7 @@ const ClientSearchForm = () => {
       searchRef.current.focus();
       return;
     }
-    if (
-      new Date(checkOutDate) <= selectedDateTime ||
-      !checkDates(checkInDate, checkOutDate)
-    ) {
+    if (new Date(checkOutDate) <= selectedDateTime) {
       setErr(true);
       return;
     }
@@ -119,8 +94,17 @@ const ClientSearchForm = () => {
         locationdata?.lng || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
-      ])
+      ]),
     );
+    let searchStore = {
+      location: {
+        addr: locationdata.fA,
+        lat: locationdata.lat,
+        lng: locationdata.lng,
+      },
+    };
+
+    dispatch(setSearchResults(searchStore));
     dispatch(searchBookings(locationdata.fA));
     navigate("/client/search-result");
   };
@@ -156,7 +140,7 @@ const ClientSearchForm = () => {
                 selectsStart
                 showTimeSelect
                 selected={checkInDate}
-                onChange={(date) => setCheckInDate(date)}
+                onChange={(date) => handleCheckIn(date)}
                 minDate={new Date()}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
@@ -170,7 +154,7 @@ const ClientSearchForm = () => {
                   className="time-field"
                   selected={checkInDate}
                   onChange={(date) => {
-                    setCheckInDate(date);
+                    handleCheckIn(date);
                   }}
                   showTimeSelect
                   showTimeSelectOnly
@@ -194,10 +178,12 @@ const ClientSearchForm = () => {
                 showTimeSelect
                 selected={checkOutDate}
                 minDate={checkInDate}
-                onChange={(date) => setCheckOutDate(date)}
+                onChange={(date) => handleCheckOut(date)}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
-                filterTime={filterPassedTimeCheckOut}
+                filterTime={(date) =>
+                  filterPassedTimeCheckOut(date, checkInDate)
+                }
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
@@ -207,14 +193,16 @@ const ClientSearchForm = () => {
                   className="time-field"
                   selected={checkOutDate}
                   onChange={(date) => {
-                    setCheckOutDate(date);
+                    handleCheckOut(date);
                   }}
                   showTimeSelect
                   showTimeSelectOnly
                   timeIntervals={30}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
-                  filterTime={filterPassedTimeCheckOut}
+                  filterTime={(date) =>
+                    filterPassedTimeCheckOut(date, checkInDate)
+                  }
                 />
               }
               <FcAlarmClock size={25} className="icon-style" />

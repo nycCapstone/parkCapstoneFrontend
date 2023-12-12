@@ -30,7 +30,7 @@ const Earnings = () => {
       <>
         <a>
           {earningsData[0]?.sum ? (
-            <span>Your Earnings: ${earningsData[0].sum.toFixed(2)}</span>
+            <span>Your Earnings ${earningsData[0].sum.toFixed(2)}</span>
           ) : (
             <>No Earnings Yet</>
           )}
@@ -45,3 +45,4 @@ const Earnings = () => {
 };
 
 export default Earnings;
+

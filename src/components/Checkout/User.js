@@ -79,7 +79,7 @@ const User = ({ userData }) => {
               <li key={1}>
                 {userData.first_name} {userData.last_name}
               </li>
-              <li key={1}>{userData.email}</li>
+              <li key={2}>{userData.email}</li>
             </ul>
           </div>
         )}

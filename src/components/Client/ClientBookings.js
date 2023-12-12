@@ -26,7 +26,7 @@ const ClientBookings = () => {
         refetch();
       }
     }
-  }, [isSuccess, userData, bookings, refetch]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -85,7 +85,6 @@ const ClientBookings = () => {
                         refetch={refetch}
                       />
                     )}
-                    {console.log("Booking Space ID:", booking.booking_space_id)}
                   </div>
                   <Link
                     to={`/spot-details/${booking.booking_space_id}`}

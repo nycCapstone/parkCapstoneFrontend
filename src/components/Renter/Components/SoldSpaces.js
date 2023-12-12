@@ -1,7 +1,9 @@
 import { useGetSoldSpacesQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import { FaChevronCircleLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "../Styles/SoldSpaces.css";
 
 const SoldSpaces = () => {
@@ -30,11 +32,19 @@ const SoldSpaces = () => {
     return (
       <div className="sold-spaces-container">
         <header>
-        {soldSpaces?.length > 0 ? 
-        <h2>Your sold spaces</h2>
-        :
-        <h2>No sold spaces yet</h2>
-        }
+          {soldSpaces?.length > 0 ? (
+            <h2>Your sold spaces</h2>
+          ) : (
+            <>
+              <div className="cl-h-svgleft">
+                <Link to="/renter">
+                  <FaChevronCircleLeft />
+                </Link>
+              </div>
+
+              <h2>No sold spaces yet</h2>
+            </>
+          )}
         </header>
         {soldSpaces.length > 0 && (
           <div className="sold-spaces-list">

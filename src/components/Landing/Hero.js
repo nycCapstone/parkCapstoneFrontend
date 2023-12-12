@@ -15,7 +15,7 @@ function Hero() {
         </h1>
         <SearchForm />
         {isLoading && <Loading />}
-        {isError && <div className="capsule fail">{isError}</div>}
+        {isError && <div className="capsule">{isError}</div>}
       </div>
     </div>
   );

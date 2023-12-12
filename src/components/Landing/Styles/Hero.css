@@ -82,6 +82,14 @@
   border-color: #fff;
 }
 
+.capsule {
+  display: inline-block;
+  padding: 0 24px;
+  text-align: center;
+  line-height: 3rem;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .hero__content h2 {
     max-width: 80%;
@@ -96,3 +104,4 @@
     font-size: 2rem;
   }
 }
+

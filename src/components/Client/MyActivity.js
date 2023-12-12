@@ -24,16 +24,14 @@ const MyActivity = () => {
           </div>
           <h2>Most Recent bookings paid for</h2>
         </header>
-        {isLoading && isUninitialized && (
+        {(isLoading || isUninitialized) && (
           <div className="s-loading-container">
             <SearchLoading />
           </div>
         )}
-
-        {activity?.length > 0 ? (
+        {activity?.length > 0 && (
           <div className="mi-payment-list">
             {activity.map((item, idx) => {
-              console.log(item);
               return (
                 <div key={idx} className="mi-payment-list-item">
                   <i>{idx + 1}</i>
@@ -48,7 +46,8 @@ const MyActivity = () => {
               );
             })}
           </div>
-        ) : (
+        )}{" "}
+        {!activity?.length && (
           <div className="no-activity">
             You currently do not have any transactions yet!
           </div>
