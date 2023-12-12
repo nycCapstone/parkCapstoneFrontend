@@ -57,7 +57,6 @@ function ParkingSpotDetailPage() {
     const spotDetails = responseData[0];
     const lat = spotDetails.latitude;
     const lng = spotDetails.longitude;
-
     return (
       <div className="parking-spot-details-page">
         <Link className="go-back-link" onClick={() => navigate(-1)}>
@@ -76,6 +75,10 @@ function ParkingSpotDetailPage() {
           <div className="details">
             <p className="detail-label">Billing Type:</p>
             <p className="detail-value">{spotDetails.billing_type}/daily</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Price:</p>
+            <p className="detail-value">${spotDetails.price}</p>
           </div>
           <div className="details">
             <p className="detail-label">Owner ID:</p>

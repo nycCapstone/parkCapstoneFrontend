@@ -1,6 +1,7 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
 import { searchBookings } from "../../../redux/client/clientSearchSlice";
@@ -21,8 +22,9 @@ const ClientSearchForm = () => {
   const { data: userData, isLoading, error } = useGetUserInfoQuery();
   const [searchResult, setSearchResult] = useState("");
   const [locationdata, setGeoLocation] = useState({});
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(checkInDate);
+  const location = useSelector((state) => state.searchResults.location)
+  const [checkInDate, setCheckInDate] = useState(location.checkIn);
+  const [checkOutDate, setCheckOutDate] = useState(location.checkOut);
   const [err, setErr] = useState(false);
 
   const dispatch = useDispatch();
@@ -43,6 +45,24 @@ const ClientSearchForm = () => {
     setSearchResult(autocomplete);
   }
 
+  function filterPassedTime(time) {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+    return currentDate.getTime() < selectedDate.getTime();
+  }
+  function filterPassedTimeCheckOut(time) {
+    const currentDate = checkInDate;
+    const selectedDate = new Date(time);
+    let tempCheck = new Date(currentDate)
+    tempCheck.setHours(tempCheck.getHours()+3)
+
+    if (tempCheck.getHours()==selectedDate.getHours() && selectedDate.getDate() === tempCheck.getDate()){
+      return (!(selectedDate.getMinutes() < currentDate.getMinutes()))
+    }else if (selectedDate.getDate() === currentDate.getDate()+1 && (((currentDate.getHours()+3)%24 >= 0) && ((currentDate.getHours()+3)%24 <= 3))){
+      return (!(selectedDate.getHours() < tempCheck.getHours())) 
+    } else 
+    return ((selectedDate.getHours()>= currentDate.getHours()+3) || !(currentDate.getDate() === selectedDate.getDate()));
+  }
   function onPlaceChanged() {
     if (searchResult != null) {
       const place = searchResult.getPlace();
@@ -110,20 +130,32 @@ const ClientSearchForm = () => {
           <div className="client-search-checkIn">
             <p className="table-header">Check-In</p>
             <div className="date_icon">
-              <DatePicker
+            <DatePicker
                 className="date-field"
-                showTimeSelect
                 selectsStart
+                showTimeSelect
                 selected={checkInDate}
                 onChange={(date) => setCheckInDate(date)}
                 minDate={new Date()}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
+                filterTime={filterPassedTime}
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
             <div className="cl_time_icon">
-              <p className="time-field"> {checkInDate.toLocaleTimeString()}</p>
+            {<DatePicker
+              className="time-field"
+              selected={checkInDate}
+              onChange={(date) => { 
+                setCheckInDate(date)}}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              timeCaption="Time"
+              dateFormat="h:mm aa"
+              filterTime={filterPassedTime}
+            />}
               <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
@@ -132,20 +164,32 @@ const ClientSearchForm = () => {
             <p className="table-header">Check-Out</p>
 
             <div className="date_icon">
-              <DatePicker
+             <DatePicker
                 className="date-field"
                 selectsEnd
+                showTimeSelect
                 selected={checkOutDate}
                 minDate={checkInDate}
                 onChange={(date) => setCheckOutDate(date)}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
-                showTimeSelect
+                filterTime={filterPassedTimeCheckOut}
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
             <div className="cl_time_icon">
-              <p className="time-field"> {checkOutDate.toLocaleTimeString()}</p>
+              {<DatePicker
+              className="time-field"
+              selected={checkOutDate}
+              onChange={(date) => { 
+                setCheckOutDate(date)}}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              timeCaption="Time"
+              dateFormat="h:mm aa"
+              filterTime={filterPassedTimeCheckOut}
+            />}
               <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
