@@ -51,7 +51,6 @@ function SpotDetails() {
         </Link>
 
         <div className="details-container">
-          {/* Details Information */}
           <div className="title">
             <h1>{spotDetails.prop_address.slice(0, -5)}</h1>
           </div>
@@ -75,7 +74,6 @@ function SpotDetails() {
           </div>
           {spotDetails.renter_id && (
             <div>
-              {/* <h3>Renter Information</h3> */}
               <div className="details">
                 <p className="detail-label">Spot Owner Name:</p>
                 <p className="detail-value">
@@ -117,7 +115,6 @@ function SpotDetails() {
   }
 
   if (error || isUninitialized) {
-    // Handle error or uninitialized state
   }
 }
 
