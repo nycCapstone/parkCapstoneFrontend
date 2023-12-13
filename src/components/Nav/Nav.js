@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
 import { useState } from "react";
 import NavInfo from "./NavInfo";
 import { logo_final } from "../../assets";
@@ -13,6 +14,8 @@ function Nav() {
   const [showMenu, setShowMenu] = useState(false);
 
   const logout = useLogout();
+
+  const searchStatus = useSelector(getLanSearchStatus);
 
   const signOut = async () => {
     await logout();
@@ -41,7 +44,10 @@ function Nav() {
             <Link className="about" to="/about">
               About Us
             </Link>
-            <Link className="log-in" to="/login">
+            <Link
+              className="log-in"
+              to={searchStatus ? "/login" : "/login/true"}
+            >
               Login
             </Link>
             <Link className="sign-up" to="/register">
