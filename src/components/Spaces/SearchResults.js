@@ -15,6 +15,7 @@ const SearchResults = () => {
   const searchLocation = useSelector((state) => state.searchResults.location);
   const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
+  const role = useSelector((state) => state.auth?.accessToken);
   const dispatch = useDispatch();
   const {
     data: landingSearchResults,
@@ -226,9 +227,13 @@ const SearchResults = () => {
                         <img alt="propimage" src={item.picture} />
                       )}
                       <Link
-                        to={`/parking-spots/${item.space_id}?starts=${
-                          searchArr[searchArr.length - 1]?.[2]
-                        }&ends=${searchArr[searchArr.length - 1]?.[3]}`}
+                        to={
+                          role
+                            ? `/parking-spots/${item.space_id}?starts=${
+                                searchArr[searchArr.length - 1]?.[2]
+                              }&ends=${searchArr[searchArr.length - 1]?.[3]}`
+                            : "/login/true"
+                        }
                       >
                         <button className="show-me-button">View Details</button>
                       </Link>
