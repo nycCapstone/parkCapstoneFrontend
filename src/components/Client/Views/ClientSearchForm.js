@@ -22,9 +22,17 @@ const ClientSearchForm = () => {
   const { data: userData, isLoading, error } = useGetUserInfoQuery();
   const [searchResult, setSearchResult] = useState("");
   const [locationdata, setGeoLocation] = useState({});
-  const location = useSelector((state) => state.searchResults.location)
-  const [checkInDate, setCheckInDate] = useState(location.checkIn);
-  const [checkOutDate, setCheckOutDate] = useState(location.checkOut);
+  const location = useSelector((state) => state.searchResults.location) || {};
+  const [checkInDate, setCheckInDate] = useState(
+    location?.checkIn || new Date()
+  );
+
+  const currentDate = new Date();
+  currentDate.setHours(currentDate.getHours() + 3);
+  const [checkOutDate, setCheckOutDate] = useState(
+    location?.checkOut || currentDate
+  );
+
   const [err, setErr] = useState(false);
 
   const dispatch = useDispatch();
@@ -50,19 +58,31 @@ const ClientSearchForm = () => {
     const selectedDate = new Date(time);
     return currentDate.getTime() < selectedDate.getTime();
   }
+
   function filterPassedTimeCheckOut(time) {
     const currentDate = checkInDate;
     const selectedDate = new Date(time);
-    let tempCheck = new Date(currentDate)
-    tempCheck.setHours(tempCheck.getHours()+3)
+    let tempCheck = new Date(currentDate);
+    tempCheck.setHours(tempCheck.getHours() + 3);
 
-    if (tempCheck.getHours()==selectedDate.getHours() && selectedDate.getDate() === tempCheck.getDate()){
-      return (!(selectedDate.getMinutes() < currentDate.getMinutes()))
-    }else if (selectedDate.getDate() === currentDate.getDate()+1 && (((currentDate.getHours()+3)%24 >= 0) && ((currentDate.getHours()+3)%24 <= 3))){
-      return (!(selectedDate.getHours() < tempCheck.getHours())) 
-    } else 
-    return ((selectedDate.getHours()>= currentDate.getHours()+3) || !(currentDate.getDate() === selectedDate.getDate()));
+    if (
+      tempCheck.getHours() === selectedDate.getHours() &&
+      selectedDate.getDate() === tempCheck.getDate()
+    ) {
+      return !(selectedDate.getMinutes() < currentDate.getMinutes());
+    } else if (
+      selectedDate.getDate() === currentDate.getDate() + 1 &&
+      (currentDate.getHours() + 3) % 24 >= 0 &&
+      (currentDate.getHours() + 3) % 24 <= 3
+    ) {
+      return !(selectedDate.getHours() < tempCheck.getHours());
+    } else
+      return (
+        selectedDate.getHours() >= currentDate.getHours() + 3 ||
+        !(currentDate.getDate() === selectedDate.getDate())
+      );
   }
+
   function onPlaceChanged() {
     if (searchResult != null) {
       const place = searchResult.getPlace();
@@ -99,11 +119,12 @@ const ClientSearchForm = () => {
         locationdata?.lng || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
-      ]),
+      ])
     );
     dispatch(searchBookings(locationdata.fA));
     navigate("/client/search-result");
   };
+
   return (
     <div className="client-page-search">
       <div className="client-s-header">
@@ -130,7 +151,7 @@ const ClientSearchForm = () => {
           <div className="client-search-checkIn">
             <p className="table-header">Check-In</p>
             <div className="date_icon">
-            <DatePicker
+              <DatePicker
                 className="date-field"
                 selectsStart
                 showTimeSelect
@@ -144,18 +165,21 @@ const ClientSearchForm = () => {
               <FcCalendar size={25} className="icon-style" />
             </div>
             <div className="cl_time_icon">
-            {<DatePicker
-              className="time-field"
-              selected={checkInDate}
-              onChange={(date) => { 
-                setCheckInDate(date)}}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-              filterTime={filterPassedTime}
-            />}
+              {
+                <DatePicker
+                  className="time-field"
+                  selected={checkInDate}
+                  onChange={(date) => {
+                    setCheckInDate(date);
+                  }}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={30}
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  filterTime={filterPassedTime}
+                />
+              }
               <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
@@ -164,7 +188,7 @@ const ClientSearchForm = () => {
             <p className="table-header">Check-Out</p>
 
             <div className="date_icon">
-             <DatePicker
+              <DatePicker
                 className="date-field"
                 selectsEnd
                 showTimeSelect
@@ -178,18 +202,21 @@ const ClientSearchForm = () => {
               <FcCalendar size={25} className="icon-style" />
             </div>
             <div className="cl_time_icon">
-              {<DatePicker
-              className="time-field"
-              selected={checkOutDate}
-              onChange={(date) => { 
-                setCheckOutDate(date)}}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-              filterTime={filterPassedTimeCheckOut}
-            />}
+              {
+                <DatePicker
+                  className="time-field"
+                  selected={checkOutDate}
+                  onChange={(date) => {
+                    setCheckOutDate(date);
+                  }}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={30}
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  filterTime={filterPassedTimeCheckOut}
+                />
+              }
               <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
