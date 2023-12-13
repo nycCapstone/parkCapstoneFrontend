@@ -30,7 +30,7 @@ function Landing() {
               <img
                 src={reservedforyou}
                 alt="Reserved for You"
-                className="marketing-image"
+                className="marketing-image1"
               />
               <div className="pic-text">
                 <h2>Your Parking Spot, Reserved Just for You</h2>
@@ -50,7 +50,7 @@ function Landing() {
               <img
                 src={happycarcouple}
                 alt="Happy Car Couple"
-                className="marketing-image"
+                className="marketing-image2"
               />
               <div className="pic-text">
                 <h2>Make extra money by renting your parking space</h2>

@@ -12,7 +12,7 @@
 }
 
 .app-description:nth-child(odd) {
-  background-color: #dcdcdc;
+background: linear-gradient(rgba(255,255,255,1) 0%, rgba(220,220,208,1) 4%, rgba(220,220,208,1) 96%, rgba(255,255,255,1) 100%);
 }
 
 .app-description:nth-child(odd) > .container {
@@ -81,19 +81,38 @@
   background-color: #ff5757;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   color: white;
+  animation: fade linear;
+  animation-fill-mode: forwards;
+  animation-timeline: view();
   cursor: pointer;
   &:hover {
     transform: scale(0.96);
   }
 }
 
-.marketing-image {
+.marketing-image1 .marketing-image2 {
   grid-area: image;
   border-radius: 2%;
   width: 75%;
+  margin: 0 auto;
+}
+.marketing-image1 {
+  animation: slideInRight 0.5s linear 0s 1;
+  animation-fill-mode: forwards;
+  animation-timeline: view();
+}
+.marketing-image2 {
+  animation: slideInLeft 0.5s linear 0s 1;
+  animation-timeline: view();
+}
+@media (prefers-reduced-motion: no-preference) {
+
 }
 
+
 .pic-text {
+  animation: fade linear forwards;
+  animation-timeline: view();
   grid-area: info;
 }
 
@@ -107,6 +126,30 @@
   width: 60%;
 }
 
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-300px);
+  }
+  40% {
+    transform: translateX(0)
+  }
+}
+@keyframes slideInRight {
+  0% {
+    transform: translateX(300px);
+  }
+  40% {
+    transform: translateX(0)
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}
 @media (max-width: 768px) {
   .app-description > .container,
   .app-description:nth-child(odd) > .container {
@@ -115,10 +158,6 @@
       "image"
       "info";
     text-align: center;
-  }
-
-  .marketing-image {
-    margin: 0 auto;
   }
 
   .landing-body section:first-child img {

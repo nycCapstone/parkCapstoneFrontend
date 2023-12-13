@@ -118,17 +118,20 @@
   margin: 2rem auto 0;
   width: 6rem;
   height: 2.5rem;
-  background: #ff5757;
-  color: white;
+  background: white;
+  color: #ff5757;
   font-size: 15px;
   text-transform: uppercase;
   border: 0;
   border-radius: 0.3rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  transition: transform 0.3s;
   cursor: pointer;
-  &:hover {
-    transform: scale(0.96);
-  }
+}
+.submit-button:hover {
+  transform: translateY(-5px);
+  background: #ff5757;
+  color: white;
 }
 
 .search-form .react-datepicker-wrapper,
