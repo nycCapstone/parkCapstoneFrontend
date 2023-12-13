@@ -76,6 +76,9 @@ const User = ({ userData }) => {
         {userData?.email && (
           <div className="ch-userinfo-list">
             <ul>
+              <li key={1}>
+                {userData.first_name} {userData.last_name}
+              </li>
               <li key={1}>{userData.email}</li>
             </ul>
           </div>

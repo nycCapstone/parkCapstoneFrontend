@@ -49,6 +49,14 @@
   background-color: #45a049;
 }
 
+.res-details-selected-vehicle {
+  padding-bottom: 1.3rem;
+}
+
+.res-details-final-price {
+  padding-bottom: 1.3rem;
+}
+
 .res-detail-container .conflict-message {
   color: #ff5733;
   margin-top: 10px;

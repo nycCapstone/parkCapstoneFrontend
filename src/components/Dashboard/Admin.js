@@ -5,8 +5,8 @@ import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 
 const Admin = () => {
-
-  const { data, isLoading, isError, isSuccess, error, refetch } = useGetUserInfoQuery();
+  const { data, isLoading, isError, isSuccess, error, refetch } =
+    useGetUserInfoQuery();
 
   const logout = useLogout();
 
@@ -26,24 +26,30 @@ const Admin = () => {
       </div>
     );
   }
-  
+
   if (isSuccess) {
     return (
       <div className="admin-all-container">
+        <h1 className="welcome-heading">
+          Welcome,{" "}
+          {data?.first_name && (
+            <span className="profile-welcome-first-name">
+              {data?.first_name[0].toUpperCase() +
+                data.first_name.slice(1).toLowerCase()}
+            </span>
+          )}
+        </h1>
         <AdminPage />
         <section className="home-container">
-          <h1 className="welcome-heading">Welcome Home</h1>
-          {data?.email && <p className="user-email">Email: {data?.email}</p>}
-
           <div className="link-container">
             <Link to="/client" className="nav-link">
               Go to the Client page
             </Link>
+            <Link to="/client/transactions" className="nav-link">
+              Go to My Transactions
+            </Link>
             <Link to="/renter" className="nav-link">
               Go to the Renter
-            </Link>
-            <Link to="/go" className="nav-link">
-              home page
             </Link>
           </div>
 
@@ -58,9 +64,8 @@ const Admin = () => {
   }
 
   if (error) {
-    return <div>Api Down</div>
+    return <div>Api Down</div>;
   }
-
 };
 
 export default Admin;

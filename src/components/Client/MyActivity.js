@@ -4,9 +4,7 @@ import { FaChevronCircleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Styles/MyActivity.css";
 
-
 const MyActivity = () => {
-
   const {
     data: activity,
     isSuccess,
@@ -51,7 +49,7 @@ const MyActivity = () => {
             })}
           </div>
         ) : (
-          <div className="no-activity" style={{ marginLeft: "2rem" }}>
+          <div className="no-activity">
             You currently do not have any transactions yet!
           </div>
         )}
@@ -62,6 +60,4 @@ const MyActivity = () => {
   }
 };
 
-
 export default MyActivity;
-

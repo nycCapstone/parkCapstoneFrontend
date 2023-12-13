@@ -38,6 +38,12 @@
   letter-spacing: 0.7px;
 }
 
+.no-activity {
+  text-align: center;
+  padding-top: 3rem;
+  font-size: 1.5rem;
+}
+
 @media (max-width: 881px) {
   .mi-payment-list {
     grid-template-columns: repeat(1, 1fr);

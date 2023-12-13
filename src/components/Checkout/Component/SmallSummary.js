@@ -8,10 +8,10 @@ const SmallSummary = ({ checkoutData }) => {
       {Summary[0]?.property_id ? (
         <>
           <div className="ss-card">
-            <p>{Summary[0].prop_address}</p>
+            <p>{Summary[0].prop_address.slice(0, -5)}</p>
             <p style={{ marginTop: "0.5rem" }}>
               Billing Type:{" "}
-              {Summary[0].billing_type === "fixed" ? "pay per day" : "hourly"}
+              {Summary[0].billing_type === "fixed" ? "Pay Per Day" : "Hourly"}
             </p>
           </div>
           {Summary[Summary.length - 1].picture && (
@@ -25,8 +25,8 @@ const SmallSummary = ({ checkoutData }) => {
           <div className="ss-card">
             Parking provided for:{" "}
             {Summary.some((item) => item.sp_type === "truck")
-              ? "large and small vehicles"
-              : "all commuters"}
+              ? "Large and Small Vehicles"
+              : "All Commuters"}
           </div>
         </>
       ) : (

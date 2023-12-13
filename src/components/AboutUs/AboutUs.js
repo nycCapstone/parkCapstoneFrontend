@@ -90,7 +90,7 @@ function AboutUs() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    zalman
+                    Zalman
                   </a>
                 </p>
                 <p>
