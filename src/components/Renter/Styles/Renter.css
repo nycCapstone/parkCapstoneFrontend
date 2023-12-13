@@ -54,9 +54,7 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition:
-        opacity 0.3s ease,
-        transform 0.2s ease;
+      transition: opacity 0.3s ease, transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
@@ -85,7 +83,7 @@
 }
 
 .ctr-nav-r-links .cl-h-svgleft svg {
-  color: purple;
+  color: rgb(143, 142, 143);
 }
 
 .earnings-total-container a {

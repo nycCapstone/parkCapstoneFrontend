@@ -112,7 +112,9 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
             <h3>Add to Cart</h3>
             <form onSubmit={handleSubmit}>
               <div>
-                <label>Select Vehicle Type:</label>
+                <label className="res-details-select-label">
+                  Select Vehicle Type:
+                </label>
                 <select
                   value={selectedType}
                   onChange={handleTypeChange}
@@ -139,11 +141,14 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
               </div>
 
               <div>
-                <p>
+                <p className="res-details-selected-vehicle">
                   Selected Vehicle:{" "}
-                  {selectedType.length ? selectedType : resData[0].sp_type}
+                  {selectedType.length
+                    ? selectedType
+                    : resData[0].sp_type[0].toUpperCase() +
+                      resData[0].sp_type.slice(1).toLowerCase()}
                 </p>
-                <p>
+                <p className="res-details-final-price">
                   Final Price: $
                   {resData.find((item) => item.sp_type === selectedType)
                     ?.final_price || resData[0].final_price}

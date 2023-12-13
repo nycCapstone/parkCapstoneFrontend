@@ -38,10 +38,7 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(
-        0,
-        13,
-      )}/?starts=${starts}&ends=${ends}`,
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
     );
   };
 
@@ -49,7 +46,7 @@ function ParkingSpotDetailPage() {
     const lat = responseData[0].latitude;
     const lng = responseData[0].longitude;
     window.open(
-      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
     );
   };
 
@@ -74,15 +71,15 @@ function ParkingSpotDetailPage() {
           </div>
           <div className="details">
             <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">{spotDetails.billing_type}/daily</p>
+            <p className="detail-value">
+              {spotDetails.billing_type[0].toUpperCase() +
+                spotDetails.billing_type.slice(1).toLowerCase()}{" "}
+              / Daily
+            </p>
           </div>
           <div className="details">
             <p className="detail-label">Price:</p>
             <p className="detail-value">${spotDetails.price}</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Owner ID:</p>
-            <p className="detail-value">{spotDetails.space_owner_id}</p>
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>

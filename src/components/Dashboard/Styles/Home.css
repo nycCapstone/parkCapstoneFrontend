@@ -30,7 +30,7 @@
 }
 
 .sign-out-button {
-  background-color: #ff5722;
+  background-color: #ff5757;
   color: white;
   border: none;
   border-radius: 5px;
@@ -39,6 +39,6 @@
 }
 
 .sign-out-button:hover {
-  background-color: #ff5722;
-  opacity: 0.8;
+  background-color: #c84a4a;
+  transform: scale(1.1);
 }

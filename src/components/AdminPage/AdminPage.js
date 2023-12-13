@@ -51,7 +51,7 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
-          <Link to="/client/transactions">My Transactions</Link>
+          {/* <Link to="/client/transactions">My Transactions</Link> */}
         </div>
       </div>
     );

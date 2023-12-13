@@ -42,7 +42,9 @@ const ClientBookings = () => {
   if (isSuccess) {
     return (
       <div className="bookings-container">
-        {!bookings.length && <div>No bookings made yet</div>}
+        {!bookings.length && (
+          <div className="no-bookings-message">No bookings made yet</div>
+        )}
         {bookings.length > 0 && (
           <>
             <header className="m-bookings-header">

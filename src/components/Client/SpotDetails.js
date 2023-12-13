@@ -60,11 +60,11 @@ function SpotDetails() {
           </div>
           <div className="details">
             <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">{spotDetails.billing_type}/daily</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Owner ID:</p>
-            <p className="detail-value">{spotDetails.space_owner_id}</p>
+            <p className="detail-value">
+              {spotDetails.billing_type[0].toUpperCase() +
+                spotDetails.billing_type.slice(1).toLowerCase()}{" "}
+              / Daily
+            </p>
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>
