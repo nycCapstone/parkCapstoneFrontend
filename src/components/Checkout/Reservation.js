@@ -16,21 +16,14 @@ const Reservation = ({ resData }) => {
   }, []);
 
   return (
-    <div className="reservation-container">
+    <div>
       {loading ? (
         <SearchLoading />
       ) : (
         <>
-          <div className="ch-numicon">
-            <i>2</i>
-          </div>
-          <h3>Reservation Summary</h3>
           {resData && (
             <>
-              <aside className="change-time-link">
-                <i onClick={() => setChTime(!chTime)}>Change Time</i>
-              </aside>
-              <div className="resrundown-container">
+              <div className="resrundown-container ss-info-container">
                 <section className="resrundown-times">
                   <p className="">Enter After:</p>
                   <p>{`${new Date(
@@ -47,12 +40,19 @@ const Reservation = ({ resData }) => {
                     searchObj.query[searchObj.query.length - 1][3]
                   ).toLocaleTimeString()}`}</p>
                 </section>
-                <section>
-                  <div className="r-summary-finalp">
-                    Economy Price: ${resData[0].final_price}
-                  </div>
-                </section>
+
+                <p className="r-summary-finalp">
+                  Economy Price: ${resData[0].final_price}
+                </p>
+
+                <button
+                  className="change-time-link"
+                  onClick={() => setChTime(!chTime)}
+                >
+                  {chTime ? "Close" : "Change Time"}
+                </button>
               </div>
+
               {chTime && <ChangeTime />}
             </>
           )}

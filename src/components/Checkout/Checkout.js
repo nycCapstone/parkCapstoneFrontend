@@ -48,7 +48,7 @@ const Checkout = () => {
           user_id: userData?.id || null,
           query: query,
           conflict: checkoutData[0]?.owner_id === userData?.id,
-        }),
+        })
       );
     } else if (checkoutData?.length === 0) {
       setInfoPrompt(query[query.length - 1][3]);
@@ -66,20 +66,16 @@ const Checkout = () => {
     }
     return (
       <div>
-        <h1 className="checkout-title">Checkout</h1>
         <div className="checkout-layout-container">
           <section className="ch1-gvjnv">
             <User userData={userData} />
           </section>
           <section className="ch2-gvjnv">
-            <Reservation resData={resData} />
-            <SmallSummary checkoutData={checkoutData} />
+            <div className="reservePlusSummary">
+              <SmallSummary checkoutData={checkoutData} />
+              <Reservation resData={resData} />
+            </div>
 
-            <section style={{ display: infoPrompt ? "block" : "none" }}>
-              <EmptyResult infoPrompt={infoPrompt} />
-            </section>
-          </section>
-          <section className="ch-mapview">
             <PSMapView
               lat={lat}
               lng={lng}
@@ -87,6 +83,9 @@ const Checkout = () => {
               containerElement={<div style={{ height: `100%` }} />}
               mapElement={<div style={{ height: `100%` }} />}
             />
+            <section>
+              <EmptyResult infoPrompt={infoPrompt} />
+            </section>
           </section>
 
           <section>

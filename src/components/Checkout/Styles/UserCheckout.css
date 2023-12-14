@@ -1,37 +1,70 @@
 .userinfo-card {
-  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ddd;
   padding: 15px;
   margin: 10px;
   border-radius: 8px;
+  width: 60%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .login-input {
+    background-color: white;
+  }
+  .account-info-header {
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+  .continue-guest {
+    margin-bottom: 1rem;
+  }
+  .user-active {
+    display: none;
+  }
+  .checkout-singIn {
+    font-size: 15px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+  .li-email {
+    margin-top: 1rem;
+  }
+  .registered-error-msg {
+    color: #f57575;
+    margin-top: 1rem;
+  }
+  .guest-button {
+    width: 9rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: rgb(233, 100, 121);
+    color: white;
+    cursor: pointer;
+    margin: 1rem 0rem;
+    &:hover {
+      transform: scale(0.96);
+    }
+  }
+  .ch-userinfo-list ul {
+    list-style: none;
+  }
 }
-
-.ch-numicon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid #708090;
-  border-radius: 50%;
-  background-color: rgb(233, 255, 229);
-}
-
-.ch-numicon i {
-  font-style: italic;
-  margin-right: 5px;
-}
-
-.userinfo-card li {
-  list-style: none;
-}
-
 .us-chk-navigate {
   margin-top: 10px;
   margin-left: 10px;
-}
-
-.reservation-container {
-  margin-bottom: 0.5rem;
+  .go-back-link {
+    width: 6rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: rgb(233, 100, 121);
+    color: white;
+    cursor: pointer;
+    margin: 1rem 0rem;
+    &:hover {
+      transform: scale(0.96);
+    }
+  }
 }

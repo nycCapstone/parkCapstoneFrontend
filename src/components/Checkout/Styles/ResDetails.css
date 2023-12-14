@@ -1,12 +1,28 @@
 .res-detail-container {
-  background-color: #f8f8f8;
+  width: 41%;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
   margin: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+.add-cart {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+.final-add-to-cart {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.select-vehicle {
+  border: 1px solid lightgray;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
 .res-detail-container form {
   display: flex;
   flex-direction: column;
@@ -16,18 +32,14 @@
   margin-bottom: 5px;
 }
 
-.res-detail-container select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
 .res-detail-container .checkout-options {
+  margin-top: 1rem;
   color: #ff5733;
   margin-bottom: 10px;
 }
 
 .res-detail-container .res-detail-btn-g {
+  margin-top: 2rem;
   background-color: #4caf50;
   color: #fff;
   padding: 10px;
@@ -37,6 +49,7 @@
 }
 
 .res-detail-container .res-detail-btn-n {
+  margin-top: 2rem;
   background-color: lightgray;
   color: #fff;
   padding: 10px;

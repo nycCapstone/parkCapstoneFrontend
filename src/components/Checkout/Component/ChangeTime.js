@@ -17,11 +17,10 @@ import "../Styles/ChangeTime.css";
 import "../../Forms/Styles/SearchForm.css";
 
 const ChangeTime = () => {
-  const query = useSelector((state) => state.landing);
-
   const [checkInDate, setCheckInDate] = useState(roundToNearest30());
   const [checkOutDate, setCheckOutDate] = useState(checkOutLoad());
   const [err, setErr] = useState(false);
+  const query = useSelector((state) => state.landing);
   const dispatch = useDispatch();
 
   function handleCheckIn(date) {
@@ -56,6 +55,7 @@ const ChangeTime = () => {
         checkOutDate && checkOutDate.toISOString(),
       ];
       dispatch(searchLandingBookings([query[0][0], query[0][1], ...params]));
+      alert("The changes will be visible after you close this!");
     }
   };
 
@@ -146,7 +146,7 @@ const ChangeTime = () => {
         </div>
 
         <button className="chtime-search-button" type="submit">
-          Submit new time
+          Submit
         </button>
         <div className="change-time-reset">
           <FaArrowAltCircleDown
