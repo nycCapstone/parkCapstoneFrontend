@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
-
+import "./Styles/AddressForm.css";
 const AddressForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
   const { isLoaded } = useLoadScript({
@@ -85,11 +85,17 @@ const AddressForm = () => {
     };
 
     return (
-      <div>
-        <h3>{formData.mode} confirmation</h3>
+      <section class="address-form-container">
+        <div class="address-form-header">
+        <h3>Confirm Your Address</h3>
+        </div>
+        <div class= "address-form-signup-address">
         <p>Sign up address: {dataString}</p>
-        <div>
-          Your formatted address, click to Confirm.{" "}
+        </div>
+        <div class = "address-form-confirm">
+         <p> Please confirm your address{" "} </p>
+        </div>
+        <div class ="address-form-formatted">
           <p
             onClick={() => submitAddr()}
             className="text-underline"
@@ -99,32 +105,25 @@ const AddressForm = () => {
               ? "type in an address with zipcode"
               : formattedAddress}
           </p>
+        
         </div>
+        
         {formIsLoading ? ( <SearchLoading />
         ) : (
           <>
+          <div class="address-form-input">
             <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
               <input
                 type="text"
                 placeholder={dataString}
-                style={{
-                  boxSizing: `border-box`,
-                  border: `1px solid transparent`,
-                  width: `240px`,
-                  height: `32px`,
-                  padding: `0 12px`,
-                  borderRadius: `3px`,
-                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                  fontSize: `14px`,
-                  outline: `none`,
-                  textOverflow: `ellipses`,
-                }}
+                class="address-form-input-box"
               />
             </Autocomplete>
-            <button onClick={submitAddr}>Submit Address</button>
+          </div>
+            <button class="address-form-submit"onClick={submitAddr}>Submit Address</button>
           </>
         )}
-      </div>
+      </section>
     );
   }
   if (error) {
