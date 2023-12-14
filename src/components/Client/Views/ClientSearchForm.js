@@ -94,7 +94,7 @@ const ClientSearchForm = () => {
         locationdata?.lng || "",
         checkInDate.toISOString(),
         checkOutDate.toISOString(),
-      ]),
+      ])
     );
     let searchStore = {
       location: {
