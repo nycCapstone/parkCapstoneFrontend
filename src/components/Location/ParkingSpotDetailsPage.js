@@ -36,19 +36,13 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(
-        0,
-        13,
-      )}/?starts=${starts}&ends=${ends}`,
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
     );
   };
 
   const openGoogleMaps = () => {
-    const lat = responseData[0].latitude;
-    const lng = responseData[0].longitude;
-    window.open(
-      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
-    );
+    const address = encodeURIComponent(responseData[0].prop_address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${address}`);
   };
 
   if (isSuccess) {

@@ -25,13 +25,8 @@ function SpotDetails() {
   }, []);
 
   const openGoogleMaps = () => {
-    if (isSuccess) {
-      const lat = responseData[0].latitude;
-      const lng = responseData[0].longitude;
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
-      );
-    }
+    const address = encodeURIComponent(responseData[0].prop_address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${address}`);
   };
 
   if (isSuccess) {
