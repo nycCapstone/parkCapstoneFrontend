@@ -106,16 +106,14 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
       <>
         {!checkoutObj?.conflict && (
           <>
-            <div className="ch-numicon">
-              <i>3</i>
-            </div>
-            <h3>Add to Cart</h3>
+            <p className="add-cart">Add to Cart</p>
             <form onSubmit={handleSubmit}>
               <div>
                 <label className="res-details-select-label">
                   Select Vehicle Type:
                 </label>
                 <select
+                  className="select-vehicle"
                   value={selectedType}
                   onChange={handleTypeChange}
                   required
@@ -140,8 +138,8 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                 {resData.length > 2 ? "Two space options available" : ""}
               </div>
 
-              <div>
-                <p className="res-details-selected-vehicle">
+              <div className="final-add-to-cart">
+                <p>
                   Selected Vehicle:{" "}
                   {selectedType.length
                     ? selectedType

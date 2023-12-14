@@ -8,6 +8,7 @@ import "./Styles/UserCheckout.css";
 
 const User = ({ userData }) => {
   const [email, setEmail] = useState("");
+  const [continueAsGuest, setContinueAsGuest] = useState(false);
   const [register, setRegister] = useState(null);
   const isL = useSelector(getCLSearchStatus);
   const navigate = useNavigate();
@@ -28,31 +29,54 @@ const User = ({ userData }) => {
       .catch(() => {
         setRegister({ email: "X" });
       });
+    setContinueAsGuest(true);
   };
-
+  console.log(userData);
   return (
     <>
       <div className="userinfo-card">
-        <div className="ch-numicon">
-          <i>1</i>
-        </div>
-        <h3>Account Info</h3>
-        {!userData?.email && (
+        {!userData?.email ? (
           <div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="emailogin" name="email-check-label">
-                Email
-              </label>
-              <input
-                type="email"
-                id="emailogin"
-                placeholder="....."
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button type="submit">Continue as Guest</button>
+            <p className="account-info-header ">Account Info</p>
+            <form
+              onSubmit={handleSubmit}
+              className={continueAsGuest === true ? "user-active" : ""}
+            >
+              <div className=" input-block">
+                <label
+                  htmlFor="emailogin"
+                  name="email-check-label"
+                  className="input-label"
+                >
+                  Email
+                </label>
+                <input
+                  className="login-input"
+                  type="email"
+                  id="emailogin"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <button type="submit" className="guest-button">
+                Continue as Guest
+              </button>
             </form>
             <div>
-              <Link to="/login/true">Sign in or Create Account</Link>
+              {continueAsGuest === true && (
+                <p
+                  className={
+                    register !== null && !register.email
+                      ? "continue-guest user-active"
+                      : "continue-guest"
+                  }
+                >
+                  Checking out as guest <strong>{email}</strong>{" "}
+                </p>
+              )}
+              <Link to="/login/true" className="checkout-singIn">
+                Sign In Or Create Account
+              </Link>
             </div>
             <div>
               {register && register.email === "X" && (
@@ -62,29 +86,32 @@ const User = ({ userData }) => {
               )}
               {register !== null && !register.email && (
                 <div>
-                  <p>already registered with: {email}</p>
-                </div>
-              )}
-              {register && register?.email !== "X" && (
-                <div>
-                  <Link to="/register">Register Now</Link>
+                  <p className="registered-error-msg">
+                    Already registered with {email}. Please sign in.
+                  </p>
                 </div>
               )}
             </div>
           </div>
-        )}
-        {userData?.email && (
+        ) : (
           <div className="ch-userinfo-list">
+            <p className="account-info-header ">Account Info</p>
             <ul>
-              <li key={1}>
-                {userData.first_name} {userData.last_name}
+              <strong>
+                <li>{`${userData.first_name} ${userData.last_name} `}</li>
+              </strong>
+              <li key={1} className="li-email">
+                {userData.email}
               </li>
-              <li key={2}>{userData.email}</li>
             </ul>
           </div>
         )}
+        <div className="app-features">
+          <p></p>
+        </div>
       </div>
-      <div className="us-chk-navigate">
+
+      {/* <div className="us-chk-navigate">
         <button
           type="click"
           className="go-back-link"
@@ -94,7 +121,7 @@ const User = ({ userData }) => {
         >
           <span className="go-back-icon">&#8678;</span> Go back
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

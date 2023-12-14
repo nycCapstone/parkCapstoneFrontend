@@ -1,6 +1,37 @@
+.resrundown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+.resrundown-times {
+  display: flex;
+  gap: 5px;
+}
+.change-time-link {
+  margin-top: 1rem;
+  padding: 8px;
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: #ff5757;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.96);
+  }
+}
 .chtime-page-search {
-  margin: 1rem auto;
-  padding-left: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  width: 70%;
+  height: max-content;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 .cl-search {
   width: 60%;
@@ -40,7 +71,7 @@
 }
 
 .chtime-search-button {
-  margin: 1rem 0;
+  margin-top: 1.5rem;
   width: 5rem;
   height: 2rem;
   background: #ff5757;
@@ -103,19 +134,6 @@
 
 .clview-nav-item a:hover {
   text-decoration: underline;
-}
-
-.change-time-link {
-  background-color: lightgrey;
-  opacity: 80%;
-  margin: 1rem;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: underline;
-  color: blue;
-  width: fit-content;
 }
 
 .change-time-reset {
