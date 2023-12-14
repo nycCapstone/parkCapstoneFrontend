@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchResultsSlice = createSlice({
   name: "searchResults",
   initialState: {
-    data: null,
     loading: false,
     error: null,
     filters: {
@@ -13,7 +12,6 @@ const searchResultsSlice = createSlice({
   },
   reducers: {
     setSearchResults: (state, action) => {
-      state.data = action.payload.results;
       state.location = action.payload.location;
       state.loading = false;
       state.error = null;
@@ -21,16 +19,13 @@ const searchResultsSlice = createSlice({
     searchResultsLoading: (state) => {
       state.loading = true;
       state.error = null;
-      state.data = null;
     },
     searchResultsSuccess: (state, action) => {
-      state.data = action.payload;
       state.loading = false;
       state.error = null;
     },
     searchResultsError: {
       reducer: (state, action) => {
-        state.data = null;
         state.loading = false;
         state.error = action.payload;
       },
@@ -42,11 +37,7 @@ const searchResultsSlice = createSlice({
         }
       },
     },
-    searchResultsMutate: (state, action) => {
-      state.data.params = action.payload;
-    },
     resetSearchState: (state) => {
-      state.data = null;
       state.loading = false;
       state.error = null;
       state.location = null;
@@ -62,7 +53,6 @@ export const {
   searchResultsLoading,
   searchResultsSuccess,
   searchResultsError,
-  searchResultsMutate,
   resetSearchState,
   setSortByPrice,
 } = searchResultsSlice.actions;

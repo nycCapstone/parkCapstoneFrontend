@@ -16,10 +16,17 @@
 
 .sold-spaces-l-item {
   border: 1px solid #ddd;
+  background-color: #f0f0f0;
   padding: 10px;
   padding-left: 2rem;
   margin: 0 auto;
+  margin-bottom: 1rem;
   width: 70%;
+  border-radius: 0.6rem;
+}
+
+.sold-spaces-l-item:hover {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 @media (max-width: 960px) {
@@ -30,6 +37,7 @@
 
 @media (max-width: 600px) {
   .sold-spaces-list {
-    margin: 0;
+    margin: 5px;
+    grid-template-columns: repeat(1, 1fr);
   }
 }

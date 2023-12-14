@@ -1,25 +1,20 @@
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
-import {
-  searchResultsSuccess,
-  searchResultsLoading,
-  searchResultsError,
-  setSearchResults,
-} from "../../redux/search/searchResultsSlice";
+import { setSearchResults } from "../../redux/search/searchResultsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
-import { checkDates } from "../../constants/helper/helper";
+import { searchLandingBookings } from "../../redux/landing/landingSearchSlice";
+import { resetBookings } from "../../redux/client/clientSearchSlice";
 import {
-  searchLandingBookings,
-  resetLandingCache,
-} from "../../redux/landing/landingSearchSlice";
-import axios from "../../api/axios";
-import { FaArrowAltCircleDown } from "react-icons/fa";
+  checkOutLoad,
+  roundToNearest30,
+  filterPassedTime,
+  filterPassedTimeCheckOut,
+} from "../../constants/helper/time";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Styles/SearchForm.css";
-import { current } from "@reduxjs/toolkit";
 
 const SearchForm = () => {
   const [placesLibrary] = useState(["places"]);
@@ -30,15 +25,14 @@ const SearchForm = () => {
   const [searchResult, setSearchResult] = useState("");
   const [locationdata, setGeoLocation] = useState({});
   const placeHolder = useSelector((state) => {
-    if (state.searchResults.data?.results?.length) {
-      return state.searchResults.data.results[0].prop_address;
+    if (state.searchResults?.location?.addr?.length) {
+      return state.searchResults?.location?.addr;
     } else {
       return "Search for a spot (eg. NYC NY 1001)";
     }
   });
   const [checkInDate, setCheckInDate] = useState(roundToNearest30());
   const [checkOutDate, setCheckOutDate] = useState(checkOutLoad(checkInDate));
-  const [timeQuery, setTimeQuery] = useState(null);
   const [formattedAddress, setFormattedAddress] = useState(null);
   const [err, setErr] = useState(false);
   const searchRef = useRef();
@@ -46,48 +40,16 @@ const SearchForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function checkOutLoad(date = new Date()){
-    let tempCheck = new Date(date)
-    tempCheck.setHours(date.getHours()+3)
-    return tempCheck
-  }
-
-  function roundToNearest30(date = new Date()) {
-    const minutes = 30;
-    const ms = 1000 * 60 * minutes;
-  
-    //replace Math.round with Math.ceil to always round UP
-    return new Date(Math.ceil(date.getTime() / ms) * ms);
-  }
-
-  function handleCheckIn (date) {
-    setCheckInDate(date)
-    let tempCheck = new Date(date)
-    tempCheck.setHours(date.getHours()+3)
-    if (tempCheck.getTime() > checkOutDate.getTime()){
-      setCheckOutDate(tempCheck)
+  function handleCheckIn(date) {
+    setCheckInDate(date);
+    let tempCheck = new Date(date);
+    tempCheck.setHours(date.getHours() + 3);
+    if (tempCheck.getTime() > checkOutDate.getTime()) {
+      setCheckOutDate(tempCheck);
     }
   }
   function handleCheckOut(date) {
-    setCheckOutDate(date)
-  }
-  function filterPassedTime(time) {
-    const currentDate = new Date();
-    const selectedDate = new Date(time);
-    return currentDate.getTime() < selectedDate.getTime();
-  }
-  function filterPassedTimeCheckOut(time) {
-    const currentDate = checkInDate;
-    const selectedDate = new Date(time);
-    let tempCheck = new Date(currentDate)
-    tempCheck.setHours(tempCheck.getHours()+3)
-
-    if (tempCheck.getHours()==selectedDate.getHours() && selectedDate.getDate() === tempCheck.getDate()){
-      return (!(selectedDate.getMinutes() < currentDate.getMinutes()))
-    }else if (selectedDate.getDate() === currentDate.getDate()+1 && (((currentDate.getHours()+3)%24 >= 0) && ((currentDate.getHours()+3)%24 <= 3))){
-      return (!(selectedDate.getHours() < tempCheck.getHours())) 
-    } else 
-    return ((selectedDate.getHours()>= currentDate.getHours()+3) || !(currentDate.getDate() === selectedDate.getDate()));
+    setCheckOutDate(date);
   }
 
   useEffect(() => {
@@ -97,10 +59,10 @@ const SearchForm = () => {
   }, [checkOutDate, checkInDate]);
 
   useEffect(() => {
-    if (locationdata?.lng || timeQuery !== null) {
+    if (locationdata?.lng) {
       btnRef.current.focus();
     }
-  }, [checkOutDate, locationdata]);
+  }, [locationdata]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -135,7 +97,6 @@ const SearchForm = () => {
       ) {
         setFormattedAddress({ addr: fA, zipCode: "" });
       }
-      console.log(`Formatted Address: ${fA}`);
     }
   }
 
@@ -147,56 +108,33 @@ const SearchForm = () => {
     }
     if (checkOutDate) {
       const selectedDateTime = new Date(checkInDate);
-      if (
-        new Date(checkOutDate) <= selectedDateTime ||
-        !checkDates(checkInDate, checkOutDate)
-      ) {
+      if (new Date(checkOutDate) <= selectedDateTime) {
         setErr(true);
         return;
       }
+      dispatch(resetBookings());
       dispatch(
         searchLandingBookings([
           locationdata.lat,
           locationdata.lng,
           checkInDate.toISOString(),
           checkOutDate.toISOString(),
-        ])
+        ]),
       );
+
+      let searchStore = {
+        location: {
+          addr: formattedAddress.addr,
+          zipCode: formattedAddress.zipCode,
+          lat: locationdata.lat,
+          lng: locationdata.lng,
+        },
+      };
+
+      dispatch(setSearchResults(searchStore));
+
+      navigate("/search-result");
     }
-    if (!checkOutDate) {
-      dispatch(resetLandingCache());
-    }
-    dispatch(searchResultsLoading());
-    await axios
-      .get(
-        `/get-spaces/geolocation?lat=${locationdata.lat}&lng=${locationdata.lng}`
-      )
-      .then((res) => {
-        let searchStore = {
-          results: res.data,
-          location: {
-            addr: formattedAddress.addr,
-            zipCode: formattedAddress.zipCode,
-            lat: locationdata.lat,
-            lng: locationdata.lng,
-            checkIn: checkInDate,
-            checkOut: checkOutDate
-          },
-        };
-        
-        if (res.data?.length > 0) {
-          dispatch(setSearchResults(searchStore));
-          dispatch(searchResultsSuccess(searchStore));
-        }
-        if (res.data?.length === 0) {
-          dispatch(searchResultsError("no results found"));
-        }
-        navigate("/search-result", { state: searchStore.location});
-      })
-      .catch((e) => {
-        console.error(e);
-        dispatch(searchResultsError(e));
-      });
   };
 
   return (
@@ -225,18 +163,21 @@ const SearchForm = () => {
             timeIntervals={30}
             filterTime={filterPassedTime}
           />
-            {<DatePicker
+          {
+            <DatePicker
               className="select-time"
               selected={checkInDate}
-              onChange={(date) => { 
-                handleCheckIn(date)}}
+              onChange={(date) => {
+                handleCheckIn(date);
+              }}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={30}
               timeCaption="Time"
               dateFormat="h:mm aa"
               filterTime={filterPassedTime}
-            />}
+            />
+          }
         </div>
         <div className="end-container">
           <label className="end-label">Check-Out:</label>
@@ -246,32 +187,26 @@ const SearchForm = () => {
             selected={checkOutDate}
             minDate={checkInDate}
             onChange={(date) => handleCheckOut(date)}
-            onInputClick={() =>{ setTimeQuery(true);}}
             shouldCloseOnSelect={false}
             timeIntervals={30}
             showTimeSelect
-            filterTime={filterPassedTimeCheckOut}
-          />
-
-
-            {" "}
-            {err
-              ? <p className="select-time">
-                Book 3 hour Difference
-              </p>
-          
-              :     <DatePicker
+            filterTime={(date) => filterPassedTimeCheckOut(date, checkInDate)}
+          />{" "}
+          {err ? (
+            <p className="select-time">Book 3 hour Difference</p>
+          ) : (
+            <DatePicker
               className="select-time"
               selected={checkOutDate}
               onChange={(date) => handleCheckOut(date)}
-              onInputClick={() =>{ setTimeQuery(true);}}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={30}
               timeCaption="Time"
               dateFormat="h:mm aa"
-              filterTime={filterPassedTimeCheckOut}
-            />}
+              filterTime={(date) => filterPassedTimeCheckOut(date, checkInDate)}
+            />
+          )}
         </div>
         <div className="end-time"></div>
         <div className="end-time"></div>

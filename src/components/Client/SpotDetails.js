@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "../Location/PSMapView";
 import { RatingStars } from "../Location/RatingStars";
@@ -10,8 +9,6 @@ import "./Styles/SpotDetails.css";
 
 function SpotDetails() {
   const { id } = useParams();
-  console.log("Booking Space ID:", id);
-  const location = useLocation();
   const navigate = useNavigate();
 
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -27,14 +24,12 @@ function SpotDetails() {
     console.log("SpotDetails component mounted");
   }, []);
 
-  const [errorMessage, setErrorMessage] = useState(null);
-
   const openGoogleMaps = () => {
     if (isSuccess) {
       const lat = responseData[0].latitude;
       const lng = responseData[0].longitude;
       window.open(
-        `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+        `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
       );
     }
   };
@@ -60,11 +55,11 @@ function SpotDetails() {
           </div>
           <div className="details">
             <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">
-              {spotDetails.billing_type[0].toUpperCase() +
-                spotDetails.billing_type.slice(1).toLowerCase()}{" "}
-              / Daily
-            </p>
+            <p className="detail-value">{spotDetails.billing_type}/daily</p>
+          </div>
+          <div className="details">
+            <p className="detail-label">Owner ID:</p>
+            <p className="detail-value">{spotDetails.space_owner_id}</p>
           </div>
           <div className="details">
             <p className="detail-label">Rating:</p>

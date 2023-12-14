@@ -36,9 +36,9 @@ export function checkDates(dateString1, dateString2) {
   return hoursDifference >= 3;
 }
 
-export function calculateDateDifferenceInDays(dateString1) {
+export function calculateDateDifferenceInDays(dateString1, dateString2) {
   const date1 = new Date(dateString1);
-  const date2 = new Date();
+  const date2 = dateString2 ? new Date(dateString2) : new Date();
 
   const timeDifference = Math.abs(date2 - date1);
 
@@ -69,16 +69,12 @@ export function checkoutPrice(dateString1, dateString2, type) {
 export function formData(checkoutData) {
   if (!checkoutData?.length) return null;
   for (let s of checkoutData) {
-    if (
-      s.sp_type === "car"
-    ) {
+    if (s.sp_type === "car") {
       return s;
     }
   }
   for (let g of checkoutData) {
-    if (
-      g.sp_type === "truck"
-    ) {
+    if (g.sp_type === "truck") {
       return g;
     }
   }
@@ -87,13 +83,18 @@ export function formData(checkoutData) {
 
 export function reservationData(checkoutData, query) {
   if (checkoutData?.length === 0 || !query?.length) return null;
-  let start = query[query.length-1][2];
-  let end = query[query.length-1][3];
+  let start = query[query.length - 1][2];
+  let end = query[query.length - 1][3];
   //getting the unique types of spaces
-  let f = checkoutData.filter(item => +item.row_num === 1);
+  let f = checkoutData.filter((item) => +item.row_num === 1);
   f = f.map((item, _) => {
-    return { ...item, final_price: (checkoutPrice(start, end, item.billing_type) * +item.price).toFixed(2)}
-  })
+    return {
+      ...item,
+      final_price: (
+        checkoutPrice(start, end, item.billing_type) * +item.price
+      ).toFixed(2),
+    };
+  });
   if (f.length > 1) {
     f.push({ options: 1 });
   }

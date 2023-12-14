@@ -1,47 +1,40 @@
 import { useGetAvailLandingSpotsQuery } from "../../../redux/client/searchApiSlice";
-import { getLanSearchStatus } from "../../../redux/landing/landingSearchSlice";
 import { getCarTruckPrice } from "../../../constants/reducers/searchform";
-import { searchBookings } from "../../../redux/client/clientSearchSlice";
 import MapView from "../../Maps/MapView";
 import * as geolib from "geolib";
 import { useEffect, useState } from "react";
 import CLLoading from "./CLLoading";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { FaChevronCircleLeft } from "react-icons/fa";
 import "../Styles/CLSearchResults.css";
 import "../Styles/Client.css";
 
 const CLSearchResults = () => {
-  const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
-  const searchLocation = useSelector((state) => state.landing);
   const destination = useSelector((state) => state.client.go);
+  const loc = useSelector((state) => state.searchResults.location);
 
   const {
     data: clientSearches,
-    isSuccess,
-    isFetching,
     error,
     isLoading,
-  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], {
-    skip: searchStatus,
-  });
+  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1]);
   const [useArray, setUseArray] = useState(null);
   const [selectedOption, setSelectedOption] = useState("distance");
 
   useEffect(() => {
     if (clientSearches?.length > 0) {
       setUseArray(
-        chooseArray({ type: selectedOption, payload: clientSearches })
+        chooseArray({ type: selectedOption, payload: clientSearches }),
       );
     }
   }, [clientSearches]);
 
   const calculateDistance = (searchLocation, result) => {
     const startPoint = {
-      latitude: searchLocation[searchLocation.length - 1][0],
-      longitude: searchLocation[searchLocation.length - 1][1],
+      latitude: searchLocation.lat,
+      longitude: searchLocation.lng,
     };
 
     const endPoint = {
@@ -69,12 +62,12 @@ const CLSearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
             ...item,
-            distance: calculateDistance(searchLocation, item),
+            distance: calculateDistance(loc, item),
           }))
           .filter((item) => item.distance < 51)
           .sort((a, b) => a.distance - b.distance);
@@ -94,7 +87,7 @@ const CLSearchResults = () => {
     return filteredResults
       .map((item) => ({
         ...item,
-        distance: calculateDistance(searchLocation, item),
+        distance: calculateDistance(loc, item),
       }))
       .filter((item) => item.distance < 51);
   };
@@ -117,19 +110,23 @@ const CLSearchResults = () => {
     }
   };
 
-  if (isLoading || isFetching || !useArray?.length) {
+  if (error) {
+    return <Navigate to="/client/search" />;
+  }
+
+  if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
         <CLLoading />
       </div>
     );
-  } else if (isSuccess && useArray?.length) {
+  } else if (useArray && useArray?.length) {
     return (
       <div className="cl-s-and-map-container">
         <main className="cl-search-main">
           <div className="cl-sort-button-container">
             <div className="cl-destination-container">
-              {searchLocation && (
+              {loc && (
                 <>
                   <i
                     className="fa-solid fa-location-dot fa-flip"
@@ -153,9 +150,9 @@ const CLSearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: clientSearches.filter(
-                      (item) => +item.row_num === 1
+                      (item) => +item.row_num === 1,
                     ),
-                  })
+                  }),
                 );
 
                 setSelectedOption(e.target.value);
@@ -171,7 +168,7 @@ const CLSearchResults = () => {
             {useArray.map((item, i) => {
               let cartruckp = getCarTruckPrice(
                 clientSearches,
-                item.property_id
+                item.property_id,
               );
               return (
                 <div
@@ -214,8 +211,8 @@ const CLSearchResults = () => {
                   <div className="button-container">
                     <Link
                       to={`/parking-spots/${item.space_id}?starts=${
-                        searchArr[searchArr.length - 1]?.[2]
-                      }&ends=${searchArr[searchArr.length - 1]?.[3]}`}
+                        searchArr[searchArr.length - 1][2]
+                      }&ends=${searchArr[searchArr.length - 1][3]}`}
                     >
                       <button className="show-me-button">View Details</button>
                     </Link>
@@ -226,7 +223,7 @@ const CLSearchResults = () => {
                       className="button-square button-primary"
                       to={`/checkout/${item.property_id.substring(
                         0,
-                        13
+                        13,
                       )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
                         searchArr[searchArr.length - 1][3]
                       }`}
@@ -258,7 +255,16 @@ const CLSearchResults = () => {
       </div>
     );
   } else {
-    return <div>Api Down</div>;
+    return (
+      <div>
+        <div className="cl-h-svgleft">
+          <Link to="/client/search">
+            <FaChevronCircleLeft />
+          </Link>
+        </div>
+        Empty Result Set
+      </div>
+    );
   }
 };
 

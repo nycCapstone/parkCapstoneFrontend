@@ -1,41 +1,39 @@
 import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { checkDates } from "../../../constants/helper/helper";
+import {
+  checkOutLoad,
+  roundToNearest30,
+  filterPassedTime,
+  filterPassedTimeCheckOut,
+} from "../../../constants/helper/time";
 import DatePicker from "react-datepicker";
 import { FcCalendar } from "react-icons/fc";
 import { FcAlarmClock } from "react-icons/fc";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import "../Styles/ChangeTime.css"
+import "../Styles/ChangeTime.css";
 import "../../Forms/Styles/SearchForm.css";
 
 const ChangeTime = () => {
-  const location = useSelector((state) => state.searchResults.location)
-  const [checkInDate, setCheckInDate] = useState(location.checkIn);
-  const [checkOutDate, setCheckOutDate] = useState(location.checkOut);
+  const query = useSelector((state) => state.landing);
+
+  const [checkInDate, setCheckInDate] = useState(roundToNearest30());
+  const [checkOutDate, setCheckOutDate] = useState(checkOutLoad());
   const [err, setErr] = useState(false);
-  const query = useSelector(state => state.landing);
   const dispatch = useDispatch();
 
-  function filterPassedTime(time) {
-    const currentDate = new Date();
-    const selectedDate = new Date(time);
-    return currentDate.getTime() < selectedDate.getTime();
+  function handleCheckIn(date) {
+    setCheckInDate(date);
+    let tempCheck = new Date(date);
+    tempCheck.setHours(date.getHours() + 3);
+    if (tempCheck.getTime() > checkOutDate.getTime()) {
+      setCheckOutDate(tempCheck);
+    }
   }
-  function filterPassedTimeCheckOut(time) {
-    const currentDate = checkInDate;
-    const selectedDate = new Date(time);
-    let tempCheck = new Date(currentDate)
-    tempCheck.setHours(tempCheck.getHours()+3)
-
-    if (tempCheck.getHours()==selectedDate.getHours() && selectedDate.getDate() === tempCheck.getDate()){
-      return (!(selectedDate.getMinutes() < currentDate.getMinutes()))
-    }else if (selectedDate.getDate() === currentDate.getDate()+1 && (((currentDate.getHours()+3)%24 >= 0) && ((currentDate.getHours()+3)%24 <= 3))){
-      return (!(selectedDate.getHours() < tempCheck.getHours())) 
-    } else 
-    return ((selectedDate.getHours()>= currentDate.getHours()+3) || !(currentDate.getDate() === selectedDate.getDate()));
+  function handleCheckOut(date) {
+    setCheckOutDate(date);
   }
   useEffect(() => {
     if (err) {
@@ -48,10 +46,7 @@ const ChangeTime = () => {
 
     if (checkOutDate) {
       const selectedDateTime = new Date(checkInDate);
-      if (
-        new Date(checkOutDate) <= selectedDateTime ||
-        !checkDates(checkInDate, checkOutDate)
-      ) {
+      if (new Date(checkOutDate) <= selectedDateTime) {
         setErr(true);
         return;
       }
@@ -66,7 +61,9 @@ const ChangeTime = () => {
 
   return (
     <div className="chtime-page-search">
-      {err && <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>}
+      {err && (
+        <p className="min-parking-errormsg">3 hour time blocks. Try Again!</p>
+      )}
       <form onSubmit={getNewTimeSpot}>
         <div className="chtime-search-space">
           <div className="chtime-search-checkIn">
@@ -77,7 +74,7 @@ const ChangeTime = () => {
                 selectsStart
                 showTimeSelect
                 selected={checkInDate}
-                onChange={(date) => setCheckInDate(date)}
+                onChange={(date) => handleCheckIn(date)}
                 minDate={new Date()}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
@@ -85,21 +82,24 @@ const ChangeTime = () => {
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
-          
+
             <div className="time_icon">
-              {<DatePicker
-              className="time-field"
-              selected={checkInDate}
-              onChange={(date) => { 
-                setCheckInDate(date)}}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-              filterTime={filterPassedTime}
-            />}
-            <FcAlarmClock size={25} className="icon-style" />
+              {
+                <DatePicker
+                  className="time-field"
+                  selected={checkInDate}
+                  onChange={(date) => {
+                    handleCheckIn(date);
+                  }}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={30}
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  filterTime={filterPassedTime}
+                />
+              }
+              <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
 
@@ -113,27 +113,34 @@ const ChangeTime = () => {
                 showTimeSelect
                 selected={checkOutDate}
                 minDate={checkInDate}
-                onChange={(date) => setCheckOutDate(date)}
+                onChange={(date) => handleCheckOut(date)}
                 shouldCloseOnSelect={false}
                 timeIntervals={30}
-                filterTime={filterPassedTimeCheckOut}
+                filterTime={(date) =>
+                  filterPassedTimeCheckOut(date, checkInDate)
+                }
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
             <div className="time_icon">
-              {<DatePicker
-              className="time-field"
-              selected={checkOutDate}
-              onChange={(date) => { 
-                setCheckOutDate(date)}}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-              filterTime={filterPassedTimeCheckOut}
-            />}
-            <FcAlarmClock size={25} className="icon-style" />
+              {
+                <DatePicker
+                  className="time-field"
+                  selected={checkOutDate}
+                  onChange={(date) => {
+                    handleCheckOut(date);
+                  }}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={30}
+                  timeCaption="Time"
+                  dateFormat="h:mm aa"
+                  filterTime={(date) =>
+                    filterPassedTimeCheckOut(date, checkInDate)
+                  }
+                />
+              }
+              <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>
         </div>
@@ -144,8 +151,8 @@ const ChangeTime = () => {
         <div className="change-time-reset">
           <FaArrowAltCircleDown
             onClick={() => {
-              setCheckInDate(new Date());
-              setCheckOutDate(checkInDate);
+              setCheckInDate(roundToNearest30());
+              setCheckOutDate(checkOutLoad());
             }}
           />
         </div>

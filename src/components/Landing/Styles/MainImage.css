@@ -52,19 +52,3 @@
   font-size: 30px;
   color: #ffffff;
 }
-
-/* spinner and suspense */
-
-.capsule {
-  display: inline-block;
-  padding: 0 24px;
-  text-align: center;
-  line-height: 3rem;
-  border-radius: 3rem;
-}
-
-.capsule .fail {
-  color: #ff6961;
-  border: 2px solid #ff6961;
-  font-weight: 500;
-}

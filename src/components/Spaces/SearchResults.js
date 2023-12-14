@@ -1,40 +1,39 @@
 import { useEffect, useState } from "react";
 import { useGetAvailLandingSpotsQuery } from "../../redux/client/searchApiSlice";
-import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
-import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import { useSelector, useDispatch } from "react-redux";
+import { searchResultsError } from "../../redux/search/searchResultsSlice";
 import * as geolib from "geolib";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import MapView from "../Maps/MapView";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./SearchResults.css";
+import Nav from "../Nav/Nav";
 
 const SearchResults = () => {
-  const searchResults = useSelector((state) => state.searchResults.data);
   const searchLocation = useSelector((state) => state.searchResults.location);
-  const searchStatus = useSelector(getLanSearchStatus);
   const searchArr = useSelector((state) => state.landing);
-  const role = useSelector((state) => state.auth?.accessToken);
-  const dispatch = useDispatch();
   const {
     data: landingSearchResults,
     isSuccess,
     isLoading,
-  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1], {
-    skip: searchStatus,
-  });
+    error,
+  } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1]);
+  const role = useSelector((state) => state.auth?.accessToken);
+
   const [useArray, setUseArray] = useState(null);
   const [selectedOption, setSelectedOption] = useState("distance");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let results = landingSearchResults || searchResults?.results;
-
-    if (searchStatus || isSuccess) {
-      setUseArray(chooseArray({ type: selectedOption, payload: results }));
+    if (isSuccess) {
+      setUseArray(
+        chooseArray({ type: selectedOption, payload: landingSearchResults }),
+      );
+    } else if (error) {
+      dispatch(searchResultsError(error));
     }
-    dispatch(resetBookings());
-  }, [landingSearchResults, searchStatus, isSuccess, searchArr]);
+  }, [landingSearchResults, error]);
 
   const calculateDistance = (searchLocation, result) => {
     const startPoint = {
@@ -66,7 +65,7 @@ const SearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
@@ -113,14 +112,17 @@ const SearchResults = () => {
       }
     }
   };
+  if (error) {
+    return <Navigate to="/" />;
+  }
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
         <SearchLoading />
       </div>
     );
-  } else if (useArray) {
-    let results = landingSearchResults || searchResults?.results;
+  } else if (useArray && useArray?.length > 0) {
+    let results = landingSearchResults;
 
     return (
       <div className="search-and-map-container">
@@ -154,7 +156,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  })
+                  }),
                 );
 
                 setSelectedOption(e.target.value);
@@ -169,7 +171,6 @@ const SearchResults = () => {
           <div className="search-reslist">
             {useArray?.length > 0 &&
               useArray.map((item, i) => {
-                let avail = item.count_spaces !== item?.occupied;
                 let cartruckp = getCarTruckPrice(results, item.property_id);
 
                 return (
@@ -192,12 +193,6 @@ const SearchResults = () => {
                       ></i>
                     </p>
 
-                    {searchStatus && (
-                      <>
-                        <p>Available now: {avail ? "Yes" : "No"}</p>
-                        <p>Number of spaces: {item.count_spaces}</p>
-                      </>
-                    )}
                     <p className="search_results_billing_type">
                       Billing Type:{" "}
                       {item.billing_type === "fixed" ? "full day" : "hourly"}
@@ -238,18 +233,16 @@ const SearchResults = () => {
                         <button className="show-me-button">View Details</button>
                       </Link>
 
-                      {!searchStatus && (
-                        <Link
-                          to={`/checkout/${item.property_id.substring(
-                            0,
-                            13
-                          )}/?starts=${
-                            searchArr[searchArr.length - 1][2]
-                          }&ends=${searchArr[searchArr.length - 1][3]}`}
-                        >
-                          <button className="checkout-button">Checkout</button>
-                        </Link>
-                      )}
+                      <Link
+                        to={`/checkout/${item.property_id.substring(
+                          0,
+                          13,
+                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                          searchArr[searchArr.length - 1][3]
+                        }`}
+                      >
+                        <button className="checkout-button">Checkout</button>
+                      </Link>
                     </div>
                   </div>
                 );
@@ -274,8 +267,10 @@ const SearchResults = () => {
         </section>
       </div>
     );
-  } else {
+  } else if (useArray?.length === 0) {
     return <div>Empty Results</div>;
+  } else {
+    return <Navigate to="/" />;
   }
 };
 
