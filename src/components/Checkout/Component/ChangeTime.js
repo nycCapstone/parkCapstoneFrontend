@@ -1,7 +1,6 @@
 import { searchLandingBookings } from "../../../redux/landing/landingSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { checkDates } from "../../../constants/helper/helper";
 import {
   checkOutLoad,
   roundToNearest30,
@@ -18,7 +17,7 @@ import "../../Forms/Styles/SearchForm.css";
 
 const ChangeTime = () => {
   const [checkInDate, setCheckInDate] = useState(roundToNearest30());
-  const [checkOutDate, setCheckOutDate] = useState(checkOutLoad());
+  const [checkOutDate, setCheckOutDate] = useState(checkOutLoad(checkInDate));
   const [err, setErr] = useState(false);
   const query = useSelector((state) => state.landing);
   const dispatch = useDispatch();

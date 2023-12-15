@@ -95,12 +95,6 @@ th.search_results_table_head {
   width: 40%;
 }
 
-@media (max-width: 500px) {
-  .search-main {
-    margin: 1rem;
-  }
-}
-
 .sort-button-container {
   text-align: left;
   margin-bottom: 1rem;
@@ -270,6 +264,12 @@ th.search_results_table_head {
   .table th,
   .table td {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .search-main {
+    margin: 1rem;
   }
 }
 

@@ -35,6 +35,29 @@ a.button-square {
   padding: 0 20px;
   text-decoration: none;
 }
+.cl-checkout-button,
+.cl-show-me-button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cl-checkout-button:hover {
+  background-color: #aa0000;
+}
+
+.spot-info .cl-show-me-button:hover {
+  background-color: rgb(143, 143, 143);
+}
+
+.cl-checkout-button {
+  background-color: #ff5757;
+}
 
 .cl-search-main {
   margin-top: 1rem;

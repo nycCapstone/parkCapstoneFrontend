@@ -32,8 +32,6 @@ const SuccessfulPurchase = () => {
       //erase most recent reservation details
       setReservationInfo(resInfo);
       dispatch(resetRInfoCache());
-      dispatch(resetSearchState());
-      dispatch(resetBookings());
       setToast(true);
     }
   }, []);
@@ -92,7 +90,7 @@ const SuccessfulPurchase = () => {
                   <li className="conf-check-in">
                     <span className="conf-check-in-date-time">Check-in:</span>{" "}
                     {new Date(
-                      reservationInfo.query_data[2]
+                      reservationInfo.query_data[2],
                     ).toLocaleDateString()}{" "}
                     -{" "}
                     {new Date(reservationInfo.query_data[2]).toLocaleTimeString(
@@ -101,14 +99,14 @@ const SuccessfulPurchase = () => {
                         hour: "numeric",
                         minute: "numeric",
                         hour12: true,
-                      }
+                      },
                     )}
                   </li>
                   <br />
                   <li className="conf-checkout">
                     <span className="conf-check-out-date-time">Checkout:</span>{" "}
                     {new Date(
-                      reservationInfo.query_data[3]
+                      reservationInfo.query_data[3],
                     ).toLocaleDateString()}{" "}
                     -{" "}
                     {new Date(reservationInfo.query_data[3]).toLocaleTimeString(
@@ -117,7 +115,7 @@ const SuccessfulPurchase = () => {
                         hour: "numeric",
                         minute: "numeric",
                         hour12: true,
-                      }
+                      },
                     )}
                   </li>
                   <br />

@@ -8,12 +8,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
       providesTags: ["userData"],
       onSuccess: (response, api) => {
         api.dispatch(setRole(response.data));
-      }
+      },
     }),
     logout: builder.mutation({
       query: () => ({
-        url: "/logout"
-      })
+        url: "/logout",
+      }),
     }),
   }),
 });

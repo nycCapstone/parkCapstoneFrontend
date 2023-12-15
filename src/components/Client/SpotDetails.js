@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "../Location/PSMapView";
@@ -19,10 +18,6 @@ function SpotDetails() {
     isLoading,
     isUninitialized,
   } = useGetOneSpotQuery(id, { skip: !accessToken });
-
-  useEffect(() => {
-    console.log("SpotDetails component mounted");
-  }, []);
 
   const openGoogleMaps = () => {
     const address = encodeURIComponent(responseData[0].prop_address);
@@ -105,6 +100,7 @@ function SpotDetails() {
   }
 
   if (error || isUninitialized) {
+    return <Navigate to="/login" />;
   }
 }
 

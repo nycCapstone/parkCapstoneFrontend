@@ -39,6 +39,23 @@
 .change-time-link {
   text-decoration: none;
 }
+.lus-chk-navigate {
+  margin-top: 10px;
+  margin-left: 10px;
+  .go-back-link {
+    width: 6rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: rgb(233, 100, 121);
+    color: white;
+    cursor: pointer;
+    margin: 1rem 0rem;
+    &:hover {
+      transform: scale(0.96);
+    }
+  }
+}
 @media (max-width: 768px) {
   .checkout-layout-container {
     display: flex;
