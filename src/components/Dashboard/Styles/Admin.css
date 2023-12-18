@@ -51,51 +51,45 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem 2rem;
-
 }
 
 .admin-section {
-
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   flex-direction: row;
   justify-content: center;
-  padding-left:50%;
+  padding-left: 50%;
 }
 .link {
   align-items: center;
-
 }
 
 .nav-link:hover {
   text-decoration: underline;
 }
 
-  .driver-button,
-  .my-activity-button,
-  .parking-spot-owner-button {
-    position:sticky;
-    top:0px;
-    background-color: white;
-    color: hsl(0, 100%, 68%);
-    padding: 10px 20px;
-    border: solid 1px hsl(0, 100%, 68%);
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-    &:hover {
-      transform: scale(1.1);
-      background-color: hsl(0, 100%, 68%);
-      color: white;
-      /* opacity: 1.1; */
-    }
+.driver-button,
+.my-activity-button,
+.parking-spot-owner-button {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  color: hsl(0, 100%, 68%);
+  padding: 10px 20px;
+  border: solid 1px hsl(0, 100%, 68%);
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    background-color: hsl(0, 100%, 68%);
+    color: white;
+    /* opacity: 1.1; */
   }
-
-    
-
+}
 
 .sign-out-button {
   color: #ffffff;
@@ -109,7 +103,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
   &:hover {
-
     transform: scale(1.1);
     background-color: #ffffff;
     color: hsl(0, 99%, 63%);

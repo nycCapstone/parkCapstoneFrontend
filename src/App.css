@@ -4,6 +4,10 @@
   min-height: 100dvh;
 }
 
+.navbar-container-class {
+  position: relative;
+}
+
 .page-content {
   flex: 1;
 }

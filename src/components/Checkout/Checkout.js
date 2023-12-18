@@ -59,7 +59,7 @@ const Checkout = () => {
           user_id: userData?.id || null,
           query: query,
           conflict: checkoutData[0]?.owner_id === userData?.id,
-        }),
+        })
       );
       if (property_id !== chTime.property_id) {
         dispatch(resetInfoPrompt());
@@ -69,7 +69,7 @@ const Checkout = () => {
         updateInfoPrompt({
           property_id,
           infoPrompt: query[query.length - 1][3],
-        }),
+        })
       );
       dispatch(searchLandingMutate());
     }

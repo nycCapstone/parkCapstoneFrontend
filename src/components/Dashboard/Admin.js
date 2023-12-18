@@ -35,9 +35,7 @@ const Admin = () => {
           )}
   */
   if (isSuccess) {
-    return (
-      <AdminPage/>
-    );
+    return <AdminPage />;
   }
 
   if (error) {
