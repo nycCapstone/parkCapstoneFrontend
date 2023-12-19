@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form-container">
+    <div className="logIn">
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
@@ -72,7 +72,7 @@ const Login = () => {
         {errMsg}
       </p>
 
-      <section className="logIn">
+      <section>
         <h1 className="header">Log in to CarValet</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-block">
