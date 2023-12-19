@@ -5,9 +5,10 @@ import rolesReducer from "../redux/roles/rolesSlice";
 import formsReducer from "../redux/forms/formsSlice";
 import searchReducer from "../redux/search/searchResultsSlice";
 import landingSearchReducer from "../redux/landing/landingSearchSlice";
-import checkoutReducer from "../redux/checkout/checkoutSlice"
+import checkoutReducer from "../redux/checkout/checkoutSlice";
 import clientSearchReducer from "../redux/client/clientSearchSlice";
 import reservationReducer from "../redux/checkout/reservationSlice";
+import changeTimeReducer from "../redux/landing/changeTimeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     landing: landingSearchReducer,
     checkout: checkoutReducer,
     reservation: reservationReducer,
-    client: clientSearchReducer
+    client: clientSearchReducer,
+    changeTime: changeTimeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

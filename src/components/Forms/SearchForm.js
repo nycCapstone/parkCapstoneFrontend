@@ -139,16 +139,14 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={getRelevantSpots} className="search-form">
-      <div className="landing-searchbar">
-        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-          <input
-            className="g-search"
-            type="text"
-            placeholder={placeHolder}
-            ref={searchRef}
-          />
-        </Autocomplete>
-      </div>
+      <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+        <input
+          className="g-search"
+          type="text"
+          placeholder={placeHolder}
+          ref={searchRef}
+        />
+      </Autocomplete>
       <div className="search-landing-container">
         <div className="start-container">
           <label className="start-label">Check-In:</label>
@@ -208,8 +206,6 @@ const SearchForm = () => {
             />
           )}
         </div>
-        <div className="end-time"></div>
-        <div className="end-time"></div>
       </div>
 
       <button className="submit-button" type="submit" ref={btnRef}>

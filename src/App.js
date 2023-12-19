@@ -17,6 +17,7 @@ import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage
 import AboutUs from "./components/AboutUs/AboutUs";
 import SearchResults from "./components/Spaces/SearchResults";
 import MadeSearch from "./components/State/MadeSearch";
+import MadeResInfo from "./components/State/MadeResInfo";
 import Checkout from "./components/Checkout/Checkout";
 import Payment from "./components/Checkout/Billing/Payment";
 import RenterLanding from "./components/Renter/RenterLanding";
@@ -38,8 +39,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
-            <Route path="/" element={<Landing />} />
-            <Route path="go" element={<Landing />} />
+
+            <Route path="/go" element={<Landing />} />
             <Route path="/login/:checkout?" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="confirmation" element={<ConfirmEmail />} />
@@ -56,9 +57,16 @@ function App() {
                   element={<ParkingSpotDetailsPage />}
                 />
                 <Route path="/checkout/:property_id" element={<Checkout />} />
-                <Route path="/payment/:booking_id" element={<Payment />} />
+                <Route element={<MadeResInfo />}>
+                  <Route path="/payment/:booking_id" element={<Payment />} />
+                </Route>
               </Route>
-              <Route path="/spot-details/:id" element={<SpotDetails />} />
+              <Route path="/" element={<Landing />} />
+              <Route
+                path="/spot-details/:id"
+                element={<SpotDetails />}
+                allowedRoles={["Client", "Renter"]}
+              />
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
               >

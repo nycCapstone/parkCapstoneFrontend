@@ -31,7 +31,6 @@ const User = ({ userData }) => {
       });
     setContinueAsGuest(true);
   };
-  console.log(userData);
   return (
     <>
       <div className="userinfo-card">
@@ -111,7 +110,7 @@ const User = ({ userData }) => {
         </div>
       </div>
 
-      {/* <div className="us-chk-navigate">
+      <div className="us-chk-navigate">
         <button
           type="click"
           className="go-back-link"
@@ -121,7 +120,7 @@ const User = ({ userData }) => {
         >
           <span className="go-back-icon">&#8678;</span> Go back
         </button>
-      </div> */}
+      </div>
     </>
   );
 };

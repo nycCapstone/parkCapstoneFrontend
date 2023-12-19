@@ -46,7 +46,6 @@
   padding-left: 12px;
 }
 .chtime-search-space {
-  width: 80%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;

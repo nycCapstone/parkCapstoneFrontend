@@ -70,14 +70,15 @@ const ClientBookings = () => {
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <p>Rating: </p>
                     <RatingStars rating={booking.rating} />
-                    {calculateDateDifferenceInDays(booking.end_time) < 13 && (
-                      <FaEdit
-                        style={{ marginLeft: "1rem", cursor: "pointer" }}
-                        onClick={() => {
-                          setShow(i);
-                        }}
-                      />
-                    )}
+                    {calculateDateDifferenceInDays(booking.end_time) < 13 &&
+                      booking.isactive && (
+                        <FaEdit
+                          style={{ marginLeft: "1rem", cursor: "pointer" }}
+                          onClick={() => {
+                            setShow(i);
+                          }}
+                        />
+                      )}
                     {show === i && (
                       <EditStars
                         booking={booking}
