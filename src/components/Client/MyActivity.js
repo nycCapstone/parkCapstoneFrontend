@@ -11,7 +11,7 @@ const MyActivity = () => {
     isLoading,
     error,
     isUninitialized,
-  } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetClientTransactionsQuery(null, { refetchOnMountOrArgChange: true });
 
   if (isSuccess || isLoading || isUninitialized) {
     return (

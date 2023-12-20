@@ -71,7 +71,8 @@
     gap: 0.5rem;
   }
   .booking-item {
-    width: 90%;
+    width: 100%;
+    margin-bottom: 0;
     padding: none;
     padding-left: 2rem;
   }

@@ -5,6 +5,7 @@ import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlic
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useFormik } from "formik";
 import { CiCreditCard1 } from "react-icons/ci";
+import ButtonSpinner from "../../../assets/Spinners/ButtonSpinner";
 import "./Payment.css";
 
 const Payment = () => {
@@ -17,6 +18,7 @@ const Payment = () => {
   const [nameOnCard, setNameOnCard] = useState("");
   const [err, setErr] = useState(false);
   const [newClientPmt] = useNewClientPmtMutation();
+  const [showLoad, setShowLoad] = useState(false);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -64,6 +66,7 @@ const Payment = () => {
       return errors;
     },
     onSubmit: async (values) => {
+      setShowLoad(true);
       await newClientPmt({
         data: [
           `${values.expiryMonth}/${values.expiryYear}`,
@@ -89,7 +92,8 @@ const Payment = () => {
           }
           navigate(`/client/pmt/success/${resInfo.nav_id}/${res.pmt_id}`);
         })
-        .catch((e) => console.error(e));
+        .catch((e) => console.error(e))
+        .finally(() => setShowLoad(false));
     },
   });
 
@@ -262,7 +266,11 @@ const Payment = () => {
           ) : null}
 
           <button className="payment-button" type="submit">
-            Pay ${Number(resInfo.selected_space.final_price) + 5}
+            {showLoad ? (
+              <ButtonSpinner />
+            ) : (
+              <>Pay ${Number(resInfo.selected_space.final_price) + 5}</>
+            )}
           </button>
         </form>
         <div className="purchase-details">
