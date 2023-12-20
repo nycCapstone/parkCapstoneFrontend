@@ -1,5 +1,4 @@
 // Modal.js
-import { useState } from "react";
 import ChangeTime from "../../Checkout/Component/ChangeTime";
 import "./Modal.css"; // Import the styles
 

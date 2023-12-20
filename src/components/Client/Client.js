@@ -1,6 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useSelector } from "react-redux";
-import RenterLoading from "../../assets/Spinners/RenterLoading";
+import Loading from "../../assets/Spinners/Loading";
 import { Link } from "react-router-dom";
 import ClientBookings from "./ClientBookings";
 import { FaChevronCircleLeft } from "react-icons/fa";
@@ -19,9 +19,7 @@ const Client = () => {
         </div>
         <h2>Client Page</h2>
         {isLoading ? (
-          <div className="s-loading-container">
-            <RenterLoading />
-          </div>
+          <Loading />
         ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
           <>
             <div className="clview-nav-item">
@@ -29,9 +27,6 @@ const Client = () => {
                 Search and Make a new booking. <br />
                 Search Page
               </Link>
-            </div>
-            <div className="clview-nav-item">
-              <Link to="/client/transactions">My Activity</Link>
             </div>
           </>
         ) : (

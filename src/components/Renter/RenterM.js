@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropertyForm from "../Forms/PropertyForm";
 import PropertySpace from "./Components/PropertySpace";
 import { useState, useEffect } from "react";
-import RenterLoading from "../../assets/Spinners/RenterLoading";
+import Loading from "../../assets/Spinners/Loading";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import "./Styles/Renter.css";
 //Manage Renter Spaces
@@ -31,7 +31,7 @@ const RenterM = () => {
   if (isLoading) {
     return (
       <div className="s-loading-container">
-        <RenterLoading />
+        <Loading />
       </div>
     );
   }

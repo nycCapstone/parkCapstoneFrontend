@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useGetActiveByOwnerIdQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import UpdateActivity from "./UpdateActivity";
-import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import Loading from "../../../assets/Spinners/Loading";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../Styles/RenterActivity.css";
@@ -29,7 +29,7 @@ const RenterActivity = () => {
   }, []);
 
   if (isLoading) {
-    return <RenterLoading />;
+    return <Loading />;
   }
 
   if (isSuccess) {

@@ -1,8 +1,8 @@
-import "./Styles/loadingspinner.css";
+import "./Styles/loadspinner.css";
 
 const Loading = () => {
   return (
-    <div className="lds-ellipsis">
+    <div className="load-lds-ellipsis">
       <div></div>
       <div></div>
       <div></div>

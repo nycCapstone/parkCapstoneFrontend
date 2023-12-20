@@ -6,7 +6,7 @@ import {
 } from "../../../redux/renter/renterApiSlice";
 import { useState, useEffect, useReducer } from "react";
 import makeFormData from "../../../constants/reducers/propertyspace";
-import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import Loading from "../../../assets/Spinners/Loading";
 import { v4 as uuidv4 } from "uuid";
 
 import "../Styles/SpacesList.css";
@@ -77,7 +77,7 @@ const PropertySpace = (props) => {
   }, [renterData, spacesData]);
 
   if (isLoading) {
-    return <RenterLoading />;
+    return <Loading />;
   }
 
   if (isError) {

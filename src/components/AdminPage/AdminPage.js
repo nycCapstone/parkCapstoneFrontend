@@ -1,7 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
-import { Link } from "react-router-dom";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import "./AdminPage.css";
 
 const AdminPage = () => {
@@ -11,7 +10,7 @@ const AdminPage = () => {
     return (
       // TODO all loading components
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }
@@ -51,7 +50,6 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
-          {/* <Link to="/client/transactions">My Transactions</Link> */}
         </div>
       </div>
     );

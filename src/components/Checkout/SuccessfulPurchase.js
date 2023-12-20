@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { resetRInfoCache } from "../../redux/checkout/reservationSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "../Location/PSMapViewSuccess";
 import { Link } from "react-router-dom";
 import "./Styles/SuccessfulPurchase.css";
@@ -37,7 +37,11 @@ const SuccessfulPurchase = () => {
   }, []);
 
   if (isLoading || isUninitialized) {
-    return <SearchLoading />;
+    return (
+      <div className="s-loading-container">
+        <Loading />;
+      </div>
+    );
   }
 
   if (isSuccess) {

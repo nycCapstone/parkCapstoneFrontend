@@ -1,5 +1,5 @@
 import { useUpdateSingleBookingStatusMutation } from "../../../redux/renter/renterApiSlice";
-import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import Loading from "../../../assets/Spinners/Loading";
 import { useState } from "react";
 import "../Styles/EditStars.css";
 
@@ -35,7 +35,7 @@ const EditStars = ({ booking, setShow, refetch }) => {
   return (
     <>
       {loading ? (
-        <RenterLoading />
+        <Loading />
       ) : (
         <div className="rate">
           <input

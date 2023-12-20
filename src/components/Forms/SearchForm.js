@@ -28,7 +28,7 @@ const SearchForm = () => {
     if (state.searchResults?.location?.addr?.length) {
       return state.searchResults?.location?.addr;
     } else {
-      return "Search for a spot (eg. NYC NY 1001)";
+      return "Search for a spot (eg. NYC NY 10001)";
     }
   });
   const [checkInDate, setCheckInDate] = useState(roundToNearest30());
@@ -84,20 +84,6 @@ const SearchForm = () => {
         console.error("No geometry information found for the selected place.");
       }
       setFormattedAddress(fA);
-      // if (
-      //   !place?.address_components?.some((item) => {
-      //     let c = item;
-      //     if (item?.types?.includes("postal_code")) {
-      //       const z = c?.long_name || c?.short_name;
-      //       setFormattedAddress({ addr: fA, zipCode: z });
-      //       return true;
-      //     } else {
-      //       return false;
-      //     }
-      //   })
-      // ) {
-      //   setFormattedAddress({ addr: fA, zipCode: "" });
-      // }
     }
   }
 

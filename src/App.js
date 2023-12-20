@@ -6,7 +6,6 @@ import Nav from "./components/Nav/Nav";
 import Layout from "./components/Layout";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
-import Home from "./components/Dashboard/Home";
 import Client from "./components/Client/Client";
 import RenterM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
@@ -25,7 +24,6 @@ import RenterActivity from "./components/Renter/Components/RenterActivity";
 import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
 import SpotDetails from "./components/Client/SpotDetails";
-import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
@@ -39,7 +37,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
-
             <Route path="/go" element={<Landing />} />
             <Route path="/login/:checkout?" element={<Login />} />
             <Route path="register" element={<Register />} />
@@ -69,9 +66,7 @@ function App() {
               />
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
-              >
-                <Route path="home" element={<Home />} />
-              </Route>
+              ></Route>
 
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
@@ -86,7 +81,6 @@ function App() {
                   path="/client/pmt/success/:nav_id?/:pmt_id?"
                   element={<SuccessfulPurchase />}
                 />
-                <Route path="client/transactions" element={<MyActivity />} />
               </Route>
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
