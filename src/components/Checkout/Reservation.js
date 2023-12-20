@@ -23,7 +23,7 @@ const Reservation = ({ resData }) => {
         <>
           {resData && (
             <>
-              <div className="resrundown-container ss-info-container">
+              <div className="resrundown-container">
                 <section className="resrundown-times">
                   <p className="">Enter After:</p>
                   <p>{`${new Date(

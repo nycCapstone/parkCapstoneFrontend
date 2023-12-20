@@ -94,14 +94,12 @@ const User = ({ userData }) => {
           </div>
         ) : (
           <div className="ch-userinfo-list">
-            <p className="account-info-header ">Account Info</p>
-            <ul>
+            <p className="account-info-header">Account Info</p>
+            <ul className="user-name-email">
               <strong>
                 <li>{`${userData.first_name} ${userData.last_name} `}</li>
               </strong>
-              <li key={1} className="li-email">
-                {userData.email}
-              </li>
+              <li key={1}>{userData.email}</li>
             </ul>
           </div>
         )}

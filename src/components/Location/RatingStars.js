@@ -11,11 +11,15 @@ export const RatingStars = ({ rating }) => {
   return (
     <div className="rating-stars">
       {[...Array(fullStars)].map((_, index) => (
-        <StarIcon key={index} />
+        <StarIcon
+          key={index}
+          className="star-size"
+          style={{ fontSize: "1.2rem" }}
+        />
       ))}
       {hasHalfStar && <StarHalfIcon />}
       {[...Array(5 - Math.ceil(rating))].map((_, index) => (
-        <StarBorderIcon key={index} />
+        <StarBorderIcon key={index} style={{ fontSize: "1.2rem" }} />
       ))}
     </div>
   );
