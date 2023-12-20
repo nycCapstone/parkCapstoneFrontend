@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { resetRInfoCache } from "../../redux/checkout/reservationSlice";
-import { resetSearchState } from "../../redux/search/searchResultsSlice";
-import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import PSMapView from "../Location/PSMapViewSuccess";
@@ -22,7 +20,9 @@ const SuccessfulPurchase = () => {
     isLoading,
     error,
     isUninitialized,
-  } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetClientTransactionsQuery(resInfo?.booking_id, {
+    refetchOnMountOrArgChange: false,
+  });
 
   const [toast, setToast] = useState(null);
   const [reservationInfo, setReservationInfo] = useState({});

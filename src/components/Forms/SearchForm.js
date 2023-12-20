@@ -83,20 +83,21 @@ const SearchForm = () => {
       } else {
         console.error("No geometry information found for the selected place.");
       }
-      if (
-        !place?.address_components?.some((item) => {
-          let c = item;
-          if (item?.types?.includes("postal_code")) {
-            const z = c?.long_name || c?.short_name;
-            setFormattedAddress({ addr: fA, zipCode: z });
-            return true;
-          } else {
-            return false;
-          }
-        })
-      ) {
-        setFormattedAddress({ addr: fA, zipCode: "" });
-      }
+      setFormattedAddress(fA);
+      // if (
+      //   !place?.address_components?.some((item) => {
+      //     let c = item;
+      //     if (item?.types?.includes("postal_code")) {
+      //       const z = c?.long_name || c?.short_name;
+      //       setFormattedAddress({ addr: fA, zipCode: z });
+      //       return true;
+      //     } else {
+      //       return false;
+      //     }
+      //   })
+      // ) {
+      //   setFormattedAddress({ addr: fA, zipCode: "" });
+      // }
     }
   }
 
@@ -124,8 +125,7 @@ const SearchForm = () => {
 
       let searchStore = {
         location: {
-          addr: formattedAddress.addr,
-          zipCode: formattedAddress.zipCode,
+          addr: formattedAddress,
           lat: locationdata.lat,
           lng: locationdata.lng,
         },
