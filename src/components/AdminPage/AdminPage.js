@@ -34,6 +34,7 @@ const AdminPage = () => {
               <div className="roles">
                 <div className="role-list">
                   {/* <div className="role-item">
+
                 <h4>Client</h4>
                 <p>Background: {userInfo.roles.Client.bckgr ? "Yes" : "No"}</p>
                 <p>PMT: {userInfo.roles.Client.pmt ? "Yes" : "No"}</p>

@@ -92,6 +92,7 @@
 }
 
 .sign-out-button {
+  background-color: hsl(0, 100%, 68%);
   color: #ffffff;
   background-color: #ff5757;
   padding: 10px 20px;

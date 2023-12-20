@@ -12,12 +12,7 @@
 }
 
 .app-description:nth-child(odd) {
-  background: linear-gradient(
-    rgba(255, 255, 255, 1) 0%,
-    rgba(220, 220, 208, 1) 4%,
-    rgba(220, 220, 208, 1) 96%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background: #e8e8e8;
 }
 
 .app-description:nth-child(odd) > .container {
