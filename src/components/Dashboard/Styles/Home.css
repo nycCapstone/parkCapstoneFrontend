@@ -16,18 +16,18 @@
   color: red;
 }
 
-.link-container {
+/* .link-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-.nav-link {
+/* .nav-link {
   text-decoration: none;
   font-size: 18px;
   color: #007bff;
   margin: 10px 0;
-}
+} */
 
 .sign-out-button {
   background-color: #ff5757;
