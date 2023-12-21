@@ -1,9 +1,10 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { Link, useNavigate, useParams, Navigate } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "../Location/PSMapView";
 import { RatingStars } from "../Location/RatingStars";
+import { BiLinkExternal } from "react-icons/bi";
 import "./Styles/SpotDetails.css";
 
 function SpotDetails() {
@@ -31,61 +32,72 @@ function SpotDetails() {
 
     return (
       <div className="parking-spot-details-page">
-        <Link className="go-back-link" onClick={() => navigate(-1)}>
-          <span className="go-back-icon">&#8678;</span> Go back
-        </Link>
-
         <div className="details-container">
-          <div className="title">
-            <h1>{spotDetails.prop_address.slice(0, -5)}</h1>
+          <div className="details-price-address">
+            <div className="details-address">
+              <p className="first-address">
+                {spotDetails.prop_address.split(",")[0]}
+              </p>
+              <p className="second-address">{`${spotDetails.prop_address
+                .split(",")
+                .slice(1)}`}</p>
+            </div>
+
+            <p className="details-price">${spotDetails.price}</p>
           </div>
-          <div className="details">
-            <p className="detail-label">Number of Spaces:</p>
-            <p className="detail-value">{spotDetails.number_spaces}</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">{spotDetails.billing_type}/daily</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Owner ID:</p>
-            <p className="detail-value">{spotDetails.space_owner_id}</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Rating:</p>
-            <div>
+          <div className="details-second-info">
+            <div className="details-single">
+              <p className="details-label">Number of Spaces:</p>
+              <p>{spotDetails.number_spaces}</p>
+            </div>
+
+            <div className="details-single">
+              <p className="details-label">Billing Type:</p>
+              <p>
+                {spotDetails.billing_type[0].toUpperCase() +
+                  spotDetails.billing_type.slice(1).toLowerCase()}{" "}
+                / Daily
+              </p>
+            </div>
+
+            <div className="details-single">
+              <p className="details-label">Rating:</p>
               <RatingStars rating={spotDetails.rating || 5.0} />
             </div>
-          </div>
-          {spotDetails.renter_id && (
-            <div>
-              <div className="details">
-                <p className="detail-label">Spot Owner Name:</p>
-                <p className="detail-value">
-                  {spotDetails.client_first_name[0].toUpperCase() +
-                    spotDetails.client_first_name.slice(1).toLowerCase()}
+
+            {spotDetails.renter_email && (
+              <div className="details-single">
+                <p className="details-label">Spot Owner Name:</p>
+                <p>
+                  {spotDetails.first_name[0].toUpperCase() +
+                    spotDetails.first_name.slice(1).toLowerCase()}
                 </p>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          <div className="details-buttons">
+            <button
+              onClick={() => navigate(-1)}
+              className="details-single-button"
+            >
+              Go back
+            </button>
+          </div>
         </div>
-        <div className="showpage-map-button-container">
+        <div className="details-map">
           <section className="ps-mapview">
             <PSMapView
               lat={lat}
               lng={lng}
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div style={{ height: `100%` }} />}
             />
           </section>
-          <button className="google-maps-button" onClick={openGoogleMaps}>
-            <i
-              className="fa-solid fa-location-dot"
-              style={{ marginRight: "0.5rem" }}
-            ></i>
-            <span className="google-maps-text">View in Google Maps</span>
-          </button>
+          <div className="view-on-googleMap">
+            <button className="google-maps-button" onClick={openGoogleMaps}>
+              View on Google Map
+            </button>
+            <BiLinkExternal className="client-booking-icon" />{" "}
+          </div>
         </div>
       </div>
     );

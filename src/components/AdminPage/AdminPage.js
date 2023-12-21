@@ -33,12 +33,6 @@ const AdminPage = () => {
             <section className="user-profile-box">
               <div className="roles">
                 <div className="role-list">
-                  {/* <div className="role-item">
-
-                <h4>Client</h4>
-                <p>Background: {userInfo.roles.Client.bckgr ? "Yes" : "No"}</p>
-                <p>PMT: {userInfo.roles.Client.pmt ? "Yes" : "No"}</p>
-              </div> */}
                   <div className="role-item">
                     {userInfo.roles.ClientOnly && <h4>Driver Account</h4>}
                     {!userInfo.roles.ClientOnly && <h4>Spot Owner Account</h4>}
@@ -50,6 +44,7 @@ const AdminPage = () => {
                   <img
                     className="profile-picture"
                     src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                    alt="usrpageprofilepic"
                   />
                 </div>
                 <div className="profile-title">
@@ -70,13 +65,15 @@ const AdminPage = () => {
                     <button className="my-activity-button">My Activity</button>
                   </Link>
                 </div>
-                <div className="link">
-                  <Link to="/renter" className="profile-nav-link">
-                    <button className="parking-spot-owner-button">
-                      Spot Owner
-                    </button>
-                  </Link>
-                </div>
+                {userInfo?.roles?.Renter && (
+                  <div className="link">
+                    <Link to="/renter" className="profile-nav-link">
+                      <button className="parking-spot-owner-button">
+                        Spot Owner
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </section>
           </div>
@@ -129,9 +126,7 @@ const AdminPage = () => {
             </div>
             <div className="user-reviews">
               <h2>{userInfo.first_name}'s reviews</h2>
-              {/* 
-              maybe react component
-             */}
+
               <div className="user-review-sample">
                 <div className="review">
                   <span className="review-text">
@@ -140,6 +135,7 @@ const AdminPage = () => {
                         <img
                           className="reviewer-pfp"
                           src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                          alt="usrdepositphoto"
                         />
                         <div className="name-date">
                           <p className="reviewer-name">user21</p>
@@ -162,18 +158,6 @@ const AdminPage = () => {
                     </p>
                   </span>
                 </div>
-                {/* <div className="review">
-                  <span className="review-text">
-                    {" "}
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                    </p>
-                  </span>
-                </div> */}
               </div>
             </div>
             <div className="user-listing">
@@ -183,12 +167,14 @@ const AdminPage = () => {
                   <img
                     className="listing-photo"
                     src="https://media.npr.org/assets/img/2013/06/14/parking_wide-c0a616c65dc3a049ff06c4e95844202491483669.jpg"
+                    alt="usrlistingimg"
                   />
                 </span>
                 <span className="listing">
                   <img
                     className="listing-photo"
                     src="https://media.npr.org/assets/img/2013/06/14/parking_wide-c0a616c65dc3a049ff06c4e95844202491483669.jpg"
+                    alt="usercomponentimg"
                   />
                 </span>
               </div>

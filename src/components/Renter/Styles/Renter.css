@@ -54,7 +54,9 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition: opacity 0.3s ease, transform 0.2s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
@@ -114,6 +116,6 @@
     margin-bottom: 0;
     width: 100%;
     overflow-x: auto;
-    padding: 15px 5px;
+    padding: 15px 10px;
   }
 }

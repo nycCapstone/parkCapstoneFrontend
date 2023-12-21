@@ -1,3 +1,6 @@
+.rate {
+  align-self: self-start;
+}
 .rate:not(:checked) > input {
   position: absolute;
   top: -9999px;
