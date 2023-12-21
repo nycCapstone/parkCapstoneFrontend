@@ -19,7 +19,7 @@ import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
 import SearchChangeTime from "../Spaces/Component/SearchChangeTime";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import "./Styles/CheckoutLayout.css";
 
 const Checkout = () => {
@@ -121,7 +121,7 @@ const Checkout = () => {
   } else if (isLoading) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   } else if (checkoutData?.length === 0 && (isSuccess || isError))

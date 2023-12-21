@@ -45,12 +45,11 @@ const Admin = () => {
             <Link to="/client" className="nav-link">
               Go to the Client page
             </Link>
-            <Link to="/client/transactions" className="nav-link">
-              Go to My Transactions
-            </Link>
-            <Link to="/renter" className="nav-link">
-              Go to the Renter
-            </Link>
+            {data?.roles?.Renter && (
+              <Link to="/renter" className="nav-link">
+                Go to the Renter
+              </Link>
+            )}
           </div>
 
           <div className="flexGrow">

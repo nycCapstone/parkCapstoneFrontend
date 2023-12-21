@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import ChangeTime from "./Component/ChangeTime";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import "./Styles/ChangeTime.css";
 
 const Reservation = ({ resData }) => {
@@ -18,7 +18,7 @@ const Reservation = ({ resData }) => {
   return (
     <div>
       {loading ? (
-        <SearchLoading />
+        <Loading />
       ) : (
         <>
           {resData && (

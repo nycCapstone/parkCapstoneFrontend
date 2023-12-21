@@ -4,7 +4,7 @@ import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import { useSelector, useDispatch } from "react-redux";
 import { searchResultsError } from "../../redux/search/searchResultsSlice";
 import * as geolib from "geolib";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import MapView from "../Maps/MapView";
 import SearchChangeTime from "./Component/SearchChangeTime";
 import { Link, Navigate } from "react-router-dom";
@@ -127,7 +127,7 @@ const SearchResults = () => {
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   } else if (useArray && useArray?.length > 0) {
@@ -189,6 +189,9 @@ const SearchResults = () => {
                     key={i}
                     onMouseEnter={() => handleMouseEnter(i)}
                     onMouseLeave={() => handleMouseLeave(i)}
+                    style={{
+                      backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
+                    }}
                   >
                     <p className="search_results_address">
                       {item.prop_address.slice(0, -5)}

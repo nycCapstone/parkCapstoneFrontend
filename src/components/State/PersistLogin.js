@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/auth/authSlice";
-import RenterLoading from "../../assets/Spinners/RenterLoading";
+import Loading from "../../assets/Spinners/Loading";
 import useRefreshToken from "../../hooks/useRefreshToken";
 
 const PersistLogin = () => {
@@ -33,7 +33,8 @@ const PersistLogin = () => {
     <>
       {isLoading && !ct ? (
         <div className="s-loading-container">
-          <RenterLoading />
+          Loading your profile...
+          <Loading />
         </div>
       ) : (
         <Outlet />

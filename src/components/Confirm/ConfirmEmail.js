@@ -26,13 +26,15 @@ const ConfirmEmail = () => {
       }
     };
     fetchData();
-    return () => []
+    return () => [];
   }, []);
 
   return (
     <div>
       {loading ? (
-        <Loading />
+        <div className="s-loading-container">
+          <Loading />
+        </div>
       ) : (
         <h3>Api Error</h3>
       )}

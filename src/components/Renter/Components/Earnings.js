@@ -1,7 +1,7 @@
 import { useGetEarningsByOwnerIdQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useEffect } from "react";
-import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import Loading from "../../../assets/Spinners/Loading";
 
 const Earnings = () => {
   const {
@@ -22,7 +22,7 @@ const Earnings = () => {
   }, []);
 
   if (isLoading) {
-    return <RenterLoading />;
+    return <Loading />;
   }
 
   if (isSuccess) {
@@ -45,4 +45,3 @@ const Earnings = () => {
 };
 
 export default Earnings;
-

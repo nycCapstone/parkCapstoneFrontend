@@ -3,7 +3,7 @@ import { getCarTruckPrice } from "../../../constants/reducers/searchform";
 import MapView from "../../Maps/MapView";
 import * as geolib from "geolib";
 import { useEffect, useState } from "react";
-import CLLoading from "./CLLoading";
+import Loading from "../../../assets/Spinners/Loading";
 import SearchChangeTime from "../../Spaces/Component/SearchChangeTime";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
@@ -127,7 +127,7 @@ const CLSearchResults = () => {
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
-        <CLLoading />
+        <Loading />
       </div>
     );
   } else if (useArray && useArray?.length) {
@@ -187,35 +187,51 @@ const CLSearchResults = () => {
                   key={i}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={() => handleMouseLeave(i)}
+                  style={{
+                    backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
+                  }}
                 >
-                  <p>Address: {item.prop_address}</p>
-                  <p>Zip Code: {item.zip}</p>
-                  <p>Number Available Spaces: {item.count_spaces}</p>
-                  <div className="clv-cost-info">
-                    <span className="clv-span-info">
-                      <h4>Price</h4>
-                      <p>
-                        {item.billing_type}: {item.price.toFixed(2)}
-                      </p>
-                      {!item.available && <p>Low Availability</p>}
-                    </span>
-                  </div>
-                  <div className="cl-st-continer">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Commuter price</th>
-                          <th>Large vehicle price</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>${cartruckp[0]}</td>
-                          <td>${cartruckp[1]}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <p className="cl_search_results_address">
+                    Address: {item.prop_address}
+                  </p>
+                  {item.count_spaces > 0 && (
+                    <p className="cl_search_results_avinfo">
+                      Number Available Spaces: {item.count_spaces}
+                    </p>
+                  )}
+                  <p>
+                    <span className="cl_search_results_distance">
+                      Distance: {item.distance.toFixed(2)} miles{" "}
+                    </span>{" "}
+                    <i
+                      className="fa-solid fa-person-walking"
+                      aria-hidden="true"
+                      style={{ color: "#000000" }}
+                    ></i>
+                  </p>
+                  <p className="cl_search_results_billing_type">
+                    Billing Type:{" "}
+                    {item.billing_type === "fixed" ? "full day" : "hourly"}
+                  </p>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Small Vehicle <i className="fa-solid fa-car-side"></i>
+                        </th>
+                        <th>
+                          Large vehicle
+                          <i className="fa-solid fa-truck"></i>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${cartruckp[0]}</td>
+                        <td>${cartruckp[1]}</td>
+                      </tr>
+                    </tbody>
+                  </table>{" "}
                   {item.picture && <img alt="propimage" src={item.picture} />}
                   <div className="button-container">
                     <Link

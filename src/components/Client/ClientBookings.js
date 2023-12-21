@@ -1,8 +1,7 @@
 import { useGetBookingsQuery } from "../../redux/checkout/checkoutApiSlice";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useState } from "react";
 import { calculateDateDifferenceInDays } from "../../constants/helper/helper";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import { useSelector } from "react-redux";
 import { RatingStars } from "../Location/RatingStars";
 import { FaEdit } from "react-icons/fa";
@@ -25,7 +24,7 @@ const ClientBookings = () => {
   if (isLoading || isUninitialized) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }

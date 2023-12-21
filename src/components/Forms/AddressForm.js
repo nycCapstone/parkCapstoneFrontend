@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSubmitAddressMutation } from "../../redux/forms/formApiSlice";
 import { makeFormData } from "../../constants/reducers/addressform";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import "./Styles/AddressForm.css";
 const AddressForm = () => {
   const [placesLibrary, setPlacesLibrary] = useState(["places"]);
@@ -30,9 +30,7 @@ const AddressForm = () => {
   const navigate = useNavigate();
 
   if (isLoading || !isLoaded) {
-    return (
-      <SearchLoading />
-    );
+    return <Loading />;
   }
   if (isSuccess && isLoaded) {
     if (userData?.all_is_auth) {
@@ -52,7 +50,7 @@ const AddressForm = () => {
         //confirmed addresses must include zipcode
         if (
           place?.address_components?.some((item) =>
-            item?.types?.includes("postal_code")
+            item?.types?.includes("postal_code"),
           )
         ) {
           setFormattedAddress(fA);
@@ -87,15 +85,15 @@ const AddressForm = () => {
     return (
       <section class="address-form-container">
         <div class="address-form-header">
-        <h3>Confirm Your Address</h3>
+          <h3>Confirm Your Address</h3>
         </div>
-        <div class= "address-form-signup-address">
-        <p>Sign up address: {dataString}</p>
+        <div class="address-form-signup-address">
+          <p>Sign up address: {dataString}</p>
         </div>
-        <div class = "address-form-confirm">
-         <p> Please confirm your address{" "} </p>
+        <div class="address-form-confirm">
+          <p> Please confirm your address </p>
         </div>
-        <div class ="address-form-formatted">
+        <div class="address-form-formatted">
           <p
             onClick={() => submitAddr()}
             className="text-underline"
@@ -105,22 +103,24 @@ const AddressForm = () => {
               ? "type in an address with zipcode"
               : formattedAddress}
           </p>
-        
         </div>
-        
-        {formIsLoading ? ( <SearchLoading />
+
+        {formIsLoading ? (
+          <Loading />
         ) : (
           <>
-          <div class="address-form-input">
-            <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-              <input
-                type="text"
-                placeholder={dataString}
-                class="address-form-input-box"
-              />
-            </Autocomplete>
-          </div>
-            <button class="address-form-submit"onClick={submitAddr}>Submit Address</button>
+            <div class="address-form-input">
+              <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+                <input
+                  type="text"
+                  placeholder={dataString}
+                  class="address-form-input-box"
+                />
+              </Autocomplete>
+            </div>
+            <button class="address-form-submit" onClick={submitAddr}>
+              Submit Address
+            </button>
           </>
         )}
       </section>
@@ -135,3 +135,4 @@ const AddressForm = () => {
 };
 
 export default AddressForm;
+
