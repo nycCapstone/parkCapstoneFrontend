@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useGetByPidAndTimeQuery } from "../../redux/client/searchApiSlice";
 import { getCLSearchStatus } from "../../redux/client/clientSearchSlice";
@@ -9,7 +10,7 @@ import {
   updateInfoPrompt,
   resetInfoPrompt,
 } from "../../redux/landing/changeTimeSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { reservationData } from "../../constants/helper/helper";
 import { useNavigate } from "react-router-dom";
 import ReservationDetails from "./ReservationDetails";
@@ -19,6 +20,7 @@ import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
 import SearchChangeTime from "../Spaces/Component/SearchChangeTime";
+import Payment from "./Billing/Payment";
 import Loading from "../../assets/Spinners/Loading";
 import "./Styles/CheckoutLayout.css";
 
@@ -50,6 +52,13 @@ const Checkout = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  const [showPayment, setShowPayment] = useState(false);
+
+  const handleShowPayment = () => {
+    setShowPayment(true);
+  };
+
   useEffect(() => {
     if (checkoutData?.length > 0) {
       //checkout data
@@ -74,6 +83,10 @@ const Checkout = () => {
       dispatch(searchLandingMutate());
     }
   }, [checkoutData]);
+
+  if (showPayment) {
+    return <Payment />;
+  }
 
   if (checkoutData?.length > 0 && (isSuccess || isError)) {
     let lat;
@@ -115,6 +128,7 @@ const Checkout = () => {
               resData={resData}
               checkoutData={checkoutData}
               refetch={refetch}
+              handleShowPayment={handleShowPayment}
             />
           </section>
         </div>
