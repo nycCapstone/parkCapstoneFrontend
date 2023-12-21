@@ -1,7 +1,6 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
 import { Link } from "react-router-dom";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { IoIosStar } from "react-icons/io";
 import { RatingStars } from "../Location/RatingStars";
 import Loading from "../../assets/Spinners/Loading";
@@ -11,6 +10,7 @@ const AdminPage = () => {
   const { data: userInfo, isSuccess, isLoading, error } = useGetUserInfoQuery();
   const userAddress = userInfo.address.split(",")
   const userStateAndZip = userAddress[2].split(" ")
+  console.log(userInfo)
   if (isLoading) {
     return (
       // TODO all loading components
@@ -60,7 +60,7 @@ const AdminPage = () => {
             </div>
             <div className="user-navigation">
             <div className="link">
-            <Link to="/client/transactions" className="profile-nav-link">
+            <Link to="/client/" className="profile-nav-link">
               <button className="my-activity-button">My Activity</button>
             </Link>
           </div>
