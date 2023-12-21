@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useSelector } from "react-redux";
-import RenterLoading from "../../assets/Spinners/RenterLoading";
+import Loading from "../../assets/Spinners/Loading";
 import { Link } from "react-router-dom";
 import ClientBookingTest from "./ClientBookingTest";
 import { FaPlus } from "react-icons/fa6";
@@ -16,7 +16,7 @@ function ClientTest() {
       <div className="">
         {isLoading ? (
           <div className="">
-            <RenterLoading />
+            <Loading />
           </div>
         ) : userData?.all_is_auth || (roles?.Renter && roles.Client.bckgr) ? (
           <div>

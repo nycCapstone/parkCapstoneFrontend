@@ -3,7 +3,7 @@ import { useGetBookingsQuery } from "../../redux/checkout/checkoutApiSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useEffect, useState } from "react";
 import { calculateDateDifferenceInDays } from "../../constants/helper/helper";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import { RatingStars } from "../Location/RatingStars";
 import { BiLinkExternal } from "react-icons/bi";
 import { BiSolidEdit } from "react-icons/bi";
@@ -11,6 +11,7 @@ import { FaEdit } from "react-icons/fa";
 import EditStars from "./Views/EditStars";
 import { Link } from "react-router-dom";
 import "./Styles/BookingsComponent.css";
+
 function ClientBookingTest() {
   const {
     data: bookings,
@@ -33,7 +34,7 @@ function ClientBookingTest() {
   if (isLoading) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }
