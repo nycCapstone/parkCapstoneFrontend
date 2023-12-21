@@ -1,5 +1,4 @@
 .res-detail-container {
-  width: 41%;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
@@ -11,10 +10,12 @@
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
 }
+
 .final-add-to-cart {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  margin-top: 1rem;
 }
 .select-vehicle {
   border: 1px solid lightgray;
@@ -40,7 +41,7 @@
 
 .res-detail-container .res-detail-btn-g {
   margin-top: 2rem;
-  background-color: #4caf50;
+  background-color: #f57575;
   color: #fff;
   padding: 10px;
   cursor: pointer;
@@ -60,14 +61,6 @@
 
 .res-detail-container .res-detail-btn-g:hover {
   background-color: #45a049;
-}
-
-.res-details-selected-vehicle {
-  padding-bottom: 1.3rem;
-}
-
-.res-details-final-price {
-  padding-bottom: 1.3rem;
 }
 
 .res-detail-container .conflict-message {

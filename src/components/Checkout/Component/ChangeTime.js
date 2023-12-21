@@ -54,8 +54,8 @@ const ChangeTime = () => {
         checkOutDate && checkOutDate.toISOString(),
       ];
       dispatch(searchLandingBookings([query[0][0], query[0][1], ...params]));
-      alert("The changes will be visible after you close this!");
     }
+    alert("The changes will be visible after you close this!");
   };
 
   return (

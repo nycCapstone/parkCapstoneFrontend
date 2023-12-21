@@ -2,7 +2,7 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
-  width: 70%;
+
   height: max-content;
 }
 .reservation-summary-header {
@@ -21,11 +21,4 @@
 
 .ss-info-container p {
   font-size: 1em;
-}
-
-@media (max-width: 550px) {
-  .ss-info-container {
-    margin: 0;
-    max-width: 350px;
-  }
 }

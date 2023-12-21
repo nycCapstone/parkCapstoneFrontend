@@ -135,7 +135,9 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                   onChange={handleTypeChange}
                   required
                 >
-                  <option value="">Select</option>
+                  <option value="" className="select-car-type">
+                    Select
+                  </option>
                   {resData
                     .filter((item) => item?.row_num)
                     .map((item, idx) => {
@@ -158,15 +160,19 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
               <div className="final-add-to-cart">
                 <p>
                   Selected Vehicle:{" "}
-                  {selectedType.length
-                    ? selectedType
-                    : resData[0].sp_type[0].toUpperCase() +
-                      resData[0].sp_type.slice(1).toLowerCase()}
+                  <strong>
+                    {selectedType.length
+                      ? selectedType
+                      : resData[0].sp_type[0].toUpperCase() +
+                        resData[0].sp_type.slice(1).toLowerCase()}
+                  </strong>
                 </p>
                 <p className="res-details-final-price">
                   Final Price: $
-                  {resData.find((item) => item.sp_type === selectedType)
-                    ?.final_price || resData[0].final_price}
+                  <strong>
+                    {resData.find((item) => item.sp_type === selectedType)
+                      ?.final_price || resData[0].final_price}
+                  </strong>
                 </p>
               </div>
 

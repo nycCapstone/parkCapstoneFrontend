@@ -1,0 +1,64 @@
+.client-page-booking {
+  width: 80%;
+  margin: 2rem auto;
+  .your-booking-p {
+    font-size: medium;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+  }
+  .your-booking {
+    display: flex;
+    justify-content: space-between;
+    .your-booking-header {
+      font-size: x-large;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .your-booking-newLinks ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+
+      .your-booking-li {
+        display: flex;
+        gap: 7px;
+        padding: 5px 8px;
+        border: 1px solid hsl(0, 0%, 95%);
+        border-radius: 0.5rem;
+        background-color: hsl(0, 0%, 95%);
+
+        .your-booking-icon {
+          font-size: 12px;
+        }
+
+        .new-booking-link,
+        .myActivityLink {
+          text-decoration: none;
+          text-transform: uppercase;
+          font-size: 9px;
+          font-weight: 600;
+        }
+        &:hover {
+          background-color: hsl(0, 100%, 67%);
+          color: white;
+          .new-booking-link,
+          .myActivityLink {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 805px) {
+  .client-page-booking {
+    .your-booking {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+  }
+}

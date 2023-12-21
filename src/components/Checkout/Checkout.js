@@ -94,20 +94,22 @@ const Checkout = () => {
               <SmallSummary checkoutData={checkoutData} />
               <Reservation resData={resData} />
             </div>
+            <div className="checkout-mapView">
+              <PSMapView
+                lat={lat}
+                lng={lng}
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                containerElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+              />
+            </div>
 
-            <PSMapView
-              lat={lat}
-              lng={lng}
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-            />
             <section>
               <EmptyResult />
             </section>
           </section>
 
-          <section>
+          <section className="checkout-addToCart">
             <ReservationDetails
               userData={userData}
               resData={resData}

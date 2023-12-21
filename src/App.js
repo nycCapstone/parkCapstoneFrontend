@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import Client from "./components/Client/Client";
+import ClientTest from "./components/Client/ClientTest";
 import RenterM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
@@ -27,6 +28,7 @@ import SpotDetails from "./components/Client/SpotDetails";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
+
 import "./App.css";
 
 function App() {
@@ -71,7 +73,7 @@ function App() {
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
               >
-                <Route path="client" element={<Client />} />
+                <Route path="client" element={<ClientTest />} />
                 <Route path="client/search" element={<ClientSearchPage />} />
                 <Route
                   path="client/search-result"

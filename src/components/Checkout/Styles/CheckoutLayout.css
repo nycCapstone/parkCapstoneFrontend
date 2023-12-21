@@ -1,44 +1,32 @@
 .checkout-layout-container {
-  display: grid;
-  grid-template-rows: 0.5fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   margin-top: 2rem;
 }
 
 .checkout-layout-container .ch1-gvjnv {
   padding: 1rem;
-  width: 70%;
 }
 
 .checkout-layout-container .ch2-gvjnv {
   border-top: 1px solid lightgray;
   padding: 1rem;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  border-bottom: 1px solid lightgray;
-
-  margin: 10px;
-}
-
-.checkout-title {
-  text-align: center;
-  padding: 2rem;
-}
-
-.ch-mapview {
   display: flex;
-  justify-content: center;
-  padding: 1rem;
-  border: 1px solid #ddd;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
 }
 
-.r-summary-finalp {
-  margin-top: 0.5rem;
-  font-size: larger;
+.checkout-addToCart {
+  width: 33rem;
+}
+.reservePlusSummary {
+  width: 31rem;
 }
 .change-time-link {
   text-decoration: none;
 }
+
 .lus-chk-navigate {
   margin-top: 10px;
   margin-left: 10px;
@@ -56,28 +44,46 @@
     }
   }
 }
-@media (max-width: 768px) {
-  .checkout-layout-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    .res-detail-container {
-      margin: 0 0;
-    }
-  }
-  .checkout-layout-container .ch2-gvjnv {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-}
 
-@media (max-width: 550px) {
+@media (max-width: 1000px) {
   .checkout-layout-container {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .checkout-title {
-    padding-bottom: 0;
+    font-size: large;
+    width: 100%;
+    .userinfo-card,
+    .reservePlusSummary,
+    .ss-info-container,
+    .checkout-addToCart {
+      width: 100%;
+      margin: 1rem auto;
+    }
+    .account-info-header,
+    .add-cart {
+      font-size: large;
+    }
+
+    .ch2-gvjnv {
+      .checkout-mapView {
+        display: none;
+      }
+      .change-time-link {
+        width: 8rem;
+        height: 2.5rem;
+        font-size: medium;
+      }
+      .reservation-summary-header {
+        font-size: large;
+      }
+    }
+    .res-detail-btn-g,
+    .res-detail-btn-n {
+      height: 2.5rem;
+      font-size: medium;
+    }
+    .select-vehicle {
+      font-size: large;
+    }
+    .final-add-to-cart p {
+      font-size: large;
+    }
   }
 }

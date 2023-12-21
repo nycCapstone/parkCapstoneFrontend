@@ -3,9 +3,8 @@
   flex-direction: column;
   border: 1px solid #ddd;
   padding: 15px;
-  margin: 10px;
   border-radius: 8px;
-  width: 60%;
+  width: 31rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   .login-input {
     background-color: white;
@@ -27,8 +26,10 @@
     letter-spacing: 0.5px;
     cursor: pointer;
   }
-  .li-email {
-    margin-top: 1rem;
+  .user-name-email {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
   .registered-error-msg {
     color: #f57575;
