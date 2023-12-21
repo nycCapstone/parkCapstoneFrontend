@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
 import "./Details.css";
@@ -36,7 +36,10 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
+      `/checkout/${property_id.substring(
+        0,
+        13,
+      )}/?starts=${starts}&ends=${ends}`,
     );
   };
 
@@ -136,7 +139,7 @@ function ParkingSpotDetailPage() {
   if (isLoading) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }

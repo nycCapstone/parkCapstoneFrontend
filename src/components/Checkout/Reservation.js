@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import ChangeTime from "./Component/ChangeTime";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import "./Styles/ChangeTime.css";
 
 const Reservation = ({ resData }) => {
@@ -18,26 +18,26 @@ const Reservation = ({ resData }) => {
   return (
     <div>
       {loading ? (
-        <SearchLoading />
+        <Loading />
       ) : (
         <>
           {resData && (
             <>
-              <div className="resrundown-container ss-info-container">
+              <div className="resrundown-container">
                 <section className="resrundown-times">
                   <p className="">Enter After:</p>
                   <p>{`${new Date(
-                    searchObj.query[searchObj.query.length - 1][2]
+                    searchObj.query[searchObj.query.length - 1][2],
                   ).toLocaleDateString()} ${new Date(
-                    searchObj.query[searchObj.query.length - 1][2]
+                    searchObj.query[searchObj.query.length - 1][2],
                   ).toLocaleTimeString()}`}</p>
                 </section>
                 <section className="resrundown-times">
                   <p>Exit Before:</p>
                   <p>{`${new Date(
-                    searchObj.query[searchObj.query.length - 1][3]
+                    searchObj.query[searchObj.query.length - 1][3],
                   ).toLocaleDateString()} ${new Date(
-                    searchObj.query[searchObj.query.length - 1][3]
+                    searchObj.query[searchObj.query.length - 1][3],
                   ).toLocaleTimeString()}`}</p>
                 </section>
 
@@ -47,6 +47,7 @@ const Reservation = ({ resData }) => {
 
                 <button
                   className="change-time-link"
+                  id="change-time"
                   onClick={() => setChTime(!chTime)}
                 >
                   {chTime ? "Close" : "Change Time"}

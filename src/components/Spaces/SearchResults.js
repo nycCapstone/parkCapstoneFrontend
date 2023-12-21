@@ -4,11 +4,11 @@ import { getCarTruckPrice } from "../../constants/reducers/searchform";
 import { useSelector, useDispatch } from "react-redux";
 import { searchResultsError } from "../../redux/search/searchResultsSlice";
 import * as geolib from "geolib";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import MapView from "../Maps/MapView";
+import SearchChangeTime from "./Component/SearchChangeTime";
 import { Link, Navigate } from "react-router-dom";
 import "./SearchResults.css";
-import Nav from "../Nav/Nav";
 
 const SearchResults = () => {
   const searchLocation = useSelector((state) => state.searchResults.location);
@@ -23,6 +23,15 @@ const SearchResults = () => {
 
   const [useArray, setUseArray] = useState(null);
   const [selectedOption, setSelectedOption] = useState("distance");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -118,7 +127,7 @@ const SearchResults = () => {
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   } else if (useArray && useArray?.length > 0) {
@@ -169,6 +178,7 @@ const SearchResults = () => {
           </div>
 
           <div className="search-reslist">
+            <SearchChangeTime isOpen={modalOpen} onClose={closeModal} />
             {useArray?.length > 0 &&
               useArray.map((item, i) => {
                 let cartruckp = getCarTruckPrice(results, item.property_id);
@@ -179,6 +189,9 @@ const SearchResults = () => {
                     key={i}
                     onMouseEnter={() => handleMouseEnter(i)}
                     onMouseLeave={() => handleMouseLeave(i)}
+                    style={{
+                      backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
+                    }}
                   >
                     <p className="search_results_address">
                       {item.prop_address.slice(0, -5)}
@@ -192,12 +205,15 @@ const SearchResults = () => {
                         style={{ color: "#000000" }}
                       ></i>
                     </p>
-
                     <p className="search_results_billing_type">
                       Billing Type:{" "}
                       {item.billing_type === "fixed" ? "full day" : "hourly"}
                     </p>
-
+                    {!item.available && (
+                      <p className="search_results_billing_type">
+                        Low Availability
+                      </p>
+                    )}
                     <table className="table">
                       <thead>
                         <tr>
@@ -216,11 +232,15 @@ const SearchResults = () => {
                           <td>${cartruckp[1]}</td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table>{" "}
+                    {item.picture && (
+                      <img
+                        alt="propimage"
+                        style={{ width: "200px", height: "165px" }}
+                        src={item.picture}
+                      />
+                    )}
                     <div className="button-container">
-                      {item.picture && (
-                        <img alt="propimage" src={item.picture} />
-                      )}
                       <Link
                         to={
                           role
@@ -233,16 +253,23 @@ const SearchResults = () => {
                         <button className="show-me-button">View Details</button>
                       </Link>
 
-                      <Link
-                        to={`/checkout/${item.property_id.substring(
-                          0,
-                          13,
-                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                          searchArr[searchArr.length - 1][3]
-                        }`}
-                      >
-                        <button className="checkout-button">Checkout</button>
-                      </Link>
+                      {item.available && (
+                        <Link
+                          to={`/checkout/${item.property_id.substring(
+                            0,
+                            13,
+                          )}/?starts=${
+                            searchArr[searchArr.length - 1][2]
+                          }&ends=${searchArr[searchArr.length - 1][3]}`}
+                        >
+                          <button className="checkout-button">Checkout</button>
+                        </Link>
+                      )}
+                      {!item.available && (
+                        <button className="checkout-button" onClick={openModal}>
+                          Change Time
+                        </button>
+                      )}
                     </div>
                   </div>
                 );

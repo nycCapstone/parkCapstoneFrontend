@@ -35,11 +35,47 @@ a.button-square {
   padding: 0 20px;
   text-decoration: none;
 }
+.cl-checkout-button,
+.cl-show-me-button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cl-checkout-button:hover {
+  background-color: #aa0000;
+}
+.spot-info .cl-show-me-button {
+  background-color: rgb(173, 173, 173);
+}
+
+.spot-info .cl-show-me-button:hover {
+  background-color: rgb(143, 143, 143);
+}
+
+.cl-checkout-button {
+  background-color: #ff5757;
+}
 
 .cl-search-main {
   margin-top: 1rem;
   padding-left: 0.5rem;
   width: 40%;
+}
+.cl_search_results_address {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.cl_search_results_distance,
+.cl_search_results_billing_type,
+.cl_search_results_avinfo {
+  font-size: 1.2rem;
 }
 
 .cl-sort-button-container {

@@ -6,6 +6,7 @@ import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useSubmitPropertyMutation } from "../../redux/renter/renterApiSlice";
 import { useGetPropertiesQuery } from "../../redux/renter/renterApiSlice";
 import Loading from "../../assets/Spinners/Loading";
+import ButtonSpinner from "../../assets/Spinners/ButtonSpinner";
 import { CiLocationOn } from "react-icons/ci";
 import "./Styles/PropertyForm.css";
 const PropertyForm = () => {
@@ -22,7 +23,7 @@ const PropertyForm = () => {
   const [locationdata, setGeoLocation] = useState({});
   const [zipCode, setZipCode] = useState(null);
   const [count, setCount] = useState(1);
-
+  const [showLoad, setShowLoad] = useState(false);
   const validationSchema = Yup.object().shape({
     zip: Yup.string()
       .matches(/^\d{5}(-\d{4})?$/, `Must match ${zipCode || "input location"}`)
@@ -122,6 +123,7 @@ const PropertyForm = () => {
                 return;
               if ((zipCode && values.zip !== zipCode) || !zipCode) return;
               try {
+                setShowLoad(true);
                 await submitProperty({
                   ...values,
                   owner_id: userData.id,
@@ -133,6 +135,8 @@ const PropertyForm = () => {
                   .then(() => refetch());
               } catch (e) {
                 console.error(e);
+              } finally {
+                setShowLoad(false);
               }
             }}
           >
@@ -233,7 +237,7 @@ const PropertyForm = () => {
                     className="logIn-button"
                     disabled={zipCode !== values.zip}
                   >
-                    Submit
+                    {showLoad ? <ButtonSpinner /> : <>Submit</>}
                   </button>
                 </div>
               </Form>

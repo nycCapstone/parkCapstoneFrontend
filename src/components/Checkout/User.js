@@ -31,7 +31,6 @@ const User = ({ userData }) => {
       });
     setContinueAsGuest(true);
   };
-  console.log(userData);
   return (
     <>
       <div className="userinfo-card">
@@ -95,14 +94,12 @@ const User = ({ userData }) => {
           </div>
         ) : (
           <div className="ch-userinfo-list">
-            <p className="account-info-header ">Account Info</p>
-            <ul>
+            <p className="account-info-header">Account Info</p>
+            <ul className="user-name-email">
               <strong>
                 <li>{`${userData.first_name} ${userData.last_name} `}</li>
               </strong>
-              <li key={1} className="li-email">
-                {userData.email}
-              </li>
+              <li key={1}>{userData.email}</li>
             </ul>
           </div>
         )}
@@ -111,7 +108,7 @@ const User = ({ userData }) => {
         </div>
       </div>
 
-      {/* <div className="us-chk-navigate">
+      <div className="us-chk-navigate">
         <button
           type="click"
           className="go-back-link"
@@ -121,7 +118,7 @@ const User = ({ userData }) => {
         >
           <span className="go-back-icon">&#8678;</span> Go back
         </button>
-      </div> */}
+      </div>
     </>
   );
 };

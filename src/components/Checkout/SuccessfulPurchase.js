@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { resetRInfoCache } from "../../redux/checkout/reservationSlice";
-import { resetSearchState } from "../../redux/search/searchResultsSlice";
-import { resetBookings } from "../../redux/client/clientSearchSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "../Location/PSMapViewSuccess";
 import { Link } from "react-router-dom";
 import "./Styles/SuccessfulPurchase.css";
@@ -22,7 +20,9 @@ const SuccessfulPurchase = () => {
     isLoading,
     error,
     isUninitialized,
-  } = useGetClientTransactionsQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetClientTransactionsQuery(resInfo?.booking_id, {
+    refetchOnMountOrArgChange: false,
+  });
 
   const [toast, setToast] = useState(null);
   const [reservationInfo, setReservationInfo] = useState({});
@@ -32,14 +32,16 @@ const SuccessfulPurchase = () => {
       //erase most recent reservation details
       setReservationInfo(resInfo);
       dispatch(resetRInfoCache());
-      dispatch(resetSearchState());
-      dispatch(resetBookings());
       setToast(true);
     }
   }, []);
 
   if (isLoading || isUninitialized) {
-    return <SearchLoading />;
+    return (
+      <div className="s-loading-container">
+        <Loading />;
+      </div>
+    );
   }
 
   if (isSuccess) {
@@ -92,7 +94,7 @@ const SuccessfulPurchase = () => {
                   <li className="conf-check-in">
                     <span className="conf-check-in-date-time">Check-in:</span>{" "}
                     {new Date(
-                      reservationInfo.query_data[2]
+                      reservationInfo.query_data[2],
                     ).toLocaleDateString()}{" "}
                     -{" "}
                     {new Date(reservationInfo.query_data[2]).toLocaleTimeString(
@@ -101,14 +103,14 @@ const SuccessfulPurchase = () => {
                         hour: "numeric",
                         minute: "numeric",
                         hour12: true,
-                      }
+                      },
                     )}
                   </li>
                   <br />
                   <li className="conf-checkout">
                     <span className="conf-check-out-date-time">Checkout:</span>{" "}
                     {new Date(
-                      reservationInfo.query_data[3]
+                      reservationInfo.query_data[3],
                     ).toLocaleDateString()}{" "}
                     -{" "}
                     {new Date(reservationInfo.query_data[3]).toLocaleTimeString(
@@ -117,7 +119,7 @@ const SuccessfulPurchase = () => {
                         hour: "numeric",
                         minute: "numeric",
                         hour12: true,
-                      }
+                      },
                     )}
                   </li>
                   <br />

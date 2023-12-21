@@ -12,7 +12,12 @@
 }
 
 .app-description:nth-child(odd) {
-background: linear-gradient(rgba(255,255,255,1) 0%, rgba(220,220,208,1) 4%, rgba(220,220,208,1) 96%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(
+    rgba(255, 255, 255, 1) 0%,
+    rgba(220, 220, 208, 1) 4%,
+    rgba(220, 220, 208, 1) 96%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .app-description:nth-child(odd) > .container {
@@ -29,6 +34,7 @@ background: linear-gradient(rgba(255,255,255,1) 0%, rgba(220,220,208,1) 4%, rgba
 
 .landing-intro h2 {
   padding-bottom: 1rem;
+  width: 100%;
 }
 
 .pic-text {
@@ -90,25 +96,13 @@ background: linear-gradient(rgba(255,255,255,1) 0%, rgba(220,220,208,1) 4%, rgba
   }
 }
 
-.marketing-image1 .marketing-image2 {
+.marketing-image1,
+.marketing-image2 {
   grid-area: image;
   border-radius: 2%;
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
 }
-.marketing-image1 {
-  animation: slideInRight 0.5s linear 0s 1;
-  animation-fill-mode: forwards;
-  animation-timeline: view();
-}
-.marketing-image2 {
-  animation: slideInLeft 0.5s linear 0s 1;
-  animation-timeline: view();
-}
-@media (prefers-reduced-motion: no-preference) {
-
-}
-
 
 .pic-text {
   animation: fade linear forwards;
@@ -126,30 +120,6 @@ background: linear-gradient(rgba(255,255,255,1) 0%, rgba(220,220,208,1) 4%, rgba
   width: 60%;
 }
 
-@keyframes slideInLeft {
-  0% {
-    transform: translateX(-300px);
-  }
-  40% {
-    transform: translateX(0)
-  }
-}
-@keyframes slideInRight {
-  0% {
-    transform: translateX(300px);
-  }
-  40% {
-    transform: translateX(0)
-  }
-}
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-}
 @media (max-width: 768px) {
   .app-description > .container,
   .app-description:nth-child(odd) > .container {

@@ -6,8 +6,8 @@ import Nav from "./components/Nav/Nav";
 import Layout from "./components/Layout";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
-import Home from "./components/Dashboard/Home";
 import Client from "./components/Client/Client";
+import ClientTest from "./components/Client/ClientTest";
 import RenterM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
@@ -17,6 +17,7 @@ import ParkingSpotDetailsPage from "./components/Location/ParkingSpotDetailsPage
 import AboutUs from "./components/AboutUs/AboutUs";
 import SearchResults from "./components/Spaces/SearchResults";
 import MadeSearch from "./components/State/MadeSearch";
+import MadeResInfo from "./components/State/MadeResInfo";
 import Checkout from "./components/Checkout/Checkout";
 import Payment from "./components/Checkout/Billing/Payment";
 import RenterLanding from "./components/Renter/RenterLanding";
@@ -24,10 +25,10 @@ import RenterActivity from "./components/Renter/Components/RenterActivity";
 import ClientSearchPage from "./components/Client/ClientSearchPage";
 import CLSearchResults from "./components/Client/Views/CLSearchResults";
 import SpotDetails from "./components/Client/SpotDetails";
-import MyActivity from "./components/Client/MyActivity";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
+
 import "./App.css";
 
 function App() {
@@ -38,8 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
-            <Route path="/" element={<Landing />} />
-            <Route path="go" element={<Landing />} />
+            <Route path="/go" element={<Landing />} />
             <Route path="/login/:checkout?" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="confirmation" element={<ConfirmEmail />} />
@@ -56,19 +56,24 @@ function App() {
                   element={<ParkingSpotDetailsPage />}
                 />
                 <Route path="/checkout/:property_id" element={<Checkout />} />
-                <Route path="/payment/:booking_id" element={<Payment />} />
+                <Route element={<MadeResInfo />}>
+                  <Route path="/payment/:booking_id" element={<Payment />} />
+                </Route>
               </Route>
-              <Route path="/spot-details/:id" element={<SpotDetails />} />
+              <Route path="/" element={<Landing />} />
+              <Route
+                path="/spot-details/:id"
+                element={<SpotDetails />}
+                allowedRoles={["Client", "Renter"]}
+              />
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
-              >
-                <Route path="home" element={<Home />} />
-              </Route>
+              ></Route>
 
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}
               >
-                <Route path="client" element={<Client />} />
+                <Route path="client" element={<ClientTest />} />
                 <Route path="client/search" element={<ClientSearchPage />} />
                 <Route
                   path="client/search-result"
@@ -78,7 +83,6 @@ function App() {
                   path="/client/pmt/success/:nav_id?/:pmt_id?"
                   element={<SuccessfulPurchase />}
                 />
-                <Route path="client/transactions" element={<MyActivity />} />
               </Route>
               <Route
                 element={<RequireAuth allowedRoles={["Client", "Renter"]} />}

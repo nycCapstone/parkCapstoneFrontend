@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { resetLandingCache } from "../../../redux/landing/landingSearchSlice";
 import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useFormik } from "formik";
 import { CiCreditCard1 } from "react-icons/ci";
+import ButtonSpinner from "../../../assets/Spinners/ButtonSpinner";
 import "./Payment.css";
 
 const Payment = () => {
@@ -18,8 +18,8 @@ const Payment = () => {
   const [nameOnCard, setNameOnCard] = useState("");
   const [err, setErr] = useState(false);
   const [newClientPmt] = useNewClientPmtMutation();
+  const [showLoad, setShowLoad] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -66,6 +66,7 @@ const Payment = () => {
       return errors;
     },
     onSubmit: async (values) => {
+      setShowLoad(true);
       await newClientPmt({
         data: [
           `${values.expiryMonth}/${values.expiryYear}`,
@@ -77,7 +78,7 @@ const Payment = () => {
           [
             resInfo.query_data[0],
             `${new Date(resInfo.query_data[2]).toLocaleDateString()} ${new Date(
-              resInfo.query_data[2]
+              resInfo.query_data[2],
             ).toLocaleTimeString()}`,
           ],
           userData.email,
@@ -89,10 +90,10 @@ const Payment = () => {
             setErr(true);
             return;
           }
-          dispatch(resetLandingCache());
           navigate(`/client/pmt/success/${resInfo.nav_id}/${res.pmt_id}`);
         })
-        .catch((e) => console.error(e));
+        .catch((e) => console.error(e))
+        .finally(() => setShowLoad(false));
     },
   });
 
@@ -265,7 +266,11 @@ const Payment = () => {
           ) : null}
 
           <button className="payment-button" type="submit">
-            Pay ${Number(resInfo.selected_space.final_price) + 5}
+            {showLoad ? (
+              <ButtonSpinner />
+            ) : (
+              <>Pay ${Number(resInfo.selected_space.final_price) + 5}</>
+            )}
           </button>
         </form>
         <div className="purchase-details">
@@ -284,7 +289,7 @@ const Payment = () => {
               <strong>
                 {
                   resInfo.query_data[0].find(
-                    (item) => item.space_id === resInfo.booking_space_id
+                    (item) => item.space_id === resInfo.booking_space_id,
                   )?.space_no
                 }
               </strong>

@@ -1,28 +1,19 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "../Styles/Notifications.css";
 
-const EmptyResult = ({ infoPrompt }) => {
+const EmptyResult = () => {
+  const infoPrompt = useSelector((state) => state.changeTime.infoPrompt);
 
-    const [show, setShow] = useState(null)
-
-useEffect(() => {
   if (infoPrompt) {
-    setShow(true)
-  } 
-
-}, [infoPrompt])
-
-if (show) {
-
     return (
-        <div className="reservation-square reservation-primary">
-          Sorry no spots available at {new Date(infoPrompt).toLocaleDateString()} {new Date(infoPrompt).toLocaleTimeString()}
-        </div>
+      <div className="reservation-square reservation-primary">
+        Sorry no spots available at {new Date(infoPrompt).toLocaleDateString()}{" "}
+        {new Date(infoPrompt).toLocaleTimeString()}
+      </div>
     );
-} else {
+  } else {
     return null;
-}
-
+  }
 };
 
 export default EmptyResult;

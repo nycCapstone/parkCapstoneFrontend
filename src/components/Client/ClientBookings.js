@@ -1,8 +1,8 @@
 import { useGetBookingsQuery } from "../../redux/checkout/checkoutApiSlice";
-import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { calculateDateDifferenceInDays } from "../../constants/helper/helper";
-import SearchLoading from "../../assets/Spinners/SearchLoading";
+import Loading from "../../assets/Spinners/Loading";
+import { useSelector } from "react-redux";
 import { RatingStars } from "../Location/RatingStars";
 import { FaEdit } from "react-icons/fa";
 import EditStars from "./Views/EditStars";
@@ -15,23 +15,16 @@ const ClientBookings = () => {
     isSuccess,
     isLoading,
     error,
+    isUninitialized,
     refetch,
-  } = useGetBookingsQuery();
-  const { data: userData } = useGetUserInfoQuery();
+  } = useGetBookingsQuery({}, { refetchOnMountOrArgChange: true });
   const [show, setShow] = useState(null);
+  const resInfo = useSelector((state) => state.reservation);
 
-  useEffect(() => {
-    if (isSuccess) {
-      if (userData?.id !== bookings[0]?.customer_booking_id) {
-        refetch();
-      }
-    }
-  }, []);
-
-  if (isLoading) {
+  if (isLoading || isUninitialized) {
     return (
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }
@@ -52,7 +45,16 @@ const ClientBookings = () => {
             </header>
             <div className="bookings-grid-container">
               {bookings.map((booking, i) => (
-                <div key={booking.booking_id} className="booking-item">
+                <div
+                  key={booking.booking_id}
+                  className="booking-item"
+                  style={{
+                    height:
+                      resInfo?.booking_id === booking.booking_id
+                        ? "230px"
+                        : "auto",
+                  }}
+                >
                   <p className="booking-label">
                     Order Number - {booking.booking_id}
                   </p>
@@ -70,14 +72,16 @@ const ClientBookings = () => {
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <p>Rating: </p>
                     <RatingStars rating={booking.rating} />
-                    {calculateDateDifferenceInDays(booking.end_time) < 13 && (
-                      <FaEdit
-                        style={{ marginLeft: "1rem", cursor: "pointer" }}
-                        onClick={() => {
-                          setShow(i);
-                        }}
-                      />
-                    )}
+                    {calculateDateDifferenceInDays(booking.end_time) < 13 &&
+                      booking.isactive && (
+                        <FaEdit
+                          style={{ marginLeft: "1rem", cursor: "pointer" }}
+                          onClick={() => {
+                            if (i !== show) setShow(i);
+                            else setShow(null);
+                          }}
+                        />
+                      )}
                     {show === i && (
                       <EditStars
                         booking={booking}
@@ -93,6 +97,27 @@ const ClientBookings = () => {
                   >
                     View More
                   </Link>
+                  {booking.pmt_id && (
+                    <>
+                      <p>Payment Id: {booking.pmt_id}</p>
+
+                      <p>Card Expires: {booking.expiry}</p>
+                      <p>
+                        Pmt made @:{" "}
+                        {new Date(booking.timestamp).toLocaleDateString()}
+                      </p>
+                    </>
+                  )}
+                  {resInfo?.booking_id === booking.booking_id && (
+                    <>
+                      <Link
+                        to={`/payment/${resInfo.booking_id}`}
+                        className="view-more-link"
+                      >
+                        Complete Payment
+                      </Link>
+                    </>
+                  )}
                 </div>
               ))}
             </div>

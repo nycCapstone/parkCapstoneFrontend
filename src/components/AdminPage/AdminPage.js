@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SearchLoading from "../../assets/Spinners/SearchLoading";
 import { IoIosStar } from "react-icons/io";
 import { RatingStars } from "../Location/RatingStars";
+import Loading from "../../assets/Spinners/Loading";
 import "./AdminPage.css";
 
 const AdminPage = () => {
@@ -14,7 +15,7 @@ const AdminPage = () => {
     return (
       // TODO all loading components
       <div className="s-loading-container">
-        <SearchLoading />
+        <Loading />
       </div>
     );
   }

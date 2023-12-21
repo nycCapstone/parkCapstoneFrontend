@@ -68,3 +68,9 @@
     }
   }
 }
+
+@media (max-width: 700px) {
+  .renter-act-container .renter-uplist-container .rent-act-singleSpot {
+    width: 95%;
+  }
+}

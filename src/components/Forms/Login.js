@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { setRole } from "../../redux/roles/rolesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
 import { setPersist, setAuth } from "../../redux/auth/authSlice";
+import "./Styles/Register.css";
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);
+  const loginStatus = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
@@ -31,6 +33,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loginStatus) {
+      navigate("/admin");
+    }
 
     try {
       await login({ email, password })

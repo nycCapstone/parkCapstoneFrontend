@@ -2,15 +2,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useInsertBookingMutation } from "../../redux/checkout/checkoutApiSlice";
 import { setRInfo } from "../../redux/checkout/reservationSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Styles/ResDetails.css";
 
 const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
   const checkoutObj = useSelector((state) => state.checkout);
   const [selectedType, setSelectedType] = useState("");
   const [err, setErr] = useState(false);
-  const [BookingErr, setBookingErr] = useState(false);
+  const [BookingErr, setBookingErr] = useState({ isErr: false, message: "" });
   const [enabled, setEnabled] = useState(false);
+  const roles = userData?.roles;
 
   let lat = resData[0].latitude;
   let lng = resData[0].longitude;
@@ -20,7 +21,11 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userData?.id) {
+    if (
+      !userData?.id ||
+      (roles?.ClientOnly && !roles.Client.bckgr) ||
+      (roles?.Renter && !roles.Client.bckgr)
+    ) {
       setEnabled(true);
     }
   }, []);
@@ -83,7 +88,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
             ...res,
             lat,
             lng,
-          })
+          }),
         );
         //navigate to new page with bookings table lookup id.
         navigate(`/payment/${res.booking_id}`);
@@ -91,13 +96,25 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
       .catch((e) => {
         console.error(e);
         setEnabled(true);
-        setBookingErr(true);
+        if (e.originalStatus === 401) {
+          setBookingErr({
+            ...BookingErr,
+            isErr: true,
+            message: "Not Logged in",
+          });
+        } else if (e.status !== 401) {
+          setBookingErr({
+            ...BookingErr,
+            isErr: true,
+            message: "Spot Taken",
+          });
+        }
       });
   };
 
   const handleInsertError = () => {
     refetch();
-    setBookingErr(false);
+    setBookingErr({ isErr: false, message: "" });
     setEnabled(false);
   };
 
@@ -118,7 +135,9 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                   onChange={handleTypeChange}
                   required
                 >
-                  <option value="">Select</option>
+                  <option value="" className="select-car-type">
+                    Select
+                  </option>
                   {resData
                     .filter((item) => item?.row_num)
                     .map((item, idx) => {
@@ -141,15 +160,19 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
               <div className="final-add-to-cart">
                 <p>
                   Selected Vehicle:{" "}
-                  {selectedType.length
-                    ? selectedType
-                    : resData[0].sp_type[0].toUpperCase() +
-                      resData[0].sp_type.slice(1).toLowerCase()}
+                  <strong>
+                    {selectedType.length
+                      ? selectedType
+                      : resData[0].sp_type[0].toUpperCase() +
+                        resData[0].sp_type.slice(1).toLowerCase()}
+                  </strong>
                 </p>
                 <p className="res-details-final-price">
                   Final Price: $
-                  {resData.find((item) => item.sp_type === selectedType)
-                    ?.final_price || resData[0].final_price}
+                  <strong>
+                    {resData.find((item) => item.sp_type === selectedType)
+                      ?.final_price || resData[0].final_price}
+                  </strong>
                 </p>
               </div>
 
@@ -160,11 +183,26 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
               >
                 Go To Payment Details
               </button>
+              {enabled &&
+                userData?.id &&
+                ((roles?.ClientOnly && !roles.Client.bckgr) ||
+                  (roles?.Renter && !roles.Client.bckgr)) && (
+                  <div className="res-fail-container">
+                    <Link to="/admin/confirm-details">
+                      Need to confirm your primary address
+                    </Link>
+                  </div>
+                )}
             </form>
-            {BookingErr && (
+            {BookingErr.isErr && (
               <div className="">
-                Sorry Spot was taken, please retry
-                <button onClick={handleInsertError}>New Checkout</button>
+                {`${BookingErr.message}, please retry`}
+                {BookingErr.message === "Spot Taken" && (
+                  <button onClick={handleInsertError}>Retry</button>
+                )}
+                {BookingErr.message === "Not Logged in" && (
+                  <Link to="/login/true"> Login to Book</Link>
+                )}
               </div>
             )}
             {err && (

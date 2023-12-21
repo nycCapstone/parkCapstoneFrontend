@@ -28,7 +28,7 @@ const SearchForm = () => {
     if (state.searchResults?.location?.addr?.length) {
       return state.searchResults?.location?.addr;
     } else {
-      return "Search for a spot (eg. NYC NY 1001)";
+      return "Search for a spot (eg. NYC NY 10001)";
     }
   });
   const [checkInDate, setCheckInDate] = useState(roundToNearest30());
@@ -83,20 +83,7 @@ const SearchForm = () => {
       } else {
         console.error("No geometry information found for the selected place.");
       }
-      if (
-        !place?.address_components?.some((item) => {
-          let c = item;
-          if (item?.types?.includes("postal_code")) {
-            const z = c?.long_name || c?.short_name;
-            setFormattedAddress({ addr: fA, zipCode: z });
-            return true;
-          } else {
-            return false;
-          }
-        })
-      ) {
-        setFormattedAddress({ addr: fA, zipCode: "" });
-      }
+      setFormattedAddress(fA);
     }
   }
 
@@ -124,8 +111,7 @@ const SearchForm = () => {
 
       let searchStore = {
         location: {
-          addr: formattedAddress.addr,
-          zipCode: formattedAddress.zipCode,
+          addr: formattedAddress,
           lat: locationdata.lat,
           lng: locationdata.lng,
         },
@@ -139,16 +125,14 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={getRelevantSpots} className="search-form">
-      <div className="landing-searchbar">
-        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-          <input
-            className="g-search"
-            type="text"
-            placeholder={placeHolder}
-            ref={searchRef}
-          />
-        </Autocomplete>
-      </div>
+      <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+        <input
+          className="g-search"
+          type="text"
+          placeholder={placeHolder}
+          ref={searchRef}
+        />
+      </Autocomplete>
       <div className="search-landing-container">
         <div className="start-container">
           <label className="start-label">Check-In:</label>
@@ -208,8 +192,6 @@ const SearchForm = () => {
             />
           )}
         </div>
-        <div className="end-time"></div>
-        <div className="end-time"></div>
       </div>
 
       <button className="submit-button" type="submit" ref={btnRef}>

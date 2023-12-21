@@ -3,7 +3,8 @@ import { getCarTruckPrice } from "../../../constants/reducers/searchform";
 import MapView from "../../Maps/MapView";
 import * as geolib from "geolib";
 import { useEffect, useState } from "react";
-import CLLoading from "./CLLoading";
+import Loading from "../../../assets/Spinners/Loading";
+import SearchChangeTime from "../../Spaces/Component/SearchChangeTime";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { FaChevronCircleLeft } from "react-icons/fa";
@@ -22,6 +23,15 @@ const CLSearchResults = () => {
   } = useGetAvailLandingSpotsQuery(searchArr[searchArr.length - 1]);
   const [useArray, setUseArray] = useState(null);
   const [selectedOption, setSelectedOption] = useState("distance");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     if (clientSearches?.length > 0) {
@@ -117,7 +127,7 @@ const CLSearchResults = () => {
   if (isLoading || !useArray) {
     return (
       <div className="s-loading-container">
-        <CLLoading />
+        <Loading />
       </div>
     );
   } else if (useArray && useArray?.length) {
@@ -165,6 +175,7 @@ const CLSearchResults = () => {
           </div>
 
           <div className="cl-search-reslist">
+            <SearchChangeTime isOpen={modalOpen} onClose={closeModal} />
             {useArray.map((item, i) => {
               let cartruckp = getCarTruckPrice(
                 clientSearches,
@@ -176,60 +187,83 @@ const CLSearchResults = () => {
                   key={i}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={() => handleMouseLeave(i)}
+                  style={{
+                    backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
+                  }}
                 >
-                  <p>Address: {item.prop_address}</p>
-                  <p>Zip Code: {item.zip}</p>
-                  <p>Number Available Spaces: {item.count_spaces}</p>
-                  <div className="clv-cost-info">
-                    <span className="clv-span-info">
-                      <h4>Price</h4>
-                      <p>
-                        {item.billing_type}: {item.price.toFixed(2)}
-                      </p>
-                    </span>
-                  </div>
-                  <div>
-                    {item.picture && <img alt="propimage" src={item.picture} />}
-                  </div>
-
-                  <div className="cl-st-continer">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Commuter price</th>
-                          <th>Large vehicle price</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>${cartruckp[0]}</td>
-                          <td>${cartruckp[1]}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <p className="cl_search_results_address">
+                    Address: {item.prop_address}
+                  </p>
+                  {item.count_spaces > 0 && (
+                    <p className="cl_search_results_avinfo">
+                      Number Available Spaces: {item.count_spaces}
+                    </p>
+                  )}
+                  <p>
+                    <span className="cl_search_results_distance">
+                      Distance: {item.distance.toFixed(2)} miles{" "}
+                    </span>{" "}
+                    <i
+                      className="fa-solid fa-person-walking"
+                      aria-hidden="true"
+                      style={{ color: "#000000" }}
+                    ></i>
+                  </p>
+                  <p className="cl_search_results_billing_type">
+                    Billing Type:{" "}
+                    {item.billing_type === "fixed" ? "full day" : "hourly"}
+                  </p>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Small Vehicle <i className="fa-solid fa-car-side"></i>
+                        </th>
+                        <th>
+                          Large vehicle
+                          <i className="fa-solid fa-truck"></i>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${cartruckp[0]}</td>
+                        <td>${cartruckp[1]}</td>
+                      </tr>
+                    </tbody>
+                  </table>{" "}
+                  {item.picture && <img alt="propimage" src={item.picture} />}
                   <div className="button-container">
                     <Link
                       to={`/parking-spots/${item.space_id}?starts=${
                         searchArr[searchArr.length - 1][2]
                       }&ends=${searchArr[searchArr.length - 1][3]}`}
                     >
-                      <button className="show-me-button">View Details</button>
+                      <button className="cl-show-me-button">
+                        View Details
+                      </button>
                     </Link>
 
-                    <div style={{ margin: "0 10px" }}></div>
-
-                    <Link
-                      className="button-square button-primary"
-                      to={`/checkout/${item.property_id.substring(
-                        0,
-                        13,
-                      )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
-                        searchArr[searchArr.length - 1][3]
-                      }`}
-                    >
-                      Book Now
-                    </Link>
+                    {item.available && (
+                      <Link
+                        to={`/checkout/${item.property_id.substring(
+                          0,
+                          13,
+                        )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
+                          searchArr[searchArr.length - 1][3]
+                        }`}
+                      >
+                        <button className="cl-checkout-button">Book Now</button>
+                      </Link>
+                    )}
+                    {!item.available && (
+                      <button
+                        className="cl-checkout-button"
+                        onClick={openModal}
+                      >
+                        Change Time
+                      </button>
+                    )}
                   </div>
                 </div>
               );

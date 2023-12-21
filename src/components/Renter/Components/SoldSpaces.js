@@ -1,7 +1,7 @@
 import { useGetSoldSpacesQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { Fragment, useEffect } from "react";
-import RenterLoading from "../../../assets/Spinners/RenterLoading";
+import Loading from "../../../assets/Spinners/Loading";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../Styles/SoldSpaces.css";
@@ -25,7 +25,7 @@ const SoldSpaces = () => {
   }, []);
 
   if (isLoading) {
-    return <RenterLoading />;
+    return <Loading />;
   }
 
   if (isSuccess) {
