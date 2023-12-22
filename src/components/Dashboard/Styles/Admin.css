@@ -1,7 +1,7 @@
 .home-link {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -22,6 +22,7 @@
   font-size: 24px;
   color: #333;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .home-container .user-email {
@@ -34,39 +35,94 @@
   margin-bottom: 1rem;
   text-align: center;
 }
-
 .link-container {
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 0.5rem;
+  width: 70%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #adadad;
+  margin: 0px auto;
+}
+.admin-all-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+
 }
 
-.nav-link {
-  display: block;
-  margin-bottom: 10px;
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
+.admin-section {
+
+  display: flex;
+  gap:1rem;
+  flex-direction: row;
+  justify-content: center;
+  padding-left:50%;
+}
+.link {
+  align-items: center;
+
 }
 
 .nav-link:hover {
   text-decoration: underline;
 }
 
+  .driver-button,
+  .my-activity-button,
+  .parking-spot-owner-button {
+    position:sticky;
+    top:0px;
+    background-color: white;
+    color: hsl(0, 100%, 68%);
+    padding: 10px 20px;
+    border: solid 1px hsl(0, 100%, 68%);
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      background-color: hsl(0, 100%, 68%);
+      color: white;
+      /* opacity: 1.1; */
+    }
+  }
+
+    
+
+
 .sign-out-button {
+  color: #ffffff;
   background-color: #ff5757;
-  color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
   &:hover {
-    background-color: #ff5757;
+
+    transform: scale(1.1);
+    background-color: #ffffff;
+    color: hsl(0, 99%, 63%);
+    /* opacity: 1.1; */
   }
 }
 
 .sign-out-button:hover {
   background-color: #c84a4a;
+}
+
+@media (max-width: 403px) {
+  .nav-link {
+    font-size: 14px;
+  }
 }
