@@ -120,13 +120,6 @@ const AdminPage = () => {
                   <p>{userInfo.email}</p>
                 </div>
                 <UserAction />
-
-                {/* <div className="user-data">
-  <p>
-    Client Background Verified:{" "}
-    {userInfo.client_background_verified ? "Yes" : "No"}
-  </p>
-  </div> */}
               </div>
             </div>
             <div className="user-reviews">
@@ -200,8 +193,6 @@ const AdminPage = () => {
             </div>
           </div>
         </div>
-
-        {/* <Link to="/client/transactions">My Transactions</Link> */}
       </div>
     );
 };
