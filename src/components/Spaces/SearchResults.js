@@ -37,7 +37,7 @@ const SearchResults = () => {
   useEffect(() => {
     if (isSuccess) {
       setUseArray(
-        chooseArray({ type: selectedOption, payload: landingSearchResults }),
+        chooseArray({ type: selectedOption, payload: landingSearchResults })
       );
     } else if (error) {
       dispatch(searchResultsError(error));
@@ -74,7 +74,7 @@ const SearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1,
+          (item) => +item.row_num === 1
         );
         return filteredResults
           .map((item) => ({
@@ -165,7 +165,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  }),
+                  })
                 );
 
                 setSelectedOption(e.target.value);
@@ -257,7 +257,7 @@ const SearchResults = () => {
                         <Link
                           to={`/checkout/${item.property_id.substring(
                             0,
-                            13,
+                            13
                           )}/?starts=${
                             searchArr[searchArr.length - 1][2]
                           }&ends=${searchArr[searchArr.length - 1][3]}`}
