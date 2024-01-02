@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
+import { BiLinkExternal } from "react-icons/bi";
 import "./Details.css";
 
 function ParkingSpotDetailPage() {
@@ -36,10 +37,7 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(
-        0,
-        13,
-      )}/?starts=${starts}&ends=${ends}`,
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
     );
   };
 
@@ -53,86 +51,110 @@ function ParkingSpotDetailPage() {
     const lat = spotDetails.latitude;
     const lng = spotDetails.longitude;
     return (
-      <div className="parking-spot-details-page">
-        <Link className="go-back-link" onClick={() => navigate(-1)}>
-          <span className="go-back-icon">&#8678;</span> Go back
-        </Link>
+      <>
+        <div className="parking-spot-details-header">
+          <p className="details-page-header">
+            Explore Your Parking Spot Details
+          </p>
+          <p className="details-page-description">
+            Discover detailed information about your parking spot, including the
+            number of available spaces, billing type, spot rating, and spot
+            owner details. Navigate through the map view for a visual
+            representation and easily book your preferred spot. Take control of
+            your parking experience with convenience at your fingertips.
+          </p>
+        </div>
+        <div className="parking-spot-details-page">
+          <div className="details-container">
+            <div className="details-price-address">
+              <div className="details-address">
+                <p className="first-address">
+                  {spotDetails.prop_address.split(",")[0]}
+                </p>
+                <p className="second-address">{`${spotDetails.prop_address
+                  .split(",")
+                  .slice(1)}`}</p>
+              </div>
 
-        <div className="details-container">
-          {/* Details Information */}
-          <div className="title">
-            <h1>{spotDetails.prop_address.slice(0, -5)}</h1>
-          </div>
-          <div className="details">
-            <p className="detail-label">Number of Spaces:</p>
-            <p className="detail-value">{spotDetails.number_spaces}</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Billing Type:</p>
-            <p className="detail-value">
-              {spotDetails.billing_type[0].toUpperCase() +
-                spotDetails.billing_type.slice(1).toLowerCase()}{" "}
-              / Daily
-            </p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Price:</p>
-            <p className="detail-value">${spotDetails.price}</p>
-          </div>
-          <div className="details">
-            <p className="detail-label">Rating:</p>
-            <div>
-              <RatingStars rating={spotDetails.rating || 5.0} />
+              <p className="details-price">${spotDetails.price}</p>
             </div>
-          </div>
-          {spotDetails.renter_id && (
-            <div>
-              <div className="details">
-                <p className="detail-label">Spot Owner Name:</p>
-                <p className="detail-value">
-                  {spotDetails.client_first_name[0].toUpperCase() +
-                    spotDetails.client_first_name.slice(1).toLowerCase()}
+
+            <div className="details-second-info">
+              <div className="details-single">
+                <p className="details-label">Number of Spaces:</p>
+                <p>{spotDetails.number_spaces}</p>
+              </div>
+
+              <div className="details-single">
+                <p className="details-label">Billing Type:</p>
+                <p>
+                  {spotDetails.billing_type[0].toUpperCase() +
+                    spotDetails.billing_type.slice(1).toLowerCase()}{" "}
+                  / Daily
                 </p>
               </div>
-            </div>
-          )}
 
-          <button
-            className="book-now-button"
-            onClick={handleBookNow}
-            disabled={!isTimePicked}
-          >
-            Book Now
-          </button>
-          {!isTimePicked && (
-            <p className="booking-error-message">
-              Please go back and pick a time.
-            </p>
-          )}
+              <div className="details-single">
+                <p className="details-label">Rating:</p>
+                <RatingStars rating={spotDetails.rating || 5.0} />
+              </div>
+
+              {spotDetails.renter_id && (
+                <div className="details-single">
+                  <p className="details-label">Spot Owner Name:</p>
+                  <p>
+                    {spotDetails.client_first_name[0].toUpperCase() +
+                      spotDetails.client_first_name.slice(1).toLowerCase()}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="details-buttons">
+              <button
+                onClick={() => navigate(-1)}
+                className="details-single-button"
+              >
+                Go back
+              </button>
+
+              <button
+                onClick={handleBookNow}
+                disabled={!isTimePicked}
+                className="details-single-button"
+              >
+                Book Now
+              </button>
+            </div>
+
+            {!isTimePicked && (
+              <p className="booking-error-message">
+                Please go back and pick a time.
+              </p>
+            )}
+          </div>
+          <div className="details-map">
+            <section className="ps-mapview">
+              <PSMapView
+                lat={lat}
+                lng={lng}
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                // containerElement={<div style={{ height: `100%` }} />}
+                // mapElement={<div style={{ height: `100%` }} />}
+              />
+            </section>
+            <div className="view-on-googleMap">
+              <button
+                className="google-maps-button"
+                onClick={openGoogleMaps}
+                disabled={!isTimePicked}
+              >
+                View on Google Map
+              </button>
+              <BiLinkExternal className="client-booking-icon" />{" "}
+            </div>
+          </div>
         </div>
-        <div className="showpage-map-button-container">
-          <section className="ps-mapview">
-            <PSMapView
-              lat={lat}
-              lng={lng}
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-            />
-          </section>
-          <button
-            className="google-maps-button"
-            onClick={openGoogleMaps}
-            disabled={!isTimePicked}
-          >
-            <i
-              className="fa-solid fa-location-dot"
-              style={{ marginRight: "0.5rem" }}
-            ></i>
-            <span className="google-maps-text">View in Google Maps</span>
-          </button>
-        </div>
-      </div>
+      </>
     );
   }
 

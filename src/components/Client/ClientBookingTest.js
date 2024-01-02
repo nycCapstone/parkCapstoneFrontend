@@ -3,14 +3,16 @@ import { useGetBookingsQuery } from "../../redux/checkout/checkoutApiSlice";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useEffect, useState } from "react";
 import { calculateDateDifferenceInDays } from "../../constants/helper/helper";
+import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import { RatingStars } from "../Location/RatingStars";
 import { BiLinkExternal } from "react-icons/bi";
 import { BiSolidEdit } from "react-icons/bi";
+import { MdPayment } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import EditStars from "./Views/EditStars";
 import { Link } from "react-router-dom";
-import "./Styles/BookingsComponent.css";
+import "./Styles/ClientBookingsTest.css";
 
 function ClientBookingTest() {
   const {
@@ -18,20 +20,22 @@ function ClientBookingTest() {
     isSuccess,
     isLoading,
     error,
+    isUninitialized,
     refetch,
-  } = useGetBookingsQuery();
-  const { data: userData } = useGetUserInfoQuery();
+  } = useGetBookingsQuery({}, { refetchOnMountOrArgChange: true });
+
   const [show, setShow] = useState(null);
+  const resInfo = useSelector((state) => state.reservation);
 
-  useEffect(() => {
-    if (isSuccess) {
-      if (userData?.id !== bookings[0]?.customer_booking_id) {
-        refetch();
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (userData?.id !== bookings[0]?.customer_booking_id) {
+  //       refetch();
+  //     }
+  //   }
+  // }, []);
 
-  if (isLoading) {
+  if (isLoading || isUninitialized) {
     return (
       <div className="s-loading-container">
         <Loading />
@@ -131,27 +135,69 @@ function ClientBookingTest() {
                       })}
                     </p>
                   </div>
+                  {booking.pmt_id && (
+                    <div className="client-booking-secondInfo-Payment">
+                      <div className="client-more-payment">
+                        <label className="client-booking-label">
+                          Payment Id
+                        </label>
+                        <p>***{booking.pmt_id.slice(27)}</p>
+                      </div>
+
+                      <div className="client-more-payment">
+                        <label className="client-booking-label">
+                          Payment Date
+                        </label>
+                        <p>
+                          {new Date(booking.timestamp).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {resInfo?.booking_id === booking.booking_id && (
+                    <div className="complete-payment">
+                      <label className="client-booking-label">
+                        Complete Payment
+                      </label>
+                      <p>
+                        Click{" "}
+                        <Link
+                          to={`/payment/${resInfo.booking_id}`}
+                          className="complete-payment-proceed"
+                        >
+                          here
+                        </Link>{" "}
+                        to proceed with your order
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div className="client-booking-newLinks">
                   <ul className="client-booking-ul">
-                    <li className="client-booking-li">
-                      <Link
-                        to=""
-                        className="new-booking-link"
-                        onClick={() => {
-                          setShow(i);
-                        }}
-                      >
-                        Edit rating
-                      </Link>
-                      <BiSolidEdit className="client-booking-icon" />{" "}
-                    </li>
+                    {calculateDateDifferenceInDays(booking.end_time) < 13 &&
+                      booking.isactive && (
+                        <li className="client-booking-li">
+                          <Link
+                            to=""
+                            className="new-booking-link"
+                            onClick={() => {
+                              if (i !== show) setShow(i);
+                              else setShow(null);
+                            }}
+                          >
+                            Edit rating
+                          </Link>
+                          <BiSolidEdit className="client-booking-icon" />{" "}
+                        </li>
+                      )}
+
                     <li className="client-booking-li">
                       <Link
                         to={`/spot-details/${booking.booking_space_id}`}
                         className="myActivityLink"
                       >
-                        view receipt
+                        view details
                       </Link>
                       <BiLinkExternal className="client-booking-icon" />{" "}
                     </li>

@@ -17,7 +17,7 @@ export const RatingStars = ({ rating }) => {
           style={{ fontSize: "1.2rem" }}
         />
       ))}
-      {hasHalfStar && <StarHalfIcon />}
+      {hasHalfStar && <StarHalfIcon style={{ fontSize: "1.2rem" }} />}
       {[...Array(5 - Math.ceil(rating))].map((_, index) => (
         <StarBorderIcon key={index} style={{ fontSize: "1.2rem" }} />
       ))}

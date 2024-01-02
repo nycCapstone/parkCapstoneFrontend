@@ -3,6 +3,7 @@ import "../Styles/SmallSummary.css";
 
 const SmallSummary = ({ checkoutData }) => {
   const Summary = getSummaryInfo(checkoutData);
+  console.log(Summary);
   return (
     <div>
       <p className="reservation-summary-header">Reservation Summary</p>

@@ -18,6 +18,7 @@ import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
+import { BiLinkExternal } from "react-icons/bi";
 import SearchChangeTime from "../Spaces/Component/SearchChangeTime";
 import Loading from "../../assets/Spinners/Loading";
 import "./Styles/CheckoutLayout.css";
@@ -50,6 +51,7 @@ const Checkout = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
   useEffect(() => {
     if (checkoutData?.length > 0) {
       //checkout data
@@ -99,8 +101,8 @@ const Checkout = () => {
                 lat={lat}
                 lng={lng}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                containerElement={<div style={{ height: `100%` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
+                // containerElement={<div style={{ height: `100%` }} />}
+                // mapElement={<div style={{ height: `100%` }} />}
               />
             </div>
 
