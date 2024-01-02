@@ -23,7 +23,7 @@
   margin: 3rem 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   gap: 1rem;
 }
 
@@ -70,13 +70,12 @@
   text-decoration: underline;
 }
 
-.become-renter,
+/* .become-renter,
 .reserve-now {
   padding: 8px;
   font-size: larger;
   text-align: center;
-  /* width: 6rem; */
-  /* height: 2.7rem; */
+
   border: none;
   border-radius: 0.3rem;
   background-color: #ff5757;
@@ -89,6 +88,31 @@
   &:hover {
     transform: scale(0.96);
   }
+} */
+
+.become-renter,
+.reserve-now {
+  /* display: block; */
+  text-decoration: none;
+  margin: 2rem auto 0;
+  width: 6.3rem;
+  height: 3.5rem;
+  background: #ff5757;
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  transition: transform 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.become-renter:hover,
+.reserve-now:hover {
+  transform: translateY(-5px);
+  background: white;
+  color: #ff5757;
 }
 
 .marketing-image1,
@@ -108,6 +132,16 @@
 .landing-content-description {
   font-size: 1.2rem;
   padding-bottom: 1rem;
+}
+
+.landing-content-description-main-header {
+  font-size: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.landing-content-description-main-text {
+  text-align: left;
+  font-size: 1.6rem;
 }
 
 .landing-body section:first-child img {
