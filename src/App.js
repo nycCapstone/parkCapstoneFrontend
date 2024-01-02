@@ -34,7 +34,10 @@ import "./App.css";
 function App() {
   return (
     <div className="approot">
-      <Nav />
+      <div className="navbar-container-class">
+        <Nav />
+      </div>
+
       <main className="page-content">
         <Routes>
           <Route path="/" element={<Layout />}>
