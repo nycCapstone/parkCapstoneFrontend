@@ -131,13 +131,6 @@ const AdminPage = () => {
               <div className="user-review-sample">
                 <div className="review">
                   <span className="review-text">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                    </p>
                     <div className="reviewer-info">
                       <div className="reviewer-pfp-box">
                         <img
@@ -159,9 +152,13 @@ const AdminPage = () => {
                         </div>
                       </div>
                     </div>
+                    <p>
+                      The parking space was easily accessible and the host was
+                      awesome! Thank you! A++
+                    </p>
                   </span>
                 </div>
-                <div className="review">
+                {/* <div className="review">
                   <span className="review-text">
                     {" "}
                     <p>
@@ -172,7 +169,7 @@ const AdminPage = () => {
                       Duis aute irure dolor in reprehenderit in voluptate velit
                     </p>
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="user-listing">
