@@ -40,13 +40,21 @@
 }
 
 .res-detail-container .res-detail-btn-g {
-  margin-top: 2rem;
-  background-color: #f57575;
-  color: #fff;
-  padding: 10px;
+  display: block;
+  margin: 2rem auto 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* width: 6rem; */
+  height: 2.5rem;
+  background: #ff5757;
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+  transition: transform 0.3s;
   cursor: pointer;
-  border: none;
-  border-radius: 4px;
 }
 
 .res-detail-container .res-detail-btn-n {
@@ -60,7 +68,9 @@
 }
 
 .res-detail-container .res-detail-btn-g:hover {
-  background-color: #45a049;
+  transform: translateY(-5px);
+  background: white;
+  color: #ff5757;
 }
 
 .res-detail-container .conflict-message {
