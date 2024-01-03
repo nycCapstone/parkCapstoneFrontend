@@ -17,10 +17,13 @@ function Landing() {
 
         <section className="landing-intro">
           <div className="container">
-            <h2>Welcome to CarValet</h2>
-            <div className="landing-content-description">
+            <h1 className="landing-content-description-main-header">
+              Welcome to CarValet
+            </h1>
+            <div className="landing-content-description-main-text">
               Find the perfect parking spot by neighborhood, borough, city, or
-              zip code. Book your parking space with ease and convenience.
+              zip code.
+              <br /> Book your parking space with ease and convenience.
             </div>
           </div>
         </section>
