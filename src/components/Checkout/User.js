@@ -33,6 +33,17 @@ const User = ({ userData }) => {
   };
   return (
     <>
+      <div className="us-chk-navigate">
+        <button
+          type="click"
+          className="go-back-link"
+          onClick={() =>
+            navigate(`${isL ? "/client/search-result" : "/search-result"}`)
+          }
+        >
+          <span className="go-back-icon"></span> Go Back
+        </button>
+      </div>
       <div className="userinfo-card">
         {!userData?.email ? (
           <div>
@@ -106,18 +117,6 @@ const User = ({ userData }) => {
         <div className="app-features">
           <p></p>
         </div>
-      </div>
-
-      <div className="us-chk-navigate">
-        <button
-          type="click"
-          className="go-back-link"
-          onClick={() =>
-            navigate(`${isL ? "/client/search-result" : "/search-result"}`)
-          }
-        >
-          <span className="go-back-icon">&#8678;</span> Go back
-        </button>
       </div>
     </>
   );

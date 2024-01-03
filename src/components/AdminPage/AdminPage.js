@@ -84,10 +84,14 @@ const AdminPage = () => {
         <div className="user-info-container">
           <div className="user-profile-overview">
             <div className="user-about">
-              <h2>About, {userInfo.first_name}</h2>
+              <h2>
+                About{" "}
+                {userInfo.first_name[0].toUpperCase() +
+                  userInfo.first_name.slice(1).toLowerCase()}
+              </h2>
               <p>
-                I am often frustrated having to deal with street parking and
-                doesn’t like having to pay expensive fees for parking lots.{" "}
+                I am often frustrated when having to deal with street parking
+                and don't like having to pay expensive fees for parking lots.{" "}
               </p>
             </div>
             <div className="user-info-box">
