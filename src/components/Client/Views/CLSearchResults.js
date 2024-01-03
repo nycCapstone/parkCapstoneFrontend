@@ -36,7 +36,7 @@ const CLSearchResults = () => {
   useEffect(() => {
     if (clientSearches?.length > 0) {
       setUseArray(
-        chooseArray({ type: selectedOption, payload: clientSearches }),
+        chooseArray({ type: selectedOption, payload: clientSearches })
       );
     }
   }, [clientSearches]);
@@ -72,7 +72,7 @@ const CLSearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1,
+          (item) => +item.row_num === 1
         );
         return filteredResults
           .map((item) => ({
@@ -160,9 +160,9 @@ const CLSearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: clientSearches.filter(
-                      (item) => +item.row_num === 1,
+                      (item) => +item.row_num === 1
                     ),
-                  }),
+                  })
                 );
 
                 setSelectedOption(e.target.value);
@@ -179,7 +179,7 @@ const CLSearchResults = () => {
             {useArray.map((item, i) => {
               let cartruckp = getCarTruckPrice(
                 clientSearches,
-                item.property_id,
+                item.property_id
               );
               return (
                 <div
@@ -248,7 +248,7 @@ const CLSearchResults = () => {
                       <Link
                         to={`/checkout/${item.property_id.substring(
                           0,
-                          13,
+                          13
                         )}/?starts=${searchArr[searchArr.length - 1][2]}&ends=${
                           searchArr[searchArr.length - 1][3]
                         }`}
