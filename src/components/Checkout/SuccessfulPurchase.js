@@ -39,7 +39,7 @@ const SuccessfulPurchase = () => {
   if (isLoading || isUninitialized) {
     return (
       <div className="s-loading-container">
-        <Loading />;
+        <Loading />
       </div>
     );
   }

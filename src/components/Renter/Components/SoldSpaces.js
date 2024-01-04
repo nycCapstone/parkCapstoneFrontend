@@ -33,7 +33,7 @@ const SoldSpaces = () => {
       <div className="sold-spaces-container">
         <header>
           {soldSpaces?.length > 0 ? (
-            <h2>Your sold spaces</h2>
+            <p className="your-soldspaces-header">Your sold spaces</p>
           ) : (
             <>
               <div className="cl-h-svgleft">
@@ -42,7 +42,7 @@ const SoldSpaces = () => {
                 </Link>
               </div>
 
-              <h2>No sold spaces yet</h2>
+              <p className="your-soldspaces-header">No sold spaces yet</p>
             </>
           )}
         </header>

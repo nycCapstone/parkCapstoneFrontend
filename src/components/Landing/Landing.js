@@ -1,10 +1,5 @@
 import Hero from "./Hero";
-import {
-  smilingadult,
-  reservedforyou,
-  parking_reserved,
-  happycarcouple,
-} from "../../assets";
+import { reservedforyou, happycarcouple } from "../../assets";
 import { Link } from "react-router-dom";
 import Overlay from "../../common/Overlay";
 import "./Styles/Landing.css";

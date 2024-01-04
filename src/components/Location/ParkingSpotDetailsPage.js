@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
 import { BiLinkExternal } from "react-icons/bi";
-import "./Details.css";
+import "../Client/Styles/SpotDetails.css";
 
 function ParkingSpotDetailPage() {
   const { id } = useParams();
@@ -37,7 +37,10 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
+      `/checkout/${property_id.substring(
+        0,
+        13,
+      )}/?starts=${starts}&ends=${ends}`,
     );
   };
 
@@ -99,12 +102,12 @@ function ParkingSpotDetailPage() {
                 <RatingStars rating={spotDetails.rating || 5.0} />
               </div>
 
-              {spotDetails.renter_id && (
+              {spotDetails?.renter_email && (
                 <div className="details-single">
                   <p className="details-label">Spot Owner Name:</p>
                   <p>
-                    {spotDetails.client_first_name[0].toUpperCase() +
-                      spotDetails.client_first_name.slice(1).toLowerCase()}
+                    {spotDetails.first_name[0].toUpperCase() +
+                      spotDetails.first_name.slice(1).toLowerCase()}
                   </p>
                 </div>
               )}
@@ -138,8 +141,6 @@ function ParkingSpotDetailPage() {
                 lat={lat}
                 lng={lng}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                // containerElement={<div style={{ height: `100%` }} />}
-                // mapElement={<div style={{ height: `100%` }} />}
               />
             </section>
             <div className="view-on-googleMap">

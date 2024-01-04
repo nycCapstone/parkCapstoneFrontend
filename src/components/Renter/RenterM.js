@@ -62,7 +62,15 @@ const RenterM = () => {
                   {renterData?.length > 0 &&
                     renterData.map((item, i) => {
                       return (
-                        <div className="renter-prop-info" key={i}>
+                        <div
+                          className="renter-prop-info"
+                          key={i}
+                          id={
+                            renterData.length - 1 === i
+                              ? "tries"
+                              : "renter_info_propdata"
+                          }
+                        >
                           <div className="renter-prop-info1">
                             <p>ID: {item.property_id}</p>
                             <p>Address: {item.prop_address}</p>

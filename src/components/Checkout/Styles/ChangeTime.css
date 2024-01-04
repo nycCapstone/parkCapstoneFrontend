@@ -32,9 +32,6 @@
   }
 }
 .chtime-page-search {
-  /* border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd; */
   width: 33rem;
   height: max-content;
   padding: 1rem;
@@ -56,25 +53,11 @@
 .time-field {
   padding-left: 8.5px;
   height: 2rem;
-  width: 9rem;
+  /* width: 9rem; */
   font-size: 15px;
   background-color: #f5f5f5;
 }
-@media (max-width: 1000px) {
-  .chtime-search-space {
-    width: 80%;
-    gap: 0.5px;
-  }
-  .date-field,
-  .time-field {
-    height: 2rem;
-    width: 6rem;
-  }
-  .icon-style {
-    padding: 2px;
-    height: 1.2rem;
-  }
-}
+
 .table-header {
   margin: 1.5rem 0;
   font-weight: bold;
@@ -149,4 +132,27 @@
 .change-time-reset {
   display: inline-block;
   margin-left: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .chtime-search-space {
+    width: 80%;
+    gap: 0.5px;
+  }
+
+  .icon-style {
+    padding: 2px;
+    height: 1.2rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .chtime-search-space {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .chtime-page-search {
+    margin-top: 0;
+  }
 }

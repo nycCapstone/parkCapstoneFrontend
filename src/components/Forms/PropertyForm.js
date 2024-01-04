@@ -132,7 +132,9 @@ const PropertyForm = () => {
                   longitude: locationdata.lng,
                 })
                   .unwrap()
-                  .then(() => refetch());
+                  .then(() =>
+                    refetch().then(() => (window.location.hash = "#tries")),
+                  );
               } catch (e) {
                 console.error(e);
               } finally {
