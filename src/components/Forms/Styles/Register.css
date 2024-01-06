@@ -111,6 +111,7 @@
 .errmsg {
   text-align: center;
   margin-top: 2rem;
+  font-size: 20px;
 }
 .offscreen {
   position: absolute;

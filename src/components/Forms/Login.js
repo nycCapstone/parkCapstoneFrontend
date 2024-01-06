@@ -8,10 +8,9 @@ import "./Styles/Register.css";
 
 const Login = () => {
   const persist = useSelector((state) => state.auth.persist);
-  const loginStatus = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const [login] = useLoginMutation({ extraOptions: { skipCheck: true } });
   const { checkout } = useParams();
 
   const userRef = useRef();
@@ -33,33 +32,31 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loginStatus) {
-      navigate("/admin");
-    }
+    await login({ email, password })
+      .unwrap()
+      .then((res) => {
+        // Handle successful response
+        dispatch(setRole(res));
+        dispatch(setAuth(res));
+        localStorage.setItem("persist", true);
+        if (checkout) {
+          navigate(-1);
+        } else navigate("/admin");
+      })
+      .catch((err) => {
+        const { status, data } = err;
 
-    try {
-      await login({ email, password })
-        .unwrap()
-        .then((res) => {
-          dispatch(setRole(res));
-          dispatch(setAuth(res));
-        });
-      localStorage.setItem("persist", true);
-      if (checkout) {
-        navigate(-1);
-      } else navigate("/admin");
-    } catch (err) {
-      console.error(err);
-
-      if (err?.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else if (err?.response?.status === 500) {
-        setErrMsg("Missing Email or Password");
-      } else {
-        setErrMsg("Login Failed. Please try again.");
-      }
-      errRef.current.focus();
-    }
+        if (status === 401) {
+          setErrMsg(data.message);
+        } else if (status === 500) {
+          setErrMsg("Missing Email or Password");
+        } else if (status === 405) {
+          setErrMsg(data.message);
+        } else {
+          setErrMsg("Login Failed. Please try again.");
+        }
+        errRef.current.focus();
+      });
   };
 
   return (

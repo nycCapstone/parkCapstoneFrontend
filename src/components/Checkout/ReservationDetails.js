@@ -153,16 +153,18 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                     })}
                 </select>
               </div>
-              <div className="checkout-options">
-                {resData.length > 2 ? "Two space options available" : ""}
-              </div>
-
+              {resData.length > 2 && (
+                <div className="checkout-options">
+                  Two space options available
+                </div>
+              )}
               <div className="final-add-to-cart">
                 <p>
                   Selected Vehicle:{" "}
                   <strong>
                     {selectedType.length
-                      ? selectedType
+                      ? selectedType[0].toUpperCase() +
+                        selectedType.slice(1).toLowerCase()
                       : resData[0].sp_type[0].toUpperCase() +
                         resData[0].sp_type.slice(1).toLowerCase()}
                   </strong>

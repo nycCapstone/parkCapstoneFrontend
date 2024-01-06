@@ -6,7 +6,6 @@ export const BASE_URL =
 export const CHECK_FOR_EMAIL_URL = BASE_URL + "/auth/check-for-email/";
 export const REGISTER_URL = "/auth/create-user";
 /*must be grouped together */
-
 export const EMAIL_REGEX =
   /([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+/;
 export const PWD_REGEX = /^(?=.*[A-Z])(?=.*\d).{7,24}$/;
