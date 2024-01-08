@@ -44,7 +44,7 @@
   margin: 2rem auto 0;
   padding-left: 1rem;
   padding-right: 1rem;
-  /* width: 6rem; */
+   width: 6rem; 
   height: 2.5rem;
   background: #ff5757;
   color: white;
@@ -56,7 +56,7 @@
   transition: transform 0.3s;
   cursor: pointer;
 }
-
+*/
 .res-detail-container .res-detail-btn-n {
   margin-top: 2rem;
   background-color: lightgray;
@@ -80,9 +80,8 @@
 
 .res-detail-container form p {
   font-size: large;
-} */
-
-.res-detail-container {
+}
+*/ .res-detail-container {
   padding: 1rem 2rem;
   .res-details-page {
     display: grid;
