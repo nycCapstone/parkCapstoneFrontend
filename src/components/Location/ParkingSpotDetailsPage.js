@@ -37,10 +37,7 @@ function ParkingSpotDetailPage() {
 
     const property_id = responseData[0].property_id;
     navigate(
-      `/checkout/${property_id.substring(
-        0,
-        13,
-      )}/?starts=${starts}&ends=${ends}`,
+      `/checkout/${property_id.substring(0, 13)}/?starts=${starts}&ends=${ends}`
     );
   };
 
@@ -105,10 +102,8 @@ function ParkingSpotDetailPage() {
               {spotDetails?.renter_email && (
                 <div className="details-single">
                   <p className="details-label">Spot Owner Name:</p>
-                  <p>
-                    {spotDetails.first_name[0].toUpperCase() +
-                      spotDetails.first_name.slice(1).toLowerCase()}
-                  </p>
+                  {spotDetails.client_first_name[0].toUpperCase() +
+                    spotDetails.client_first_name.slice(1).toLowerCase()}
                 </div>
               )}
             </div>

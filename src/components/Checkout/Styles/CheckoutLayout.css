@@ -118,7 +118,7 @@
     background-color: hsl(0, 0%, 95%);
   }
   .checkout-mapView {
-    height: max-content;
+    height: 26rem;
     padding: 1rem;
     border: 1px solid hsl(0, 0%, 95%);
     border-radius: 0.5rem;
