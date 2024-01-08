@@ -127,6 +127,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
           <>
             {/* <p className="add-cart">Add to Cart</p> */}
             <form onSubmit={handleSubmit}>
+
               <div className="res-details-page">
                 <div className="res-details-info res-details-info-1">
                   <label className="res-details-label">
@@ -178,6 +179,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                   >
                     Proceed to Payment
                   </button>
+
                 </div>
               </div>
               {/* <div className="checkout-options">
