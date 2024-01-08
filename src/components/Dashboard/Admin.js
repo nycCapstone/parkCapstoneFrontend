@@ -26,14 +26,7 @@ const Admin = () => {
       </div>
     );
   }
-  /*
-            {data?.first_name && (
-            <span className="profile-welcome-first-name">
-              {data?.first_name[0].toUpperCase() +
-                data.first_name.slice(1).toLowerCase()}
-            </span>
-          )}
-  */
+
   if (isSuccess) {
     return <AdminPage />;
   }

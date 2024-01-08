@@ -32,7 +32,13 @@ function ClientBookings() {
     );
   }
   if (error) {
-    return <div>Api Down</div>;
+    return (
+      <div className="gologin-styled-card">
+        <Link to="/login" className="gologin-singIn">
+          Sign In
+        </Link>
+      </div>
+    );
   }
 
   if (isSuccess) {

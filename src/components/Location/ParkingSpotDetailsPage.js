@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "./PSMapView";
 import { RatingStars } from "./RatingStars";
@@ -168,7 +169,14 @@ function ParkingSpotDetailPage() {
   }
 
   if (error || isUninitialized) {
-    if (error) return <div>Api Down</div>;
+    if (error)
+      return (
+        <div className="gologin-styled-card">
+          <Link to="/login/true" className="gologin-singIn">
+            Sign In
+          </Link>
+        </div>
+      );
     return <Navigate to="/login" />;
   }
 }

@@ -140,7 +140,13 @@ const RenterM = () => {
     );
   }
   if (error) {
-    return <div>Api Error</div>;
+    return (
+      <div className="gologin-styled-card">
+        <Link to="/login" className="gologin-singIn">
+          Sign In
+        </Link>
+      </div>
+    );
   }
 };
 
