@@ -83,21 +83,20 @@ const ChangeTime = () => {
             </div>
 
             <div className="time_icon">
-              {
-                <DatePicker
-                  className="time-field"
-                  selected={checkInDate}
-                  onChange={(date) => {
-                    handleCheckIn(date);
-                  }}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={30}
-                  timeCaption="Time"
-                  dateFormat="h:mm aa"
-                  filterTime={filterPassedTime}
-                />
-              }
+              <DatePicker
+                className="time-field"
+                selected={checkInDate}
+                onChange={(date) => {
+                  handleCheckIn(date);
+                }}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                filterTime={filterPassedTime}
+              />
+
               <FcAlarmClock size={25} className="icon-style" />
             </div>
           </div>

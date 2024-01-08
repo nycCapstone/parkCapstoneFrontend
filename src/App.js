@@ -27,6 +27,7 @@ import SpotDetails from "./components/Client/SpotDetails";
 import SuccessfulPurchase from "./components/Checkout/SuccessfulPurchase";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
+import CheckoutTest from "./components/Checkout/CheckoutTest";
 
 import "./App.css";
 
@@ -57,7 +58,10 @@ function App() {
                   path="/parking-spots/:id"
                   element={<ParkingSpotDetailsPage />}
                 />
-                <Route path="/checkout/:property_id" element={<Checkout />} />
+                <Route
+                  path="/checkout/:property_id"
+                  element={<CheckoutTest />}
+                />
                 <Route element={<MadeResInfo />}>
                   <Route path="/payment/:booking_id" element={<Payment />} />
                 </Route>

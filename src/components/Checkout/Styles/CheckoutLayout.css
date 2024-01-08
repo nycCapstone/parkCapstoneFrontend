@@ -1,4 +1,4 @@
-.checkout-layout-container {
+/* .checkout-layout-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -87,6 +87,57 @@
     }
     .final-add-to-cart p {
       font-size: large;
+    }
+  }
+} */
+.parking-spot-checkout-header {
+  width: 90%;
+  margin: 1rem auto;
+  .checkout-page-header {
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+  .checkout-page-description {
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+    font-size: medium;
+  }
+}
+.checkout-layout-container {
+  width: 90%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 3rem auto;
+
+  .ch2-gvjnv {
+    border: 1px solid hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    background-color: hsl(0, 0%, 95%);
+  }
+  .checkout-mapView {
+    height: max-content;
+    padding: 1rem;
+    border: 1px solid hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    background-color: hsl(0, 0%, 95%);
+  }
+}
+@media (max-width: 914px) {
+  .checkout-layout-container {
+    .checkout-mapView {
+      height: 26rem;
+    }
+  }
+}
+@media (max-width: 735px) {
+  .checkout-layout-container {
+    display: flex;
+    flex-direction: column;
+    .checkout-mapView {
+      height: max-content;
     }
   }
 }

@@ -65,12 +65,12 @@ function SpotDetails() {
               <RatingStars rating={spotDetails.rating || 5.0} />
             </div>
 
-            {spotDetails.renter_email && (
+            {spotDetails.renter_id && (
               <div className="details-single">
                 <p className="details-label">Spot Owner Name:</p>
                 <p>
-                  {spotDetails.first_name[0].toUpperCase() +
-                    spotDetails.first_name.slice(1).toLowerCase()}
+                  {spotDetails.client_first_name[0].toUpperCase() +
+                    spotDetails.client_first_name.slice(1).toLowerCase()}
                 </p>
               </div>
             )}
@@ -90,6 +90,8 @@ function SpotDetails() {
               lat={lat}
               lng={lng}
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+              // containerElement={<div style={{ height: `100%` }} />}
+              // mapElement={<div style={{ height: `100%` }} />}
             />
           </section>
           <div className="view-on-googleMap">

@@ -1,4 +1,4 @@
-.res-detail-container {
+/* .res-detail-container {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
@@ -80,4 +80,95 @@
 
 .res-detail-container form p {
   font-size: large;
+} */
+
+.res-detail-container {
+  padding: 1rem 2rem;
+  .res-details-page {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    gap: 0.5rem;
+
+    .res-details-info {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border: 1px solid hsl(0, 0%, 100%);
+      border-radius: 0.5rem;
+      background-color: hsl(0, 0%, 100%);
+
+      .res-details-label {
+        color: hsl(0, 100%, 67%);
+        text-transform: uppercase;
+        font-size: x-small;
+        font-weight: 700;
+      }
+      .select-vehicle {
+        border: 1px solid lightgray;
+        padding: 3px;
+      }
+    }
+    .res-details-button {
+      margin-top: 2rem;
+      grid-row: 3;
+      grid-column: 1/3;
+
+      .res-detail-btn-g {
+        background-color: hsl(0, 100%, 67%);
+        color: hsl(0, 0%, 100%);
+        padding: 0.5rem;
+        border: 1px solid hsl(0, 100%, 67%);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.97);
+        }
+      }
+      .res-detail-btn-n {
+        background-color: lightgray;
+        color: white;
+        padding: 0.5rem;
+        border: 1px lightgray;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.97);
+        }
+      }
+    }
+  }
+  .bookingErr-msg {
+    margin-top: 0.5rem;
+    color: hsl(0, 100%, 67%);
+    font-style: italic;
+  }
+  .retry-bttn {
+    width: 3rem;
+    background-color: hsl(0, 100%, 67%);
+    color: hsl(0, 0%, 100%);
+    padding: 0.1rem;
+    border: 1px solid hsl(0, 100%, 67%);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      transform: scale(0.97);
+    }
+  }
+}
+@media (max-width: 460px) {
+  .res-details-info-1 {
+    grid-column: 1/3;
+  }
+  .res-details-info-2 {
+    grid-row: 2;
+    grid-column: 1/3;
+  }
+  .res-details-button {
+    grid-row: 3;
+    grid-column: 1/3;
+    .res-detail-btn-g {
+      width: 100%;
+    }
+  }
 }
