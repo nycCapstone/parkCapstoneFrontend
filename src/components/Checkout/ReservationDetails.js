@@ -88,7 +88,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
             ...res,
             lat,
             lng,
-          }),
+          })
         );
         //navigate to new page with bookings table lookup id.
         navigate(`/payment/${res.booking_id}`);
@@ -147,7 +147,8 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                           value={item.sp_type}
                           id={item.space_id}
                         >
-                          {item.sp_type}
+                          {item.sp_type[0].toUpperCase() +
+                            item.sp_type.slice(1).toLowerCase()}
                         </option>
                       );
                     })}
