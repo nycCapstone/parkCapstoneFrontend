@@ -1,17 +1,41 @@
 .resrundown-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-  height: max-content;
-}
-.resrundown-times {
-  display: flex;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  .resrundown-times {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid hsl(0, 0%, 100%);
+    border-radius: 0.5rem;
+    background-color: hsl(0, 0%, 100%);
+
+    .resrundown-times-label {
+      color: hsl(0, 100%, 67%);
+      text-transform: uppercase;
+      font-size: x-small;
+      font-weight: 700;
+    }
+  }
+  .reservation-change-time {
+    margin-top: 5px;
+    padding: 5px;
+    grid-column: 1/3;
+    .update-ReservationTime {
+      color: hsl(0, 100%, 67%);
+      font-style: italic;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .changeTimeComp {
+      margin-top: 0.5rem;
+      border: 1px solid hsl(0, 0%, 100%);
+      border-radius: 0.5rem;
+      background-color: hsl(0, 0%, 100%);
+    }
+  }
 }
 .change-time-link {
   margin-top: 1rem;
@@ -32,39 +56,34 @@
   }
 }
 .chtime-page-search {
-  width: 33rem;
   height: max-content;
-  padding: 1rem;
-  margin-top: 1rem;
+  padding: 0rem 0.5rem;
 }
 
 .chtime-search-space {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 0.5rem;
 }
 .chtime-search-checkIn,
 .chtime-search-checkout {
   display: flex;
   flex-direction: column;
-  width: 40%;
 }
 .date-field,
 .time-field {
-  padding-left: 8.5px;
-  height: 2rem;
-  /* width: 9rem; */
-  font-size: 15px;
-  background-color: #f5f5f5;
+  padding: 5px;
+  border: none;
 }
 
 .table-header {
-  margin: 1.5rem 0;
-  font-weight: bold;
+  text-transform: uppercase;
+  color: hsl(0, 100%, 67%);
+  font-size: small;
 }
 
 .chtime-search-button {
-  margin-top: 1.5rem;
+  margin: 1rem 0rem;
   width: 5rem;
   height: 2rem;
   background: #ff5757;
@@ -73,7 +92,6 @@
   text-transform: uppercase;
   border: 0;
   border-radius: 0.3rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
   cursor: pointer;
 }
 
@@ -83,18 +101,11 @@
 
 .date_icon,
 .time_icon {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  width: max-content;
+  background-color: hsl(0, 0%, 95%);
 }
 
-.icon-style {
-  padding-top: 3px;
-}
-.chtime-header {
-  width: 70%;
-  margin: 3rem auto;
-  font-size: 25px;
-}
 .min-parking-errormsg {
   font-size: 1.2rem;
   color: #ff5757;
@@ -133,16 +144,21 @@
   display: inline-block;
   margin-left: 2rem;
 }
-
-@media (max-width: 1000px) {
-  .chtime-search-space {
-    width: 80%;
-    gap: 0.5px;
+@media (max-width: 1200px) {
+  .date_icon,
+  .time_icon {
+    width: 100%;
   }
-
-  .icon-style {
-    padding: 2px;
-    height: 1.2rem;
+  .date-field,
+  .time-field {
+    height: 2rem;
+    width: 100%;
+    font-size: 15px;
+    background-color: #f5f5f5;
+  }
+  .resrundown-container {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -150,9 +166,29 @@
   .chtime-search-space {
     display: flex;
     flex-direction: column;
+  }
+  .chtime-search-checkIn,
+  .chtime-search-checkout {
+    max-width: fit-content;
+    margin: 0rem 1.5rem;
+  }
+  .chtime-search-button {
+    margin: 1rem 1.5rem;
+  }
+  .date_icon,
+  .time_icon {
     width: 100%;
   }
-  .chtime-page-search {
-    margin-top: 0;
+  .date-field,
+  .time-field {
+    height: 2rem;
+    width: 100%;
+    font-size: 15px;
+    background-color: #f5f5f5;
+  }
+  .resrundown-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
   }
 }

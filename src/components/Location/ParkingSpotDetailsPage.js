@@ -93,8 +93,8 @@ function ParkingSpotDetailPage() {
                 <p className="details-label">Billing Type:</p>
                 <p>
                   {spotDetails.billing_type[0].toUpperCase() +
-                    spotDetails.billing_type.slice(1).toLowerCase()}{" "}
-                  / Daily
+                    spotDetails.billing_type.slice(1).toLowerCase() +
+                    (spotDetails.billing_type === "fixed" ? "/ Daily" : "")}
                 </p>
               </div>
 
@@ -106,10 +106,8 @@ function ParkingSpotDetailPage() {
               {spotDetails?.renter_email && (
                 <div className="details-single">
                   <p className="details-label">Spot Owner Name:</p>
-                  <p>
-                    {spotDetails.first_name[0].toUpperCase() +
-                      spotDetails.first_name.slice(1).toLowerCase()}
-                  </p>
+                  {spotDetails.first_name[0].toUpperCase() +
+                    spotDetails.first_name.slice(1).toLowerCase()}
                 </div>
               )}
             </div>
