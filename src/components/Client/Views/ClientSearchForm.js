@@ -148,7 +148,7 @@ const ClientSearchForm = () => {
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
-            <div className="cl_time_icon">
+            <div className="time_icon">
               {
                 <DatePicker
                   className="time-field"
@@ -187,7 +187,7 @@ const ClientSearchForm = () => {
               />
               <FcCalendar size={25} className="icon-style" />
             </div>
-            <div className="cl_time_icon">
+            <div className="time_icon">
               {
                 <DatePicker
                   className="time-field"

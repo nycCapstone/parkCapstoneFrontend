@@ -1,5 +1,5 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useNavigate, useParams, Navigate } from "react-router-dom";
+import { useNavigate, useParams, Navigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "../Location/PSMapView";
@@ -65,12 +65,12 @@ function SpotDetails() {
               <RatingStars rating={spotDetails.rating || 5.0} />
             </div>
 
-            {spotDetails.renter_email && (
+            {spotDetails.renter_id && (
               <div className="details-single">
                 <p className="details-label">Spot Owner Name:</p>
                 <p>
-                  {spotDetails.first_name[0].toUpperCase() +
-                    spotDetails.first_name.slice(1).toLowerCase()}
+                  {spotDetails.client_first_name[0].toUpperCase() +
+                    spotDetails.client_first_name.slice(1).toLowerCase()}
                 </p>
               </div>
             )}
@@ -112,6 +112,14 @@ function SpotDetails() {
   }
 
   if (error || isUninitialized) {
+    if (error)
+      return (
+        <div className="gologin-styled-card">
+          <Link to="/login/true" className="gologin-singIn">
+            Sign In
+          </Link>
+        </div>
+      );
     return <Navigate to="/login" />;
   }
 }

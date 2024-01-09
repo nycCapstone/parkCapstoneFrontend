@@ -1,49 +1,159 @@
 .sold-spaces-container {
-  min-height: 100vh;
-}
+  width: 90%;
+  margin: 2rem auto;
+  .sold-spaces-header {
+    .sold-spaces-header-1 {
+      font-size: x-large;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .sold-spaces-description {
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+      font-size: medium;
+    }
+  }
+  .active-sold-spaces {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: hsl(0, 100%, 67%);
+    padding: 8px;
+    margin: 0;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 95%);
+    font-size: small;
+    font-weight: 600;
+    border: 1px solid hsl(0, 100%, 67%);
+    border-radius: 50%;
+  }
+  .sold-spaces-list {
+    display: grid;
+    margin-top: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 
-.sold-spaces-container header {
-  text-align: center;
-  margin: 1rem;
-}
+    .sold-spaces-wholeCard {
+      position: relative;
+      padding: 1rem;
+      border: 1px solid hsl(0, 0%, 95%);
+      border-radius: 0.5rem;
+      background-color: hsl(0, 0%, 95%);
 
-.sold-spaces-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-  margin: 2rem;
-}
+      .sold-spaces-firstInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .sold-space-header-label {
+          color: hsl(0, 100%, 67%);
+          font-weight: 600;
+          padding: 0.5rem;
+          font-size: large;
+          font-weight: 700;
+        }
+        .sold-space-header-id {
+          color: hsl(0, 0%, 100%);
+          border: 1px solid hsl(0, 100%, 67%);
+          background-color: hsl(0, 100%, 67%);
+          border-radius: 0.5rem;
+          padding: 0.5rem;
+          font-size: medium;
+          font-weight: 700;
+        }
+      }
+      .sold-spaces-items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-top: 1rem;
 
-.sold-spaces-l-item {
-  border: 1px solid #ddd;
-  background-color: #f0f0f0;
-  padding: 10px;
-  padding-left: 2rem;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  width: 70%;
-  border-radius: 0.6rem;
-}
+        .sold-spaces-Single {
+          padding: 8px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          border: 1px solid hsl(0, 0%, 100%);
+          border-radius: 0.5rem;
+          background-color: hsl(0, 0%, 100%);
 
-.sold-spaces-l-item:hover {
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-}
+          .sold-space-label {
+            color: hsl(0, 100%, 67%);
+            text-transform: uppercase;
+            font-size: x-small;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+    .sold-spaces-wholeCard-active {
+      position: relative;
+      padding: 1rem;
+      border: 1px solid hsl(0, 0%, 95%);
+      border-radius: 0.5rem;
+      background: linear-gradient(
+        to right,
+        hsl(0, 100%, 67%),
+        hsl(0, 100%, 72%)
+      );
+      .sold-spaces-firstInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .sold-space-header-label {
+          color: hsl(0, 100%, 100%);
+          font-weight: 600;
+          padding: 0.5rem;
+          font-size: large;
+          font-weight: 700;
+        }
+        .sold-space-header-id {
+          color: hsl(0, 0%, 100%);
+          border: 1px solid hsl(0, 100%, 46%);
+          background-color: hsl(0, 100%, 46%);
+          border-radius: 0.5rem;
+          padding: 0.5rem;
+          font-size: medium;
+          font-weight: 700;
+        }
+      }
+      .sold-spaces-items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-top: 1rem;
 
-.your-soldspaces-header {
-  font-size: x-large;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
+        .sold-spaces-Single {
+          padding: 8px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          border: 1px solid hsl(0, 0%, 100%);
+          border-radius: 0.5rem;
+          background-color: hsl(0, 0%, 100%);
 
-@media (max-width: 960px) {
-  .sold-spaces-l-item {
-    width: 100%;
+          .sold-space-label {
+            color: hsl(0, 100%, 67%);
+            text-transform: uppercase;
+            font-size: x-small;
+            font-weight: 700;
+          }
+        }
+      }
+    }
   }
 }
-
+@media (max-width: 830px) {
+  .sold-spaces-container .sold-spaces-list {
+    margin-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @media (max-width: 600px) {
-  .sold-spaces-list {
-    margin: 5px;
-    grid-template-columns: repeat(1, 1fr);
+  .sold-spaces-container .sold-spaces-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 }

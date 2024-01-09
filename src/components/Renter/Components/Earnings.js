@@ -40,7 +40,7 @@ const Earnings = () => {
   }
 
   if (error) {
-    return <div>Api Down</div>;
+    return <div>001</div>;
   }
 };
 
