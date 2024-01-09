@@ -2,7 +2,6 @@ import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import UserAction from "../../redux/userActions/UserAction";
 import { Link } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
-import { Michael_profile, Isabelle_profile } from "../../assets";
 import { RatingStars } from "../Location/RatingStars";
 import Loading from "../../assets/Spinners/Loading";
 import "./AdminPage.css";
@@ -44,13 +43,7 @@ const AdminPage = () => {
                 <div className="profile-picture-div">
                   <img
                     className="profile-picture"
-                    src={
-                      userInfo.first_name === "Isabelle"
-                        ? Isabelle_profile
-                        : userInfo.first_name === "Michael"
-                        ? Michael_profile
-                        : "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
-                    }
+                    src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
                     alt="usrpageprofilepic"
                   />
                 </div>
