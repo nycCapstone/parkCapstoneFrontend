@@ -5,6 +5,7 @@ import {
   usePostNewSpacesMutation,
 } from "../../../redux/renter/renterApiSlice";
 import { useState, useEffect, useReducer } from "react";
+import { Link } from "react-router-dom";
 import makeFormData from "../../../constants/reducers/propertyspace";
 import Loading from "../../../assets/Spinners/Loading";
 import { v4 as uuidv4 } from "uuid";
@@ -80,8 +81,14 @@ const PropertySpace = (props) => {
     return <Loading />;
   }
 
-  if (isError) {
-    return <div>Api Down</div>;
+  if (error) {
+    return (
+      <div className="gologin-styled-card">
+        <Link to="/login" className="gologin-singIn">
+          Sign In
+        </Link>
+      </div>
+    );
   }
 
   if (isSuccess) {
@@ -242,10 +249,6 @@ const PropertySpace = (props) => {
           })}
       </div>
     );
-  }
-
-  if (error) {
-    return <div>Api Down</div>;
   }
 };
 

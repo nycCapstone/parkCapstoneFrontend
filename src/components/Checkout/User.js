@@ -102,9 +102,6 @@ const User = ({ userData, setShowUser, showUser }) => {
             </ul>
           </div>
         )}
-        <div className="app-features">
-          <p></p>
-        </div>
       </div>
     </div>
   );
