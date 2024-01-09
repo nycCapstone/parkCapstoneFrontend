@@ -1,31 +1,7 @@
-/* .ss-info-container {
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-
-  height: max-content;
-}
-.reservation-summary-header {
-  font-size: 20px;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
-  padding: 1rem;
-}
-.billing-type {
-  margin-top: 10px;
-}
-.ss-card {
-  padding: 0.5em;
-  margin: 0.5em;
-}
-
-.ss-info-container p {
-  font-size: 1em;
-} */
 .ss-info-container {
   display: grid;
   grid-template-columns: 0.2fr 3fr;
-  padding: 1rem;
+  padding: 1rem 2rem;
 
   .checkout-location-icon {
     color: hsl(0, 100%, 67%);
@@ -36,6 +12,7 @@
     justify-content: space-between;
 
     .checkout-address {
+      margin-right: 5px;
       .checkout-first-address {
         color: hsl(0, 0%, 0%);
         font-size: large;
@@ -46,7 +23,6 @@
       }
     }
     .checkoutPage-parkingSpot {
-      margin-right: 2rem;
       padding: 0.4rem;
       display: flex;
       flex-direction: column;
@@ -65,15 +41,6 @@
         background-color: hsl(0, 100%, 95%);
       }
     }
-    /* .details-price {
-        color: hsl(0, 0%, 100%);
-        border: 1px solid hsl(0, 100%, 67%);
-        background-color: hsl(0, 100%, 67%);
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-        font-size: large;
-        font-weight: 600;
-      } */
   }
 }
 @media (max-width: 535px) {
@@ -81,9 +48,8 @@
     gap: 0.5rem;
 
     .checkoutPage-parkingSpot {
-      width: 20%;
+      width: 25%;
       height: 95%;
-
       .checkout-parkingSpot-label {
         font-size: smaller;
         text-align: center;

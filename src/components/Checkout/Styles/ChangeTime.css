@@ -144,7 +144,7 @@
   display: inline-block;
   margin-left: 2rem;
 }
-@media (max-width: 535px) {
+@media (max-width: 1200px) {
   .date_icon,
   .time_icon {
     width: 100%;
@@ -159,5 +159,36 @@
   .resrundown-container {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 550px) {
+  .chtime-search-space {
+    display: flex;
+    flex-direction: column;
+  }
+  .chtime-search-checkIn,
+  .chtime-search-checkout {
+    max-width: fit-content;
+    margin: 0rem 1.5rem;
+  }
+  .chtime-search-button {
+    margin: 1rem 1.5rem;
+  }
+  .date_icon,
+  .time_icon {
+    width: 100%;
+  }
+  .date-field,
+  .time-field {
+    height: 2rem;
+    width: 100%;
+    font-size: 15px;
+    background-color: #f5f5f5;
+  }
+  .resrundown-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
   }
 }

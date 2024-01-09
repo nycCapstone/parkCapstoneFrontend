@@ -26,20 +26,13 @@
     background-color: hsl(0, 0%, 95%);
   }
   .checkout-mapView {
-    height: 26rem;
     padding: 1rem;
     border: 1px solid hsl(0, 0%, 95%);
     border-radius: 0.5rem;
     background-color: hsl(0, 0%, 95%);
   }
 }
-@media (max-width: 914px) {
-  .checkout-layout-container {
-    .checkout-mapView {
-      height: 26rem;
-    }
-  }
-}
+
 @media (max-width: 735px) {
   .checkout-layout-container {
     display: flex;

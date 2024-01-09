@@ -1,6 +1,6 @@
 import { useGetSoldSpacesQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import Loading from "../../../assets/Spinners/Loading";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
