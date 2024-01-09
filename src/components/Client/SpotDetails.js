@@ -1,5 +1,5 @@
 import { useGetOneSpotQuery } from "../../redux/client/searchApiSlice";
-import { useNavigate, useParams, Navigate, Link } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../../assets/Spinners/Loading";
 import PSMapView from "../Location/PSMapView";
@@ -112,14 +112,6 @@ function SpotDetails() {
   }
 
   if (error || isUninitialized) {
-    if (error)
-      return (
-        <div className="gologin-styled-card">
-          <Link to="/login" className="gologin-singIn">
-            Sign In
-          </Link>
-        </div>
-      );
     return <Navigate to="/login" />;
   }
 }

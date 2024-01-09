@@ -7,7 +7,6 @@ import {
 import { useState, useEffect, useReducer } from "react";
 import makeFormData from "../../../constants/reducers/propertyspace";
 import Loading from "../../../assets/Spinners/Loading";
-import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import "../Styles/SpacesList.css";
@@ -81,14 +80,8 @@ const PropertySpace = (props) => {
     return <Loading />;
   }
 
-  if (error) {
-    return (
-      <div className="gologin-styled-card">
-        <Link to="/login" className="gologin-singIn">
-          Sign In
-        </Link>
-      </div>
-    );
+  if (isError) {
+    return <div>Api Down</div>;
   }
 
   if (isSuccess) {
@@ -249,6 +242,10 @@ const PropertySpace = (props) => {
           })}
       </div>
     );
+  }
+
+  if (error) {
+    return <div>Api Down</div>;
   }
 };
 

@@ -131,13 +131,7 @@ const SoldSpaces = () => {
   }
 
   if (error) {
-    return (
-      <div className="gologin-styled-card">
-        <Link to="/login" className="gologin-singIn">
-          Sign In
-        </Link>
-      </div>
-    );
+    return <div>Api Down</div>;
   }
 };
 
