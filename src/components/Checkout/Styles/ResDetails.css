@@ -1,83 +1,103 @@
 .res-detail-container {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.add-cart {
-  font-size: 20px;
-  letter-spacing: 1px;
-  margin-bottom: 1.5rem;
-}
+  padding: 1rem 2rem;
+  .res-details-page {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    gap: 0.5rem;
 
-.final-add-to-cart {
+    .res-details-info {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border: 1px solid hsl(0, 0%, 100%);
+      border-radius: 0.5rem;
+      background-color: hsl(0, 0%, 100%);
+
+      .res-details-label {
+        color: hsl(0, 100%, 67%);
+        text-transform: uppercase;
+        font-size: x-small;
+        font-weight: 700;
+      }
+      .select-vehicle {
+        border: 1px solid lightgray;
+        padding: 3px;
+      }
+    }
+    .res-details-button {
+      margin-top: 2rem;
+      grid-row: 2;
+
+      .res-detail-btn-g {
+        background-color: hsl(0, 100%, 67%);
+        color: hsl(0, 0%, 100%);
+        padding: 0.5rem;
+        border: 1px solid hsl(0, 100%, 67%);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.97);
+        }
+      }
+      .res-detail-btn-n {
+        background-color: lightgray;
+        color: white;
+        padding: 0.5rem;
+        border: 1px lightgray;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.97);
+        }
+      }
+    }
+  }
+  .bookingErr-msg {
+    margin-top: 0.5rem;
+    color: hsl(0, 100%, 67%);
+    font-style: italic;
+  }
+  .retry-bttn {
+    width: 3rem;
+    background-color: hsl(0, 100%, 67%);
+    color: hsl(0, 0%, 100%);
+    padding: 0.1rem;
+    border: 1px solid hsl(0, 100%, 67%);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      transform: scale(0.97);
+    }
+  }
+}
+.usrlogin-fa {
   display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: flex-end;
 }
-.select-vehicle {
-  border: 1px solid lightgray;
-  margin-top: 1rem;
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-.res-detail-container form {
-  display: flex;
-  flex-direction: column;
+@media (max-width: 535px) {
+  .res-detail-container {
+    padding: 1rem 1rem;
+  }
 }
 
-.res-detail-container label {
-  margin-bottom: 5px;
-}
-
-.res-detail-container .checkout-options {
-  margin-top: 1rem;
-  color: #ff5733;
-  margin-bottom: 10px;
-}
-
-.res-detail-container .res-detail-btn-g {
-  display: block;
-  margin: 2rem auto 0;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  /* width: 6rem; */
-  height: 2.5rem;
-  background: #ff5757;
-  color: white;
-  font-size: 15px;
-  text-transform: uppercase;
-  border: 0;
-  border-radius: 0.3rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
-  transition: transform 0.3s;
-  cursor: pointer;
-}
-
-.res-detail-container .res-detail-btn-n {
-  margin-top: 2rem;
-  background-color: lightgray;
-  color: #fff;
-  padding: 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-}
-
-.res-detail-container .res-detail-btn-g:hover {
-  transform: translateY(-5px);
-  background: white;
-  color: #ff5757;
-}
-
-.res-detail-container .conflict-message {
-  color: #ff5733;
-  margin-top: 10px;
-}
-
-.res-detail-container form p {
-  font-size: large;
+@media (max-width: 460px) {
+  .usrlogin-fa {
+    display: none;
+  }
+  .res-details-info-1 {
+    grid-column: 1/3;
+  }
+  .res-details-info-2 {
+    grid-row: 2;
+    grid-column: 1/3;
+  }
+  .res-detail-container .res-details-page .res-details-button {
+    grid-row: 3;
+    grid-column: 1/3;
+    .res-detail-btn-g {
+      width: 100%;
+    }
+  }
 }

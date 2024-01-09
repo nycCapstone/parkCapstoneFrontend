@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { useInsertBookingMutation } from "../../redux/checkout/checkoutApiSlice";
 import { setRInfo } from "../../redux/checkout/reservationSlice";
 import { useNavigate, Link } from "react-router-dom";
+import User from "./User";
+import { FaRegUser } from "react-icons/fa";
+import ChangeTime from "./Component/ChangeTime";
 import "./Styles/ResDetails.css";
 
 const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
   const checkoutObj = useSelector((state) => state.checkout);
   const [selectedType, setSelectedType] = useState("");
   const [err, setErr] = useState(false);
+  const [chTime, setChTime] = useState(false);
   const [BookingErr, setBookingErr] = useState({ isErr: false, message: "" });
   const [enabled, setEnabled] = useState(false);
+
+  const [showUser, setShowUser] = useState(false);
   const roles = userData?.roles;
 
   let lat = resData[0].latitude;
@@ -27,6 +33,9 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
       (roles?.Renter && !roles.Client.bckgr)
     ) {
       setEnabled(true);
+    } else {
+      let st = resData.find((item) => item.row_num && item.sp_type);
+      setSelectedType(st.sp_type);
     }
   }, []);
 
@@ -88,7 +97,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
             ...res,
             lat,
             lng,
-          })
+          }),
         );
         //navigate to new page with bookings table lookup id.
         navigate(`/payment/${res.booking_id}`);
@@ -123,69 +132,71 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
       <>
         {!checkoutObj?.conflict && (
           <>
-            <p className="add-cart">Add to Cart</p>
+            <section className="ch1-gvjnv">
+              <User
+                userData={userData}
+                setShowUser={setShowUser}
+                showUser={showUser}
+              />
+            </section>
             <form onSubmit={handleSubmit}>
-              <div>
-                <label className="res-details-select-label">
-                  Select Vehicle Type:
-                </label>
-                <select
-                  className="select-vehicle"
-                  value={selectedType}
-                  onChange={handleTypeChange}
-                  required
-                >
-                  <option value="" className="select-car-type">
-                    Select
-                  </option>
-                  {resData
-                    .filter((item) => item?.row_num)
-                    .map((item, idx) => {
-                      return (
-                        <option
-                          key={idx}
-                          value={item.sp_type}
-                          id={item.space_id}
-                        >
-                          {item.sp_type[0].toUpperCase() +
-                            item.sp_type.slice(1).toLowerCase()}
-                        </option>
-                      );
-                    })}
-                </select>
-              </div>
-              {resData.length > 2 && (
-                <div className="checkout-options">
-                  Two space options available
+              <div className="res-details-page">
+                <div className="res-details-info res-details-info-1">
+                  <label className="res-details-label">
+                    Select Vehicle Type:
+                  </label>
+                  <select
+                    className="select-vehicle"
+                    value={selectedType}
+                    onChange={handleTypeChange}
+                    required
+                  >
+                    {resData
+                      .filter((item) => item?.row_num)
+                      .map((item, idx) => {
+                        return (
+                          <option
+                            key={idx}
+                            value={item.sp_type}
+                            id={item.space_id}
+                          >
+                            {`${item.sp_type
+                              .charAt(0)
+                              .toUpperCase()}${item.sp_type.slice(1)}`}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
-              )}
-              <div className="final-add-to-cart">
-                <p>
-                  Selected Vehicle:{" "}
-                  <strong>
-                    {selectedType.length
-                      ? selectedType[0].toUpperCase() +
-                        selectedType.slice(1).toLowerCase()
-                      : resData[0].sp_type[0].toUpperCase() +
-                        resData[0].sp_type.slice(1).toLowerCase()}
-                  </strong>
-                </p>
-                <p className="res-details-final-price">
-                  Final Price: $
-                  <strong>
+                <div className="res-details-info res-details-info-2">
+                  <label className="res-details-label">Final Price:</label>
+                  <p>
+                    ${" "}
                     {resData.find((item) => item.sp_type === selectedType)
                       ?.final_price || resData[0].final_price}
-                  </strong>
-                </p>
+                  </p>
+                </div>
+                {chTime && <ChangeTime />}
+
+                <div className="res-details-button">
+                  <button
+                    type="submit"
+                    disabled={enabled}
+                    className={
+                      enabled ? "res-detail-btn-n" : "res-detail-btn-g"
+                    }
+                  >
+                    Proceed to Payment
+                  </button>
+                </div>
+                <div className="usrlogin-fa">
+                  <FaRegUser
+                    onClick={() => setShowUser(true)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={enabled}
-                className={enabled ? "res-detail-btn-n" : "res-detail-btn-g"}
-              >
-                Go To Payment Details
-              </button>
               {enabled &&
                 userData?.id &&
                 ((roles?.ClientOnly && !roles.Client.bckgr) ||
@@ -197,19 +208,26 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                   </div>
                 )}
             </form>
+
             {BookingErr.isErr && (
-              <div className="">
-                {`${BookingErr.message}, please retry`}
-                {BookingErr.message === "Spot Taken" && (
-                  <button onClick={handleInsertError}>Retry</button>
-                )}
+              <div>
+                <p className="bookingErr-msg">
+                  {" "}
+                  {`${BookingErr.message}, Please Retry `}
+                  {BookingErr.message === "Spot Taken" && (
+                    <button className="retry-bttn" onClick={handleInsertError}>
+                      Retry
+                    </button>
+                  )}
+                </p>
+
                 {BookingErr.message === "Not Logged in" && (
                   <Link to="/login/true"> Login to Book</Link>
                 )}
               </div>
             )}
             {err && (
-              <div className="res-fail-container">
+              <div className="bookingErr-msg">
                 Need Account to be Logged In to Reserve
               </div>
             )}

@@ -1,17 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CHECK_FOR_EMAIL_URL } from "../../constants/helper/helper";
-import { useSelector } from "react-redux";
-import { getCLSearchStatus } from "../../redux/client/clientSearchSlice";
 import axios from "../../api/axios";
 import "./Styles/UserCheckout.css";
 
-const User = ({ userData }) => {
+const User = ({ userData, setShowUser, showUser }) => {
   const [email, setEmail] = useState("");
   const [continueAsGuest, setContinueAsGuest] = useState(false);
   const [register, setRegister] = useState(null);
-  const isL = useSelector(getCLSearchStatus);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,19 +28,11 @@ const User = ({ userData }) => {
     setContinueAsGuest(true);
   };
   return (
-    <>
-      <div className="us-chk-navigate">
-        <button
-          type="click"
-          className="go-back-link"
-          onClick={() =>
-            navigate(`${isL ? "/client/search-result" : "/search-result"}`)
-          }
-        >
-          <span className="go-back-icon"></span> Go Back
-        </button>
-      </div>
+    <div className={`usrmodal`} style={{ display: showUser ? "flex" : "none" }}>
       <div className="userinfo-card">
+        <button className="usrclose-button" onClick={() => setShowUser(false)}>
+          X
+        </button>
         {!userData?.email ? (
           <div>
             <p className="account-info-header ">Account Info</p>
@@ -118,7 +106,7 @@ const User = ({ userData }) => {
           <p></p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
