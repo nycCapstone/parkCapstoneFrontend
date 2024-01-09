@@ -1,59 +1,24 @@
 .ss-info-container {
-  display: grid;
-  grid-template-columns: 0.2fr 3fr;
-  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 
-  .checkout-location-icon {
-    color: hsl(0, 100%, 67%);
-    justify-self: center;
-  }
-  .checkout-price-address {
-    display: flex;
-    justify-content: space-between;
-
-    .checkout-address {
-      margin-right: 5px;
-      .checkout-first-address {
-        color: hsl(0, 0%, 0%);
-        font-size: large;
-        font-weight: 600;
-      }
-      .checkout-second-address {
-        margin-top: 0.2rem;
-      }
-    }
-    .checkoutPage-parkingSpot {
-      padding: 0.4rem;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid hsl(0, 100%, 86%);
-      border-radius: 0.5rem;
-      background-color: hsl(0, 100%, 86%);
-      .checkout-parkingSpot-label {
-        text-transform: uppercase;
-        font-weight: 600;
-      }
-      .checkout-parkingSpot-num {
-        text-align: center;
-        font-weight: 600;
-        border: 1px solid hsl(0, 100%, 95%);
-        border-radius: 0.5rem;
-        background-color: hsl(0, 100%, 95%);
-      }
-    }
-  }
+  height: max-content;
 }
-@media (max-width: 535px) {
-  .checkout-price-address {
-    gap: 0.5rem;
+.reservation-summary-header {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+}
+.billing-type {
+  margin-top: 10px;
+}
+.ss-card {
+  padding: 0.5em;
+  margin: 0.5em;
+}
 
-    .checkoutPage-parkingSpot {
-      width: 25%;
-      height: 95%;
-      .checkout-parkingSpot-label {
-        font-size: smaller;
-        text-align: center;
-      }
-    }
-  }
+.ss-info-container p {
+  font-size: 1em;
 }

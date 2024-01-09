@@ -32,9 +32,9 @@ const RenterLanding = () => {
                 </div>
               </div>
             </nav>
-            <div>
+            <main>
               <SoldSpaces />
-            </div>
+            </main>
           </div>
         )}
       </div>

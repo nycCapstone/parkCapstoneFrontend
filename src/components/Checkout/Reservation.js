@@ -9,7 +9,6 @@ const Reservation = ({ resData }) => {
   const [chTime, setChTime] = useState(false);
   const [loading, setIsLoading] = useState(true);
 
-  console.log(resData);
   useEffect(() => {
     if (resData[0]?.property_id) {
       setIsLoading(false);
@@ -25,72 +24,37 @@ const Reservation = ({ resData }) => {
           {resData && (
             <>
               <div className="resrundown-container">
-                <div className="resrundown-times">
-                  <label className="resrundown-times-label">Enter After:</label>
+                <section className="resrundown-times">
+                  <p className="">Enter After:</p>
+                  <p>{`${new Date(
+                    searchObj.query[searchObj.query.length - 1][2],
+                  ).toLocaleDateString()} ${new Date(
+                    searchObj.query[searchObj.query.length - 1][2],
+                  ).toLocaleTimeString()}`}</p>
+                </section>
+                <section className="resrundown-times">
+                  <p>Exit Before:</p>
+                  <p>{`${new Date(
+                    searchObj.query[searchObj.query.length - 1][3],
+                  ).toLocaleDateString()} ${new Date(
+                    searchObj.query[searchObj.query.length - 1][3],
+                  ).toLocaleTimeString()}`}</p>
+                </section>
 
-                  <p>
-                    {`${new Date(
-                      searchObj.query[searchObj.query.length - 1][2]
-                    ).toLocaleString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })} ${new Date(
-                      searchObj.query[searchObj.query.length - 1][2]
-                    ).toLocaleString("en-US", {
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}`}
-                  </p>
-                </div>
-                <div className="resrundown-times">
-                  <label className="resrundown-times-label">Exit Before:</label>
-
-                  <p>
-                    {`${new Date(
-                      searchObj.query[searchObj.query.length - 1][3]
-                    ).toLocaleString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })} ${new Date(
-                      searchObj.query[searchObj.query.length - 1][3]
-                    ).toLocaleString("en-US", {
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}`}
-                  </p>
-                </div>
-
-                {/* <p className="r-summary-finalp">
+                <p className="r-summary-finalp">
                   Economy Price: ${resData[0].final_price}
-                </p> */}
-                <div className="reservation-change-time">
-                  <p>
-                    Click{" "}
-                    <span
-                      className="update-ReservationTime"
-                      id="change-time"
-                      onClick={() => setChTime(!chTime)}
-                    >
-                      here
-                    </span>{" "}
-                    to change the time
-                  </p>
-                  {chTime && (
-                    <div className="changeTimeComp">
-                      <ChangeTime />{" "}
-                    </div>
-                  )}
-                </div>
-                {/* <button
+                </p>
+
+                <button
                   className="change-time-link"
                   id="change-time"
                   onClick={() => setChTime(!chTime)}
                 >
                   {chTime ? "Close" : "Change Time"}
-                </button> */}
+                </button>
               </div>
+
+              {chTime && <ChangeTime />}
             </>
           )}
           {!resData && (

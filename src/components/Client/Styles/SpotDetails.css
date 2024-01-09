@@ -21,7 +21,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 80%;
-  margin: 3rem auto 7rem auto;
+  margin: 4rem auto 4rem auto;
   .details-container {
     padding: 1.5rem;
     border: 1px solid hsl(0, 0%, 95%);
@@ -32,7 +32,6 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 1rem;
-      margin-top: 15px;
       .details-address {
         .first-address {
           color: hsl(0, 100%, 67%);
@@ -135,7 +134,7 @@
 @media (max-width: 963px) {
   .parking-spot-details-page {
     grid-template-columns: 1fr;
-    margin: 1rem auto;
+    margin: 2rem auto 2rem auto;
     .details-container {
       border-radius: 0 0 0.5rem 0.5rem;
     }
@@ -145,6 +144,7 @@
       border-radius: 0.5rem 0.5rem 0 0;
       .ps-mapview {
         .google-map-containerMap {
+          margin-right: 3rem;
         }
       }
     }

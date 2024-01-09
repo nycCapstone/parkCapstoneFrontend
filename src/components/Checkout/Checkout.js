@@ -1,4 +1,3 @@
-import React from "react";
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
 import { useGetByPidAndTimeQuery } from "../../redux/client/searchApiSlice";
 import { getCLSearchStatus } from "../../redux/client/clientSearchSlice";
@@ -15,14 +14,16 @@ import { reservationData } from "../../constants/helper/helper";
 import { useNavigate } from "react-router-dom";
 import ReservationDetails from "./ReservationDetails";
 import Reservation from "./Reservation";
+import User from "./User";
 import SmallSummary from "./Component/SmallSummary";
 import EmptyResult from "./Component/EmptyResult";
 import PSMapView from "../Location/PSMapView";
+import { BiLinkExternal } from "react-icons/bi";
 import SearchChangeTime from "../Spaces/Component/SearchChangeTime";
 import Loading from "../../assets/Spinners/Loading";
 import "./Styles/CheckoutLayout.css";
 
-function Checkout() {
+const Checkout = () => {
   const query = useSelector((state) => state.landing);
   const { property_id } = useParams();
   const { data: userData, isSuccess, isError } = useGetUserInfoQuery();
@@ -60,7 +61,7 @@ function Checkout() {
           user_id: userData?.id || null,
           query: query,
           conflict: checkoutData[0]?.owner_id === userData?.id,
-        }),
+        })
       );
       if (property_id !== chTime.property_id) {
         dispatch(resetInfoPrompt());
@@ -70,7 +71,7 @@ function Checkout() {
         updateInfoPrompt({
           property_id,
           infoPrompt: query[query.length - 1][3],
-        }),
+        })
       );
       dispatch(searchLandingMutate());
     }
@@ -86,34 +87,38 @@ function Checkout() {
     }
     return (
       <div>
-        <div className="parking-spot-checkout-header">
-          <p className="checkout-page-header">Finalize Your Reservation</p>
-          <p className="checkout-page-description">
-            Please take a moment to review and update your reservation details,
-            and proceed to payment information. Explore the selected spot on
-            Google Maps for a visual preview of the vicinity.
-          </p>
-        </div>
         <div className="checkout-layout-container">
-          <div className="ch2-gvjnv">
-            <SmallSummary checkoutData={checkoutData} />
-            <Reservation resData={resData} />
+          <section className="ch1-gvjnv">
+            <User userData={userData} />
+          </section>
+          <section className="ch2-gvjnv">
+            <div className="reservePlusSummary">
+              <SmallSummary checkoutData={checkoutData} />
+              <Reservation resData={resData} />
+            </div>
+            <div className="checkout-mapView">
+              <PSMapView
+                lat={lat}
+                lng={lng}
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                // containerElement={<div style={{ height: `100%` }} />}
+                // mapElement={<div style={{ height: `100%` }} />}
+              />
+            </div>
 
+            <section>
+              <EmptyResult />
+            </section>
+          </section>
+
+          <section className="checkout-addToCart">
             <ReservationDetails
               userData={userData}
               resData={resData}
               checkoutData={checkoutData}
               refetch={refetch}
             />
-            <EmptyResult />
-          </div>
-          <div className="checkout-mapView">
-            <PSMapView
-              lat={lat}
-              lng={lng}
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-            />
-          </div>
+          </section>
         </div>
       </div>
     );
@@ -147,6 +152,6 @@ function Checkout() {
       </div>
     );
   else return <div>Checkout Api Down</div>;
-}
+};
 
 export default Checkout;

@@ -65,12 +65,12 @@ function SpotDetails() {
               <RatingStars rating={spotDetails.rating || 5.0} />
             </div>
 
-            {spotDetails.renter_id && (
+            {spotDetails.renter_email && (
               <div className="details-single">
                 <p className="details-label">Spot Owner Name:</p>
                 <p>
-                  {spotDetails.client_first_name[0].toUpperCase() +
-                    spotDetails.client_first_name.slice(1).toLowerCase()}
+                  {spotDetails.first_name[0].toUpperCase() +
+                    spotDetails.first_name.slice(1).toLowerCase()}
                 </p>
               </div>
             )}

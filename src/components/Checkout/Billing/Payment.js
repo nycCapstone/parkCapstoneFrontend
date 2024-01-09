@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useNewClientPmtMutation } from "../../../redux/checkout/checkoutApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
 import { useFormik } from "formik";
-import { MdPayment } from "react-icons/md";
-import { BiDetail } from "react-icons/bi";
+import { CiCreditCard1 } from "react-icons/ci";
 import ButtonSpinner from "../../../assets/Spinners/ButtonSpinner";
 import "./Payment.css";
 
@@ -54,7 +53,7 @@ const Payment = () => {
       }
 
       if (!values.cvv) {
-        errors.cvv = "*CVV Required";
+        errors.cvv = "*Required";
       } else if (!/^\d{3,4}$/.test(values.cvv)) {
         errors.cvv = "*Invalid CVV";
       }
@@ -79,7 +78,7 @@ const Payment = () => {
           [
             resInfo.query_data[0],
             `${new Date(resInfo.query_data[2]).toLocaleDateString()} ${new Date(
-              resInfo.query_data[2]
+              resInfo.query_data[2],
             ).toLocaleTimeString()}`,
           ],
           userData.email,
@@ -141,26 +140,14 @@ const Payment = () => {
 
   return (
     <div className="checkout">
-      <div className="checkout-main-header">
-        <p className="checkout-main-header-1">Payment and Summary</p>
-        <p className="checkout-main-description">
-          Submit your credit card details and view a detailed summary of charges
-          for the parking spot you've selected before finalizing your
-          reservation.
-        </p>
-      </div>
       <div className="payment-container">
         {/* Payment form */}
         <form className="payment-form" onSubmit={formik.handleSubmit}>
-          <div className="firstPayment-header">
-            <MdPayment className="firstPayment-icon" />
-            <p className="firstPayment-info">Payment Information</p>
-          </div>
-
-          <div className="payment-header-block">
-            <label className="payment-header-label">Name on Card</label>
+          <p className="billing-header">Payment Details</p>
+          <div className="input-block">
+            <label className="input-label">Name on Card</label>
             <input
-              className="payment-header-input"
+              className="login-input"
               id="nameOnCard"
               type="text"
               placeholder="John Doe"
@@ -168,123 +155,129 @@ const Payment = () => {
               onChange={handleNameChange}
               onBlur={formik.handleBlur}
             />
-
-            {formik.touched.nameOnCard && formik.errors.nameOnCard ? (
-              <p className="error-payment-msg">{formik.errors.nameOnCard}</p>
-            ) : null}
           </div>
 
-          <div className="payment-header-block">
-            <label className="payment-header-label">Card Number</label>
+          {formik.touched.nameOnCard && formik.errors.nameOnCard ? (
+            <p className="error-payment-msg">{formik.errors.nameOnCard}</p>
+          ) : null}
+
+          <div className="input-block">
+            <label className="input-label">Card Number</label>
             <div className="credit-info">
-              <MdPayment className="creditCardIcon" />
+              <CiCreditCard1 className="creditCardIcon" />
               <input
                 placeholder="1234 1234 1234 1234"
                 id="cardNumber"
-                className="payment-header-iconWithInputs"
+                className="login-input"
                 type="text"
                 value={formik.values.cardNumber}
                 onChange={handleCardNumberChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.cardNumber && formik.errors.cardNumber ? (
-              <p className="error-payment-msg">*{formik.errors.cardNumber}</p>
-            ) : null}
           </div>
+          {formik.touched.cardNumber && formik.errors.cardNumber ? (
+            <p className="error-payment-msg">*{formik.errors.cardNumber}</p>
+          ) : null}
 
-          <div className="cvvPlusExp">
-            <div className="payment-header-block">
-              <label className="payment-header-label">Expiration Date</label>
-              <div className="card-select-month-year">
-                <select
-                  className="select-block"
-                  id="expiryMonth"
-                  onChange={handleExpiryMonthChange}
-                  onBlur={formik.handleBlur}
-                  value={expiryMonth}
-                >
-                  <option value="">Month</option>
-                  <option value="2">01</option>
-                  <option value="2">02</option>
-                  <option value="3">03</option>
-                  <option value="4">04</option>
-                  <option value="5">05</option>
-                  <option value="6">06</option>
-                  <option value="7">07</option>
-                  <option value="8">08</option>
-                  <option value="9">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-                <select
-                  className="select-block"
-                  id="expiryYear"
-                  onChange={handleExpiryYearChange}
-                  onBlur={formik.handleBlur}
-                  value={expiryYear}
-                >
-                  <option value="">Year</option>
-                  <option value="23">23</option>
-                  <option value="24">24</option>
-                  <option value="25">25</option>
-                  <option value="26">26</option>
-                  <option value="27">27</option>
-                  <option value="28">28</option>
-                  <option value="29">29</option>
-                  <option value="30">30</option>
-                  <option value="31">31</option>
-                  <option value="32">32</option>
-                  <option value="33">33</option>
-                  <option value="34">34</option>
-                  <option value="35">35</option>
-                  <option value="36">36</option>
-                  <option value="37">37</option>
-                  <option value="38">38</option>
-                  <option value="39">39</option>
-                  <option value="40">40</option>
-                  <option value="41">41</option>
-                  <option value="42">42</option>
-                  <option value="43">43</option>
-                </select>
-              </div>
-            </div>
-            <div className="payment-header-block">
-              <label className="payment-header-label">CVV</label>
-              <input
-                className="payment-header-input cvvInput"
-                type="text"
-                id="cvv"
-                value={formik.values.cvv}
-                placeholder="123"
-                onChange={handleCvvChange}
+          <div className="input-block">
+            <label className="input-label">Expiration Date</label>
+            <div className="card-select-month-year">
+              <select
+                className="select-block"
+                id="expiryMonth"
+                onChange={handleExpiryMonthChange}
                 onBlur={formik.handleBlur}
-              />
+                value={expiryMonth}
+              >
+                <option value="">Month</option>
+                <option value="2">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select
+                className="select-block"
+                id="expiryYear"
+                onChange={handleExpiryYearChange}
+                onBlur={formik.handleBlur}
+                value={expiryYear}
+              >
+                <option value="">Year</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+              </select>
             </div>
           </div>
           <div className="month-year-error">
-            {formik.touched.expiryYear && formik.errors.expiryYear ? (
-              <p className="error-payment-msg">{formik.errors.expiryYear}</p>
-            ) : null}
-
-            {formik.touched.expiryMonth && formik.errors.expiryMonth ? (
-              <p className="error-payment-msg">{formik.errors.expiryMonth}</p>
-            ) : null}
-
-            {formik.touched.cvv && formik.errors.cvv ? (
-              <p className="error-payment-msg ">{formik.errors.cvv}</p>
-            ) : null}
+            <div>
+              {formik.touched.expiryYear && formik.errors.expiryYear ? (
+                <p className="error-payment-msg">{formik.errors.expiryYear}</p>
+              ) : null}
+            </div>
+            <div>
+              {formik.touched.expiryMonth && formik.errors.expiryMonth ? (
+                <p className="error-payment-msg">{formik.errors.expiryMonth}</p>
+              ) : null}
+            </div>
           </div>
 
+          <div className="input-block">
+            <label className="input-label">CVV (security code)</label>
+            <input
+              className="login-input"
+              type="text"
+              id="cvv"
+              value={formik.values.cvv}
+              placeholder="123"
+              onChange={handleCvvChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+          {formik.touched.cvv && formik.errors.cvv ? (
+            <p className="error-payment-msg ">{formik.errors.cvv}</p>
+          ) : null}
+
           <button className="payment-button" type="submit">
-            {showLoad ? <ButtonSpinner /> : <>Confirm Reservation</>}
+            {showLoad ? (
+              <ButtonSpinner />
+            ) : (
+              <>Pay ${Number(resInfo.selected_space.final_price) + 5}</>
+            )}
           </button>
         </form>
         <div className="purchase-details">
-          {err && <p className="error-message">Error</p>}
+          <div>{err && <div className="error-message">Error</div>}</div>
 
-          {/* <div className="firstPayment">
+          <p className="pymt-details-summary">Parking Summary</p>
+          <div className="firstPayment">
             <p className="location">
               <span className="category-location">Parking Location:</span>{" "}
               <strong>
@@ -301,13 +294,8 @@ const Payment = () => {
                 }
               </strong>
             </p>
-          </div> */}
+          </div>
           <div className="secondPayment">
-            <div className="secondPayment-header">
-              <BiDetail className="secondPayment-icon" />
-              <p className="secondPayment-summary">Payment Summary</p>
-            </div>
-
             <div className="subTotal">
               <label className="price">Sub Total:</label>
               <span>${resInfo.selected_space.final_price}</span>
