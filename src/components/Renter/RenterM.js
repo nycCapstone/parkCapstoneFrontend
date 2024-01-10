@@ -41,115 +41,120 @@ const RenterM = () => {
   if (isSuccess) {
     return (
       <div className="r-manage-container">
-            {userData?.all_is_auth && (
-              <>
-                <header className="renter-header">
-                <div className="cl-h-svgleft">
-                    <Link to="/renter">
-                      <FaChevronCircleLeft />
-                    </Link>
-                  </div>
-                  <h3 className="renter-title">Add a New Listing</h3>
-                  <p className="renter-description">Enter your property details and view/manage your current listed properties</p>
-
-                </header>
-                <div className="prop-parent-container">
-                <section className="property-container">
-
+        {userData?.all_is_auth && (
+          <>
+            <header className="renter-header">
+              <div className="cl-h-svgleft">
+                <Link to="/renter">
+                  <FaChevronCircleLeft />
+                </Link>
+              </div>
+              <h3 className="renter-title">Add a New Listing</h3>
+              <p className="renter-description">
+                Enter your property details and view/manage your current listed
+                properties
+              </p>
+            </header>
+            <div className="prop-parent-container">
+              <section className="property-container">
                 <PropertyForm />
 
                 <div className="renter-prop">
                   <div className="renter-prop-container">
-                  <GiHouse className="renter-prop-icon"/>
-                  <h3 className="renter-prop-header">
-                    Current Properties
-                  </h3>
+                    <GiHouse className="renter-prop-icon" />
+                    <h3 className="renter-prop-header">Current Properties</h3>
                   </div>
                   <div className="renter-props">
-                  {renterData?.length > 0 &&
-                    renterData.map((item, i) => {
-                      return (
-                        <div
-                          className="renter-prop-info"
-                          key={i}
-                          id={
-                            renterData.length - 1 === i
-                              ? "tries"
-                              : "renter_info_propdata"
-                          }
-                        >
-                          <div className="renter-prop-info1">
-                          <div className="property-img-container">
-                            {item.picture && (
-                              <img className="property-img" src={item.picture} alt="placeholder" />
-                            )}
-                            {!item.picture && (
-                              <img className="property-img" src={"https://www.svgrepo.com/show/508699/landscape-placeholder.svg"}></img>
-                            )}
-                            </div>
-                            <div className="renter-prop-info-container">
-                            <p className="renter-prop-info-address">{item.prop_address}</p>
-                            {/* <p>Zip Code: {item.zip}</p> */}
-                            {/* <p>
-                              Location Verified?:{" "}
-                              {item.location_verified ? "Yes" : "No"}
-                            </p> */}
-                            {!item.location_verified && (
-                              <Link to="/admin/confirm-details">
-                                Confirm your Property Location
-                              </Link>
-                            )}
-                            <p>Spaces: {item.number_spaces}</p>
-                            <div className="lot-earn-info">
-                              <div className="lot-list">
-                                <div className="lot-earn-item">
-                                  <p>Billing Rate: {item.billing_type}</p>
+                    {renterData?.length > 0 &&
+                      renterData.map((item, i) => {
+                        return (
+                          <div
+                            className="renter-prop-info"
+                            key={i}
+                            id={
+                              renterData.length - 1 === i
+                                ? "tries"
+                                : "renter_info_propdata"
+                            }
+                          >
+                            <div className="renter-prop-info1">
+                              <div className="property-img-container">
+                                {item.picture && (
+                                  <img
+                                    className="property-img"
+                                    src={item.picture}
+                                    alt="placeholder"
+                                  />
+                                )}
+                                {!item.picture && (
+                                  <img
+                                    className="property-img"
+                                    src={
+                                      "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
+                                    }
+                                  ></img>
+                                )}
+                              </div>
+                              <div className="renter-prop-info-container">
+                                <p className="renter-prop-info-address">
+                                  {item.prop_address}
+                                </p>
+                                {!item.location_verified && (
+                                  <Link to="/admin/confirm-details">
+                                    Confirm your Property Location
+                                  </Link>
+                                )}
+                                <p>Spaces: {item.number_spaces}</p>
+                                <div className="lot-earn-info">
+                                  <div className="lot-list">
+                                    <div className="lot-earn-item">
+                                      <p>Billing Rate: {item.billing_type}</p>
+                                    </div>
+                                  </div>
                                 </div>
+                                <button
+                                  className="renter-prop-button"
+                                  type="click"
+                                  onClick={() => {
+                                    if (i !== spaceDetails) setSpaceDetails(i);
+                                    else setSpaceDetails(null);
+                                  }}
+                                >
+                                  {spaceDetails === i
+                                    ? "Close Details"
+                                    : "Update"}
+                                </button>
                               </div>
                             </div>
-                            <button
-                              className="renter-prop-button"
-                              type="click"
-                              onClick={() => {
-                                if (i !== spaceDetails) setSpaceDetails(i);
-                                else setSpaceDetails(null);
-                              }}
+
+                            <div
+                              className={`renter-prop-info2 ${
+                                spaceDetails === i
+                                  ? "renter-prop-info2-active"
+                                  : ""
+                              }`}
                             >
-                              {spaceDetails === i
-                                ? "Close Details"
-                                : "Update"}
-                            </button>
+                              {spaceDetails === i && (
+                                <PropertySpace propertyId={item.property_id} />
+                              )}
                             </div>
                           </div>
-
-                          <div
-                            className={`renter-prop-info2 ${
-                              spaceDetails === i
-                                ? "renter-prop-info2-active"
-                                : ""
-                            }`}
-                          >
-                            {spaceDetails === i && (
-                              <PropertySpace propertyId={item.property_id} />
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                    </div>
+                        );
+                      })}
+                  </div>
                 </div>
-                </section>
-                </div>
-              </>
-            )}
-            {!userData?.all_is_auth && (
-              <div>
-                <h3>Confirm your primary property address</h3>
-                <div className="flexGrow">
-                  <Link to="/admin">Admin</Link>
-                </div>
-              </div>
-            )}
+              </section>
+            </div>
+          </>
+        )}
+        {!userData?.all_is_auth && (
+          <div>
+            <h3>Confirm your primary property address</h3>
+            <div className="flexGrow">
+              <Link to="/admin">Admin</Link>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

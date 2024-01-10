@@ -87,10 +87,10 @@ const RenterActivity = () => {
                       type="click"
                       onClick={() => {
                         setBId(booking?.booking_id);
-                        {
-                          if (showUpdateActivity !== booking.booking_id)
-                            setShowUpdateActivity(booking.booking_id);
-                          else setShowUpdateActivity(null);
+                        if (showUpdateActivity !== booking.booking_id) {
+                          setShowUpdateActivity(booking.booking_id);
+                        } else {
+                          setShowUpdateActivity(null);
                         }
                       }}
                     >

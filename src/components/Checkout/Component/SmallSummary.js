@@ -26,15 +26,6 @@ const SmallSummary = ({ checkoutData }) => {
                 </p>
               </div>
             </div>
-
-            {Summary[Summary.length - 1].picture && (
-              <div className="ss-card">
-                <img
-                  alt="ss-summary-pic"
-                  src={Summary[Summary.length - 1].picture}
-                />
-              </div>
-            )}
           </>
         ) : (
           <div className="no-summary">No Summary</div>

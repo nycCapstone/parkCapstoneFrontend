@@ -241,6 +241,7 @@ const PropertySpace = (props) => {
                     className="property-space-button"
                     type="click"
                     onClick={(e) => handleSubmit(e, i)}
+                    style={{ marginTop: "0px", marginBottom: "15px" }}
                   >
                     Submit Details
                   </button>

@@ -1,5 +1,4 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
-import useLogout from "../../hooks/useLogout";
 import AdminPage from "../AdminPage/AdminPage";
 import "./Styles/Admin.css";
 

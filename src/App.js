@@ -29,7 +29,6 @@ import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
 
 import "./App.css";
-import PropertyForm from "./components/Forms/PropertyForm";
 
 function App() {
   return (
@@ -98,7 +97,7 @@ function App() {
               </Route>
               <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
                 <Route path="/renter" element={<RenterLanding />} />
-                <Route path="/renter/manage" element={<AdminM/>} />
+                <Route path="/renter/manage" element={<AdminM />} />
                 <Route
                   path="/renter/space-activity"
                   element={<RenterActivity />}
