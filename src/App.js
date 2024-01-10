@@ -7,7 +7,7 @@ import Layout from "./components/Layout";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import Client from "./components/Client/Client";
-import RenterM from "./components/Renter/RenterM";
+import AdminM from "./components/Renter/RenterM";
 import ConfirmEmail from "./components/Confirm/ConfirmEmail";
 import ConfirmDetails from "./components/Confirm/ConfirmDetails";
 import Landing from "./components/Landing/Landing";
@@ -29,6 +29,7 @@ import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
 
 import "./App.css";
+import PropertyForm from "./components/Forms/PropertyForm";
 
 function App() {
   return (
@@ -97,7 +98,7 @@ function App() {
               </Route>
               <Route element={<RequireAuth allowedRoles={["Renter"]} />}>
                 <Route path="/renter" element={<RenterLanding />} />
-                <Route path="/renter/manage" element={<RenterM />} />
+                <Route path="/renter/manage" element={<AdminM/>} />
                 <Route
                   path="/renter/space-activity"
                   element={<RenterActivity />}
