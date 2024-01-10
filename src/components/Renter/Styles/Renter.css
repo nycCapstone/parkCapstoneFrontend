@@ -219,15 +219,3 @@
     align-self: center;
   }
 }
-/* @media (max-width: 700px) {
-  .renter-prop .renter-prop-header {
-    margin-bottom: 1rem;
-  }
-  .renter-prop {
-    margin-top: 2rem;
-    margin-bottom: 0;
-    width: 100%;
-    overflow-x: auto;
-    padding: 15px 10px;
-  }
-} */
