@@ -55,7 +55,7 @@
 
 .signUp-button,
 .logIn-button {
-  width: 5rem;
+  width: 100%;
   height: 2.5rem;
   border: none;
   border-radius: 0.3rem;
@@ -63,6 +63,8 @@
   color: white;
   cursor: pointer;
   margin: 1rem 0rem;
+  font-weight: bold;
+  font-size:medium
   &:hover {
     transform: scale(0.96);
   }

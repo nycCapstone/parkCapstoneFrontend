@@ -7,7 +7,9 @@ import { useSubmitPropertyMutation } from "../../redux/renter/renterApiSlice";
 import { useGetPropertiesQuery } from "../../redux/renter/renterApiSlice";
 import Loading from "../../assets/Spinners/Loading";
 import ButtonSpinner from "../../assets/Spinners/ButtonSpinner";
+import { LuPencilLine } from "react-icons/lu";
 import { CiLocationOn } from "react-icons/ci";
+import RenterM from "../Renter/RenterM"
 import "./Styles/PropertyForm.css";
 const PropertyForm = () => {
   const { data: userData, isLoading, isSuccess, error } = useGetUserInfoQuery();
@@ -95,22 +97,6 @@ const PropertyForm = () => {
   if (isSuccess && isLoaded) {
     return (
       <div className="renter-property">
-        <p>Where's your property located?</p>
-        <div className="add_location">
-          <CiLocationOn className="location-icon" />
-          <Autocomplete
-            onPlaceChanged={onPlaceChanged}
-            onLoad={onLoad}
-            className="renter-search"
-          >
-            <input
-              type="text"
-              className="ren-search"
-              placeholder={`Enter your address`}
-            />
-          </Autocomplete>
-        </div>
-
         {count && (
           <Formik
             initialValues={initialValues}
@@ -143,11 +129,32 @@ const PropertyForm = () => {
             }}
           >
             {({ values }) => (
+              
               <Form className="property-details">
-                <p>Enter Property Details</p>
+                <div className="property-details-header">
+                <LuPencilLine className="property-details-header-icon"/>
+                <h3>Create New Listing</h3>
+                </div>
+
+                <p>Location</p>
+
+              <div className="add_location">
+                <CiLocationOn className="location-icon" />
+                <Autocomplete
+                  onPlaceChanged={onPlaceChanged}
+                  onLoad={onLoad}
+                  className="renter-search"
+                >
+                  <input
+                    type="text"
+                    className="ren-search"
+                    placeholder={`Enter your address`}
+                  />
+                </Autocomplete>
+                </div>
                 <div className="input-block">
                   <label htmlFor="zip" className="input-label">
-                    Zip Code:
+                    Confirm Zip Code
                   </label>
                   <Field
                     className="register-input"
@@ -160,8 +167,26 @@ const PropertyForm = () => {
                 </div>
 
                 <div className="input-block">
+                  <label htmlFor="picture" className="input-label">
+                    Image URL
+                  </label>
+                  <Field
+                    className="register-input"
+                    type="text"
+                    id="picture"
+                    name="picture"
+                    placeholder="optional"
+                  />
+                  <ErrorMessage
+                    name="picture"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+
+                <div className="input-block">
                   <label htmlFor="number_spaces" className="input-label">
-                    Number of Spaces:
+                    Number of Spaces
                   </label>
                   <Field
                     className="num_spaces"
@@ -182,32 +207,15 @@ const PropertyForm = () => {
                   />
                 </div>
 
-                <div className="input-block">
-                  <label htmlFor="picture" className="input-label">
-                    Image URL:
-                  </label>
-                  <Field
-                    className="register-input"
-                    type="text"
-                    id="picture"
-                    name="picture"
-                    placeholder="optional"
-                  />
-                  <ErrorMessage
-                    name="picture"
-                    component="div"
-                    className="error"
-                  />
-                </div>
 
                 <div className="input-block">
-                  <label className="input-label">Billing Type:</label>
+                  <label className="input-label">Billing Type</label>
                   <div
                     className="register-input radio-option"
                     role="group"
                     aria-labelledby="billing_type"
                   >
-                    <label>
+                    <label className="radio-option1">
                       <Field
                         type="radio"
                         name="billing_type"
@@ -216,7 +224,7 @@ const PropertyForm = () => {
                       />
                       Fixed
                     </label>
-                    <label>
+                    <label className="radio-option2">
                       <Field
                         className="radiobtn-gap"
                         type="radio"
@@ -239,13 +247,14 @@ const PropertyForm = () => {
                     className="logIn-button"
                     disabled={zipCode !== values.zip}
                   >
-                    {showLoad ? <ButtonSpinner /> : <>Submit</>}
+                    {showLoad ? <ButtonSpinner /> : <>List Property</>}
                   </button>
                 </div>
               </Form>
             )}
           </Formik>
         )}
+
       </div>
     );
   }

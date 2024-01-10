@@ -1,56 +1,125 @@
 .renter-container {
   min-height: 80rem;
-}
 
-.r-manage-container header {
+}
+.property-container {
+  display:flex; 
+  grid-template-columns: 1fr 1fr;
+  margin: 2rem;
+  gap: 1rem;
+}
+.prop-parent-container{
+  display:
+}
+.renterM-header {
   display: flex;
   justify-content: center;
   padding: 1.5rem;
   background-color: #ffa7a7;
   margin-bottom: 1rem;
 }
-
-.renterM-header {
+.renterM-header-title {
   letter-spacing: 1.5px;
+
 }
-.renter-prop {
-  width: 85%;
-  margin: 3rem auto;
-  background-color: rgb(249, 249, 255);
-  padding: 2rem;
-  display: flex;
+.renter-props {
+  display:flex;
+  overflow-y:scroll;
   flex-direction: column;
   gap: 2rem;
 
+  height:100%;
+  
+}
+.renter-prop-container {
+  display:flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom:1rem;
+}
+.renter-prop-icon {
+  color: hsl(0, 100%, 67%)
+}
+.renter-header{
+  display:flex;
+  flex-direction: column;
+  gap:1rem;
+  margin:1rem 2rem;
+
+  .renter-title {
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .renter-description {
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+    font-size: medium;
+  }
+}
+.renter-prop-button {
+  margin-top: 1rem;
+  width: 7rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: #f57575;
+  color: white;
+  cursor: pointer;
+  margin: 1rem 0rem;
+  align-self: flex-end;
+  &:hover {
+    transform: scale(0.96);
+  }
+}
+
+.renter-prop {
+  width: 85%;
+  height: 37rem;
+  overflow-y:scroll;
+  background-color: hsl(0, 0%, 95%);
+  border-radius: 0.5rem;
+  border: 1px solid hsl(0, 0%, 95%);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  
+
+  .property-img {
+    width:10rem;
+    height:10rem;
+    border-radius: 0.5rem;
+  }
   .renter-prop-header {
-    text-align: center;
-    margin-bottom: 2rem;
     color: black;
   }
   .renter-prop-info {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius:0.5rem;
+    background-color: white;
+    justify-content: center;
 
-    .renter-prop-info1 {
-      & p {
-        margin-bottom: 10px;
-      }
-      .renter-prop-button {
-        margin-top: 1rem;
-        width: 7rem;
-        height: 2rem;
-        border: none;
-        border-radius: 0.3rem;
-        background-color: #f57575;
-        color: white;
-        cursor: pointer;
-        margin: 1rem 0rem;
-        &:hover {
-          transform: scale(0.96);
-        }
+    
+
+    .renter-prop-info-container {
+      width:80%;
+      display:flex;
+      flex-direction: column;
+      gap:1rem;
+      .renter-prop-info-address {
+        font-weight: bold;
+
       }
     }
+    .renter-prop-info1 {
+      padding:1rem;
+      display:flex;
+      flex-direction:row;
+      gap:2rem;
+      width:100%;
+    }
+    
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
@@ -106,8 +175,51 @@
 .renter-landing-divert {
   text-align: center;
 }
+@media (max-width: 839px){
+  .property-container {
+    flex-direction: column;
+  }
+  .property-space{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(250px,1fr));
+    margin:0;
+    }
+  .renter-prop {
+    margin: 0 auto;
+    width:95%;
+  }
+  .renter-property{
+    width:95%;
+  }
 
-@media (max-width: 700px) {
+}
+@media (max-width: 635px){
+  .property-space{
+    display:flex;
+    flex-direction: column;
+    margin:0;
+    }
+
+
+
+}
+@media (max-width: 585px){
+
+  .renter-prop .property-img {
+    width:14rem;
+    height:14rem;
+  }
+  .renter-prop .renter-prop-info .renter-prop-info1 {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align:center;
+  }
+  .renter-prop-button {
+    align-self: center;
+  }
+}
+/* @media (max-width: 700px) {
   .renter-prop .renter-prop-header {
     margin-bottom: 1rem;
   }
@@ -118,4 +230,4 @@
     overflow-x: auto;
     padding: 15px 10px;
   }
-}
+} */

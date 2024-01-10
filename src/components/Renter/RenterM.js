@@ -5,8 +5,10 @@ import PropertyForm from "../Forms/PropertyForm";
 import PropertySpace from "./Components/PropertySpace";
 import { useState, useEffect } from "react";
 import Loading from "../../assets/Spinners/Loading";
+import { GiHouse } from "react-icons/gi";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import "./Styles/Renter.css";
+
 //Manage Renter Spaces
 const RenterM = () => {
   const { data: userData } = useGetUserInfoQuery();
@@ -39,26 +41,36 @@ const RenterM = () => {
   if (isSuccess) {
     return (
       <div className="r-manage-container">
-        <main>
-          <section>
             {userData?.all_is_auth && (
               <>
-                <header>
+                {/* HEADER <header className="renterM-header">
                   <div className="cl-h-svgleft">
                     <Link to="/renter">
                       <FaChevronCircleLeft />
                     </Link>
                   </div>
-                  <h3 className="renterM-header">
+                  <h3 className="renterM-header-title">
                     This is where you can make new available spots.
                   </h3>
+                </header> */}
+                <header className="renter-header">
+                  <h3 className="renter-title">Add a New Listing</h3>
+                  <p className="renter-description">Enter your property details and view/manage your current listed properties</p>
+
                 </header>
+                <div className="prop-parent-container">
+                <section className="property-container">
+
                 <PropertyForm />
 
                 <div className="renter-prop">
+                  <div className="renter-prop-container">
+                  <GiHouse className="renter-prop-icon"/>
                   <h3 className="renter-prop-header">
-                    Your current properties
+                    Current Properties
                   </h3>
+                  </div>
+                  <div className="renter-props">
                   {renterData?.length > 0 &&
                     renterData.map((item, i) => {
                       return (
@@ -72,29 +84,34 @@ const RenterM = () => {
                           }
                         >
                           <div className="renter-prop-info1">
-                            <p>ID: {item.property_id}</p>
-                            <p>Address: {item.prop_address}</p>
-                            <p>Zip Code: {item.zip}</p>
-                            <p>
+                          <div className="property-img-container">
+                            {item.picture && (
+                              <img className="property-img" src={item.picture} alt="placeholder" />
+                            )}
+                            {!item.picture && (
+                              <img className="property-img" src={"https://www.svgrepo.com/show/508699/landscape-placeholder.svg"}></img>
+                            )}
+                            </div>
+                            <div className="renter-prop-info-container">
+                            <p className="renter-prop-info-address">{item.prop_address}</p>
+                            {/* <p>Zip Code: {item.zip}</p> */}
+                            {/* <p>
                               Location Verified?:{" "}
                               {item.location_verified ? "Yes" : "No"}
-                            </p>
+                            </p> */}
                             {!item.location_verified && (
                               <Link to="/admin/confirm-details">
                                 Confirm your Property Location
                               </Link>
                             )}
-                            <p>Number of Spaces: {item.number_spaces}</p>
+                            <p>Spaces: {item.number_spaces}</p>
                             <div className="lot-earn-info">
                               <div className="lot-list">
                                 <div className="lot-earn-item">
-                                  <p>Billing Type: {item.billing_type}</p>
+                                  <p>Billing Rate: {item.billing_type}</p>
                                 </div>
                               </div>
                             </div>
-                            {item.picture && (
-                              <img src={item.picture} alt="placeholder" />
-                            )}
                             <button
                               className="renter-prop-button"
                               type="click"
@@ -105,8 +122,9 @@ const RenterM = () => {
                             >
                               {spaceDetails === i
                                 ? "Close Details"
-                                : "Update/Submit"}
+                                : "Update"}
                             </button>
+                            </div>
                           </div>
 
                           <div
@@ -123,6 +141,9 @@ const RenterM = () => {
                         </div>
                       );
                     })}
+                    </div>
+                </div>
+                </section>
                 </div>
               </>
             )}
@@ -134,8 +155,6 @@ const RenterM = () => {
                 </div>
               </div>
             )}
-          </section>
-        </main>
       </div>
     );
   }
