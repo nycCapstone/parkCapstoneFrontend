@@ -13,7 +13,9 @@ const ClientSearchPage = () => {
           </Link>
         </div>
 
-        <h1>Enter Place and Time you are interested in</h1>
+        <h3 className="cl-search-header">
+          Enter Place and Time you are interested in
+        </h3>
       </header>
       <ClientSearchForm />
     </div>
@@ -21,4 +23,3 @@ const ClientSearchPage = () => {
 };
 
 export default ClientSearchPage;
-
