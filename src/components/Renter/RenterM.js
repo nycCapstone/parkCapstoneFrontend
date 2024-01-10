@@ -43,16 +43,6 @@ const RenterM = () => {
       <div className="r-manage-container">
             {userData?.all_is_auth && (
               <>
-                {/* HEADER <header className="renterM-header">
-                  <div className="cl-h-svgleft">
-                    <Link to="/renter">
-                      <FaChevronCircleLeft />
-                    </Link>
-                  </div>
-                  <h3 className="renterM-header-title">
-                    This is where you can make new available spots.
-                  </h3>
-                </header> */}
                 <header className="renter-header">
                 <div className="cl-h-svgleft">
                     <Link to="/renter">
