@@ -54,6 +54,11 @@ const RenterM = () => {
                   </h3>
                 </header> */}
                 <header className="renter-header">
+                <div className="cl-h-svgleft">
+                    <Link to="/renter">
+                      <FaChevronCircleLeft />
+                    </Link>
+                  </div>
                   <h3 className="renter-title">Add a New Listing</h3>
                   <p className="renter-description">Enter your property details and view/manage your current listed properties</p>
 
