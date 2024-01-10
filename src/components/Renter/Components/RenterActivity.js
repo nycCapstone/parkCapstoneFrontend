@@ -35,17 +35,30 @@ const RenterActivity = () => {
   if (isSuccess) {
     return (
       <div className="renter-act-container">
-        <strong className="status-clients">The status of your clients</strong>
+        <header>
+          <div className="cl-h-svgleft">
+            <Link to="/renter">
+              <FaChevronCircleLeft />
+            </Link>
+          </div>
+          {!activeSpaces.length && (
+            <h3 className="renterAct-header">No Activity at this time</h3>
+          )}
+          {activeSpaces.length > 0 && (
+            <h3 className="renterAct-header">The status of your clients.</h3>
+          )}
+        </header>
         {!activeSpaces.length && (
-          <>
-            <div className="cl-h-svgleft">
-              <Link to="/renter">
-                <FaChevronCircleLeft />
-              </Link>
-            </div>
-            <p className="renter-no-activity">No Activity at this time</p>
-          </>
+          <div className="renterAct-info">
+            <p className="renterAct-info-para">
+              When a customer has booked, paid for a space and the booking time
+              period has arrived,
+              <br /> you can update the status of the space as occupied or
+              unoccupied.
+            </p>
+          </div>
         )}
+
         {activeSpaces.length > 0 && (
           <div className="renter-uplist-container">
             {activeSpaces.map((booking, idx) => (

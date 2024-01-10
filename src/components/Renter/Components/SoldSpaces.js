@@ -95,14 +95,14 @@ const SoldSpaces = () => {
                   <div className="sold-spaces-Single">
                     <label className="sold-space-label"> End Time</label>
                     <p>
-                      {new Date(booking.start_time).toLocaleString("en-US", {
+                      {new Date(booking.end_time).toLocaleString("en-US", {
                         month: "short",
                         day: "numeric",
                         year: "numeric",
                       })}
                     </p>
                     <p>
-                      {new Date(booking.start_time).toLocaleString("en-US", {
+                      {new Date(booking.end_time).toLocaleString("en-US", {
                         hour: "numeric",
                         minute: "numeric",
                       })}

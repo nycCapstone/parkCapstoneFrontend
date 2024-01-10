@@ -22,7 +22,7 @@ const RenterLanding = () => {
               <div className="ctr-nav-r-links">
                 <div className="cl-h-svgleft">
                   <Link to="/admin">
-                    <FaChevronCircleLeft />
+                    <FaChevronCircleLeft style={{ color: "purple" }} />
                   </Link>
                 </div>
                 <Link to="/renter/manage">Add Properties</Link>
