@@ -81,31 +81,6 @@ const RenterActivity = () => {
                     </p>
                   </div>
                   <p>Final Cost: ${booking.final_cost}</p>
-                  <div>
-                    <button
-                      className="renter-prop-button"
-                      type="click"
-                      onClick={() => {
-                        setBId(booking?.booking_id);
-                        if (showUpdateActivity !== booking.booking_id) {
-                          setShowUpdateActivity(booking.booking_id);
-                        } else {
-                          setShowUpdateActivity(null);
-                        }
-                      }}
-                    >
-                      {showUpdateActivity === booking.booking_id
-                        ? "Close"
-                        : "Update"}
-                    </button>
-                  </div>
-                  {showUpdateActivity === booking.booking_id && (
-                    <UpdateActivity
-                      bId={bId}
-                      Activity={activeSpaces}
-                      refetch={refetch}
-                    />
-                  )}
                 </div>
               </div>
             ))}

@@ -102,14 +102,16 @@ hr {
 .admin-page .user-info-container {
   flex: 0 0 calc(70% - 100px);
 }
+.user-profile-box-div {
 
+} 
 .user-profile-box {
   display: flex;
   gap: 1em;
   flex-direction: column;
   align-items: center;
   margin-bottom: 3rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .user-profile-picture {
   width: 60%;
@@ -172,9 +174,13 @@ hr {
     "address address address"
     "city state zipcode";
 }
-
+.profile-picture-div {
+  width: 18rem;
+  height: 18rem;
+}
 .profile-picture {
-  width: 60%;
+  width: 90%;
+  height: 100%;
   border-radius: 50%;
   justify-self: center;
   padding: 1em;
@@ -385,7 +391,7 @@ hr {
 }
 @media (max-width: 812px) {
   .profile-picture {
-    width: 50%;
+    width: 90%;
   }
   .admin-page {
     flex-direction: column;

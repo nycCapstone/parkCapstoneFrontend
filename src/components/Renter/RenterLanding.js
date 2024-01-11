@@ -18,23 +18,14 @@ const RenterLanding = () => {
           </div>
         ) : (
           <div className="renter-dashboard">
-            <nav className="centered-nav">
-              <div className="ctr-nav-r-links">
-                <div className="cl-h-svgleft">
-                  <Link to="/admin">
-                    <FaChevronCircleLeft style={{ color: "purple" }} />
-                  </Link>
-                </div>
-                <Link to="/renter/manage">Add Properties</Link>
-                <Link to="/renter/space-activity">Your Current Activity</Link>
-                <div className="earnings-total-container">
-                  <Earnings />
-                </div>
+            <div className="ctr-nav-r-links">
+              <div className="cl-h-svgleft">
+                <Link to="/admin">
+                  <FaChevronCircleLeft style={{ color: "#551A8B" }} />
+                </Link>
               </div>
-            </nav>
-            <div>
-              <SoldSpaces />
             </div>
+            <SoldSpaces />
           </div>
         )}
       </div>

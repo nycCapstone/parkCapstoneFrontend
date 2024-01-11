@@ -1,7 +1,89 @@
+.update-a-container {
+  margin: 0 auto;
+}
+
+.sold-spaces-update {
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+  gap: 1rem;
+
+  .show-space-update {
+    display: flex;
+    gap: 3px;
+    color: black;
+    padding: 0.3rem;
+    background-color: hsl(0, 0%, 95%);
+    border: 0;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 9px;
+    font-weight: 600;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.07);
+    }
+  }
+}
+.form-update-b-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: white;
+}
 .sold-spaces-container {
-  width: 90%;
+  width: 95%;
   margin: 2rem auto;
+  .sold-spaces-header-link-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .new-property-li:hover {
+    background-color: #ff5757;
+    .your-booking-icon {
+      color: white;
+    }
+    .new-property-link {
+      color: white;
+    }
+  }
+
+  .sold-spaces-header ul {
+    display: flex;
+    gap: 2rem;
+  }
+  .new-property-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .new-property-link:hover {
+    background-color: hsl(0, 100%, 67%);
+    color: white;
+    .new-property-li {
+    }
+  }
+  .sold-spaces-header li {
+    display: flex;
+    gap: 7px;
+    padding: 3px 8px;
+    border: 1px solid hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    background-color: hsl(0, 0%, 95%);
+  }
   .sold-spaces-header {
+    display: flex;
+    flex-direction: column;
+
+    .earnings-total-container {
+      align-self: center;
+      padding: 15px;
+      background: hsl(0, 0%, 95%);
+      border-radius: 0.5rem;
+    }
     .sold-spaces-header-1 {
       font-size: x-large;
       font-weight: 600;
@@ -12,6 +94,7 @@
       letter-spacing: 0.5px;
       line-height: 1.5;
       font-size: medium;
+      margin-bottom: 1rem;
     }
   }
   .active-sold-spaces {
@@ -34,6 +117,7 @@
     margin-top: 3rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    align-items: baseline;
 
     .sold-spaces-wholeCard {
       position: relative;
@@ -155,5 +239,9 @@
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+  }
+  .sold-spaces-wholeCard-active,
+  .sold-spaces-wholeCard {
+    width: 100%;
   }
 }

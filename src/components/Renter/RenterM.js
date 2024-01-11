@@ -49,10 +49,9 @@ const RenterM = () => {
                   <FaChevronCircleLeft />
                 </Link>
               </div>
-              <h3 className="renter-title">Add a New Listing</h3>
+              <h3 className="renter-title">Listings</h3>
               <p className="renter-description">
-                Enter your property details and view/manage your current listed
-                properties
+              Create new parking spots or update existing ones. Set availability, and stay in control. Your parking spaces, your rules.
               </p>
             </header>
             <div className="prop-parent-container">
