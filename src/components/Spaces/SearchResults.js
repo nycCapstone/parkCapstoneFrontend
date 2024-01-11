@@ -37,7 +37,7 @@ const SearchResults = () => {
   useEffect(() => {
     if (isSuccess) {
       setUseArray(
-        chooseArray({ type: selectedOption, payload: landingSearchResults })
+        chooseArray({ type: selectedOption, payload: landingSearchResults }),
       );
     } else if (error) {
       dispatch(searchResultsError(error));
@@ -74,7 +74,7 @@ const SearchResults = () => {
     switch (action.type) {
       case "distance":
         filteredResults = (action.payload || []).filter(
-          (item) => +item.row_num === 1
+          (item) => +item.row_num === 1,
         );
         return filteredResults
           .map((item) => ({
@@ -165,7 +165,7 @@ const SearchResults = () => {
                   chooseArray({
                     type: e.target.value,
                     payload: results.filter((item) => +item.row_num === 1),
-                  })
+                  }),
                 );
 
                 setSelectedOption(e.target.value);
@@ -193,19 +193,9 @@ const SearchResults = () => {
                       backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
                     }}
                   >
-                    <div className="address-propimage-container">
-                      <p className="search_results_address">
-                        {item.prop_address.slice(0, -5)}
-                      </p>
-                      {item.picture && (
-                        <img
-                          className="searchres-card-propimage"
-                          alt="propimage"
-                          style={{ width: "250px", height: "120px" }}
-                          src={item.picture}
-                        />
-                      )}
-                    </div>
+                    <p className="search_results_address">
+                      {item.prop_address.slice(0, -5)}
+                    </p>
                     <p>
                       <span className="search_results_distance">
                         Distance: {item.distance.toFixed(2)} miles
@@ -260,7 +250,7 @@ const SearchResults = () => {
                         <Link
                           to={`/checkout/${item.property_id.substring(
                             0,
-                            13
+                            13,
                           )}/?starts=${
                             searchArr[searchArr.length - 1][2]
                           }&ends=${searchArr[searchArr.length - 1][3]}`}
