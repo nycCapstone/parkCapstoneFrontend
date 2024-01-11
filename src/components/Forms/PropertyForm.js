@@ -9,7 +9,6 @@ import Loading from "../../assets/Spinners/Loading";
 import ButtonSpinner from "../../assets/Spinners/ButtonSpinner";
 import { LuPencilLine } from "react-icons/lu";
 import { CiLocationOn } from "react-icons/ci";
-import RenterM from "../Renter/RenterM"
 import "./Styles/PropertyForm.css";
 const PropertyForm = () => {
   const { data: userData, isLoading, isSuccess, error } = useGetUserInfoQuery();
@@ -129,28 +128,27 @@ const PropertyForm = () => {
             }}
           >
             {({ values }) => (
-              
               <Form className="property-details">
                 <div className="property-details-header">
-                <LuPencilLine className="property-details-header-icon"/>
-                <h3>Create New Listing</h3>
+                  <LuPencilLine className="property-details-header-icon" />
+                  <h3>Create New Listing</h3>
                 </div>
 
                 <p>Location</p>
 
-              <div className="add_location">
-                <CiLocationOn className="location-icon" />
-                <Autocomplete
-                  onPlaceChanged={onPlaceChanged}
-                  onLoad={onLoad}
-                  className="renter-search"
-                >
-                  <input
-                    type="text"
-                    className="ren-search"
-                    placeholder={`Enter your address`}
-                  />
-                </Autocomplete>
+                <div className="add_location">
+                  <CiLocationOn className="location-icon" />
+                  <Autocomplete
+                    onPlaceChanged={onPlaceChanged}
+                    onLoad={onLoad}
+                    className="renter-search"
+                  >
+                    <input
+                      type="text"
+                      className="ren-search"
+                      placeholder={`Enter your address`}
+                    />
+                  </Autocomplete>
                 </div>
                 <div className="input-block">
                   <label htmlFor="zip" className="input-label">
@@ -207,7 +205,6 @@ const PropertyForm = () => {
                   />
                 </div>
 
-
                 <div className="input-block">
                   <label className="input-label">Billing Type</label>
                   <div
@@ -254,7 +251,6 @@ const PropertyForm = () => {
             )}
           </Formik>
         )}
-
       </div>
     );
   }
