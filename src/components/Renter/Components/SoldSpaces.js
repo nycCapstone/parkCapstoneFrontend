@@ -9,6 +9,8 @@ import { BiSolidEdit } from "react-icons/bi";
 import UpdateActivity from "./UpdateActivity";
 import { Link } from "react-router-dom";
 import { RatingStars } from "../../Location/RatingStars";
+import { IoMdCloseCircle } from "react-icons/io";
+import { FaRegWindowClose } from "react-icons/fa";
 import "../Styles/SoldSpaces.css";
 
 const SoldSpaces = () => {
@@ -161,7 +163,11 @@ const SoldSpaces = () => {
                             ? "Close"
                             : "Update"}
                         </a>
-                        <BiSolidEdit className="client-booking-icon" />{" "}
+                        {showUpdateActivity === booking.booking_id ? (
+                          <FaRegWindowClose className="client-booking-icon" />
+                        ) : (
+                          <BiSolidEdit className="client-booking-icon" />
+                        )}
                       </button>
                     </ul>
                   </div>

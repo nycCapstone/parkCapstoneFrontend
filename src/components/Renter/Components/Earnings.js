@@ -30,7 +30,9 @@ const Earnings = () => {
       <>
         <a>
           {earningsData[0]?.sum ? (
-            <span>Total Earnings ${earningsData[0].sum.toFixed(2)}</span>
+            <span className="total-earnings-renter">
+              Total Earnings ${earningsData[0].sum.toFixed(2)}
+            </span>
           ) : (
             <>No Earnings Yet</>
           )}

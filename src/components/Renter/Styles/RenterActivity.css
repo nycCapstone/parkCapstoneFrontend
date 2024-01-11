@@ -96,17 +96,18 @@
   }
 }
 .commit-button {
-  width: 50%;
+  width: 25%;
   background-color: hsl(0, 100%, 46%);
   text-transform: uppercase;
   color: white;
   border: 0px;
-  border-radius: 0.2rem;
-  padding: 0.2rem 0rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0rem;
   align-self: center;
   &:hover {
     color: hsl(0, 100%, 46%);
     background-color: white;
+    cursor: pointer;
   }
 }
 
