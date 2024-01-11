@@ -48,13 +48,6 @@
   align-items: center;
 }
 
-.searchres-card-propimage {
-  max-width: 150px;
-  height: auto;
-  padding-left: 1rem;
-  /* border: 2px solid #f41901; */
-}
-
 .search_results_address {
   font-size: 1.2rem;
   font-weight: bold;
@@ -255,18 +248,6 @@
     padding-top: 10px;
     gap: 15px;
     position: relative;
-  }
-
-  .address-propimage-container {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-
-  .searchres-card-propimage {
-    margin: 0 auto;
-    max-width: 100%;
-    width: auto;
-    margin-bottom: 1rem;
   }
 }
 
