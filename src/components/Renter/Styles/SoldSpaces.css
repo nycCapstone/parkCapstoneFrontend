@@ -34,7 +34,7 @@
 }
 .sold-spaces-container {
   width: 95%;
-  margin: 2rem auto;
+  margin: 1rem auto 1rem auto;
   .sold-spaces-header-link-container {
     display: flex;
     justify-content: space-between;
@@ -66,9 +66,6 @@
   .new-property-link:hover {
     background-color: hsl(0, 100%, 67%);
     color: white;
-
-    .new-property-li {
-    }
   }
   .sold-spaces-header li {
     display: flex;
@@ -103,6 +100,7 @@
     }
     .total-earnings-renter {
       font-weight: bold;
+      color: green;
     }
   }
   .active-sold-spaces {
@@ -122,7 +120,7 @@
   }
   .sold-spaces-list {
     display: grid;
-    margin-top: 3rem;
+    margin-top: 2rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     align-items: baseline;
@@ -252,6 +250,5 @@
   .sold-spaces-wholeCard-active,
   .sold-spaces-wholeCard {
     width: 100%;
-    margin-top: 1rem;
   }
 }

@@ -9,7 +9,6 @@ import { BiSolidEdit } from "react-icons/bi";
 import UpdateActivity from "./UpdateActivity";
 import { Link } from "react-router-dom";
 import { RatingStars } from "../../Location/RatingStars";
-import { IoMdCloseCircle } from "react-icons/io";
 import { FaRegWindowClose } from "react-icons/fa";
 import "../Styles/SoldSpaces.css";
 
@@ -20,7 +19,7 @@ const SoldSpaces = () => {
     isSuccess,
     error,
     refetch,
-  } = useGetSoldSpacesQuery();
+  } = useGetSoldSpacesQuery(null, { refetchOnMountOrArgChange: true });
   const { data: userData } = useGetUserInfoQuery();
   const [bId, setBId] = useState(null);
   const [showUpdateActivity, setShowUpdateActivity] = useState(null);
@@ -34,7 +33,11 @@ const SoldSpaces = () => {
   }, []);
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="s-loading-container">
+        <Loading />
+      </div>
+    );
   }
 
   if (isSuccess) {
@@ -86,10 +89,12 @@ const SoldSpaces = () => {
                     : "sold-spaces-wholeCard"
                 }
               >
-                {booking.is_occupied ? (
-                  <p className="active-sold-spaces">Active</p>
-                ) : (
-                  ""
+                {booking.is_occupied && (
+                  <p className="active-sold-spaces">
+                    {booking.is_occupied && booking.update
+                      ? "Active"
+                      : "Upcoming"}
+                  </p>
                 )}
                 <div className="sold-spaces-firstInfo">
                   <label className="sold-space-header-label">Booking ID</label>
@@ -143,7 +148,7 @@ const SoldSpaces = () => {
                     />
                   </div>
                 </div>
-                {booking.is_occupied && (
+                {booking.update && (
                   <div className="sold-spaces-update">
                     <ul className="show-space-ul">
                       <button
