@@ -47,7 +47,7 @@ const SoldSpaces = () => {
                   <li className="new-property-li">
                     <FaPlus className="your-booking-icon" />{" "}
                     <Link to="/renter/manage" className="new-property-link">
-                      New Space
+                      Listings
                     </Link>
                   </li>
                 </ul>
