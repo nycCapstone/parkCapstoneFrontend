@@ -42,12 +42,6 @@
   margin: 5px;
 }
 
-.address-propimage-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .search_results_address {
   font-size: 1.2rem;
   font-weight: bold;
@@ -106,7 +100,9 @@
   color: #333;
   font-size: 14px;
   cursor: pointer;
-  transition: border-color 0.3s, background-color 0.3s;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
 }
 
 .sort-dropdown:hover {
@@ -227,12 +223,6 @@
 
 .gm-style > div > div > div > div > div {
   opacity: 0.65;
-}
-
-@media (max-width: 1000px) {
-  .searchres-card-propimage {
-    max-width: 120px;
-  }
 }
 
 @media (max-width: 920px) {
