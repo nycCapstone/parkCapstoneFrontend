@@ -193,9 +193,19 @@ const SearchResults = () => {
                       backgroundColor: i % 2 === 0 ? "white" : "whitesmoke",
                     }}
                   >
-                    <p className="search_results_address">
-                      {item.prop_address.slice(0, -5)}
-                    </p>
+                    <div className="address-propimage-container">
+                      <p className="search_results_address">
+                        {item.prop_address.slice(0, -5)}
+                      </p>
+                      {item.picture && (
+                        <img
+                          className="searchres-card-propimage"
+                          alt="propimage"
+                          style={{ width: "250px", height: "120px" }}
+                          src={item.picture}
+                        />
+                      )}
+                    </div>
                     <p>
                       <span className="search_results_distance">
                         Distance: {item.distance.toFixed(2)} miles
