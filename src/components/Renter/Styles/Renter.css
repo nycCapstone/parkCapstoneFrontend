@@ -113,9 +113,7 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition:
-        opacity 0.3s ease,
-        transform 0.2s ease;
+      transition: opacity 0.3s ease, transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
@@ -123,7 +121,10 @@
     }
   }
 }
-
+.renter-dashboard {
+  display: flex;
+  flex-direction: column;
+}
 .centered-nav {
   display: flex;
   justify-content: space-evenly;
@@ -133,14 +134,22 @@
 
 .centered-nav div {
   display: flex;
+  gap: 1rem;
 }
 
+.ctr-nav-r-links {
+  height: 10px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
 .ctr-nav-r-links a {
   text-decoration: none;
   padding: 10px;
-  margin: 0 10px;
   border-radius: 5px;
   color: white;
+}
+.renter-dashboard .cl-h-svgleft {
+  margin: 0 auto;
 }
 
 .ctr-nav-r-links .cl-h-svgleft svg {

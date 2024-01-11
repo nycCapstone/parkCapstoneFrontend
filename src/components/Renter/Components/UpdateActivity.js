@@ -1,7 +1,7 @@
 import { useUpdateSingleBookingStatusMutation } from "../../../redux/renter/renterApiSlice";
 import { useState } from "react";
 import "../Styles/RenterActivity.css";
-const UpdateActivity = ({ bId, Activity, refetch }) => {
+const UpdateActivity = ({ bId, setShowUpdateActivity, Activity, refetch }) => {
   const [updateSingleBookingStatus] = useUpdateSingleBookingStatusMutation();
   const [isChecked, setIsChecked] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -19,6 +19,7 @@ const UpdateActivity = ({ bId, Activity, refetch }) => {
 
     // Trigger your API call here based on the value of isChecked
     if (isChecked) {
+      setShowUpdateActivity(null);
       updateSingleBookingStatus({
         setRow: { is_occupied: false },
         booking_id: obj?.booking_id,
@@ -33,24 +34,28 @@ const UpdateActivity = ({ bId, Activity, refetch }) => {
     }
     alert(`Update made on Booking Id ${bId}`);
   };
+  console.log();
 
   return (
     <div className="update-a-container">
       {bId && obj && (
         <div className="form-update-b-container">
-          <strong>Mark Booking ID: {obj.booking_id} as not occupied</strong>
           <form onSubmit={handleSubmit}>
             <div className="update-NotOccupied">
-              <label className="mark-here">Mark Here</label>
-              <input
-                className="mark-here-checkbox"
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />
+              <div className="update-check-container">
+                <strong className="update-check-label">
+                  Mark spot as unoccupied
+                </strong>
+                <input
+                  className="mark-here-checkbox"
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+              </div>
 
               <button type="submit" className="commit-button">
-                Commit
+                Submit
               </button>
             </div>
           </form>

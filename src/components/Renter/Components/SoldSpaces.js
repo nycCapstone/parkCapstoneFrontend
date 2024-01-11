@@ -1,8 +1,12 @@
 import { useGetSoldSpacesQuery } from "../../../redux/renter/renterApiSlice";
 import { useGetUserInfoQuery } from "../../../redux/userActions/userApiSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../../assets/Spinners/Loading";
+import Earnings from "./Earnings";
+import { FaPlus } from "react-icons/fa6";
 import { FaChevronCircleLeft } from "react-icons/fa";
+import { BiSolidEdit } from "react-icons/bi";
+import UpdateActivity from "./UpdateActivity";
 import { Link } from "react-router-dom";
 import { RatingStars } from "../../Location/RatingStars";
 import "../Styles/SoldSpaces.css";
@@ -16,6 +20,8 @@ const SoldSpaces = () => {
     refetch,
   } = useGetSoldSpacesQuery();
   const { data: userData } = useGetUserInfoQuery();
+  const [bId, setBId] = useState(null);
+  const [showUpdateActivity, setShowUpdateActivity] = useState(null);
 
   useEffect(() => {
     if (isSuccess) {
@@ -35,12 +41,25 @@ const SoldSpaces = () => {
         <header>
           {soldSpaces?.length > 0 ? (
             <div className="sold-spaces-header">
-              <p className="sold-spaces-header-1">Your Sold Spaces</p>
+              <div className="sold-spaces-header-link-container">
+                <p className="sold-spaces-header-1">Your Sold Spaces</p>
+                <ul>
+                  <li className="new-property-li">
+                    <FaPlus className="your-booking-icon" />{" "}
+                    <Link to="/renter/manage" className="new-property-link">
+                      New Space
+                    </Link>
+                  </li>
+                </ul>
+              </div>
               <p className="sold-spaces-description">
                 Explore comprehensive details about both your past and current
                 parking spots that is currently active. Obtain information on
                 spot ratings and received payments.
               </p>
+              <div className="earnings-total-container">
+                <Earnings />
+              </div>
             </div>
           ) : (
             <>
@@ -122,6 +141,40 @@ const SoldSpaces = () => {
                     />
                   </div>
                 </div>
+                {booking.is_occupied && (
+                  <div className="sold-spaces-update">
+                    <ul className="show-space-ul">
+                      <button
+                        className="show-space-update"
+                        type="click"
+                        onClick={() => {
+                          setBId(booking?.booking_id);
+                          if (showUpdateActivity !== booking.booking_id) {
+                            setShowUpdateActivity(booking.booking_id);
+                          } else {
+                            setShowUpdateActivity(null);
+                          }
+                        }}
+                      >
+                        <a>
+                          {showUpdateActivity === booking.booking_id
+                            ? "Close"
+                            : "Update"}
+                        </a>
+                        <BiSolidEdit className="client-booking-icon" />{" "}
+                      </button>
+                    </ul>
+                  </div>
+                )}
+
+                {showUpdateActivity === booking.booking_id && (
+                  <UpdateActivity
+                    bId={bId}
+                    setShowUpdateActivity={setShowUpdateActivity}
+                    Activity={soldSpaces}
+                    refetch={refetch}
+                  />
+                )}
               </div>
             ))}
           </div>
