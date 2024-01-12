@@ -28,15 +28,13 @@ const Earnings = () => {
   if (isSuccess) {
     return (
       <>
-        <a>
-          {earningsData[0]?.sum ? (
-            <span className="total-earnings-renter">
-              Total Earnings ${earningsData[0].sum.toFixed(2)}
-            </span>
-          ) : (
-            <>No Earnings Yet</>
-          )}
-        </a>
+        {earningsData[0]?.sum ? (
+          <span className="total-earnings-renter">
+            Total Earnings ${earningsData[0].sum.toFixed(2)}
+          </span>
+        ) : (
+          <>No Earnings Yet</>
+        )}
       </>
     );
   }

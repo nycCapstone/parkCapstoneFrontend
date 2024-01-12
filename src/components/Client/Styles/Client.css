@@ -5,10 +5,6 @@
   background-color: #ffa7a7;
 }
 
-/* .cl-search-container h1 { */
-/*   color: white; */
-/* } */
-
 .client-page-booking {
   width: 80%;
   margin: 2rem auto;
@@ -50,6 +46,7 @@
           text-transform: uppercase;
           font-size: 12px;
           font-weight: 600;
+          color: black;
         }
         &:hover {
           background-color: hsl(0, 100%, 67%);
@@ -74,5 +71,12 @@
       flex-direction: column;
       margin-bottom: 1rem;
     }
+  }
+}
+
+@media (max-width: 550px) {
+  .client-page-booking {
+    width: 95%;
+    margin: 1rem auto 0.5rem auto;
   }
 }

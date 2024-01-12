@@ -112,7 +112,9 @@
     .renter-prop-info2 {
       opacity: 0;
       transform: translateY(-100%);
-      transition: opacity 0.3s ease, transform 0.2s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.2s ease;
     }
     .renter-prop-info2-active {
       opacity: 1;
@@ -155,21 +157,6 @@
   color: rgb(143, 142, 143);
 }
 
-.earnings-total-container a {
-  text-decoration: none;
-  padding: 10px;
-  margin: 0 10px;
-  border-radius: 5px;
-  color: white;
-}
-
-.earnings-total-container a span {
-  color: green;
-  text-decoration: none;
-  margin: 0;
-  border-radius: 5px;
-}
-
 .renter-landing-divert {
   text-align: center;
 }
@@ -177,6 +164,9 @@
   .property-container {
     flex-direction: column;
     margin: 0;
+  }
+  .renter-header {
+    margin: 1rem 1rem;
   }
   .property-space {
     display: grid;
@@ -209,6 +199,9 @@
 @media (max-width: 585px) {
   .renter-prop {
     padding: 8px;
+  }
+  .renter-header {
+    margin: 1rem 15px;
   }
   .renter-prop .property-img {
     width: 14rem;
