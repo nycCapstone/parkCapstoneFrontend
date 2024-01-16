@@ -26,6 +26,7 @@ const SuccessfulPurchase = () => {
 
   const [toast, setToast] = useState(null);
   const [reservationInfo, setReservationInfo] = useState({});
+  console.log(activity)
 
   useEffect(() => {
     if (resInfo?.nav_id === nav_id && pmt_id) {
@@ -47,31 +48,32 @@ const SuccessfulPurchase = () => {
   if (isSuccess) {
     return (
       <div className="successful-purchase-container">
+
         {activity && toast ? (
           <>
+          <div className="sucessful-box">
             <h2 className="success-message">
-              Congratulations {userInfo.first_name}! Your reservation is
-              confirmed!
+              Congratulations {userInfo.first_name}!
             </h2>
             <div className="newest-transactions">
               <div className="box">
                 <div className="success alert">
-                  <div className="alert-body">
-                    {activity?.find((item) => item.pmt_id === pmt_id) &&
-                      "Successfully paid"}
-                  </div>
                 </div>
+                <div className="alert-body">
+                    Your reservation is confirmed!
+                </div>
+
               </div>
+            </div>
+            </div>
+            <div className= "successful-payment-container">
+            <div className="successful-payment-header">
+            <h3>Confirmation Number</h3>
+            <span className="pymt-id">{activity[0].pmt_id}</span>
             </div>
             <div className="success-payment-list">
               <div className="success-map">
-                <section className="conf-pymt-id-container">
-                  <span className="conf-details-pymt-message">
-                    Your Payment ID:
-                    <br />
-                    <span className="pymt-id">{activity[0].pmt_id}</span>
-                  </span>
-                </section>
+                <h3>Location</h3>
                 <section className="ps-mapview">
                   <PSMapView
                     lat={reservationInfo.lat}
@@ -81,18 +83,14 @@ const SuccessfulPurchase = () => {
                     mapElement={<div style={{ height: `100%` }} />}
                   />
                 </section>
+                    <br />
+                    {reservationInfo.selected_space.prop_address.slice(0, -5)}
               </div>
 
               <div className="payment-details">
                 <ul className="success-conf-details-list">
-                  <li className="conf-location">
-                    <span className="conf-parking-location">Spot Address:</span>
-                    <br />
-                    {reservationInfo.selected_space.prop_address.slice(0, -5)}
-                  </li>
-                  <br />
                   <li className="conf-check-in">
-                    <span className="conf-check-in-date-time">Check-in:</span>{" "}
+                    <span className="conf-check-in-date-time">Check-in</span>{" "}
                     {new Date(
                       reservationInfo.query_data[2],
                     ).toLocaleDateString()}{" "}
@@ -108,7 +106,7 @@ const SuccessfulPurchase = () => {
                   </li>
                   <br />
                   <li className="conf-checkout">
-                    <span className="conf-check-out-date-time">Checkout:</span>{" "}
+                    <span className="conf-check-out-date-time">Checkout</span>{" "}
                     {new Date(
                       reservationInfo.query_data[3],
                     ).toLocaleDateString()}{" "}
@@ -124,21 +122,25 @@ const SuccessfulPurchase = () => {
                   </li>
                   <br />
                   <li className="conf-price">
-                    <span className="conf-details-total-price">Total: $</span>
-                    {reservationInfo.selected_space.final_price}
+                    <span className="conf-details-total-price">Total Paid</span>
+                    ${reservationInfo.selected_space.final_price}
                   </li>
                 </ul>
               </div>
+              
             </div>
             <div className="record-message">
               Please print out this page for your records!
+            </div>
             </div>
           </>
         ) : (
           <div className="no-activity">No Data Yet</div>
         )}
-        <Link to="/admin" className="admin-link">
-          Administrator Page
+        <Link to="/" className="link-to-home">
+          <button className="admin-link">
+          Book Another Spot!
+          </button>
         </Link>
       </div>
     );
