@@ -26,6 +26,7 @@ const SuccessfulPurchase = () => {
 
   const [toast, setToast] = useState(null);
   const [reservationInfo, setReservationInfo] = useState({});
+  console.log(activity)
 
   useEffect(() => {
     if (resInfo?.nav_id === nav_id && pmt_id) {
@@ -59,9 +60,8 @@ const SuccessfulPurchase = () => {
                 <div className="success alert">
                 </div>
                 <div className="alert-body">
-                    {activity?.find((item) => item.pmt_id === pmt_id) &&
-                      "Your reservation is confirmed!"}
-                  </div>
+                    Your reservation is confirmed!
+                </div>
 
               </div>
             </div>

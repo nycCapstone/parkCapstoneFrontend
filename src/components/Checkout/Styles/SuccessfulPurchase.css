@@ -198,7 +198,7 @@ ul.success-conf-details-list {
 }
 
 
-.alert-body {
+.alert {
   opacity: 0;
   animation-name: reveal-message;
   animation-duration: 1s;
