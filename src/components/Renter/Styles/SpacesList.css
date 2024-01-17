@@ -19,11 +19,8 @@
     align-items: center;
     gap: 0.25rem;
     text-align: center;
-    margin-top: 4px;
+    margin-top: 7px;
 
-  }
-  .space-number-container {
-    margin-top:14px;
   }
   .space-id-title, .space-occupied-title, .space-number-title, .cost-info-title,.space-type-title{
     color: #ff5757;
