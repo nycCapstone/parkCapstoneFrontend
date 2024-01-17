@@ -168,16 +168,23 @@ const PropertySpace = (props) => {
                   onSubmit={(e) => handleSubmit(e, i)}
                   key={uuidv4()}
                 >
-                  <div className="r-sp-info">
-                    <p>Space Number: {item.space_no}</p>
-                    {item?.space_id && <p>Space ID: {item.space_id}</p>}
-
-                    {item?.space_id && (
-                      <p>Occupied: {item.occupied ? "Yes" : "No"}</p>
-                    )}
+                  <div className={item.occupied
+                                      ? "r-sp-info-active"
+                                      : "r-sp-info"
+                                  }>
+                    {item.occupied && (<p className="space-occupied-title">Occupied</p>)}
+                    <div className="space-number-container">
+                    <p className="space-number-title">Space Number</p>
+                    <span>{item.space_no}</span>
+                    </div>
+                    {item?.space_id &&
+                    <div className="space-id-container">
+                      <p className="space-id-title">Space ID</p> 
+                      <span>{item.space_id}</span> 
+                    </div>}
                     <div className="cost-info">
-                      <label htmlFor="price">
-                        Price/{item.billing}(min:$15):
+                      <label htmlFor="price" className="cost-info-title">
+                        Price/{item.billing}
                       </label>
                       <input
                         className="pricePerDay"
@@ -197,8 +204,8 @@ const PropertySpace = (props) => {
                         step="5"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="sp_type">Space Type:</label>
+                    <div className= "space-type-container" >
+                      <label  className= "space-type-title" htmlFor="sp_type">Space Type:</label>
                       <select
                         className="property-space-select"
                         id="sp_type"
