@@ -51,7 +51,9 @@ const RenterM = () => {
               </div>
               <h3 className="renter-title">Listings</h3>
               <p className="renter-description">
-              Create new parking spots or update existing ones. Set availability, and stay in control. Your parking spaces, your rules.
+                Create new parking spots or update existing ones. Set
+                availability, and stay in control. Your parking spaces, your
+                rules.
               </p>
             </header>
             <div className="prop-parent-container">
@@ -91,6 +93,7 @@ const RenterM = () => {
                                     src={
                                       "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
                                     }
+                                    alt="imgplaceholder"
                                   ></img>
                                 )}
                               </div>

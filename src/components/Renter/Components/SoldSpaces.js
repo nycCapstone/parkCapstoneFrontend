@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Loading from "../../../assets/Spinners/Loading";
 import Earnings from "./Earnings";
 import { FaPlus } from "react-icons/fa6";
-import { FaChevronCircleLeft } from "react-icons/fa";
 import { BiSolidEdit } from "react-icons/bi";
 import UpdateActivity from "./UpdateActivity";
 import { Link } from "react-router-dom";
@@ -67,15 +66,40 @@ const SoldSpaces = () => {
               </div>
             </div>
           ) : (
-            <>
-              <div className="cl-h-svgleft">
-                <Link to="/renter">
-                  <FaChevronCircleLeft />
-                </Link>
-              </div>
+            <div style={{ textAlign: "center" }}>
+              {!userData?.all_is_auth ? (
+                <div>
+                  <h3>Confirm your primary property address</h3>
+                  <div className="flexGrow">
+                    <Link to="/admin">Admin</Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="sold-spaces-header">
+                  <div
+                    className="sold-spaces-header-link-container"
+                    style={{ justifyContent: "flex-end" }}
+                  >
+                    <ul>
+                      <li className="new-property-li">
+                        <FaPlus className="your-booking-icon" />{" "}
+                        <Link to="/renter/manage" className="new-property-link">
+                          Listings
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                  <p className="sold-spaces-description">
+                    Explore comprehensive details about both your past and
+                    current parking spots that is currently active. Obtain
+                    information on spot ratings and received payments.
+                  </p>
+                  <br />
 
-              <p className="your-soldspaces-header">No sold spaces yet</p>
-            </>
+                  <p className="your-soldspaces-header">No sold spaces yet</p>
+                </div>
+              )}
+            </div>
           )}
         </header>
         {soldSpaces.length > 0 && (

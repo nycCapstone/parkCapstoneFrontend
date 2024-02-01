@@ -4,17 +4,18 @@ import { getRoles } from "../../redux/roles/rolesSlice";
 import { selectCurrentToken } from "../../redux/auth/authSlice";
 
 const RequireAuth = ({ allowedRoles }) => {
-    const roles = useSelector(getRoles);
-    const token = useSelector(selectCurrentToken);
-    const location = useLocation();
+  const roles = useSelector(getRoles);
+  const token = useSelector(selectCurrentToken);
+  const location = useLocation();
 
-    return (
-        Object.keys(roles).find(role => allowedRoles.includes(role))
-            ? <Outlet />
-            : token
-                ? <Navigate to="/unauthorized" state={{ from: location }} replace />
-                : <Navigate to="/login" state={{ from: location }} replace />
-    );
-}
+  return Object.keys(roles).find((role) => allowedRoles.includes(role)) ? (
+    <Outlet />
+  ) : token ? (
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/login/1" state={{ from: location }} replace />
+  );
+};
 
 export default RequireAuth;
+

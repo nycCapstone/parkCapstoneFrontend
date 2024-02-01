@@ -60,6 +60,9 @@ export function checkoutPrice(dateString1, dateString2, type) {
     const timeDifference = Math.abs(date2 - date1);
 
     hoursDiff = timeDifference / (1000 * 60 * 60);
+    if (hoursDiff <= 3) {
+      hoursDiff = 1;
+    }
 
     return hoursDiff;
   }
