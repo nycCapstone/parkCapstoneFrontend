@@ -72,7 +72,7 @@ const User = ({ userData, setShowUser, showUser }) => {
                   Checking out as guest <strong>{email}</strong>{" "}
                 </p>
               )}
-              <Link to="/login/true" className="checkout-singIn">
+              <Link to="/login/2" className="checkout-singIn">
                 Sign In Or Create Account
               </Link>
             </div>

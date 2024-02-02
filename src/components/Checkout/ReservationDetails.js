@@ -222,7 +222,7 @@ const ReservationDetails = ({ userData, resData, checkoutData, refetch }) => {
                 </p>
 
                 {BookingErr.message === "Not Logged in" && (
-                  <Link to="/login/true"> Login to Book</Link>
+                  <Link to="/login/2"> Login to Book</Link>
                 )}
               </div>
             )}

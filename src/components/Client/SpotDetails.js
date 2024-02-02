@@ -115,7 +115,7 @@ function SpotDetails() {
     if (error)
       return (
         <div className="gologin-styled-card">
-          <Link to="/login/true" className="gologin-singIn">
+          <Link to="/login/2" className="gologin-singIn">
             Sign In
           </Link>
         </div>

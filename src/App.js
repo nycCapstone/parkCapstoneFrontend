@@ -42,7 +42,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             {/* public routes */}
             <Route path="/go" element={<Landing />} />
-            <Route path="/login/:checkout?" element={<Login />} />
+            <Route path="/login/:status?" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="confirmation" element={<ConfirmEmail />} />
             <Route path="unauthorized" element={<Unauthorized />} />

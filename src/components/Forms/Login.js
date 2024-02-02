@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login] = useLoginMutation({ extraOptions: { skipCheck: true } });
-  const { checkout } = useParams();
+  const { status } = useParams();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -21,6 +21,9 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
+    if (+status === 2) {
+      setErrMsg("Please try logging in again to get access token");
+    }
     userRef.current.focus();
   }, []);
 
@@ -39,7 +42,7 @@ const Login = () => {
         dispatch(setRole(res));
         dispatch(setAuth(res));
         localStorage.setItem("persist", true);
-        if (checkout) {
+        if (+status === 2) {
           navigate(-1);
         } else navigate("/admin");
       })

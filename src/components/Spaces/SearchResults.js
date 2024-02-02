@@ -240,7 +240,7 @@ const SearchResults = () => {
                             ? `/parking-spots/${item.space_id}?starts=${
                                 searchArr[searchArr.length - 1]?.[2]
                               }&ends=${searchArr[searchArr.length - 1]?.[3]}`
-                            : "/login/true"
+                            : "/login/2"
                         }
                       >
                         <button className="show-me-button">View Details</button>
