@@ -22,8 +22,16 @@ const SearchForm = () => {
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
     libraries: placesLibrary,
   });
+  const clientLocation = useSelector((state) => state.user_location);
   const [searchResult, setSearchResult] = useState("");
-  const [locationdata, setGeoLocation] = useState({});
+  const [locationdata, setGeoLocation] = useState(
+    clientLocation?.latitude && clientLocation?.longitude
+      ? {
+          lat: clientLocation.latitude,
+          lng: clientLocation.longitude,
+        }
+      : {},
+  );
   const placeHolder = useSelector((state) => {
     if (state.searchResults?.location?.addr?.length) {
       return state.searchResults?.location?.addr;
@@ -59,7 +67,7 @@ const SearchForm = () => {
   }, [checkOutDate, checkInDate]);
 
   useEffect(() => {
-    if (locationdata?.lng) {
+    if (locationdata?.lng && btnRef?.current) {
       btnRef.current.focus();
     }
   }, [locationdata]);
@@ -111,9 +119,12 @@ const SearchForm = () => {
 
       let searchStore = {
         location: {
-          addr: formattedAddress,
+          addr:
+            formattedAddress ||
+            (clientLocation?.city ? clientLocation.city : ""),
           lat: locationdata.lat,
           lng: locationdata.lng,
+          options: !formattedAddress,
         },
       };
 

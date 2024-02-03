@@ -147,7 +147,9 @@ const SearchResults = () => {
                   <div className="destination-info">
                     <h3 className="destination-title">Your Destination</h3>
                     <p className="destination-address">
-                      {searchLocation.addr.slice(0, -5)}
+                      {!searchLocation.options
+                        ? searchLocation.addr.slice(0, -5)
+                        : searchLocation.addr}
                     </p>
                   </div>
                 </>

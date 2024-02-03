@@ -29,6 +29,17 @@
   display: none;
 }
 
+.left-nav {
+  display: flex;
+}
+
+.client-location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2rem;
+}
+
 @media (max-width: 998px) {
   .mobile-navbar-btn {
     font-size: 2rem;
@@ -82,11 +93,24 @@
 
     .nav-links {
       transform: translateX(0);
-      transition: opacity 0.3s ease, transform 0.4s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.4s ease;
       width: 50vw;
       z-index: 999;
       border: 1px solid lightgray;
       border-radius: 0 10px 10px 10px;
     }
+  }
+}
+
+@media (max-width: 550px) {
+  .left-nav {
+    display: block;
+  }
+  .client-location {
+    display: block;
+    margin-left: 0;
+    margin-top: 8px;
   }
 }

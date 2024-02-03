@@ -9,6 +9,7 @@ import checkoutReducer from "../redux/checkout/checkoutSlice";
 import clientSearchReducer from "../redux/client/clientSearchSlice";
 import reservationReducer from "../redux/checkout/reservationSlice";
 import changeTimeReducer from "../redux/landing/changeTimeSlice";
+import locationSlice from "../redux/client/locationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     reservation: reservationReducer,
     client: clientSearchReducer,
     changeTime: changeTimeReducer,
+    user_location: locationSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
