@@ -1,4 +1,5 @@
 import { useGetUserInfoQuery } from "../../redux/userActions/userApiSlice";
+import { useSelector } from "react-redux";
 import UserAction from "../../redux/userActions/UserAction";
 import { Link } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
@@ -55,8 +56,8 @@ const AdminPage = () => {
                       userInfo.first_name === "Isabelle"
                         ? Isabelle_square
                         : userInfo.first_name === "Michael"
-                        ? Michael_square
-                        : "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                          ? Michael_square
+                          : "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
                     }
                     alt="usrpageprofilepic"
                   />

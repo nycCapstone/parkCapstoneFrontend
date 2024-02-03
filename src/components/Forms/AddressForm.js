@@ -106,7 +106,9 @@ const AddressForm = () => {
         </div>
 
         {formIsLoading ? (
-          <Loading />
+          <div className="s-loading-container" style={{ height: "5rem" }}>
+            <Loading />
+          </div>
         ) : (
           <>
             <div class="address-form-input">
@@ -135,4 +137,3 @@ const AddressForm = () => {
 };
 
 export default AddressForm;
-
