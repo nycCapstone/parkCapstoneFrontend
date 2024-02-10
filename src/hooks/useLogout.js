@@ -18,6 +18,7 @@ const useLogout = () => {
           dispatch(resetRInfoCache());
         });
       localStorage.removeItem("persist");
+      localStorage.removeItem("carvalet_user");
     } catch (e) {
       console.error(e);
     }

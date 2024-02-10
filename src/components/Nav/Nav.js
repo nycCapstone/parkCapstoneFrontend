@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getLanSearchStatus } from "../../redux/landing/landingSearchSlice";
 import { useState } from "react";
 import NavInfo from "./NavInfo";
+import OnLoadNav from "./OnLoadNav";
 import { logo_final } from "../../assets";
 import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
@@ -53,20 +54,7 @@ function Nav() {
             </Link>
           </div>
         ) : (
-          <div className="nav-links">
-            <Link className="about" to="/about">
-              About Us
-            </Link>
-            <Link
-              className="log-in"
-              to={searchStatus ? "/login" : "/login/true"}
-            >
-              Login
-            </Link>
-            <Link className="sign-up" to="/register">
-              Sign Up
-            </Link>
-          </div>
+          <OnLoadNav />
         )}
 
         <div className="mobile-navbar-btn">

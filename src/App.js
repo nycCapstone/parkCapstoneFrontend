@@ -41,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
+            <Route path="/" element={<Landing />} />
             <Route path="/go" element={<Landing />} />
             <Route path="/login/:status?" element={<Login />} />
             <Route path="register" element={<Register />} />
@@ -62,7 +63,6 @@ function App() {
                   <Route path="/payment/:booking_id" element={<Payment />} />
                 </Route>
               </Route>
-              <Route path="/" element={<Landing />} />
               <Route
                 path="/spot-details/:id"
                 element={<SpotDetails />}
