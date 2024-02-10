@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLocation } from "../redux/client/locationSlice";
-import { FaLocationCrosshairs } from "react-icons/fa6";
 import axios from "axios";
 
 const useClosestCity = () => {
@@ -9,7 +8,7 @@ const useClosestCity = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    var options = {
+    const options = {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
