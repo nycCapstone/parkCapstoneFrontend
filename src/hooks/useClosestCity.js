@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLocation } from "../redux/client/locationSlice";
+import { BASE_URL } from "../constants/helper/helper";
 import axios from "axios";
 
 const useClosestCity = () => {
@@ -19,7 +20,7 @@ const useClosestCity = () => {
         const { latitude, longitude } = location;
         try {
           const response = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_KEY}`,
+            `${BASE_URL}/maps?latlng=${latitude},${longitude}`,
           );
 
           if (response.data.results.length > 0) {
